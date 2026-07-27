@@ -349,17 +349,11 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
                                               brake_torques.rear_right);
 
   for (Tire tire : {FL, FR, RL, RR}) {
-    double fx_tire = tire_forces(tire * 4);
+    const double fx_tire = tire_forces(tire * 4);
     const double fy_tire = tire_forces(tire * 4 + 1);
     const double mz_tire = tire_forces(tire * 4 + 3);
     const double cos_delta = std::cos(wheel_angles(tire));
     const double sin_delta = std::sin(wheel_angles(tire));
-    const double brake_torque = brake_torques_by_tire(tire);
-    if (brake_torque > 0.0) {
-      const double brake_sign =
-          2.0 / M_PI * std::atan(10.0 * contact_patch_longitudinal_velocity(tire));
-      fx_tire -= brake_torque * brake_sign / std::max(wheel_radius, 1e-6);
-    }
 
     const double fx_vehicle = fx_tire * cos_delta - fy_tire * sin_delta;
     const double fy_vehicle = fx_tire * sin_delta + fy_tire * cos_delta;
@@ -413,8 +407,7 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
 
       const double inertia = (tire == FL || tire == FR) ? front_inertia : rear_inertia;
       const double wheel_acceleration = net_torque / inertia;
-      if (brake_torque > 0.0 && std::abs(wheel_omega) < 0.5 &&
-          wheel_acceleration * wheel_omega <= 0.0) {
+      if (brake_torque > 0.0 && wheel_omega * (wheel_omega + wheel_acceleration * dt) <= 0.0) {
         ds(FL_W + tire) = -wheel_omega / std::max(dt, 1e-6);
       } else {
         ds(FL_W + tire) = wheel_acceleration;

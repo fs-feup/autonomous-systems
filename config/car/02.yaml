@@ -15,4 +15,4 @@ car:
   Izz: 101.82
   front_bearing_drag: 0.025
   front_wheel_inertia: 0.2
-  rear_wheel_inertia: 0.5
+  rear_wheel_inertia: 0.4

@@ -5,7 +5,7 @@
 #include "local_pather/map.hpp"
 #include "utils/path_stager.hpp"
 
-class MPC : public Controller {
+class SuperMPC : public Controller {
   std::shared_ptr<SolverInterface> solver_;
   custom_interfaces::msg::VehicleStateVector solver_state_ = custom_interfaces::msg::VehicleStateVector(); // state vector for the solver
   bool _path_received_ = false;
@@ -38,6 +38,6 @@ public:
   void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
   common_lib::structures::ControlCommand get_control_command() override;
 
-  MPC(const ControlParameters& params);
-  virtual ~MPC() = default;
+  SuperMPC(const ControlParameters& params);
+  virtual ~SuperMPC() = default;
 };

@@ -7,8 +7,42 @@ from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs,
 from ament_index_python.packages import get_package_prefix
 import yaml
 
+"""SuperMPC - a path-tracking NMPC whose SPEED is decided by the car's dynamics.
+
+Derived from bombated_mpc: identical (validated) 16-state four-wheel plant, but a
+different objective.
+
+bombated_mpc tracks the planner's velocity profile with a two-sided quadratic
+term, which makes the profile an ORDER. If the planner asks for more speed than
+the tyres can deliver, the optimizer faithfully obeys and the car leaves the
+track. SuperMPC instead:
+
+  * splits the position error into CONTOURING (perpendicular to the path) and
+    LAG (along the path). Contouring is weighted heavily - this is a path
+    tracker. Lag is weighted lightly, which is what frees the controller to sit
+    ahead of or behind the planner's timing and therefore to choose its own
+    speed.
+  * replaces velocity TRACKING with an ambition term (a mild pull towards
+    v_ref * stretch) and a one-sided ceiling (a heavy penalty only above
+    v_ref * cap). Below the ceiling the planner's profile exerts no downward
+    force at all.
+  * bounds the rear slip angles, so trajectories that require driving the rear
+    axle past its grip peak are infeasible rather than merely expensive.
+
+The net effect: the planner sets the route and an upper speed bound; the
+nonlinear model decides how fast that route can actually be taken. Asking the
+planner for an impossible speed makes the car run at its own limit instead of
+exploding.
+"""
+
 path_size = 31
 path_point_size = 4  # x, y, velocity, orientation
+
+# Per-stage acados parameters: the path point plus the two speed thresholds.
+# The thresholds are parameters (not baked-in constants) so the ambition and
+# ceiling factors stay tunable from YAML without regenerating the solver.
+N_PARAMS = 6
+(P_X, P_Y, P_V, P_YAW, P_V_STRETCH, P_V_CAP) = range(N_PARAMS)
 
 # ---------------------------------------------------------------------------
 # Vehicle parameters.
@@ -152,6 +186,12 @@ max_steering_rate = 5.0         # rad/s, rate limit on the commanded angle
 # Velocity floor: the model must never predict driving in reverse (see the
 # state-bound section for why).
 min_longitudinal_velocity = 0.0
+
+# Rear slip angle envelope (rad). The fitted tyre peaks around 0.12-0.15 rad, so
+# this sits just past the peak: usable grip stays reachable, the unstable
+# far side does not.
+max_rear_slip_angle = 0.16
+envelope_penalty = 1e3
 max_throttle_rate = 4.0         # 1/s, rate limit on the commanded throttle
 
 # Regularisation of the wheel longitudinal velocities. The simulator uses TWO
@@ -186,6 +226,11 @@ def smooth_abs(v, eps=1e-2):
     Jacobian in the middle of the operating range (the axle torque and the motor
     speed both cross zero constantly while coasting)."""
     return sqrt(v * v + eps * eps)
+
+
+def smooth_relu(z, eps=0.2):
+    """max(0, z) with a continuous derivative, for one-sided penalties."""
+    return 0.5 * (z + sqrt(z * z + eps * eps))
 
 
 def pacejka(B, C, D, E, slip):
@@ -231,8 +276,10 @@ def load_mpc_parameters():
     with open(get_config_yaml_path("common_lib", "control", get_active_adapter()), 'r') as f:
         control_config = yaml.safe_load(f)["control"]
 
-    mpc_horizon_time = control_config["mpc_prediction_horizon_seconds"]
-    mpc_horizon_steps = control_config["mpc_prediction_horizon_steps"]
+    mpc_horizon_time = control_config.get("supermpc_prediction_horizon_seconds",
+                                          control_config["mpc_prediction_horizon_seconds"])
+    mpc_horizon_steps = control_config.get("supermpc_prediction_horizon_steps",
+                                           control_config["mpc_prediction_horizon_steps"])
     wheel_speeds_scale = control_config["wheel_speeds_scale_mpc"]
 
     return mpc_horizon_time, mpc_horizon_steps, wheel_speeds_scale
@@ -240,8 +287,8 @@ def load_mpc_parameters():
 
 def export_mpc_model() -> AcadosModel:
     model = AcadosModel()
-    model.name = "bombated_mpc"
-    model.p = SX.sym("p", path_point_size)
+    model.name = "supermpc"
+    model.p = SX.sym("p", N_PARAMS)
 
     _, _, wheel_speed_scale = load_mpc_parameters()
 
@@ -495,12 +542,25 @@ def export_mpc_model() -> AcadosModel:
     model.u = u
     model.f_expl_expr = f_expl
     model.f_impl_expr = xdot - f_expl
+
+    # Stability envelope: bound the REAR slip angles.
+    #
+    # The combined-slip tyre model already caps the force a tyre can make, so the
+    # optimizer cannot invent grip. What it CAN still do is plan a trajectory
+    # that runs the rear axle past its grip peak, where the tyre gives back force
+    # as slip grows - the model happily predicts that, and the result is a
+    # planned spin. Bounding the rear slip angles makes that region infeasible.
+    # Only the rear is bounded: front saturation is understeer, which is
+    # self-correcting and is already handled by the contouring cost.
+    model.con_h_expr = vertcat(slip_angle_rl, slip_angle_rr)
     return model
 
 
 def setup_cost_function(ocp: AcadosOcp):
     """
-    Tracks the per-stage reference point 'p' = [x_ref, y_ref, v_ref, theta_ref].
+    Path-tracking objective with a dynamics-decided speed.
+
+    Reference per stage: p = [x_ref, y_ref, v_ref, theta_ref, v_stretch, v_cap].
     """
     x = ocp.model.x
     u = ocp.model.u
@@ -509,13 +569,36 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.cost.cost_type = "NONLINEAR_LS"
     ocp.cost.cost_type_e = "NONLINEAR_LS"
 
-    theta_cost_term = sin(x[YAW] - p[3])
+    heading_error = sin(x[YAW] - p[P_YAW])
+
+    # Split the position error in the reference point's own frame.
+    #
+    # This is the change that decouples "where" from "how fast". A single
+    # Euclidean position error conflates the two: falling behind the reference
+    # POINT costs exactly as much as drifting off the path, so the only way to
+    # keep the cost low is to match the planner's timing. Resolving the error
+    # along and across the path lets those be weighted independently.
+    dx = x[X_POS] - p[P_X]
+    dy = x[Y_POS] - p[P_Y]
+    contouring_error = -sin(p[P_YAW]) * dx + cos(p[P_YAW]) * dy   # across the path
+    lag_error = cos(p[P_YAW]) * dx + sin(p[P_YAW]) * dy           # along the path
+
+    # Ambition: a mild pull towards a slightly optimistic speed. This is what
+    # makes the car take a corner faster than planned when the tyres allow it.
+    # It is deliberately weak - it must always lose to the contouring term, so
+    # the car only carries the extra speed while it can still hold the line.
+    speed_ambition = x[VX] - p[P_V_STRETCH]
+
+    # Ceiling: one-sided, and heavy. Zero below the cap, so the planner exerts
+    # no downward pull on speed at all until the car tries to exceed it.
+    speed_excess = smooth_relu(x[VX] - p[P_V_CAP])
 
     cost_expression = vertcat(
-        x[X_POS] - p[0],       # X position error
-        x[Y_POS] - p[1],       # Y position error
-        theta_cost_term,       # Heading error
-        x[VX] - p[2],          # Longitudinal velocity error
+        contouring_error,      # Across-path error  (path tracking)
+        heading_error,         # Heading error
+        lag_error,             # Along-path error   (weak: frees the timing)
+        speed_ambition,        # Mild pull towards v_ref * stretch
+        speed_excess,          # One-sided ceiling at v_ref * cap
         x[VY],                 # Sideslip regularisation
         x[THROTTLE_CMD],       # Throttle regularisation
         x[STEER_CMD],          # Steering regularisation
@@ -524,24 +607,24 @@ def setup_cost_function(ocp: AcadosOcp):
     )
 
     cost_expression_e = vertcat(
-        x[X_POS] - p[0],
-        x[Y_POS] - p[1],
-        theta_cost_term,
-        x[VX] - p[2],
+        contouring_error,
+        heading_error,
+        lag_error,
+        speed_ambition,
     )
 
     ocp.model.cost_y_expr = cost_expression
     ocp.model.cost_y_expr_e = cost_expression_e
 
-    # [x, y, heading, vx, vy, throttle, steer, throttle_rate, steer_rate]
+    # [contour, heading, lag, ambition, excess, vy, throttle, steer, thr_rate, str_rate]
     #
-    # The rate weights carry most of the stability burden. With them near zero
-    # the solver slammed the throttle between +-1 several times a second: the
-    # velocity term is worth far more than an unpenalised control move, and the
-    # 0.2 s inverter lag then turns that into a limit cycle. The sideslip weight
-    # does the same job laterally.
-    weights = np.array([4.0, 4.0, 3.0, 1.5, 3.0, 0.05, 0.3, 2.0, 4.0])
-    weights_e = np.array([4.0, 4.0, 3.0, 1.5])
+    # The ordering of magnitudes is the whole design: contour >> excess >> lag,
+    # ambition. Contouring must dominate so the car gives up speed rather than
+    # the line; the ceiling must outweigh ambition so the cap actually binds;
+    # lag and ambition are small so neither the planner's timing nor the
+    # optimism ever overrides the physics.
+    weights = np.array([30.0, 10.0, 0.3, 0.25, 40.0, 3.0, 0.05, 0.3, 2.0, 4.0])
+    weights_e = np.array([30.0, 10.0, 0.3, 0.25])
 
     ocp.cost.W = np.diag(weights)
     ocp.cost.W_e = np.diag(weights_e)
@@ -618,7 +701,7 @@ def create_ocp_solver(gen_base_dir: str = "./build/acados", acados_dir: str | No
 
     # Initial state constraint (required for set_state logic)
     ocp.constraints.x0 = np.zeros(NX)
-    ocp.parameter_values = np.zeros(path_point_size)
+    ocp.parameter_values = np.zeros(N_PARAMS)
 
     setup_cost_function(ocp)
 
@@ -667,10 +750,23 @@ def create_ocp_solver(gen_base_dir: str = "./build/acados", acados_dir: str | No
     ocp.constraints.idxsbx = np.array([0, 1, 2])
     ocp.constraints.lsbx = np.zeros(3)
     ocp.constraints.usbx = np.zeros(3)
-    ocp.cost.Zl = slack_penalty * np.ones(3)
-    ocp.cost.Zu = slack_penalty * np.ones(3)
-    ocp.cost.zl = slack_penalty * np.ones(3)
-    ocp.cost.zu = slack_penalty * np.ones(3)
+    # Slack ordering in acados is [sbx..., sh...], so the state-bound penalties
+    # come first and the slip-angle envelope second. The envelope penalty is
+    # lower: exceeding it should be strongly discouraged, not treated as
+    # catastrophically as violating an actuator limit.
+    ocp.cost.Zl = np.concatenate([slack_penalty * np.ones(3), envelope_penalty * np.ones(2)])
+    ocp.cost.Zu = np.concatenate([slack_penalty * np.ones(3), envelope_penalty * np.ones(2)])
+    ocp.cost.zl = np.concatenate([slack_penalty * np.ones(3), envelope_penalty * np.ones(2)])
+    ocp.cost.zu = np.concatenate([slack_penalty * np.ones(3), envelope_penalty * np.ones(2)])
+
+    # Rear slip angle envelope. Soft, because the car can be pushed past it by a
+    # disturbance and an infeasible QP is not recoverable inside one RTI step;
+    # the bounds are re-settable at runtime from C++ so they stay tunable.
+    ocp.constraints.lh = np.array([-max_rear_slip_angle, -max_rear_slip_angle])
+    ocp.constraints.uh = np.array([max_rear_slip_angle, max_rear_slip_angle])
+    ocp.constraints.idxsh = np.array([0, 1])
+    ocp.constraints.lsh = np.zeros(2)
+    ocp.constraints.ush = np.zeros(2)
 
     ocp.constraints.idxsbx_e = np.array([0, 1, 2])
     ocp.constraints.lsbx_e = np.zeros(3)

@@ -7,7 +7,7 @@ vehicle_model:
   aero_model_params: "02_aero"
 
   tire_model: "pacejka_MF6_2" # Options: "pacejka_combined_slip", "pacejka_MF6_2"
-  tire_model_params: "02_tire"
+  tire_model_params: "02_fitted_tire"
 
   motor_model: "map_based_motor"
   motor_model_params: "02_motor"

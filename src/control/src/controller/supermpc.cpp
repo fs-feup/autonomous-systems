@@ -1,4 +1,4 @@
-#include "controller/bombated_mpc.hpp"
+#include "controller/supermpc.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <chrono>
 #include <iomanip>
@@ -8,30 +8,35 @@
 #define PATHPOINT_SIZE 4 // x, y, v, orientation
 #define MIN_PATH_SIZE 5 // number of points in the path horizon
 
-MPC::MPC(const ControlParameters& params) : Controller(params) {
-  RCLCPP_INFO(rclcpp::get_logger("bombated_mpc"), "Initializing Bombated MPC Controller");
-  this->solver_ = solver_map.at("bombated_mpc_acados")(params);
+SuperMPC::SuperMPC(const ControlParameters& params) : Controller(params) {
+  RCLCPP_INFO(rclcpp::get_logger("supermpc"), "Initializing SuperMPC Controller");
+  this->solver_ = solver_map.at("supermpc_acados")(params);
   this->local_pather_ = local_pather_map.at("alpha_beta")(params);
-  this->path_data.pathpoint_array.resize((this->params_->mpc_prediction_horizon_steps_ + 1) * PATHPOINT_SIZE);
+  this->path_data.pathpoint_array.resize((this->params_->supermpc_prediction_horizon_steps_ + 1) * PATHPOINT_SIZE);
 }
 
-void MPC::set_path_in_solver() {
+void SuperMPC::set_path_in_solver() {
 
   custom_interfaces::msg::PathPointArray resampled_path;
 
-  local_path_resampled_with_spline(this->latest_path_, this->solver_state_, this->local_pather_, this->params_->mpc_prediction_horizon_steps_, this->params_->mpc_prediction_horizon_seconds_, resampled_path);
+  // free_speed = true: SuperMPC chooses its own speed, so the reference must be
+  // laid out along the car's actual progress rather than the planner's timing.
+  local_path_resampled_with_spline(this->latest_path_, this->solver_state_, this->local_pather_,
+                                   this->params_->supermpc_prediction_horizon_steps_,
+                                   this->params_->supermpc_prediction_horizon_seconds_,
+                                   resampled_path, /*free_speed=*/true);
 
-  if (resampled_path.pathpoint_array.size() != this->params_->mpc_prediction_horizon_steps_ + 1) {
-    RCLCPP_ERROR(rclcpp::get_logger("bombated_mpc"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %u. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), this->params_->mpc_prediction_horizon_steps_ + 1);
+  if (resampled_path.pathpoint_array.size() != this->params_->supermpc_prediction_horizon_steps_ + 1) {
+    RCLCPP_ERROR(rclcpp::get_logger("supermpc"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %u. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), this->params_->supermpc_prediction_horizon_steps_ + 1);
     return;
   }
   this->path_data = resampled_path;
   this->solver_->set_path(resampled_path);
 }
 
-void MPC::path_callback(const custom_interfaces::msg::PathPointArray& new_msg) {
+void SuperMPC::path_callback(const custom_interfaces::msg::PathPointArray& new_msg) {
   if (new_msg.pathpoint_array.size() < MIN_PATH_SIZE) {
-    RCLCPP_ERROR(rclcpp::get_logger("bombated_mpc"), "Received path has less than %d points, will be discarded. Received %zu points.", MIN_PATH_SIZE, new_msg.pathpoint_array.size());
+    RCLCPP_ERROR(rclcpp::get_logger("supermpc"), "Received path has less than %d points, will be discarded. Received %zu points.", MIN_PATH_SIZE, new_msg.pathpoint_array.size());
     return;
   }
 
@@ -39,7 +44,7 @@ void MPC::path_callback(const custom_interfaces::msg::PathPointArray& new_msg) {
   this->latest_path_ = new_msg;
 }
 
-void MPC::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) {
+void SuperMPC::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) {
   this->solver_state_.velocity_x = msg.velocity_x;
   this->solver_state_.velocity_y = msg.velocity_y;
   this->solver_state_.yaw_rate = msg.yaw_rate;
@@ -52,17 +57,17 @@ void MPC::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVecto
   this->solver_state_.rr_rpm = msg.rr_rpm;
 }
 
-void MPC::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) {
+void SuperMPC::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) {
   this->solver_state_.x = msg.x;
   this->solver_state_.y = msg.y;
   this->solver_state_.orientation = msg.theta;
 }
 
-void MPC::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void SuperMPC::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   this->solver_->publish_solver_data(node, publisher_map);
 }
 
-bool MPC::stopping_the_car() {
+bool SuperMPC::stopping_the_car() {
   const double speed_threshold = 0.4;
 
   // Only ever stop because the PLANNER asked for a stop. The previous version
@@ -102,7 +107,7 @@ bool MPC::stopping_the_car() {
   return (ahead / static_cast<double>(counted)) <= speed_threshold;
 }
 
-common_lib::structures::ControlCommand MPC::get_control_command() {
+common_lib::structures::ControlCommand SuperMPC::get_control_command() {
   if (!this->_path_received_) {
     return common_lib::structures::ControlCommand(); // Return zero command if path not received yet
   }
@@ -157,7 +162,7 @@ common_lib::structures::ControlCommand MPC::get_control_command() {
   return command;
 }
 
-bool MPC::should_report_failure() {
+bool SuperMPC::should_report_failure() {
   const auto now = std::chrono::steady_clock::now();
   if (now - this->last_failure_report_ < std::chrono::seconds(2)) {
     return false;
@@ -166,7 +171,7 @@ bool MPC::should_report_failure() {
   return true;
 }
 
-void MPC::print_debug_info() {
+void SuperMPC::print_debug_info() {
   std::cout << this->path_before_local << std::endl;
   std::cout << this->local_path_debug << std::endl;
   std::cout << this->current_state << std::endl;

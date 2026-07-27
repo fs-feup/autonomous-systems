@@ -207,9 +207,12 @@ double PacejkaMF6_2::calculate_Dy(double vertical_load) const {
 // (4.E12)
 double PacejkaMF6_2::calculate_Dx(double vertical_load) const {
   if (vertical_load > 0) {
-    // DANGEROUS: WE ARE NOT APPLYING A PENALTY FOR SLIP (SEE EQ 4.E13)
     double mux = ((car_parameters_->tire_parameters->PDX1 +
                    car_parameters_->tire_parameters->PDX2 * internal_vals.dfz) *
+                  (1 + car_parameters_->tire_parameters->PPX1 * internal_vals.dpi +
+                   car_parameters_->tire_parameters->PPX2 * (internal_vals.dpi * internal_vals.dpi)) *
+                  (1 - car_parameters_->tire_parameters->PDX3 *
+                           (internal_vals.gamma_star * internal_vals.gamma_star)) *
                   car_parameters_->tire_parameters->LMUX);
     return mux * vertical_load * internal_vals.zeta1;
   }
@@ -535,7 +538,9 @@ double PacejkaMF6_2::calculate_combined_moment(double Fx, double Fy, double slip
                car_parameters_->tire_parameters->SSZ4 * internal_vals.dfz) *
                   internal_vals.gamma_star) *
              car_parameters_->tire_parameters->LS;
-  return MZ_prime + MZr + s * Fx;
+  double vx = longitudinal_velocity;
+  double mz_speed_fade = std::clamp(std::abs(vx) / 0.5, 0.0, 1.0);
+  return (MZ_prime + MZr + s * Fx) * mz_speed_fade;
 }
 
 double PacejkaMF6_2::calculate_rolling_resistance_moment(double vertical_load, double Fx,
@@ -588,6 +593,9 @@ double PacejkaMF6_2::calculate_Zeta3() const {
 }
 
 double PacejkaMF6_2::calculate_SHyp(double camber_angle) const {
+  if (std::abs(car_parameters_->tire_parameters->PHYP1) < 1e-9) {
+    return 0.0;
+  }
   // MF 6.1 and 6.2
   double KyRp0 = internal_vals.Kyg0 / (1 - internal_vals.epsilong);
 
@@ -595,17 +603,21 @@ double PacejkaMF6_2::calculate_SHyp(double camber_angle) const {
       car_parameters_->tire_parameters->PKY1 * internal_vals.Fz0_prime *
       (1 + car_parameters_->tire_parameters->PPY1 * internal_vals.dpi) *
       sin(car_parameters_->tire_parameters->PKY4 *
-          (1 + car_parameters_->tire_parameters->PPX3 * internal_vals.dpi +
-           car_parameters_->tire_parameters->PPX4 * (internal_vals.dpi * internal_vals.dpi)) *
-          (1 - car_parameters_->tire_parameters->PDX3 * (camber_angle * camber_angle))) *
-      car_parameters_->tire_parameters->LMUX;
+          atan((1.0 + internal_vals.dfz) /
+               (car_parameters_->tire_parameters->PKY2 *
+                (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
+      internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;
   double Kyao_prime = Kya0 + internal_vals.epsilon * std::copysign(1.0, Kya0);
 
   double DHyp = (car_parameters_->tire_parameters->PHYP2 +
                  car_parameters_->tire_parameters->PHYP3 * internal_vals.dfz) *
                 internal_vals.longitudinal_direction;
 
-  double BHyp = KyRp0 / (car_parameters_->tire_parameters->PHYP1 * DHyp * Kyao_prime);
+  double denom = car_parameters_->tire_parameters->PHYP1 * DHyp * Kyao_prime;
+  if (std::abs(denom) < 1e-12) {
+    return 0.0;
+  }
+  double BHyp = KyRp0 / denom;
 
   double EHyp =
       (car_parameters_->tire_parameters->PHYP4 > 1) ? 1 : car_parameters_->tire_parameters->PHYP4;

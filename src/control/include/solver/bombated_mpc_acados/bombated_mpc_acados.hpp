@@ -25,6 +25,8 @@ private:
     void update_mpc_stats();
     void initialize_solver_memory();
     void print_debug_info();
+    void apply_cost_weights();
+    void reset_solver();
     void publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
     void publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
 
@@ -58,6 +60,17 @@ private:
     bool has_path_ = false;
     bool is_initialized_ = false;
     std::vector<double> parameters_per_stage;
+
+    // The throttle/steering commands are integrated states of the model, and the
+    // plant never reports them back, so the solver carries them between cycles.
+    double last_throttle_command_ = 0.0;
+    double last_steering_command_ = 0.0;
+    // Crude observer for the inverter's transport delay, advanced once per
+    // control period (25 ms) towards the command with the model's 0.2 s lag.
+    static constexpr double kInverterBlend = 0.025 / 0.2;
+    double applied_throttle_estimate_ = 0.0;
+    int consecutive_failures_ = 0;
+    rclcpp::Clock throttle_clock_{RCL_STEADY_TIME};
 
     // Debug string
     std::string stage_parameters_debug;

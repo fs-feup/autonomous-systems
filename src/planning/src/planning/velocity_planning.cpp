@@ -82,14 +82,15 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
     double ay = std::min(velocities[j] * velocities[j] * std::abs(curvatures[j]),
                          config_.lateral_acceleration_);
 
-    // Friction ellipse: remaining longitudinal braking
-
+    // Friction ellipse: remaining longitudinal braking.
+    // braking_acceleration_ is configured as a negative value, so take its
+    // magnitude here and scale it by the grip left over from cornering. The
+    // previous `-std::min(ax_brake, braking_acceleration_)` always collapsed to
+    // the full braking limit, which made the ellipse inert and let the profile
+    // assume full braking while at maximum lateral acceleration.
     double ax_brake =
-        config_.braking_acceleration_ *
+        std::abs(config_.braking_acceleration_) *
         std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
-
-    // Cap by braking limit
-    ax_brake = -(std::min(ax_brake, config_.braking_acceleration_));
 
     // Correct kinematic speed calculation
     // v_f² = v_i² + 2ad

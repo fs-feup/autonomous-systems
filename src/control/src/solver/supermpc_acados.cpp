@@ -1,13 +1,16 @@
-#include "solver/bombated_mpc_acados/bombated_mpc_acados.hpp"
+#include "solver/supermpc_acados/supermpc_acados.hpp"
 
 #include <algorithm>
 #include <cmath>
 #include <limits>
 
 constexpr int path_point_size = 4;
+// SuperMPC passes two extra per-stage parameters beyond the path point: the
+// ambition speed and the ceiling speed, both derived from the planner's v_ref.
+constexpr int kNumParams = 6;
 
-// State layout of the generated bombated_mpc model. Must stay in sync with
-// bombated_mpc_acados.py.
+// State layout of the generated supermpc model. Must stay in sync with
+// supermpc_acados.py.
 namespace {
 constexpr int kStateSize = 16;
 constexpr int kInputSize = 2;
@@ -27,47 +30,49 @@ constexpr int kMaxConsecutiveFailures = 5;
 constexpr int kMaxFailuresBeforeReset = 25;
 }  // namespace
 
-AcadosSolver::AcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
+SuperMpcAcadosSolver::SuperMpcAcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
     // 1. Create the capsule
-    this->capsule_ = bombated_mpc_acados_create_capsule();
+    this->capsule_ = supermpc_acados_create_capsule();
     
     // 2. Allocate solver memory
-    int status = bombated_mpc_acados_create(this->capsule_);
+    int status = supermpc_acados_create(this->capsule_);
     if (status != 0) {
-        RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Failed to create Acados solver 'bombated_mpc', status: %d", status);
+        RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"), "Failed to create Acados solver 'supermpc', status: %d", status);
     }
 
     // 3. Cache internal pointers
-    nlp_config_ = bombated_mpc_acados_get_nlp_config(this->capsule_);
-    nlp_dims_ = bombated_mpc_acados_get_nlp_dims(this->capsule_);
-    nlp_in_ = bombated_mpc_acados_get_nlp_in(this->capsule_);
-    nlp_out_ = bombated_mpc_acados_get_nlp_out(this->capsule_);
+    nlp_config_ = supermpc_acados_get_nlp_config(this->capsule_);
+    nlp_dims_ = supermpc_acados_get_nlp_dims(this->capsule_);
+    nlp_in_ = supermpc_acados_get_nlp_in(this->capsule_);
+    nlp_out_ = supermpc_acados_get_nlp_out(this->capsule_);
 
     // 4. Initialize parameters per stage vector
-    int N = this->control_params_->mpc_prediction_horizon_steps_;
+    int N = this->control_params_->supermpc_prediction_horizon_steps_;
     parameters_per_stage.resize((N+1)*4, 0.0); // Assuming 1 parameter
 
-    // 5. Override the generated cost weights with the configured ones
+    // 5. Override the generated cost weights and envelope with the config
     apply_cost_weights();
+    apply_envelope();
 }
 
-void AcadosSolver::reset_solver() {
-  bombated_mpc_acados_free(this->capsule_);
-  bombated_mpc_acados_free_capsule(this->capsule_);
-  this->capsule_ = bombated_mpc_acados_create_capsule();
-  if (bombated_mpc_acados_create(this->capsule_) != 0) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Failed to rebuild the acados solver");
+void SuperMpcAcadosSolver::reset_solver() {
+  supermpc_acados_free(this->capsule_);
+  supermpc_acados_free_capsule(this->capsule_);
+  this->capsule_ = supermpc_acados_create_capsule();
+  if (supermpc_acados_create(this->capsule_) != 0) {
+    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"), "Failed to rebuild the acados solver");
     return;
   }
-  nlp_config_ = bombated_mpc_acados_get_nlp_config(this->capsule_);
-  nlp_dims_ = bombated_mpc_acados_get_nlp_dims(this->capsule_);
-  nlp_in_ = bombated_mpc_acados_get_nlp_in(this->capsule_);
-  nlp_out_ = bombated_mpc_acados_get_nlp_out(this->capsule_);
+  nlp_config_ = supermpc_acados_get_nlp_config(this->capsule_);
+  nlp_dims_ = supermpc_acados_get_nlp_dims(this->capsule_);
+  nlp_in_ = supermpc_acados_get_nlp_in(this->capsule_);
+  nlp_out_ = supermpc_acados_get_nlp_out(this->capsule_);
   apply_cost_weights();
+  apply_envelope();
   this->is_initialized_ = false;
 }
 
-void AcadosSolver::apply_cost_weights() {
+void SuperMpcAcadosSolver::apply_cost_weights() {
   // Push the configured cost weights into the solver at construction time so
   // they can be tuned from YAML without regenerating the acados C code. The
   // weights baked in by the generator remain the fallback when the config omits
@@ -80,7 +85,7 @@ void AcadosSolver::apply_cost_weights() {
     ocp_nlp_cost_dims_get_from_attr(nlp_config_, nlp_dims_, nlp_out_, stage, "W", dims_out);
     const int ny = dims_out[0];
     if (static_cast<int>(weights.size()) != ny) {
-      RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"),
+      RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"),
                    "%s has %zu entries but stage %d expects %d; keeping generated weights",
                    label, weights.size(), stage, ny);
       return false;
@@ -93,22 +98,22 @@ void AcadosSolver::apply_cost_weights() {
 
   bool ok = true;
   for (int stage = 0; stage < N; ++stage) {
-    ok &= set_stage_weights(this->control_params_->mpc_cost_weights_, stage, "mpc_cost_weights");
+    ok &= set_stage_weights(this->control_params_->supermpc_cost_weights_, stage, "supermpc_cost_weights");
   }
-  ok &= set_stage_weights(this->control_params_->mpc_terminal_cost_weights_, N,
-                          "mpc_terminal_cost_weights");
-  if (ok && !this->control_params_->mpc_cost_weights_.empty()) {
-    RCLCPP_INFO(rclcpp::get_logger("AcadosSolver"), "Applied cost weights from config");
+  ok &= set_stage_weights(this->control_params_->supermpc_terminal_cost_weights_, N,
+                          "supermpc_terminal_cost_weights");
+  if (ok && !this->control_params_->supermpc_cost_weights_.empty()) {
+    RCLCPP_INFO(rclcpp::get_logger("SuperMpcAcadosSolver"), "Applied cost weights from config");
   }
 }
 
 
-AcadosSolver::~AcadosSolver() {
-  bombated_mpc_acados_free(this->capsule_);
-  bombated_mpc_acados_free_capsule(this->capsule_);
+SuperMpcAcadosSolver::~SuperMpcAcadosSolver() {
+  supermpc_acados_free(this->capsule_);
+  supermpc_acados_free_capsule(this->capsule_);
 }
 
-void AcadosSolver::set_state(const custom_interfaces::msg::VehicleStateVector& state) {
+void SuperMpcAcadosSolver::set_state(const custom_interfaces::msg::VehicleStateVector& state) {
   this->latest_state_ = state;
   this->has_state_ = true;
 
@@ -143,8 +148,8 @@ void AcadosSolver::set_state(const custom_interfaces::msg::VehicleStateVector& s
   ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)scaled_state.data());
 }
 
-void AcadosSolver::initialize_solver_memory() {
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+void SuperMpcAcadosSolver::initialize_solver_memory() {
+  int N = this->control_params_->supermpc_prediction_horizon_steps_;
   double u_zero[kInputSize] = {0.0, 0.0}; // Rates start at zero
 
   constexpr double kWheelRadius = 0.20574;
@@ -193,8 +198,25 @@ void AcadosSolver::initialize_solver_memory() {
   this->is_initialized_ = true;
 }
 
-void AcadosSolver::set_path_point_per_stage() {
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+void SuperMpcAcadosSolver::apply_envelope() {
+  // Rear slip angle envelope, set at runtime so it can be tuned from YAML.
+  const double limit = this->control_params_->supermpc_max_rear_slip_;
+  if (!(limit > 0.0)) return;
+  const double lower[2] = {-limit, -limit};
+  const double upper[2] = {limit, limit};
+  const int N = nlp_dims_->N;
+  for (int stage = 1; stage < N; ++stage) {
+    ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, stage, "lh",
+                                  (void*)lower);
+    ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, stage, "uh",
+                                  (void*)upper);
+  }
+  RCLCPP_INFO(rclcpp::get_logger("SuperMpcAcadosSolver"),
+              "Rear slip angle envelope set to +-%.3f rad", limit);
+}
+
+void SuperMpcAcadosSolver::set_path_point_per_stage() {
+  int N = this->control_params_->supermpc_prediction_horizon_steps_;
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
     double path_point_x = this->parameters_per_stage[i*path_point_size];
@@ -202,17 +224,24 @@ void AcadosSolver::set_path_point_per_stage() {
     double path_point_v = this->parameters_per_stage[i*path_point_size + 2];
     double path_point_orientation = this->parameters_per_stage[i*path_point_size + 3];
     this->stage_parameters_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
-    double point_for_stage[path_point_size] = {this->parameters_per_stage[i*path_point_size], this->parameters_per_stage[i*path_point_size + 1], this->parameters_per_stage[i*path_point_size + 2], this->parameters_per_stage[i*path_point_size + 3]};
-    bombated_mpc_acados_update_params(this->capsule_, i, point_for_stage, path_point_size);
+    // The planner's speed becomes two thresholds rather than a target: a mildly
+    // optimistic one the cost gently pulls towards, and a hard-ish ceiling above
+    // which a heavy one-sided penalty applies. Between them the controller is
+    // free, and its own dynamics decide the speed.
+    const double v_stretch = path_point_v * this->control_params_->supermpc_speed_stretch_;
+    const double v_cap = path_point_v * this->control_params_->supermpc_speed_cap_;
+    double point_for_stage[kNumParams] = {path_point_x, path_point_y, path_point_v,
+                                          path_point_orientation, v_stretch, v_cap};
+    supermpc_acados_update_params(this->capsule_, i, point_for_stage, kNumParams);
   }
 }
 
-void AcadosSolver::update_mpc_stats() {
+void SuperMpcAcadosSolver::update_mpc_stats() {
   // Create temporary variables to receive the raw values
   double t_tot, t_lin, t_sim, t_qp, t_reg;
   int sqp_iter;
   // Get the values from Acados (Times are in Seconds, Iterations is Int)
-  ocp_nlp_solver *nlp_solver = bombated_mpc_acados_get_nlp_solver(this->capsule_);
+  ocp_nlp_solver *nlp_solver = supermpc_acados_get_nlp_solver(this->capsule_);
   ocp_nlp_get(nlp_solver, "time_tot", &t_tot);
   ocp_nlp_get(nlp_solver, "time_lin", &t_lin);
   ocp_nlp_get(nlp_solver, "time_sim", &t_sim);
@@ -245,9 +274,9 @@ void AcadosSolver::update_mpc_stats() {
   (*_execution_times_)[8] = average_regularization_time_;
 }
 
-void AcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
-  if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->mpc_prediction_horizon_steps_ + 1)) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->mpc_prediction_horizon_steps_ + 1);
+void SuperMpcAcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
+  if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->supermpc_prediction_horizon_steps_ + 1)) {
+    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->supermpc_prediction_horizon_steps_ + 1);
     return;
   }
 
@@ -262,7 +291,7 @@ void AcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) 
   this->has_path_ = true;
 }
 
-common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
+common_lib::structures::ControlCommand SuperMpcAcadosSolver::solve(int* solver_status) {
   common_lib::structures::ControlCommand command;
   if (!(this->has_state_ && this->has_path_)) {
     return command;
@@ -280,7 +309,7 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
   first_v -= this->latest_state_.velocity_x;
   //DEBUG PRINT
   if (std::fabs(first_x) > 0.01 || std::fabs(first_y) > 0.01 || std::fabs(first_v) > 0.01 || std::fabs(first_orientation) > 0.01) {
-    RCLCPP_ERROR(rclcpp::get_logger("AcadosSolver"), "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f", this->latest_state_.x, this->latest_state_.y, this->latest_state_.velocity_x, this->latest_state_.orientation);
+    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"), "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f", this->latest_state_.x, this->latest_state_.y, this->latest_state_.velocity_x, this->latest_state_.orientation);
   }
 
 
@@ -288,11 +317,11 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
     this->initialize_solver_memory();
   }
 
-  int status = bombated_mpc_acados_solve(this->capsule_);
+  int status = supermpc_acados_solve(this->capsule_);
   this->update_mpc_stats();
 
   if (status != ACADOS_SUCCESS) {
-    RCLCPP_WARN_THROTTLE(rclcpp::get_logger("AcadosSolver"), this->throttle_clock_, 1000,
+    RCLCPP_WARN_THROTTLE(rclcpp::get_logger("SuperMpcAcadosSolver"), this->throttle_clock_, 1000,
                          "Acados solver failed with status %d", status);
     // SQP_RTI warm-starts from the previous iterate, so a bad iterate is sticky.
     // Rebuild the guess from the reference after a short run of failures.
@@ -305,7 +334,7 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
     // forever - throttle 0, steering frozen - and the car coasts off the
     // track. Tear the solver down and rebuild it rather than latch.
     if (this->consecutive_failures_ >= kMaxFailuresBeforeReset) {
-      RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"),
+      RCLCPP_WARN(rclcpp::get_logger("SuperMpcAcadosSolver"),
                   "%d consecutive solver failures - rebuilding the solver",
                   this->consecutive_failures_);
       this->reset_solver();
@@ -341,10 +370,10 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
   double total_delay_ms = total_solver_time_ms + 5.0;
   double total_delay_s = total_delay_ms / 1000.0;
 
-  double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(this->control_params_->mpc_prediction_horizon_steps_);
+  double time_step = this->control_params_->supermpc_prediction_horizon_seconds_ / static_cast<double>(this->control_params_->supermpc_prediction_horizon_steps_);
   unsigned int steps_ahead = static_cast<unsigned int>(std::floor(total_delay_s / time_step));
   if (steps_ahead >= full_solution.size() - 1) {
-    RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"), "Total delay of %.2f ms exceeds prediction horizon, using last available control", total_delay_ms);
+    RCLCPP_WARN(rclcpp::get_logger("SuperMpcAcadosSolver"), "Total delay of %.2f ms exceeds prediction horizon, using last available control", total_delay_ms);
     return full_solution.back();
   }
 
@@ -396,7 +425,7 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
   return command;
 }
 
-std::vector<common_lib::structures::ControlCommand> AcadosSolver::get_full_solution() {
+std::vector<common_lib::structures::ControlCommand> SuperMpcAcadosSolver::get_full_solution() {
   int N = nlp_dims_->N;
   std::vector<common_lib::structures::ControlCommand> full_u;
   full_u.reserve(N);
@@ -419,7 +448,7 @@ std::vector<common_lib::structures::ControlCommand> AcadosSolver::get_full_solut
   return full_u;
 }
 
-std::vector<custom_interfaces::msg::VehicleStateVector> AcadosSolver::get_full_horizon() {
+std::vector<custom_interfaces::msg::VehicleStateVector> SuperMpcAcadosSolver::get_full_horizon() {
   int N = nlp_dims_->N;
   std::vector<custom_interfaces::msg::VehicleStateVector> full_horizon;
   full_horizon.reserve(N + 1);
@@ -445,7 +474,7 @@ std::vector<custom_interfaces::msg::VehicleStateVector> AcadosSolver::get_full_h
   return full_horizon;
 }
 
-void AcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void SuperMpcAcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (publisher_map.find("/acados/execution_times") == publisher_map.end()) {
     auto publisher = node->create_publisher<std_msgs::msg::Float64MultiArray>(
           "/acados/execution_times", 10);
@@ -461,10 +490,10 @@ void AcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::
   this->publish_received_state(node, publisher_map);
 }
 
-void AcadosSolver::publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void SuperMpcAcadosSolver::publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (!this->has_state_) return;
 
-  const std::string topic = "/bombated_mpc/received_state";
+  const std::string topic = "/supermpc/received_state";
   if (publisher_map.find(topic) == publisher_map.end()) {
     publisher_map[topic] = node->create_publisher<custom_interfaces::msg::VehicleStateVector>(topic, 10);
   }
@@ -473,16 +502,16 @@ void AcadosSolver::publish_received_state(std::shared_ptr<rclcpp::Node> node, st
   state_publisher->publish(this->latest_state_);
 }
 
-void AcadosSolver::publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void SuperMpcAcadosSolver::publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (!this->has_path_) return;
 
-  const std::string topic = "/bombated_mpc/interpolated_path";
+  const std::string topic = "/supermpc/interpolated_path";
   if (publisher_map.find(topic) == publisher_map.end()) {
     publisher_map[topic] = node->create_publisher<visualization_msgs::msg::Marker>(topic, 10);
   }
 
   // Rebuild the interpolated trajectory received by the solver for visualization
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = this->control_params_->supermpc_prediction_horizon_steps_;
   std::vector<common_lib::structures::PathPoint> interpolated_path;
   interpolated_path.reserve(N + 1);
   for (int i = 0; i <= N; ++i) {
@@ -494,15 +523,15 @@ void AcadosSolver::publish_interpolated_path(std::shared_ptr<rclcpp::Node> node,
 
   auto path_publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map[topic]);
   path_publisher->publish(common_lib::communication::line_marker_from_structure_array(
-      interpolated_path, "bombated_mpc_interpolated_path", "map", 0, "blue"));
+      interpolated_path, "supermpc_interpolated_path", "map", 0, "blue"));
 }
 
-void AcadosSolver::print_debug_info() {
+void SuperMpcAcadosSolver::print_debug_info() {
   std::cout << this->stage_parameters_debug << std::endl;
   std::cout << this->total_delay_debug << std::endl;
 }
 
-bool AcadosSolver::sanity_check_output() {
+bool SuperMpcAcadosSolver::sanity_check_output() {
   // TODO: Implement actual checks
   return false;
 }

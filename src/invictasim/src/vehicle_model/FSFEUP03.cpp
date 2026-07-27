@@ -151,38 +151,33 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
     // Front: tire + rim inertia only; Rear: tire + rim + motor + transmission (reflected)
     double I_front = car_parameters_->front_wheel_inertia;
     double I_rear = car_parameters_->rear_wheel_inertia;
-    const double brake_sign_fl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.front_left);
-    const double brake_sign_fr = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.front_right);
-    const double brake_sign_rl = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.rear_left);
-    const double brake_sign_rr = 2.0 / M_PI * std::atan(10.0 * state_->wheels_speed.rear_right);
+    auto update_wheel = [&](double &w_speed, double net_torque, double inertia, double brake_t) {
+      const double brake_sign = 2.0 / M_PI * std::atan(10.0 * w_speed);
+      double total_torque = net_torque - brake_t * brake_sign;
+      double dw = (total_torque / inertia) * dt;
+      double next_w = w_speed + dw;
+      if (brake_t > 0.0 && w_speed * next_w <= 0.0) {
+        w_speed = 0.0;
+      } else {
+        w_speed = next_w;
+      }
+    };
 
     // Rear Wheels: Input Torque (Contains transmission losses) - Tire Reaction - Rolling Resistance
-    state_->wheels_speed.rear_left +=
-        ((state_->wheels_torque.rear_left - (state_->rear_left_forces[0] * R) -
-          state_->rear_left_forces[2] - brake_torques.rear_left * brake_sign_rl) /
-         I_rear) *
-        dt;
-
-    state_->wheels_speed.rear_right +=
-        ((state_->wheels_torque.rear_right - (state_->rear_right_forces[0] * R) -
-          state_->rear_right_forces[2] - brake_torques.rear_right * brake_sign_rr) /
-         I_rear) *
-        dt;
+    update_wheel(state_->wheels_speed.rear_left,
+                 state_->wheels_torque.rear_left - (state_->rear_left_forces[0] * R) - state_->rear_left_forces[2],
+                 I_rear, brake_torques.rear_left);
+    update_wheel(state_->wheels_speed.rear_right,
+                 state_->wheels_torque.rear_right - (state_->rear_right_forces[0] * R) - state_->rear_right_forces[2],
+                 I_rear, brake_torques.rear_right);
 
     // Front Wheels: Tire Reaction - Bearing Drag - Rolling Resistance
-    state_->wheels_speed.front_left +=
-        ((-(state_->front_left_forces[0] * R) -
-          (car_parameters_->front_bearing_drag * state_->wheels_speed.front_left) -
-          state_->front_left_forces[2] - brake_torques.front_left * brake_sign_fl) /
-         I_front) *
-        dt;
-
-    state_->wheels_speed.front_right +=
-        ((-(state_->front_right_forces[0] * R) -
-          (car_parameters_->front_bearing_drag * state_->wheels_speed.front_right) -
-          state_->front_right_forces[2] - brake_torques.front_right * brake_sign_fr) /
-         I_front) *
-        dt;
+    update_wheel(state_->wheels_speed.front_left,
+                 -(state_->front_left_forces[0] * R) - (car_parameters_->front_bearing_drag * state_->wheels_speed.front_left) - state_->front_left_forces[2],
+                 I_front, brake_torques.front_left);
+    update_wheel(state_->wheels_speed.front_right,
+                 -(state_->front_right_forces[0] * R) - (car_parameters_->front_bearing_drag * state_->wheels_speed.front_right) - state_->front_right_forces[2],
+                 I_front, brake_torques.front_right);
   }
 
   // Vehicle State Update

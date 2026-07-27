@@ -1,5 +1,7 @@
 #include "utils/path_stager.hpp"
 
+#include <algorithm>
+
 unsigned int get_s_index(std::vector<double>& s, double query_s) {
   // Simple linear search (can be optimized with binary search if needed)
   for (size_t i = 0; i < s.size() - 1; ++i) {
@@ -80,7 +82,7 @@ void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray&
   }
 }
 
-void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& path_msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state, std::shared_ptr<LocalPather> local_pather, unsigned int number_of_stages, double horizon_length_seconds, custom_interfaces::msg::PathPointArray& output_path_data) {
+void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& path_msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state, std::shared_ptr<LocalPather> local_pather, unsigned int number_of_stages, double horizon_length_seconds, custom_interfaces::msg::PathPointArray& output_path_data, bool free_speed) {
   if (path_msg.pathpoint_array.size() == 0) {
     return;
   }
@@ -196,6 +198,31 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
     }
   }
 
+  // Scale the whole reference speed profile by how fast the car is actually
+  // going relative to the plan, for controllers that choose their own speed.
+  //
+  // Without this the reference is laid out at the planner's pace: a car running
+  // 20% fast outruns its own reference within the horizon and the last stages
+  // point at ground it has already covered. Scaling the profile (rather than
+  // integrating freely from the car's speed, which decouples it from the
+  // planner's shape entirely and collapses to nothing at a standstill) keeps the
+  // braking/acceleration shape intact while spanning the distance the car will
+  // really travel.
+  if (free_speed && velocities.size() > 2) {
+    const double planner_v = velocities[2];
+    if (planner_v > 0.5) {
+      // Lower bound of 1.0 is deliberate. Scaling BELOW the plan when the car is
+      // slower than planned removes the very signal that tells the controller to
+      // speed back up: it asks for 0.6x, the car obeys, the ratio stays low, and
+      // the car crawls. This is only here to make the reference span the extra
+      // ground when the car is running FAST, so it must never shrink it.
+      const double scale = std::clamp(velocities[0] / planner_v, 1.0, 1.8);
+      for (size_t i = 1; i < velocities.size(); ++i) {
+        velocities[i] *= scale;
+      }
+    }
+  }
+
   // --- 2. Fit the splines ---
   tk::spline spline_x, spline_y;
 
@@ -220,7 +247,7 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
 
   for (unsigned int i = 0; i <= number_of_stages; ++i) {
     custom_interfaces::msg::PathPoint p;
-    
+
     // Clamp to prevent querying outside the spline bounds
     p.x = spline_x(current_s);
     p.y = spline_y(current_s);

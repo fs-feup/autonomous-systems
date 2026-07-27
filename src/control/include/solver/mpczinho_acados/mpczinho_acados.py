@@ -6,15 +6,22 @@ from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs,
 from ament_index_python.packages import get_package_prefix
 import yaml
 
-lr = 0.804  # Distance from the center of mass to the rear axle
-lf = 0.726  # Distance from the center of mass to the front axle
+# Geometry mirrors config/car/02.yaml: wheel_base 1.53, cg_2_rear_axis 0.706.
+# The simulator uses lr = cg_2_rear_axis and lf = wheel_base - lr (see
+# FSFEUP02::get_state_derivative), so the controller must use the same split.
+lr = 0.706  # Distance from the center of mass to the rear axle
+lf = 0.824  # Distance from the center of mass to the front axle
 L = lr + lf
 
 rolling_resistance_coefficient = 0.015
 
 gravity_acceleration = 9.81
 
-steering_motor_tau = 0.25
+# First-order steering actuator, matching the simulator's FirstOrderSteeringMotor
+# with time_constant from config/car/steering_motor_model/02_steering_motor.yaml.
+steering_motor_tau = 0.112
+
+max_steering_angle = 0.335  # config/car/steering_model/02_steering.yaml
 
 def get_config_yaml_path(package_name: str, dir: str, filename: str) -> str:
     """
@@ -37,18 +44,30 @@ def get_config_yaml_path(package_name: str, dir: str, filename: str) -> str:
     workspace_path = os.path.join(package_prefix, "../../config", dir, f"{filename}.yaml")
     return workspace_path
 
+def get_active_adapter() -> str:
+    """
+    Read the active adapter from the global config so the generated solver is
+    dimensioned from the same control config the node loads at runtime.
+    """
+    with open(get_config_yaml_path("common_lib", "global", "global_config"), 'r') as f:
+        return yaml.safe_load(f)["global"]["adapter"]
+
+
 def load_mpc_parameters():
     """
-    Load MPC horizon time and steps from the global config YAML file.
+    Load MPC horizon time and steps from the active adapter's control config.
     """
-    global_config_path = get_config_yaml_path("common_lib", "control", "pacsim")
-    
-    with open(global_config_path, 'r') as f:
-        global_config = yaml.safe_load(f)
-    
-    mpc_horizon_time = global_config["control"]["mpc_prediction_horizon_seconds"]
-    mpc_horizon_steps = global_config["control"]["mpc_prediction_horizon_steps"]
-    
+    control_config_path = get_config_yaml_path("common_lib", "control", get_active_adapter())
+
+    with open(control_config_path, 'r') as f:
+        control_config = yaml.safe_load(f)
+
+    control = control_config["control"]
+    mpc_horizon_time = control.get("lateral_mpc_prediction_horizon_seconds",
+                                   control["mpc_prediction_horizon_seconds"])
+    mpc_horizon_steps = control.get("lateral_mpc_prediction_horizon_steps",
+                                    control["mpc_prediction_horizon_steps"])
+
     return mpc_horizon_time, mpc_horizon_steps
 
 def export_mpc_model() -> AcadosModel:
@@ -58,14 +77,23 @@ def export_mpc_model() -> AcadosModel:
 
     x = SX.sym("x", 4) # [x_position, y_position, yaw, steering_angle]
     xdot = SX.sym("xdot", 4)
-    u = SX.sym("u", 1)
+    u = SX.sym("u", 1) # [steering_angle_command]
 
-    # dynamics
+    # Kinematic bicycle written at the CENTRE OF GRAVITY, because the pose the
+    # controller receives (/state_estimation/vehicle_pose) is the CG pose, not the
+    # rear axle. Using the rear-axle form with a CG pose biases the predicted
+    # trajectory by lr*psi_dot laterally, which shows up as a steady corner offset.
+    beta = atan(lr * tan(x[3]) / L)
+
+    # The yaw rate is driven by the ACTUAL steering angle state x[3], not by the
+    # command u[0]. The command only feeds the first-order steering actuator, so
+    # the model reproduces the simulator's steering lag instead of assuming the
+    # wheels reach the commanded angle instantly.
     f_expl = vertcat(
-        p[2] * cos(x[2]),
-        p[2] * sin(x[2]),
-        p[2] * tan(u[0]) / L,
-        (u[0] - x[3]) / steering_motor_tau  # Assuming steering angle dynamics
+        p[2] * cos(x[2] + beta),
+        p[2] * sin(x[2] + beta),
+        p[2] * cos(beta) * tan(x[3]) / L,
+        (u[0] - x[3]) / steering_motor_tau
     )
 
     model.p = p
@@ -74,9 +102,6 @@ def export_mpc_model() -> AcadosModel:
     model.u = u
     model.f_expl_expr = f_expl
     model.f_impl_expr = xdot - f_expl
-    steering_error = u[0] - x[3]
-    model.con_h_expr = steering_error
-    model.con_h_expr_0 = steering_error
     return model
 
 def setup_cost_function(ocp: AcadosOcp):
@@ -101,8 +126,8 @@ def setup_cost_function(ocp: AcadosOcp):
         x[0] - p[0],      # X Position Error
         x[1] - p[1],      # Y Position Error
         theta_cost_term,  # Orientation Error
-        u[0],             # Penalty on Steering
-        u[0] - x[3]       # Penalty on Steering Rate
+        x[3],             # Penalty on Steering
+        u[0] - x[3]       # Penalty on Steering Rate (u - delta = tau * delta_dot)
     )
 
     # Terminal Residual (No controls at the last step)
@@ -116,10 +141,11 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.model.cost_y_expr_e = cost_expression_e
 
     # 4. Define Weight Matrices (W)
-    weights = np.array([2.0, 2.0, 1.0, 10.0, 200.0])
-    
+    # [x_err, y_err, heading_err, steering_magnitude, steering_rate]
+    weights = np.array([9.0, 9.0, 6.0, 0.3, 2.0])
+
     # Terminal weights
-    weights_e = np.array([2.0, 2.0, 1.0])
+    weights_e = np.array([9.0, 9.0, 6.0])
 
     ocp.cost.W = np.diag(weights)
     ocp.cost.W_e = np.diag(weights_e)
@@ -184,23 +210,13 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
 
     setup_cost_function(ocp)
 
-    # Lower bounds for controls
-    u_min = np.array([-0.335])  # adjust these values as needed
-
-    # Upper bounds for controls
-    u_max = np.array([0.335])  # adjust these values as needed
-
-    ocp.constraints.lbu = u_min  # lower bound on u
-    ocp.constraints.ubu = u_max  # upper bound on u
-    ocp.constraints.idxbu = np.array([0])  # which control inputs have bounds
-
-    ocp.constraints.lh = np.array([-0.05])
-    ocp.constraints.uh = np.array([0.05])
-    ocp.dims.nh = 1
-
-    ocp.constraints.lh_0 = np.array([-0.05])
-    ocp.constraints.uh_0 = np.array([0.05])
-    ocp.dims.nh_0 = 1
+    # The only hard actuator limit the simulator enforces is the steering angle
+    # range (AckermanSteering clamps to +-0.335 rad). There is no rate limit in
+    # FirstOrderSteeringMotor, so imposing one here would be a model mismatch;
+    # steering rate is shaped by the cost instead.
+    ocp.constraints.lbu = np.array([-max_steering_angle])
+    ocp.constraints.ubu = np.array([max_steering_angle])
+    ocp.constraints.idxbu = np.array([0])
 
     try:
         solver = AcadosOcpSolver(ocp, json_file=json_path)
