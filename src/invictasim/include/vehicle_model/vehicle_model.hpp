@@ -55,6 +55,12 @@ struct VehicleState {
   double motor_current = 0.0;
   double motor_thermal_state = 0.0;
   double motor_thermal_capacity = 0.0;
+  double motor_torque_left = 0.0;
+  double motor_torque_right = 0.0;
+  double motor_omega_left = 0.0;
+  double motor_omega_right = 0.0;
+  double motor_current_left = 0.0;
+  double motor_current_right = 0.0;
   double battery_voltage = 0.0;
   double battery_soc = 0.0;
   double battery_current = 0.0;
@@ -143,6 +149,12 @@ public:
   double get_battery_soc() const { return state_->battery_soc; }
   double get_battery_current() const { return state_->battery_current; }
   double get_battery_open_circuit_voltage() const { return state_->battery_open_circuit_voltage; }
+  double get_motor_torque_left() const { return state_->motor_torque_left; }
+  double get_motor_torque_right() const { return state_->motor_torque_right; }
+  double get_motor_omega_left() const { return state_->motor_omega_left; }
+  double get_motor_omega_right() const { return state_->motor_omega_right; }
+  double get_motor_current_left() const { return state_->motor_current_left; }
+  double get_motor_current_right() const { return state_->motor_current_right; }
   double get_steering_angle() const { return state_->steering_angle; }
   double get_total_force_x() const { return state_->total_force_x; }
   double get_total_force_y() const { return state_->total_force_y; }

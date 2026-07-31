@@ -1,11 +1,11 @@
 publish_frequencies:
   vehicle_model:
-    tire: 10         # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
-    battery: 10       # Battery status (voltage, current, state of charge)
-    motor: 10        # Motor status (RPM, torque, temperature)
-    transmission: 10  # Transmission status (torque on each wheel)
-    aero: 10          # Aerodynamic status (drag, downforce)
-    status: 10        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+    tire: 30         # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
+    battery: 30       # Battery status (voltage, current, state of charge)
+    motor: 30        # Motor status (RPM, torque, temperature)
+    transmission: 30  # Transmission status (torque on each wheel)
+    aero: 30          # Aerodynamic status (drag, downforce)
+    status: 30        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
   visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
     car: 30           # Car visualization 
     ground: 1         # Ground visualization 

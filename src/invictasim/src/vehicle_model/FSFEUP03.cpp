@@ -1,15 +1,24 @@
 #include "vehicle_model/FSFEUP03.hpp"
 
+#include <algorithm>
+#include <cmath>
+
 FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
     : VehicleModel(simulator_parameters) {
   this->tire_model_ = tire_models_map.at(simulator_parameters.tire_model.c_str())(
       simulator_parameters.car_parameters);
-  this->motor_ = motor_models_map.at(simulator_parameters.motor_model.c_str())(
-      simulator_parameters.car_parameters);
+  this->motor_left_ = motor_models_map.at(simulator_parameters.motor_model.c_str())(
+    simulator_parameters.car_parameters);
+  this->motor_right_ = motor_models_map.at(simulator_parameters.motor_model.c_str())(
+    simulator_parameters.car_parameters);
   this->battery_ = battery_models_map.at(simulator_parameters.battery_model.c_str())(
-      simulator_parameters.car_parameters);
-  this->transmission_ = transmission_models_map.at(simulator_parameters.transmission_model.c_str())(
-      simulator_parameters.car_parameters);
+    simulator_parameters.car_parameters);
+  this->drive_left_ =
+      independent_drive_models_map.at(simulator_parameters.transmission_model.c_str())(
+          simulator_parameters.car_parameters);
+  this->drive_right_ =
+      independent_drive_models_map.at(simulator_parameters.transmission_model.c_str())(
+          simulator_parameters.car_parameters);
   this->aero_ = aero_models_map.at(simulator_parameters.aero_model.c_str())(
       simulator_parameters.car_parameters);
   this->load_transfer_ = load_transfer_models_map.at(
@@ -25,16 +34,31 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Motor + battery
   const auto powertrain_start = Clock::now();
-  double throttle_input =
-      (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
-  double motor_torque = calculate_powertrain_torque(throttle_input, dt);
+  auto [torque_left, current_left]   = calculate_side_powertrain(
+    throttle.rear_left, state_->wheels_speed.rear_left, motor_left_, drive_left_);
+  auto [torque_right, current_right] = calculate_side_powertrain(
+    throttle.rear_right, state_->wheels_speed.rear_right, motor_right_, drive_right_);
+
+    double total_requested = current_left + current_right;
+    double total_allowed = battery_->calculate_allowed_current(total_requested);
+    // To be confirmed: If the total requested current is greater than the total allowed current, both currents are scaled down proportionally to their requested values
+    double scale = (total_requested > 1e-6) ? std::min(1.0, total_allowed / total_requested) : 1.0;
+
+    state_->motor_current_left  = current_left  * scale;
+    state_->motor_current_right = current_right * scale;
+    state_->motor_torque_left   = torque_left   * scale;
+    state_->motor_torque_right  = torque_right  * scale;
   const auto powertrain_end = Clock::now();
 
-  // Apply transmission losses and distribute torque to the wheels
-  const auto transmission_start = Clock::now();
-  state_->wheels_torque =
-      transmission_->calculate_wheel_torques(motor_torque, state_->wheels_speed);
-  const auto transmission_end = Clock::now();
+  // Apply per-side drive losses
+    const auto transmission_start = Clock::now();
+    state_->wheels_torque.front_left = 0.0;
+    state_->wheels_torque.front_right = 0.0;
+    state_->wheels_torque.rear_left = drive_left_->calculate_wheel_torque(
+        state_->motor_torque_left, state_->wheels_speed.rear_left);
+    state_->wheels_torque.rear_right = drive_right_->calculate_wheel_torque(
+        state_->motor_torque_right, state_->wheels_speed.rear_right);
+    const auto transmission_end = Clock::now();
 
   // Aerodynamics
   // based on implementation, this forces are negative by default, so we add them
@@ -195,7 +219,9 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Prevent oscillations at very low speeds by forcing a dead stop
   double speed = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
-  if (speed < 0.05 && std::abs(throttle_input) < 0.01) {
+  const double rear_throttle_input =
+      std::max(std::abs(throttle.rear_left), std::abs(throttle.rear_right));
+  if (speed < 0.05 && rear_throttle_input < 0.01) {
     state_->vx = 0.0;
     state_->vy = 0.0;
     state_->ax = 0.0;
@@ -317,41 +343,18 @@ void FSFEUP03Model::reset() {
 
 std::string FSFEUP03Model::get_model_name() const { return "FSFEUP03Model"; }
 
-double FSFEUP03Model::calculate_powertrain_torque(double throttle_input, double dt) {
-  double motor_omega = transmission_->calculate_motor_omega(state_->wheels_speed);
-  double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
+std::pair<double, double> FSFEUP03Model::calculate_side_powertrain(
+    double throttle_input, double wheel_speed,
+    const std::shared_ptr<MotorModel>& motor,
+    const std::shared_ptr<IndependentDriveModel>& drive) {
+    double motor_omega = drive->calculate_motor_omega(wheel_speed);
+    double motor_rpm = std::abs(motor_omega * 60.0 / (2.0 * M_PI));
 
-  // Calculate Max Torque at current RPM
-  double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
-  double reference_motor_torque = throttle_input * max_motor_torque;
+    double max_torque = motor->get_max_torque_at_rpm(motor_rpm);
+    double reference_torque = throttle_input * max_torque;
+    double efficiency = motor->get_efficiency(std::abs(reference_torque), motor_rpm);
+    double requested_current =
+      reference_torque / (car_parameters_->motor_parameters->kt_constant * efficiency);
 
-  // Motor Efficiency at this state
-  double motor_efficiency = motor_->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
-
-  // Preserve current sign so regen charges the battery.
-  double requested_motor_current =
-      reference_motor_torque /
-      (car_parameters_->motor_parameters->kt_constant * std::max(motor_efficiency, 0.05));
-
-  // Calculate the allowed current from the battery
-  double allowed_motor_current = battery_->calculate_allowed_current(requested_motor_current);
-
-  // Actual motor torque limited by the battery
-  double actual_motor_torque =
-      allowed_motor_current * car_parameters_->motor_parameters->kt_constant * motor_efficiency;
-
-  battery_->update_state(allowed_motor_current, dt);
-  motor_->update_state(allowed_motor_current, actual_motor_torque, dt);
-
-  state_->motor_torque = actual_motor_torque;
-  state_->motor_omega = motor_omega;
-  state_->motor_current = motor_->get_current();
-  state_->motor_thermal_state = motor_->get_thermal_state();
-  state_->motor_thermal_capacity = motor_->get_thermal_capacity();
-  state_->battery_current = battery_->get_current();
-  state_->battery_voltage = battery_->get_voltage();
-  state_->battery_soc = battery_->get_soc();
-  state_->battery_open_circuit_voltage = battery_->get_open_circuit_voltage();
-
-  return static_cast<double>(actual_motor_torque);
+  return {reference_torque, requested_current};
 }

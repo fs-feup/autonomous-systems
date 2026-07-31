@@ -9,8 +9,9 @@
 #include "motion_lib/steering_model/map.hpp"
 #include "motion_lib/steering_motor_model/map.hpp"
 #include "motion_lib/tire_model/map.hpp"
-#include "motion_lib/transmission_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
+#include "motion_lib/independent_drive_model/base_independent_drive_model.hpp"
+#include "motion_lib/independent_drive_model/map.hpp"
 
 /**
  * @brief Four wheel vehicle model (tuned for FSFEUP03)
@@ -46,14 +47,19 @@ public:
 private:
   // Vehicle state struct is defined in the base class
   std::shared_ptr<TireModel> tire_model_;
-  std::shared_ptr<MotorModel> motor_;
+  std::shared_ptr<MotorModel> motor_left_;
+  std::shared_ptr<MotorModel> motor_right_;
+  std::shared_ptr<IndependentDriveModel> drive_left_;
+  std::shared_ptr<IndependentDriveModel> drive_right_;
   std::shared_ptr<BatteryModel> battery_;
-  std::shared_ptr<TransmissionModel> transmission_;
   std::shared_ptr<AeroModel> aero_;
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
 
   // Helper function to calculate the torque combining the motor model and the battery model
-  double calculate_powertrain_torque(double throttle_input, double dt);
+  std::pair<double, double> calculate_side_powertrain(
+    double throttle_input, double wheel_speed,
+    const std::shared_ptr<MotorModel>& motor,
+    const std::shared_ptr<IndependentDriveModel>& drive);
 };

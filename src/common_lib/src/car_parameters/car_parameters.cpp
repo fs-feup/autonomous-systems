@@ -94,8 +94,17 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
         config["vehicle_model"]["battery_model_params"].as<std::string>());
   }
   if (config["vehicle_model"]["transmission_model_params"]) {
-    this->transmission_parameters = std::make_shared<TransmissionParameters>(
-        config["vehicle_model"]["transmission_model_params"].as<std::string>());
+    const std::string transmission_model =
+        config["vehicle_model"]["transmission_model"].as<std::string>();
+    const std::string transmission_params =
+        config["vehicle_model"]["transmission_model_params"].as<std::string>();
+
+    if (transmission_model == "single_stage") {
+      this->independent_drive_parameters =
+          std::make_shared<IndependentDriveParameters>(transmission_params);
+    } else {
+      this->transmission_parameters = std::make_shared<TransmissionParameters>(transmission_params);
+    }
   }
   this->physical_constants = std::make_shared<common_lib::structures::PhysicalConstants>();
 }

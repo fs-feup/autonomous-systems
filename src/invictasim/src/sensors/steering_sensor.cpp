@@ -1,4 +1,6 @@
 #include "sensors/steering_sensor.hpp"
+#include "sensors/sensors_base.hpp"
+
 
 #include <yaml-cpp/yaml.h>
 

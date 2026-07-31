@@ -1,8 +1,6 @@
-transmission:
-  gear_ratio: 3.67
+independent_drive:
+  gear_ratio: 12.5882
   efficiency: 0.95
-  kv: 40.0
-  t_max: 300.0
-  viscous_drag_coeff: 0.01 # Nm/(rad/s)  
+  viscous_drag_coeff: 0.01 # Nm/(rad/s)
   coulomb_drag: 2.0         # Nm
   coulomb_smooth_stiffness: 20.0  # Stiffness for smoothing in Coulomb drag
