@@ -104,8 +104,11 @@ TireParameters::TireParameters(const std::string& config_name) {
 
   wheel_inertia = 0.5 * MASS * (UNLOADED_RADIUS * UNLOADED_RADIUS);
 
-  if (config["relaxation_length"]) {
-    relaxation_length = config["relaxation_length"].as<double>();
+  if (config["slip_angle_relaxation_length"]) {
+    slip_angle_relaxation_length = config["slip_angle_relaxation_length"].as<double>();
+  }
+  if (config["slip_ratio_relaxation_length"]) {
+    slip_ratio_relaxation_length = config["slip_ratio_relaxation_length"].as<double>();
   }
 
   // Vertical
@@ -837,6 +840,19 @@ TireParameters::TireParameters(const std::string& config_name) {
   // Configurations
   if (config["configurations"]["Amu"]) {
     Amu = config["configurations"]["Amu"].as<double>();
+  }
+
+  if (config["front_lateral_stiffness_scale"]) {
+    front_lateral_stiffness_scale = config["front_lateral_stiffness_scale"].as<double>();
+  }
+  if (config["rear_lateral_stiffness_scale"]) {
+    rear_lateral_stiffness_scale = config["rear_lateral_stiffness_scale"].as<double>();
+  }
+  if (config["front_lateral_peak_scale"]) {
+    front_lateral_peak_scale = config["front_lateral_peak_scale"].as<double>();
+  }
+  if (config["rear_lateral_peak_scale"]) {
+    rear_lateral_peak_scale = config["rear_lateral_peak_scale"].as<double>();
   }
 
   // Per-wheel data (fr, fl, rr, rl)

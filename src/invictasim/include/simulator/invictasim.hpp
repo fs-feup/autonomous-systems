@@ -5,19 +5,14 @@
 #include <memory>
 #include <mutex>
 
-#include "config/config.hpp"
-#include "io/output/output_snapshot.hpp"
-#include "track/track.hpp"
-#include "vehicle_model/map.hpp"
-#include "vehicle_model/vehicle_model.hpp"
-#include "sensors/simulated_perception.hpp"
-#include "sensors/imu.hpp"
-#include "sensors/wss.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 #include "io/output/output_snapshot.hpp"
 #include "statistics/statistics.hpp"
+#include "track/track.hpp"
+#include "vehicle_model/map.hpp"
+#include "vehicle_model/vehicle_model.hpp"
 
 /**
  * @brief Main simulator class
@@ -220,11 +215,8 @@ private:
   InvictaSimParameters params_;  ///< Simulator configuration values.
 
   // Simulation components
-  std::shared_ptr<VehicleModel> vehicle_model_;             ///< Vehicle model.
-  std::shared_ptr<Track> track_;                            ///< Track information.
-  std::shared_ptr<IMU> imu_model_;                          ///< IMU
-  std::shared_ptr<SimulatedPerception> perception_model_;   ///< Simulated Perception cones
-  std::shared_ptr<WSS> wss_model_;                          ///< Wheel Speed Sensor
+  std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
+  std::shared_ptr<Track> track_;                 ///< Track information.
   std::shared_ptr<Statistics> statistics_;       ///< Statistics calculator.
 
   // Simulation loop timing

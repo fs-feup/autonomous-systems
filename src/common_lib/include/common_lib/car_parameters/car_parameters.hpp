@@ -2,7 +2,9 @@
 
 #include "aero_parameters.hpp"
 #include "battery_parameters.hpp"
+#include "brake_parameters.hpp"
 #include "common_lib/config_load/config_load.hpp"
+#include "inverter_parameters.hpp"
 #include "common_lib/structures/physical_constants.hpp"
 #include "common_lib/structures/wheels.hpp"
 #include "load_transfer_parameters.hpp"
@@ -30,6 +32,8 @@ struct CarParameters {
   double unsprung_cg_z;
   double Izz;
   double ackerman_factor;
+  double front_wheel_inertia; 
+  double rear_wheel_inertia;
 
   std::shared_ptr<common_lib::car_parameters::TireParameters> tire_parameters;
   std::shared_ptr<common_lib::car_parameters::AeroParameters> aero_parameters;
@@ -39,6 +43,8 @@ struct CarParameters {
   std::shared_ptr<common_lib::car_parameters::MotorParameters> motor_parameters;
   std::shared_ptr<common_lib::car_parameters::BatteryParameters> battery_parameters;
   std::shared_ptr<common_lib::car_parameters::TransmissionParameters> transmission_parameters;
+  std::shared_ptr<common_lib::car_parameters::BrakeParameters> brake_parameters;
+  std::shared_ptr<common_lib::car_parameters::InverterParameters> inverter_parameters;
   std::shared_ptr<common_lib::structures::PhysicalConstants> physical_constants;
   std::shared_ptr<common_lib::structures::Wheels> wheels;
 
