@@ -9,13 +9,17 @@ visualization:
     curb_z: 0.018
     asphalt_z: 0.004
   position:
-    x: 0.0
-    y: 0.0
     z: -0.02
-  scale:
-    x: 600.0
-    y: 600.0
-    z: 1.0
+  # The ground plane is sized to the track: its extent is the cone bounding box
+  # grown by this margin on every side, and it is centred on the track. Only used
+  # when a track is loaded; otherwise fallback_size applies.
+  margin: 100.0
+  fallback_size: 400.0
+  # Physical size of one grass texture tile, in metres. The texture holds blades
+  # 10-60 px of 1024, so at 1.0 m a blade is 1-6 cm -- about right next to a car
+  # with a 1.53 m wheelbase. The plane's UVs are generated to match, so the grass
+  # stays the same real size whatever track is loaded.
+  grass_tile_size_m: 1.0
   color:
     r: 0.78
     g: 0.78

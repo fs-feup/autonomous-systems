@@ -1,4 +1,14 @@
 inverter:
-  acceleration_delay_ms: 100.0
-  coast_delay_ms: 0.0
-  regen_braking_delay_ms: 100.0
+  efficiency: 0.97
+  max_phase_current: 400
+
+  # Torque setpoint ramp times, for the full command range.
+  acceleration_ramp_ms: 100.0
+  regen_braking_ramp_ms: 100.0
+
+  regen_torque_fraction: 1.0
+
+  # Torque limit programmed into the inverter, by mission (Nm).
+  modes:
+    endurance: 220.0
+  selected_mode: "endurance"

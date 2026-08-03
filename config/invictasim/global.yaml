@@ -7,5 +7,6 @@ invictasim:
   sim_frequency: 1000  # Hz 
   sim_speed: 1.0  # Sim velocity multiplier (1.0 = real-time, 2.0 = 2x real-time, etc.)
   initial_go_signal: true  # Initial state of the go signal 
-  track_name: "FSG25"  # Also available: "Europarque", "FEUP"
-  rosbag_evaluator: false
+  track_name: "FEUP"  # Also available: "Europarque", "FEUP"
+  rosbag_evaluator: true
+

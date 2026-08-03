@@ -2,6 +2,16 @@ inverter:
   efficiency: 0.97
   max_phase_current: 400
 
-  acceleration_delay_ms: 500
-  coast_delay_ms: 500
-  regen_braking_delay_ms: 500
+  # Torque setpoint ramp times, for the full command range.
+  acceleration_ramp_ms: 500
+  regen_braking_ramp_ms: 500
+
+  # Regen torque ceiling as a fraction of the drive limit.
+  regen_torque_fraction: 0.887925
+
+  # Torque limit programmed into the inverter, by mission (Nm). The throttle
+  # command is a fraction of the selected one; the motor limits apply on top.
+  modes:
+    endurance: 149.84
+    acceleration: 219.6
+  selected_mode: "endurance"

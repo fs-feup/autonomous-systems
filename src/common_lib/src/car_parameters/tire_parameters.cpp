@@ -842,6 +842,19 @@ TireParameters::TireParameters(const std::string& config_name) {
     Amu = config["configurations"]["Amu"].as<double>();
   }
 
+  if (config["front_lateral_stiffness_scale"]) {
+    front_lateral_stiffness_scale = config["front_lateral_stiffness_scale"].as<double>();
+  }
+  if (config["rear_lateral_stiffness_scale"]) {
+    rear_lateral_stiffness_scale = config["rear_lateral_stiffness_scale"].as<double>();
+  }
+  if (config["front_lateral_peak_scale"]) {
+    front_lateral_peak_scale = config["front_lateral_peak_scale"].as<double>();
+  }
+  if (config["rear_lateral_peak_scale"]) {
+    rear_lateral_peak_scale = config["rear_lateral_peak_scale"].as<double>();
+  }
+
   // Per-wheel data (fr, fl, rr, rl)
   if (config["fr"]["toe"]) {
     fr_toe = config["fr"]["toe"].as<double>();

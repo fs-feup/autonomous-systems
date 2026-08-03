@@ -97,10 +97,12 @@ private:
    * @param yaw_rate Yaw rate
    * @param wheel_angular_speed Angular speed at the wheel
    * @param camber_angle Camber angle
+   * @param is_front True for the front axle, so the front/rear lateral balance
+   *                 scaling can be applied
    */
   void calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load, double vcx,
                             double vcy, double yaw_rate, double wheel_angular_speed,
-                            double camber_angle);
+                            double camber_angle, bool is_front);
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)

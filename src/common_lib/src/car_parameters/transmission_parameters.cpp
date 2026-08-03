@@ -11,7 +11,6 @@ TransmissionParameters::TransmissionParameters(const std::string& config_name) {
   gear_ratio = config["gear_ratio"].as<double>();
   efficiency = config["efficiency"].as<double>();
   kv = config["kv"].as<double>();
-  t_max = config["t_max"].as<double>();
   viscous_drag_coeff = config["viscous_drag_coeff"].as<double>();
   coulomb_drag = config["coulomb_drag"].as<double>();
   coulomb_smooth_stiffness =

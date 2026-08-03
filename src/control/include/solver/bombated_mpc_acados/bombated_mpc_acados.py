@@ -36,20 +36,13 @@ lr = 0.706
 lf = 1.53 - lr          # 0.824
 L = lr + lf
 
-# ...but it computes the CONTACT PATCH VELOCITIES - and therefore the slip
-# angles - from a completely different pair of distances: TireModel uses
-# tire_parameters.d_fleft / d_bleft (0.99 / 1.06 in 02_fitted_tire.yaml) as the
-# longitudinal wheel offsets, i.e. an effective 2.05 m wheelbase rather than the
-# chassis' 1.53 m. That inconsistency is inside the simulator, but the
-# controller has to mirror it to predict the same forces.
-#
-# It matters enormously at the rear, where the slip angle is the small
-# difference vy - r*lr: using 0.706 instead of 1.06 leaves the predicted rear
-# slip angle completely uncorrelated with the simulator's (measured r = 0.007
-# over a lap), which in turn made the predicted yaw acceleration meaningless.
-# With these values all four tyres correlate at 0.996-0.999 with slope 1.00.
-lf_slip = 0.99          # tire.d_fleft / d_fright
-lr_slip = 1.06          # tire.d_bleft / d_bright
+# The simulator computes the contact-patch velocities - and therefore the slip
+# angles - from tire_parameters.d_fleft / d_bleft.  Those used to hold 0.99 / 1.06,
+# an effective 2.05 m wheelbase against the chassis' 1.53 m, and this model had to
+# mirror the inconsistency to predict the same forces.  The tyre config now carries
+# the chassis geometry (0.824 / 0.706), so the slip distances are simply lf and lr.
+lf_slip = lf           # tire.d_fleft / d_fright
+lr_slip = lr           # tire.d_bleft / d_bright
 sf = 1.2                # car.track_width (front)
 sr = 1.2                # car.track_width (rear)
 s = sf / 2
@@ -65,9 +58,9 @@ wheel_radius = 0.20574  # tire.effective_tire_r
 # than the MPC's discretisation step, which wrecks the QP's conditioning. Since
 # the mode is quasi-static on the MPC's timescale either way, inflating the
 # inertia barely moves the predicted trajectory but makes the problem tractable.
-front_wheel_inertia = 2.0
-rear_wheel_inertia = 2.0
-front_bearing_drag = 0.025
+front_wheel_inertia = 0.324883
+rear_wheel_inertia = 0.879636
+front_bearing_drag = 0
 
 # --- Tyre -------------------------------------------------------------------
 # Simple Pacejka magic formula fitted to the forces the simulator's MF6.2 model
@@ -124,19 +117,22 @@ lateral_transfer_gain_rear = (
 # FSFEUP02 feeds the load transfer model with the BODY-FRAME velocity
 # derivatives (ds(VX), ds(VY)) passed through a first-order filter with unit
 # time constant, not with the inertial accelerations. Reproduce that exactly.
-acceleration_filter_tau = 1.0
+# Suspension roll/pitch response, matching FSFEUP02Model::kAccelerationFilterTau.
+# This was 1.0 s in both the simulator and here, which lagged the load transfer
+# a full second behind the car.
+acceleration_filter_tau = 0.10
 
 # --- Powertrain -------------------------------------------------------------
 gear_ratio = 3.67
-transmission_efficiency = 0.97
-max_motor_torque = 220.0        # motor.max_peak_torque
+transmission_efficiency = 0.900263
+max_motor_torque = 145        # motor.max_peak_torque
 max_motor_power = 124000.0      # motor.max_peak_power
-viscous_drag_coeff = 0.035
-coulomb_drag = 0.5
-coulomb_smooth_stiffness = 6.10895
-diff_kv = 40.0
-diff_preload = 18.0
-diff_drive_ramp = 1.665
+viscous_drag_coeff = 0.044375
+coulomb_drag = 0.0952027
+coulomb_smooth_stiffness = 5.78895
+diff_kv = 41.6054
+diff_preload = 0
+diff_drive_ramp = 1.42304
 
 # DelayedInverter applies a transport delay of |throttle| * 500 ms to the torque
 # request. A pure delay cannot be expressed in an ODE, so it is approximated by
@@ -146,7 +142,7 @@ inverter_tau = 0.2
 gravity_acceleration = 9.81
 
 # --- Steering ---------------------------------------------------------------
-steering_motor_tau = 0.112      # steering_motor.time_constant
+steering_motor_tau = 0.150      # steering_motor.time_constant (identified from bag)
 max_steering_angle = 0.335      # steering.maximum_steering_angle
 max_steering_rate = 5.0         # rad/s, rate limit on the commanded angle
 # Velocity floor: the model must never predict driving in reverse (see the
@@ -478,8 +474,12 @@ def export_mpc_model() -> AcadosModel:
         vx_dot,
         vy_dot,
         yaw_rate_dot,
-        (vx_dot - x[AX]) / acceleration_filter_tau,
-        (vy_dot - x[AY]) / acceleration_filter_tau,
+        # AX/AY feed the load transfer, so they must hold the specific force the
+        # chassis feels, not dv/dt.  Through a steady corner dvy/dt is ~0 while the
+        # car is pulling lateral g, so using dv/dt applied almost no lateral load
+        # transfer.  Mirrors the same correction in FSFEUP02Model.
+        (total_fx / mass - x[AX]) / acceleration_filter_tau,
+        (total_fy / mass - x[AY]) / acceleration_filter_tau,
         (x[STEER_CMD] - steering) / steering_motor_tau,
         alpha_fl / wheel_speed_scale,
         alpha_fr / wheel_speed_scale,

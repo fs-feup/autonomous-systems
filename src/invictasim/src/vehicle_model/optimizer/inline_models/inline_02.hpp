@@ -51,7 +51,7 @@ private:
     std::shared_ptr<SteeringMotorModel> steering_motor_;
     std::string control_mode_;
 
-    // Pre-computed constants to replace slow division with fast multiplication
+    // Reciprocals, precomputed because they are used on every derivative call.
     double inv_mass_;
     double inv_izz_;
     double inv_front_wheel_inertia_;
@@ -64,12 +64,22 @@ private:
     };
     using StateVec = Eigen::Matrix<double, 13, 1>;
 
-    inline double calculate_powertrain_torque(double throttle_input, double dt, SimState& state) {
+    // Must match FSFEUP02Model::kAccelerationFilterTau so tuned parameters transfer.
+    static constexpr double kAccelerationFilterTau = 0.10;  // s
+
+    double calculate_powertrain_torque(double throttle_input, double dt, SimState& state) {
         double motor_omega = transmission_->calculate_motor_omega(state.wheels_speed);
         double motor_rpm = std::abs(motor_omega * 60.0 / (2.0 * M_PI));
 
-        double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
-        double reference_motor_torque = throttle_input * max_motor_torque;
+        // Mirrors FSFEUP02Model: the command is a fraction of the inverter's
+        // programmed limit, clamped by what the motor can deliver.
+        double inverter_limit = car_parameters_->inverter_parameters->max_torque;
+        if (throttle_input < 0.0) {
+            inverter_limit *= car_parameters_->inverter_parameters->regen_torque_fraction;
+        }
+        const double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
+        double reference_motor_torque =
+            std::clamp(throttle_input * inverter_limit, -max_motor_torque, max_motor_torque);
 
         const double min_omega_for_power = 10.0; 
         double omega_sign_source = std::abs(motor_omega) > 1e-3 ? motor_omega : reference_motor_torque;
@@ -127,7 +137,39 @@ private:
     }
 
     // Passed ds by reference to avoid copy overhead. Used fixed size Matrix for tire_forces to avoid heap allocation.
-    inline void get_state_derivative(
+    // Resolves each tyre's contact-patch force into the chassis frame and sums the
+    // forces and the yaw moment. Split out of get_state_derivative so that reads
+    // as a sequence of named steps rather than one long block.
+    //
+    // Brake torque is deliberately absent: it acts on the wheel (see the
+    // wheel-speed derivative), and the chassis only feels it through the contact
+    // patch. Adding it here too would double-count it and make this tuning model
+    // brake harder than the live FSFEUP02Model it feeds.
+    void sum_chassis_forces(const Eigen::Matrix<double, 16, 1>& tire_forces,
+                            const Eigen::Vector4d& wheel_angles, double& total_fx,
+                            double& total_fy, double& total_torque) const {
+        const double lr = car_parameters_->cg_2_rear_axis;
+        const double lf = car_parameters_->wheelbase - lr;
+
+        for (Tire tire : {FL, FR, RL, RR}) {
+            const double fx_tire = tire_forces(tire * 4);
+            const double fy_tire = tire_forces(tire * 4 + 1);
+            const double mz_tire = tire_forces(tire * 4 + 3);
+            const double cos_delta = std::cos(wheel_angles(tire));
+            const double sin_delta = std::sin(wheel_angles(tire));
+
+            const double fx_vehicle = fx_tire * cos_delta - fy_tire * sin_delta;
+            const double fy_vehicle = fx_tire * sin_delta + fy_tire * cos_delta;
+            const double arm_x = (tire == FL || tire == FR) ? lf : -lr;
+            const double arm_y = (tire == FL || tire == RL) ? half_track_width_ : -half_track_width_;
+
+            total_fx += fx_vehicle;
+            total_fy += fy_vehicle;
+            total_torque += arm_x * fy_vehicle - arm_y * fx_vehicle + mz_tire;
+        }
+    }
+
+    void get_state_derivative(
         const StateVec& s, double motor_torque, const common_lib::structures::Wheels& brake_torques,
         double steering_target, double dt, SimState& state,
         Eigen::Vector4d& out_slip_ratio, Eigen::Vector4d& out_slip_angle, StateVec& ds) {
@@ -138,13 +180,17 @@ private:
         const Eigen::Vector4d torques(wheel_torques.front_left, wheel_torques.front_right, wheel_torques.rear_left, wheel_torques.rear_right);
 
         Eigen::Vector4d wheel_angles = steering_->calculate_steering_angles(s(ST_ANGLE));
+        // Static alignment; mirrors FSFEUP02Model (the toe config was inert before).
+        wheel_angles(FL) += car_parameters_->tire_parameters->fl_toe;
+        wheel_angles(FR) += car_parameters_->tire_parameters->fr_toe;
+        wheel_angles(RL) += car_parameters_->tire_parameters->rl_toe;
+        wheel_angles(RR) += car_parameters_->tire_parameters->rr_toe;
         const Eigen::Vector3d aero_forces = aero_->aero_forces(Eigen::Vector3d(s(VX), s(VY), s(YAW_RATE)));
         const common_lib::structures::Wheels load_distribution = load_transfer_->compute_loads(LoadTransferInput{s(AX), s(AY), aero_forces[2]}); 
         const Eigen::Vector4d vertical_loads(load_distribution.front_left, load_distribution.front_right, load_distribution.rear_left, load_distribution.rear_right);
 
-        // STACK ALLOCATION (Fast): Replaced dynamic VectorXd(16) with fixed-size array
+        // Fixed size: four tyres by (Fx, Fy, My, Mz).
         Eigen::Matrix<double, 16, 1> tire_forces;
-        Eigen::Vector4d contact_patch_longitudinal_velocity = Eigen::Vector4d::Zero();
         
         TireInput tire_input;
         tire_input.dt = dt;
@@ -162,44 +208,26 @@ private:
             tire_forces.segment<4>(tire * 4) = tire_model_->calculate_tire_forces(tire_input);
             out_slip_ratio(tire) = tire_input.slip_ratio;
             out_slip_angle(tire) = tire_input.slip_angle;
-            contact_patch_longitudinal_velocity(tire) = tire_input.vcx;
         }
 
-        double total_fx = aero_forces[0], total_fy = aero_forces[1], total_torque = 0.0;
-        const double lr = car_parameters_->cg_2_rear_axis;
-        const double lf = car_parameters_->wheelbase - lr;
-        const double wheel_radius = car_parameters_->tire_parameters->effective_tire_r;
         const Eigen::Vector4d brake_torques_by_tire(brake_torques.front_left, brake_torques.front_right, brake_torques.rear_left, brake_torques.rear_right);
 
-        for (Tire tire : {FL, FR, RL, RR}) {
-            double fx_tire = tire_forces(tire * 4);
-            const double fy_tire = tire_forces(tire * 4 + 1);
-            const double mz_tire = tire_forces(tire * 4 + 3);
-            const double cos_delta = std::cos(wheel_angles(tire));
-            const double sin_delta = std::sin(wheel_angles(tire));
-            const double brake_torque = brake_torques_by_tire(tire);
-            
-            if (brake_torque > 0.0) {
-                const double brake_sign = 2.0 / M_PI * std::atan(10.0 * contact_patch_longitudinal_velocity(tire));
-                fx_tire -= brake_torque * brake_sign / std::max(wheel_radius, 1e-6);
-            }
+        double total_fx = aero_forces[0];
+        double total_fy = aero_forces[1];
+        double total_torque = 0.0;
+        sum_chassis_forces(tire_forces, wheel_angles, total_fx, total_fy, total_torque);
 
-            const double fx_vehicle = fx_tire * cos_delta - fy_tire * sin_delta;
-            const double fy_vehicle = fx_tire * sin_delta + fy_tire * cos_delta;
-            const double arm_x = (tire == FL || tire == FR) ? lf : -lr;
-            const double arm_y = (tire == FL || tire == RL) ? half_track_width_ : -half_track_width_;
-
-            total_fx += fx_vehicle;
-            total_fy += fy_vehicle;
-            total_torque += arm_x * fy_vehicle - arm_y * fx_vehicle + mz_tire;
-        }
-
-        // Fast multiplication instead of division
         const double ax = total_fx * inv_mass_ + s(VY) * s(YAW_RATE);
         const double ay = total_fy * inv_mass_ - s(VX) * s(YAW_RATE);
-        
-        ds(VX) = ax; ds(VY) = ay; ds(AX) = ax - s(AX); ds(AY) = ay - s(AY);
-        ds(YAW_RATE) = total_torque * inv_izz_; ds(YAW) = s(YAW_RATE);
+
+        ds(VX) = ax;
+        ds(VY) = ay;
+        // Mirrors FSFEUP02Model: the load transfer model is driven by the specific
+        // force the chassis feels, not by dv/dt, which is ~0 in a steady corner.
+        ds(AX) = (total_fx * inv_mass_ - s(AX)) / kAccelerationFilterTau;
+        ds(AY) = (total_fy * inv_mass_ - s(AY)) / kAccelerationFilterTau;
+        ds(YAW_RATE) = total_torque * inv_izz_;
+        ds(YAW) = s(YAW_RATE);
         ds(PX) = s(VX) * std::cos(s(YAW)) - s(VY) * std::sin(s(YAW));
         ds(PY) = s(VX) * std::sin(s(YAW)) + s(VY) * std::cos(s(YAW));
         ds(ST_ANGLE) = steering_motor_->compute_steering_rate(s(ST_ANGLE), steering_target);
@@ -211,10 +239,11 @@ private:
             ds(RL_W) = -s(RL_W) * inv_dt_clamped;
             ds(RR_W) = -s(RR_W) * inv_dt_clamped;
         } else {
+            const double wheel_radius = car_parameters_->tire_parameters->effective_tire_r;
             for (Tire tire : {FL, FR, RL, RR}) {
                 const double wheel_omega = s(FL_W + tire);
                 double net_torque = torques(tire) - tire_forces(tire * 4) * wheel_radius - tire_forces(tire * 4 + 2);
-                
+
                 const double brake_sign = 2.0 / M_PI * std::atan(10.0 * wheel_omega);
                 const double brake_torque = brake_torques_by_tire(tire);
                 net_torque -= brake_torque * brake_sign;
@@ -226,7 +255,8 @@ private:
                 // Fast multiplication instead of division
                 const double inv_inertia = (tire == FL || tire == FR) ? inv_front_wheel_inertia_ : inv_rear_wheel_inertia_;
                 const double wheel_acceleration = net_torque * inv_inertia;
-                if (brake_torque > 0.0 && std::abs(wheel_omega) < 0.5 && wheel_acceleration * wheel_omega <= 0.0) {
+                // Same lock-up guard as FSFEUP02Model, so the two stay identical.
+                if (brake_torque > 0.0 && wheel_omega * (wheel_omega + wheel_acceleration * dt) <= 0.0) {
                     ds(FL_W + tire) = -wheel_omega / std::max(dt, 1e-6);
                 } else {
                     ds(FL_W + tire) = wheel_acceleration;

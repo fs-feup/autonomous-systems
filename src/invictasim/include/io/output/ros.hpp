@@ -5,6 +5,7 @@
 #include <array>
 #include <atomic>
 #include <cctype>
+#include <cstdint>
 #include <cmath>
 #include <functional>
 #include <map>
@@ -130,6 +131,11 @@ private:
   double track_surface_curb_block_length_ = 0.80;
   double track_surface_curb_z_ = 0.018;
   double track_surface_asphalt_z_ = 0.004;
+  double ground_margin_ = 100.0;
+  double ground_fallback_size_ = 400.0;
+  double ground_z_ = -0.02;
+  double grass_tile_size_m_ = 1.0;
+  mutable std::string grass_mesh_resource_;
 
   // Visualization marker templates
   visualization_msgs::msg::Marker cone_hitbox_marker_template_;
@@ -172,6 +178,15 @@ private:
 
   // Visualization publishers
   void publish_visualization_ground(const rclcpp::Time& stamp);
+  // Sizes and centres the ground plane on the loaded track, so it is not a huge
+  // sheet extending far past anything the car can reach.
+  void fit_ground_plane_to_track(visualization_msgs::msg::Marker& ground) const;
+  // The plane is sized to the track, but the texture must stay a fixed size in
+  // metres, so the UVs depend on the plane. Writes (once per size) a plane mesh
+  // whose UV range is the plane size divided by the tile size, and returns its
+  // package:// path. The size is in the filename so a changed plane never reuses
+  // a cached copy of the old mesh in the viewer.
+  std::string ensure_grass_plane_mesh(double size_x, double size_y) const;
   void publish_visualization_gt_cones(const rclcpp::Time& stamp);
   void publish_visualization_slam_cones(const rclcpp::Time& stamp);
   void publish_visualization_car(const rclcpp::Time& stamp);
@@ -234,7 +249,19 @@ private:
                                                              const rclcpp::Time& stamp) const;
   TrackRibbon build_track_ribbon(
       const std::vector<common_lib::structures::Cone>& side_cones,
-      const std::vector<common_lib::structures::Cone>& opposite_cones) const;
+      const std::vector<common_lib::structures::Cone>& opposite_cones, bool closed) const;
+
+  // How the cone lists describe the track, which differs per event.
+  enum class TrackLayout {
+    kClosedLoop,  // autocross / trackdrive: one boundary per colour, joined end to end
+    kOpenLanes,   // acceleration: one straight boundary per colour, never joined
+    kSkidpad,     // two circles, so each colour covers two disjoint arcs
+  };
+  TrackLayout track_layout() const;
+  // Splits a colour's cones wherever the spacing jumps, which is what separates
+  // the two skidpad circles; closed tracks and acceleration yield a single run.
+  std::vector<std::vector<common_lib::structures::Cone>> split_cone_runs(
+      const std::vector<common_lib::structures::Cone>& cones) const;
   void add_track_curb_ribbon(visualization_msgs::msg::Marker& curb_marker,
                              const TrackRibbon& ribbon, const std_msgs::msg::ColorRGBA& curb_red,
                              const std_msgs::msg::ColorRGBA& curb_white) const;

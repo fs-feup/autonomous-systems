@@ -1,11 +1,11 @@
 publish_frequencies:
   vehicle_model:
-    tire: 1000 # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
+    tire: 5 # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
     battery: 5       # Battery status (voltage, current, state of charge)
     motor: 5         # Motor status (RPM, torque, temperature)
     transmission: 5  # Transmission status (torque on each wheel)
     aero: 5          # Aerodynamic status (drag, downforce)
-    status: 100       # Overall vehicle status (speed, acceleration, position, yaw, etc.) -- MPC/control input on /invictasim/vehicle_model/status
+    status: 10       # Overall vehicle status (speed, acceleration, position, yaw, etc.) -- MPC/control input on /invictasim/vehicle_model/status
   visualization:     # Visualization 
     car: 60 # Car visualization 
     ground: 1 # Ground visualization 
@@ -14,7 +14,7 @@ publish_frequencies:
     perception_cones: 0 # Perception cones visualization (simulated or from perception)
   sensors:
     imu: 0             # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 200     # Simulated wheel speed sensors
+    wheel_speed: 0     # Simulated wheel speed sensors
     resolver: 0         # Simulated motor/resolver RPM
     steering: 0         # Simulated steering sensor
   map:
@@ -27,8 +27,8 @@ publish_frequencies:
     velocities: 50        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
   statistics:
-    lap_summary: 1            # End-of-lap summary: 0 disables, 1 enables
-    lap_current: 10        # Current lap number, lap time, and cones hit
+    lap_summary: 0            # End-of-lap summary: 0 disables, 1 enables
+    lap_current: 0        # Current lap number, lap time, and cones hit
     control_statistics: 10    # Velocity and path tracking errors
-    lap_counter: 10       # Lap counter (slam output) -- planning + control_evaluator subscribe to /invictasim/state_estimation/lap_counter
+    lap_counter: 5       # Lap counter (slam output) -- planning + control_evaluator subscribe to /invictasim/state_estimation/lap_counter
   execution_time: 0      # Time taken for each simulation step (ms)

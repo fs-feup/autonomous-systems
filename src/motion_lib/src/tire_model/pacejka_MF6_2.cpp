@@ -30,7 +30,8 @@ Eigen::Vector4d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
   // Calculate all the internal values needed for the calculations of forces and moments
   calculate_tire_state(tire_input.slip_angle, tire_input.slip_ratio, tire_input.vertical_load,
                        tire_input.vcx, tire_input.vcy, tire_input.yaw_rate,
-                       tire_input.wheel_angular_speed, tire_input.camber_angle);
+                       tire_input.wheel_angular_speed, tire_input.camber_angle,
+                       tire_input.tire == FL || tire_input.tire == FR);
 
   // Low speed fade for slip shifts
   double speed = std::hypot(tire_input.vcx, tire_input.vcy);
@@ -101,7 +102,14 @@ double PacejkaMF6_2::calculate_pure_slip(double B, double C, double D, double E,
 
 void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load,
                                         double vcx, double vcy, double yaw_rate,
-                                        double wheel_angular_speed, double camber_angle) {
+                                        double wheel_angular_speed, double camber_angle,
+                                        bool is_front) {
+  const double axle_stiffness_scale = is_front
+      ? car_parameters_->tire_parameters->front_lateral_stiffness_scale
+      : car_parameters_->tire_parameters->rear_lateral_stiffness_scale;
+  const double axle_peak_scale = is_front
+      ? car_parameters_->tire_parameters->front_lateral_peak_scale
+      : car_parameters_->tire_parameters->rear_lateral_peak_scale;
   // Load related calculations
   // (4.E1) -> Assuming we have a tire with a different nominal load we approxiamte using scaling
   // factor LFZO The result is the adpated nominal load
@@ -153,7 +161,8 @@ void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, do
                                                               internal_vals.gamma_star *
                                                               internal_vals.gamma_star) *
                 (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
-      internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;  // Ensure not dividing by zero
+      internal_vals.zeta3 * car_parameters_->tire_parameters->LKY *
+      axle_stiffness_scale;  // Ensure not dividing by zero
 
   internal_vals.Kya_prime =
       internal_vals.Kya + internal_vals.epsilon * std::copysign(1.0, internal_vals.Kya);
@@ -177,8 +186,8 @@ void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, do
        car_parameters_->tire_parameters->PPY4 * (internal_vals.dpi * internal_vals.dpi)) *
       (1 - car_parameters_->tire_parameters->PDY3 *
                (internal_vals.gamma_star * internal_vals.gamma_star)) *
-      car_parameters_->tire_parameters
-          ->LMUY;  // we can assume dpi is zero for now and ignore pressure variations
+      car_parameters_->tire_parameters->LMUY *
+      axle_peak_scale;  // we can assume dpi is zero for now and ignore pressure variations
 
   internal_vals.Kyg0 = vertical_load *
                        (car_parameters_->tire_parameters->PKY6 +
@@ -377,12 +386,13 @@ double PacejkaMF6_2::calculate_pure_moment(double Fy0, double normal_load, doubl
   // (4.91)
   double zeta5 = cos(atan(car_parameters_->tire_parameters->QDTP1 *
                           car_parameters_->tire_parameters->effective_tire_r * internal_vals.phi));
-  // (4.E42) -> expanded to account for pressure changes (dpi = 0 to ignore)
+  // (4.E42) -> expanded to account for pressure changes (dpi = 0 to ignore).
+  // PPZ1 is a pressure sensitivity, so it enters as (1 + PPZ1*dpi);
   double Dt0 = normal_load *
                (car_parameters_->tire_parameters->effective_tire_r / internal_vals.Fz0_prime) *
                (car_parameters_->tire_parameters->QDZ1 +
                 car_parameters_->tire_parameters->QDZ2 * internal_vals.dfz) *
-               (1 - car_parameters_->tire_parameters->PPZ1) *
+               (1 + car_parameters_->tire_parameters->PPZ1 * internal_vals.dpi) *
                car_parameters_->tire_parameters->LTR * std::copysign(1.0, longitudinal_velocity);
   // (4.E43)
   double Dt = Dt0 *
@@ -468,12 +478,13 @@ double PacejkaMF6_2::calculate_combined_moment(double Fx, double Fy, double slip
   // (4.91)
   double zeta5 = cos(atan(car_parameters_->tire_parameters->QDTP1 *
                           car_parameters_->tire_parameters->effective_tire_r * internal_vals.phi));
-  // (4.E42) -> expanded to account for pressure changes (dpi = 0 to ignore)
+  // (4.E42) -> expanded to account for pressure changes (dpi = 0 to ignore).
+  // PPZ1 is a pressure sensitivity, so it enters as (1 + PPZ1*dpi);
   double Dt0 = normal_load *
                (car_parameters_->tire_parameters->effective_tire_r / internal_vals.Fz0_prime) *
                (car_parameters_->tire_parameters->QDZ1 +
                 car_parameters_->tire_parameters->QDZ2 * internal_vals.dfz) *
-               (1 - car_parameters_->tire_parameters->PPZ1) *
+               (1 + car_parameters_->tire_parameters->PPZ1 * internal_vals.dpi) *
                car_parameters_->tire_parameters->LTR * internal_vals.longitudinal_direction;
   // (4.E43)
   double Dt = Dt0 *

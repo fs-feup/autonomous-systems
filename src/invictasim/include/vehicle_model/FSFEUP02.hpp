@@ -68,6 +68,11 @@ private:
   // State vector used for RK4 integration
   using StateVec = Eigen::Matrix<double, STATE_SIZE, 1>;
 
+  // AX/AY are filtered copies of the body accelerations, used to drive the load
+  // transfer model.  They must lag the true acceleration by the time the chassis
+  // needs to actually roll/pitch onto the springs, not by a second.
+  static constexpr double kAccelerationFilterTau = 0.10;  // s
+
   // Vehicle state struct is defined in the base class
   std::shared_ptr<TireModel> tire_model_;
   std::shared_ptr<MotorModel> motor_;

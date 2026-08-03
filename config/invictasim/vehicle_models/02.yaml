@@ -7,7 +7,7 @@ vehicle_model:
   aero_model_params: "02_aero"
 
   tire_model: "pacejka_MF6_2" # Options: "pacejka_combined_slip", "pacejka_MF6_2"
-  tire_model_params: "02_fitted_tire"
+  tire_model_params: "02_tire"
 
   motor_model: "map_based_motor"
   motor_model_params: "02_motor"
@@ -18,7 +18,7 @@ vehicle_model:
   transmission_model: "diff_salisbury"
   transmission_model_params: "02_transmission"
 
-  inverter_model: "delay"
+  inverter_model: "ramp"
   inverter_model_params: "02_inverter"
 
   brake_model: "default"

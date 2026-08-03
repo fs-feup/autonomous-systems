@@ -10,7 +10,6 @@ struct TransmissionParameters {
   double gear_ratio;                // Final drive ratio between motor and wheel speed
   double efficiency;                // Mechanical efficiency from motor shaft to wheels
   double kv;                        // Viscous coupling coefficient for LSD torque transfer
-  double t_max;                     // Maximum LSD torque transfer
   double viscous_drag_coeff;        // Shaft viscous drag coefficient [N.m / (rad/s)]
   double coulomb_drag;              // Shaft Coulomb drag [N.m]
   double coulomb_smooth_stiffness;  // Stiffness for atan smoothing in Coulomb drag

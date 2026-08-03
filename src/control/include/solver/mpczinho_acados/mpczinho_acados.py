@@ -19,7 +19,8 @@ gravity_acceleration = 9.81
 
 # First-order steering actuator, matching the simulator's FirstOrderSteeringMotor
 # with time_constant from config/car/steering_motor_model/02_steering_motor.yaml.
-steering_motor_tau = 0.112
+# Identified from FEUP Trackdrive 17 (steering_motor.time_constant).
+steering_motor_tau = 0.150
 
 max_steering_angle = 0.335  # config/car/steering_model/02_steering.yaml
 
