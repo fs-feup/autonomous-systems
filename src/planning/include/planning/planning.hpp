@@ -108,6 +108,7 @@ private:
   bool has_received_track_ = false;
   bool has_received_pose_ = false;
   bool is_path_final_ = false;
+  int full_map_warmup_ = 0;
   bool is_path_closed_ = false;
   bool last_is_path_closed_ = false;
   std::chrono::steady_clock::time_point brake_time_;
@@ -123,6 +124,7 @@ private:
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vehicle_localization_sub_;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_map_sub_;
   rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr lap_counter_sub_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr velocity_colored_path_pub_;
 
   /*--------------------- Publishers --------------------*/
   /**< Publisher of the smoothed path to control */
@@ -145,6 +147,8 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr smoothed_path_pub_;
   /**< Publisher for velocity hover markers */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr velocity_hover_pub_;
+  //TODO: DOCS
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr sections_debug_pub_;
 
   /*--------------------- Service Clients --------------------*/
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_;
@@ -245,6 +249,8 @@ private:
    * @param start_time ROS time when planning algorithms began execution
    */
   void publish_execution_time(rclcpp::Time start_time);
+  //TODO: DOCS
+  void publish_sections_debug() const;
 
   /*--------------------- Abstract Methods --------------------*/
   /**

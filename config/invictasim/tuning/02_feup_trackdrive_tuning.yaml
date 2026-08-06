@@ -1,0 +1,203 @@
+tuning:
+  # Base car configuration file for simulator baseline
+  base_car_config: "config/car/02.yaml" 
+  
+  # Inline model string
+  vehicle_model: "inline_02"
+
+  csvs:
+    - path: "europarque.csv"
+      weight: 1.0
+
+  score:
+    max_distance_error: 1.5 # Maximum allowed distance error in meters before a mutation is killed immediately
+    max_velocity_error: 2.0 # Maximum allowed velocity error in m/s before a mutation is killed
+    # Re-anchor the sim to the measured state every N seconds during scoring.
+    # This makes fitness reward whole-trajectory fidelity (every corner) instead
+    # of only the easy opening, which prevents the optimizer from selecting a
+    # directionally-unstable car that survives the first straight and then spins.
+    # Set 0 to score classic continuous time-to-first-failure (used for final
+    # continuous-survival validation).
+    reanchor_period: 0.0
+
+  optimizer:
+    algorithm: "simulated_annealing" # Options: "genetic_algorithm", "simulated_annealing"
+    
+    # Genetic Algorithm Settings
+    generations: 1000000
+    population_size: 1000
+    elite_count: 20
+    immigrant_count: 100
+    mutation_rate: 0.25
+    mutation_scale: 0.20
+    blend_alpha: 0.40
+    tournament_size: 4
+    seed: 67
+
+    # Simulated Annealing Settings
+    # Score magnitude is ~survival_seconds * 1e6, so the temperature must be on
+    # the order of the score deltas a single subset-mutation produces (~1e5-1e6)
+    # for the Metropolis acceptance to explore rather than pure hill-climb.
+    iterations: 100000000
+    initial_temp: 1500000.0
+    cooling_rate: 0.99997
+    mutation_scale: 0.12
+
+  parameters:
+    # =============================================
+    # VEHICLE WHEEL INERTIA (Front vs Rear)
+    # =============================================
+    - name: "car.front_wheel_inertia"
+      min: 0.08
+      max: 0.12
+
+    - name: "car.rear_wheel_inertia"
+      min: 0.18
+      max: 0.22
+
+    # =============================================
+    # TIRE MODEL PARAMETERS
+    # =============================================
+    - name: "tire.effective_tire_r"
+      min: 0.23
+      max: 0.25
+
+    - name: "tire.slip_ratio_relaxation_length"
+      min: 0.0
+      max: 0.02
+
+    # Tire Pacejka 6.2 Scaling Parameters
+    - name: "tire.longitudinal_peak_scale"
+      min: 1.15
+      max: 1.35
+
+    - name: "tire.longitudinal_stiffness_scale"
+      min: 0.55
+      max: 0.65
+
+    - name: "tire.lateral_shape_scale"
+      min: 1.10
+      max: 1.25
+
+    - name: "tire.lateral_peak_scale"
+      min: 1.05
+      max: 1.20
+
+    - name: "tire.lateral_curvature_scale"
+      min: 0.80
+      max: 0.95
+
+    - name: "tire.lateral_stiffness_scale"
+      min: 14.5
+      max: 17.5
+
+    - name: "tire.combined_slip_lateral_stiffness_scale"
+      min: 0.75
+      max: 0.90
+
+    # Tire Pacejka 6.2 Base Parameters
+    - name: "tire.longitudinal_peak_pdx1"
+      min: 0.75
+      max: 0.95
+
+    - name: "tire.longitudinal_stiffness_pkx1"
+      min: 55.0
+      max: 65.0
+
+    - name: "tire.longitudinal_curvature_pex1"
+      min: 0.55
+      max: 0.65
+
+    - name: "tire.lateral_peak_pdy1"
+      min: 1.70
+      max: 1.95
+
+    - name: "tire.lateral_stiffness_pky1"
+      min: -360.0
+      max: -300.0
+
+    - name: "tire.lateral_curvature_pey1"
+      min: 0.60
+      max: 0.75
+
+    # Advanced Pacejka 6.2 Shape & Load Sensitivity Parameters
+    # (Allowing these to shift gives the optimizer power to improve cornering
+    # under heavy weight transfer and braking)
+    - name: "tire.PCX1"
+      min: 1.4
+      max: 2.0
+
+    - name: "tire.PDX2"
+      min: -1.0
+      max: 0.0
+
+    - name: "tire.PKX2"
+      min: -40.0
+      max: 0.0
+
+    - name: "tire.PEX2"
+      min: -0.2
+      max: 0.2
+
+    - name: "tire.PCY1"
+      min: 1.2
+      max: 2.0
+
+    - name: "tire.PDY2"
+      min: -0.8
+      max: 0.0
+
+    - name: "tire.PKY2"
+      min: 0.0
+      max: 4.0
+
+    - name: "tire.PEY2"
+      min: -1.0
+      max: 0.5
+
+    - name: "tire.structural_longitudinal_stiffness"
+      min: 380000.0
+      max: 430000.0
+
+    - name: "tire.structural_lateral_stiffness"
+      min: 1600000.0
+      max: 1850000.0
+
+    - name: "tire.structural_yaw_stiffness"
+      min: 55000.0
+      max: 65000.0
+
+    # =============================================
+    # TRANSMISSION & DIFFERENTIAL
+    # =============================================
+    - name: "transmission.preload"
+      min: 24.0
+      max: 29.0
+
+    - name: "transmission.drive_ramp_effect"
+      min: 1.50
+      max: 1.80
+
+    - name: "transmission.coast_ramp_effect"
+      min: 0.02
+      max: 0.10
+
+    - name: "transmission.viscous_drag_coeff"
+      min: 0.0
+      max: 0.02
+
+    - name: "transmission.coulomb_drag"
+      min: 0.0
+      max: 0.5
+
+    - name: "transmission.coulomb_smooth_stiffness"
+      min: 5.0
+      max: 7.5
+
+    # =============================================
+    # CAR DRAG & CG GEOMETRY
+    # =============================================
+    - name: "car.front_bearing_drag"
+      min: 0.05
+      max: 0.10
+

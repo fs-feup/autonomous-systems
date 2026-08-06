@@ -92,7 +92,12 @@ void VehicleModelBicycle::setMaxTorques(Wheels in) { maxTorques = in; }
 void VehicleModelBicycle::setMinTorques(Wheels in) { minTorques = in; }
 
 void VehicleModelBicycle::setSteeringSetpointFront(double in) {
-  steeringModel.calculateSteeringAngles(in, steeringAngles);
+  // Store the setpoint only; the first-order actuator dynamics are applied in
+  // forwardIntegrate. Applying it instantly (as before) made the plant's steering
+  // infinitely fast, which mismatched the MPC's model (that assumes a ~0.1 s actuator
+  // lag from setpoint to wheel angle) and let the controller's setpoint oscillations
+  // pass straight through to the wheels — visible as steering chatter under braking.
+  steeringFrontSetpoint = in;
 }
 
 void VehicleModelBicycle::setSteeringSetpointRear(double in) {
@@ -485,7 +490,17 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
 }
 
 void VehicleModelBicycle::forwardIntegrate(double dt) {
-  
+  // First-order front steering actuator. The wheel angle follows the commanded setpoint
+  // with time constant steeringTau, which MUST match the MPC's steering_motor_tau (0.1 s):
+  // the MPC plans a steering setpoint trajectory assuming this exact lag smooths it into a
+  // gentle wheel motion, so the plant has to honor the lag or the MPC's (accurate-looking)
+  // predictions diverge from reality and the steering oscillates. Exponential update is
+  // exact for a zero-order-hold setpoint and unconditionally stable for any dt.
+  constexpr double steeringTau = 0.001;
+  const double steeringBlend = 1.0 - std::exp(-dt / steeringTau);
+  steeringFrontActual += steeringBlend * (steeringFrontSetpoint - steeringFrontActual);
+  steeringModel.calculateSteeringAngles(steeringFrontActual, steeringAngles);
+
   // Convert throttle to wheel torques (using PowertrainModel)
   Wheels throttleInputs = {throttleActuationFL, throttleActuationFR, throttleActuationRL, throttleActuationRR, 0.0};
   powertrainModel.calculateWheelTorques(throttleInputs, wheelspeeds, torques);
