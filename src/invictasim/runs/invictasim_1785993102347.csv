@@ -1,4 +1,0 @@
-lap_counter,lap_time,cones_hit,total_lap_time,best_lap_time,avg_velocity_kmh,max_velocity_kmh,avg_tracking_error_distance,max_tracking_error_distance,avg_velocity_error_kmh,max_velocity_error_kmh
-1,26.9358,6,38.9358,38.9358,44.1272,77.8825,0.191064,1.50285,2.39837,20.4622
-2,26.7333,0,26.7333,26.7333,44.5844,77.8774,0.0986644,1.04761,1.88037,4.26711
-3,26.8279,2,30.8279,26.7333,44.5086,77.9993,0.141053,1.50462,1.93882,6.41467
