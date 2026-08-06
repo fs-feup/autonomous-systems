@@ -297,8 +297,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
     cached_primal_.clear();
     cached_dual_.clear();
     cached_num_points_ = -1;
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-                "Final optimization with %d points.", total_points);
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Final optimization with %d points.", total_points);
   }
 
   return osqp_optimization_implementation(center_path, left_boundary, right_boundary,
@@ -325,7 +324,6 @@ void PathSmoothing::build_warm_start(int total_variables, int num_path_points,
   }
 
   (void)::osqp_warm_start(solver_, warm_x.data(), warm_y.data());
-
 }
 
 std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
@@ -435,7 +433,7 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
 
     (void)::osqp_update_data_vec(solver_, linear_objective.data(), constraint_lower_bounds.data(),
                                  constraint_upper_bounds.data());
-  }else{
+  } else {
     if (solver_ != nullptr) {
       (void)::osqp_cleanup(solver_);
       solver_ = nullptr;

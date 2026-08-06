@@ -138,4 +138,82 @@ visualization_msgs::msg::MarkerArray velocity_hover_markers(
   return marker_array;
 }
 
+static std_msgs::msg::ColorRGBA velocity_to_color(double velocity) {
+  std_msgs::msg::ColorRGBA color;
+  color.a = 1.0f;
+
+  constexpr double MIN_VEL = 5.0;
+  constexpr double MAX_VEL = 25.0;
+
+  double t = std::clamp((velocity - MIN_VEL) / (MAX_VEL - MIN_VEL), 0.0, 1.0);
+
+  if (t < 0.5) {
+    // Red -> Yellow
+    double s = t / 0.5;
+
+    color.r = 1.0f;
+    color.g = static_cast<float>(s);
+    color.b = 0.0f;
+
+  } else {
+    // Yellow -> Green
+    double s = (t - 0.5) / 0.5;
+
+    color.r = static_cast<float>(1.0 - s);
+    color.g = 1.0f;
+    color.b = 0.0f;
+  }
+
+  return color;
+}
+
+visualization_msgs::msg::Marker velocity_colored_path_marker(
+    const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
+    const std::string& frame_id, float scale) {
+  visualization_msgs::msg::Marker marker;
+  marker.header.frame_id = frame_id;
+  marker.header.stamp = rclcpp::Clock().now();
+  marker.ns = name_space;
+  marker.id = 0;
+  marker.type = visualization_msgs::msg::Marker::LINE_LIST;
+  marker.action = visualization_msgs::msg::Marker::ADD;
+  marker.pose.orientation.w = 1.0;
+  marker.scale.x = scale;  // line width
+
+  if (path_array.size() < 2) return marker;
+
+  // Compute velocity range
+  double min_vel = path_array[0].ideal_velocity;
+  double max_vel = path_array[0].ideal_velocity;
+  for (const auto& pt : path_array) {
+    min_vel = std::min(min_vel, pt.ideal_velocity);
+    max_vel = std::max(max_vel, pt.ideal_velocity);
+  }
+
+  // LINE_LIST: pairs of points (p0,p1), (p1,p2), ...
+  // Each point in a pair gets the same color (average of both endpoint velocities)
+  for (size_t i = 0; i + 1 < path_array.size(); ++i) {
+    const auto& p0 = path_array[i];
+    const auto& p1 = path_array[i + 1];
+
+    geometry_msgs::msg::Point gp0, gp1;
+    gp0.x = p0.position.x;
+    gp0.y = p0.position.y;
+    gp0.z = 0.0;
+    gp1.x = p1.position.x;
+    gp1.y = p1.position.y;
+    gp1.z = 0.0;
+
+    marker.points.push_back(gp0);
+    marker.points.push_back(gp1);
+
+    double seg_vel = (p0.ideal_velocity + p1.ideal_velocity) / 2.0;
+    auto color = velocity_to_color(seg_vel);
+    marker.colors.push_back(color);  // one color per point in LINE_LIST
+    marker.colors.push_back(color);
+  }
+
+  return marker;
+}
+
 }  // namespace common_lib::communication

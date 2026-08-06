@@ -35,6 +35,11 @@ struct VelocityPlanningConfig {
   bool use_velocity_planning_;
 
   /**
+   * @brief Flag to enable/disable adaptive velocity planning.
+   */
+  bool use_adaptive_velocity_;
+
+  /**
    * @brief Default constructor.
    */
   VelocityPlanningConfig()
@@ -43,18 +48,21 @@ struct VelocityPlanningConfig {
         braking_acceleration_(-4.0),
         lateral_acceleration_(7.0),
         longitudinal_acceleration_(7.0),
-        use_velocity_planning_(true) {}
+        use_velocity_planning_(true),
+        use_adaptive_velocity_(true) {}
 
   /**
    * @brief Parameterized constructor.
    */
   VelocityPlanningConfig(double minimum_velocity, double desired_velocity,
                          double braking_acceleration, double lateral_acceleration,
-                         double longitudinal_acceleration, bool use_velocity_planning)
+                         double longitudinal_acceleration, bool use_velocity_planning,
+                         bool use_adaptive_velocity)
       : minimum_velocity_(minimum_velocity),
         desired_velocity_(desired_velocity),
         braking_acceleration_(braking_acceleration),
         lateral_acceleration_(lateral_acceleration),
         longitudinal_acceleration_(longitudinal_acceleration),
-        use_velocity_planning_(use_velocity_planning) {}
+        use_velocity_planning_(use_velocity_planning),
+        use_adaptive_velocity_(use_adaptive_velocity) {}
 };
