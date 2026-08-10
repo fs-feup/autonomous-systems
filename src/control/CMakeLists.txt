@@ -39,17 +39,26 @@ set(ACADOS_BOMBATED_MPC_NAME "bombated_mpc" CACHE STRING "Name of the generated 
 set(ACADOS_BOMBATED_MPC_GEN_DIR
   ${CMAKE_BINARY_DIR}/control/${ACADOS_BOMBATED_MPC_NAME}/acados/c_generated_code
 )
+set(ACADOS_BOMBATED_MPC_SOLVER_LIB
+  ${ACADOS_BOMBATED_MPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_BOMBATED_MPC_NAME}.so
+)
 
 # SuperMPC
 set(ACADOS_SUPERMPC_NAME "supermpc" CACHE STRING "Name of the generated acados MPC")
 set(ACADOS_SUPERMPC_GEN_DIR
   ${CMAKE_BINARY_DIR}/control/${ACADOS_SUPERMPC_NAME}/acados/c_generated_code
 )
+set(ACADOS_SUPERMPC_SOLVER_LIB
+  ${ACADOS_SUPERMPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_SUPERMPC_NAME}.so
+)
 
 # Bombated MPCzinho
 set(ACADOS_MPCZINHO_NAME "mpczinho" CACHE STRING "Name of the generated acados MPC")
 set(ACADOS_MPCZINHO_GEN_DIR
   ${CMAKE_BINARY_DIR}/control/${ACADOS_MPCZINHO_NAME}/acados/c_generated_code
+)
+set(ACADOS_MPCZINHO_SOLVER_LIB
+  ${ACADOS_MPCZINHO_GEN_DIR}/libacados_ocp_solver_${ACADOS_MPCZINHO_NAME}.so
 )
 
 # ------------------------------------------------------------------------------
@@ -61,7 +70,7 @@ set(BOMBATED_MPC_STAMP ${CMAKE_BINARY_DIR}/control/stamps/bombated_mpc_acados.st
 message(STATUS "Will generate acados into build tree: ${ACADOS_BOMBATED_MPC_GEN_DIR}")
 
 add_custom_command(
-  OUTPUT ${BOMBATED_MPC_STAMP}
+  OUTPUT ${BOMBATED_MPC_STAMP} ${ACADOS_BOMBATED_MPC_SOLVER_LIB}
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_BOMBATED_MPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_BOMBATED_MPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E env
@@ -90,7 +99,7 @@ set(MPCZINHO_STAMP ${CMAKE_BINARY_DIR}/control/stamps/mpczinho_acados.stamp)
 message(STATUS "Will generate acados into build tree: ${ACADOS_MPCZINHO_GEN_DIR}")
 
 add_custom_command(
-  OUTPUT ${MPCZINHO_STAMP}
+  OUTPUT ${MPCZINHO_STAMP} ${ACADOS_MPCZINHO_SOLVER_LIB}
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_MPCZINHO_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_MPCZINHO_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E env
@@ -118,7 +127,7 @@ set(SUPERMPC_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/supermpc_a
 set(SUPERMPC_STAMP ${CMAKE_BINARY_DIR}/control/stamps/supermpc_acados.stamp)
 
 add_custom_command(
-  OUTPUT ${SUPERMPC_STAMP}
+  OUTPUT ${SUPERMPC_STAMP} ${ACADOS_SUPERMPC_SOLVER_LIB}
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_SUPERMPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_SUPERMPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E env

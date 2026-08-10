@@ -28,16 +28,16 @@ planning:
   smoothing_use_path_smoothing: false
   smoothing_use_optimization: true
   smoothing_car_width: 1.2
-  smoothing_safety_margin: 0.8
+  smoothing_safety_margin: 0.6
   smoothing_curvature_weight: 1.0
-  smoothing_safety_weight: 1000.0
+  smoothing_safety_weight: 2000.0
   smoothing_proximity_weight: 0.001
   smoothing_max_iterations: 4000
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 3.0
   vp_braking_acceleration: -5.0
-  vp_lateral_acceleration: 12.0
+  vp_lateral_acceleration: 14.0
   vp_longitudinal_acceleration: 6.0
   vp_use_velocity_planning: true
   vp_desired_velocity: 23.0

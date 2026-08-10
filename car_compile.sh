@@ -8,8 +8,10 @@
 # echo "Sourcing workspace..."
 # source install/setup.bash
 # echo "Building selected packages with -j2 parallelism..."
+# Unix Makefiles, not Ninja: Ninja ignores MAKEFLAGS and runs one job per core.
 CMAKE_BUILD_PARALLEL_LEVEL=2 MAKEFLAGS=-j2 colcon build \
-  --parallel-workers 2 \
+  --parallel-workers 1 \
+  --executor sequential \
   --event-handlers console_direct+ \
   --packages-up-to perception slam velocity_estimation planning control launcher inspection supervisor hesai_ros_driver ros_can \
-  --cmake-args -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON
+  --cmake-args -DCMAKE_BUILD_TYPE=Release
