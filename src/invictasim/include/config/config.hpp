@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <string>
 
 #include "common_lib/car_parameters/car_parameters.hpp"
 #include "common_lib/config_load/config_load.hpp"
@@ -18,11 +19,14 @@ struct InvictaSimParameters {
   int sim_frequency;
   double sim_speed;
   bool initial_go_signal;
+  std::string control_mode;
   std::string track_name;
   std::string input_adapter;
   std::string output_adapter;
+  bool rosbag_evaluator_enabled;
 
   std::string vehicle_model;
+  std::string car_parameters_config;
   std::string tire_model;
   std::string aero_model;
   std::string steering_model;
@@ -31,6 +35,8 @@ struct InvictaSimParameters {
   std::string motor_model;
   std::string battery_model;
   std::string transmission_model;
+  std::string inverter_model;
+  std::string brake_model;
 
   std::shared_ptr<common_lib::car_parameters::CarParameters> car_parameters;
 

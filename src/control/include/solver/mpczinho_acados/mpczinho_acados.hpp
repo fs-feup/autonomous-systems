@@ -25,6 +25,7 @@ private:
     void update_mpc_stats();
     void initialize_solver_memory();
     void print_debug_info();
+    void apply_cost_weights();
     void publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
     void publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map);
 

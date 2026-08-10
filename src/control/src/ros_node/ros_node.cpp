@@ -51,6 +51,7 @@ void ControlNode::path_callback(const custom_interfaces::msg::PathPointArray& pa
   this->controller_->path_callback(path_msg);
 }
 
+
 void ControlNode::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& vel_msg) {
   this->controller_->vehicle_state_callback(vel_msg);
 }

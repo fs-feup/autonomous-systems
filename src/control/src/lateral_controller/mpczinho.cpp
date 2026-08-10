@@ -41,10 +41,10 @@ void MPCzinho::path_callback(const custom_interfaces::msg::PathPointArray& new_m
 void MPCzinho::set_path_in_solver() {
   custom_interfaces::msg::PathPointArray resampled_path;
 
-  local_path_resampled_with_spline(this->latest_path_, this->solver_state_, this->local_pather_, this->params_->mpc_prediction_horizon_steps_, this->params_->mpc_prediction_horizon_seconds_, resampled_path);
+  local_path_resampled_with_spline(this->latest_path_, this->solver_state_, this->local_pather_, this->params_->lateral_mpc_prediction_horizon_steps_, this->params_->lateral_mpc_prediction_horizon_seconds_, resampled_path);
 
-  if (resampled_path.pathpoint_array.size() != this->params_->mpc_prediction_horizon_steps_ + 1) {
-    RCLCPP_ERROR(rclcpp::get_logger("mpczinho"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %u. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), this->params_->mpc_prediction_horizon_steps_ + 1);
+  if (resampled_path.pathpoint_array.size() != this->params_->lateral_mpc_prediction_horizon_steps_ + 1) {
+    RCLCPP_ERROR(rclcpp::get_logger("mpczinho"), "Resampled path has less points than the MPC horizon. Resampled points: %zu, required: %u. This can lead to unexpected behavior.", resampled_path.pathpoint_array.size(), this->params_->lateral_mpc_prediction_horizon_steps_ + 1);
     return;
   }
 

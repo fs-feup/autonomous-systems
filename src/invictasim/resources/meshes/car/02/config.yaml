@@ -1,0 +1,26 @@
+positions:
+  steering_offset_x: 0.48
+  steering_offset_y: 0.03
+  steering_offset_z: 0.57
+  steering_rotation_x: 0.0
+  steering_rotation_y: 10.0
+  steering_rotation_z: 0.0
+  steering_rotation_multiplier: 5.0
+  wheels_offset_x: -0.10
+  wheels_offset_y: 0.0
+  wheels_offset_z: 0.0
+
+hitboxes:
+  visualize: false
+  boxes:
+    # Rectangles in the car frame, in meters. x is forward, y is left.
+    - name: chassis
+      center_x: -0.05
+      center_y: 0.0
+      length: 2.0
+      width: 1.45
+    - name: nose_cone
+      center_x: 1.35
+      center_y: 0.02
+      length: 0.85
+      width: 0.45

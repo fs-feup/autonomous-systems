@@ -12,10 +12,11 @@ struct MotorParameters {
   double max_continuous_current;  // Maximum continuous current (A)
   double max_continuous_power;    // Maximum continuous power (W)
   double max_peak_power;          // Maximum peak power (W)
-  double max_continous_torque;    // Maximum continuous torque (Nm)
+  double max_continuous_torque;   // Maximum continuous torque (Nm)
   double max_peak_torque;         // Maximum peak torque (Nm)
   double kt_constant;             // Torque constant (Nm/A)
   double peak_duration;           // Time allowed at peak power (s)
+  double fade_start;              // Fraction of max RPM at which to start fading torque to 0
 
   // Efficiency map (2D: RPM x Torque -> Efficiency)
   // Outer key = RPM, inner key = Torque, value = Efficiency

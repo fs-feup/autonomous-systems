@@ -25,8 +25,8 @@ MotorParameters::MotorParameters(const std::string& config_name) {
   if (config["max_peak_power"]) {
     max_peak_power = config["max_peak_power"].as<double>();
   }
-  if (config["max_continous_torque"]) {
-    max_continous_torque = config["max_continous_torque"].as<double>();
+  if (config["max_continuous_torque"]) {
+    max_continuous_torque = config["max_continuous_torque"].as<double>();
   }
   if (config["max_peak_torque"]) {
     max_peak_torque = config["max_peak_torque"].as<double>();
@@ -37,7 +37,9 @@ MotorParameters::MotorParameters(const std::string& config_name) {
   if (config["kt_constant"]) {
     kt_constant = config["kt_constant"].as<double>();
   }
-
+  if (config["fade_start"]) {
+    fade_start = config["fade_start"].as<double>();
+  }
   if (config["efficiency_map"]) {
     for (const auto& rpm_node : config["efficiency_map"]) {
       double rpm = rpm_node.first.as<double>();

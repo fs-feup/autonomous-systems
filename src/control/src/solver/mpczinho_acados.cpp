@@ -22,9 +22,48 @@ MPCzinhoAcadosSolver::MPCzinhoAcadosSolver(const ControlParameters& params) : So
   nlp_out_ = mpczinho_acados_get_nlp_out(this->capsule_);
 
   // 4. Initialize parameters per stage vector
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = this->control_params_->lateral_mpc_prediction_horizon_steps_;
   parameters_per_stage.resize((N+1)*4, 0.0); // Assuming 1 parameter
+
+  // 5. Override the generated cost weights with the configured ones
+  apply_cost_weights();
 }
+
+void MPCzinhoAcadosSolver::apply_cost_weights() {
+  // Push the configured cost weights into the solver at construction time so
+  // they can be tuned from YAML without regenerating the acados C code. The
+  // weights baked in by the generator remain the fallback when the config omits
+  // them (or gives the wrong number of entries).
+  const int N = nlp_dims_->N;
+  auto set_stage_weights = [this](const std::vector<double>& weights, int stage,
+                                  const char* label) {
+    if (weights.empty()) return false;
+    int dims_out[2] = {0, 0};
+    ocp_nlp_cost_dims_get_from_attr(nlp_config_, nlp_dims_, nlp_out_, stage, "W", dims_out);
+    const int ny = dims_out[0];
+    if (static_cast<int>(weights.size()) != ny) {
+      RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"),
+                   "%s has %zu entries but stage %d expects %d; keeping generated weights",
+                   label, weights.size(), stage, ny);
+      return false;
+    }
+    std::vector<double> W(static_cast<size_t>(ny) * ny, 0.0);
+    for (int i = 0; i < ny; ++i) W[i * ny + i] = weights[i];
+    ocp_nlp_cost_model_set(nlp_config_, nlp_dims_, nlp_in_, stage, "W", W.data());
+    return true;
+  };
+
+  bool ok = true;
+  for (int stage = 0; stage < N; ++stage) {
+    ok &= set_stage_weights(this->control_params_->lateral_mpc_cost_weights_, stage, "lateral_mpc_cost_weights");
+  }
+  ok &= set_stage_weights(this->control_params_->lateral_mpc_terminal_cost_weights_, N,
+                          "lateral_mpc_terminal_cost_weights");
+  if (ok && !this->control_params_->lateral_mpc_cost_weights_.empty()) {
+    RCLCPP_INFO(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Applied cost weights from config");
+  }
+}
+
 
 MPCzinhoAcadosSolver::~MPCzinhoAcadosSolver() {
   mpczinho_acados_free(this->capsule_);
@@ -48,9 +87,9 @@ void MPCzinhoAcadosSolver::set_state(const custom_interfaces::msg::VehicleStateV
 }
 
 void MPCzinhoAcadosSolver::initialize_solver_memory() {
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = this->control_params_->lateral_mpc_prediction_horizon_steps_;
   double u_zero[1] = {0.0}; // Baseline control guess
-  double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(N);
+  double time_step = this->control_params_->lateral_mpc_prediction_horizon_seconds_ / static_cast<double>(N);
 
   double wheel_radius = 0.203;
   double wheelbase = 1.50;
@@ -74,7 +113,7 @@ void MPCzinhoAcadosSolver::initialize_solver_memory() {
 }
 
 void MPCzinhoAcadosSolver::set_path_point_per_stage() {
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = this->control_params_->lateral_mpc_prediction_horizon_steps_;
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
     double path_point_x = this->parameters_per_stage[i*path_point_size];
@@ -126,8 +165,8 @@ void MPCzinhoAcadosSolver::update_mpc_stats() {
 }
 
 void MPCzinhoAcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
-  if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->mpc_prediction_horizon_steps_ + 1)) {
-    RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->mpc_prediction_horizon_steps_ + 1);
+  if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->lateral_mpc_prediction_horizon_steps_ + 1)) {
+    RCLCPP_ERROR(rclcpp::get_logger("MPCzinhoAcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->lateral_mpc_prediction_horizon_steps_ + 1);
     return;
   }
 
@@ -189,7 +228,7 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
   double total_delay_ms = total_solver_time_ms + 5.0;
   double total_delay_s = total_delay_ms / 1000.0;
 
-  double time_step = this->control_params_->mpc_prediction_horizon_seconds_ / static_cast<double>(this->control_params_->mpc_prediction_horizon_steps_);
+  double time_step = this->control_params_->lateral_mpc_prediction_horizon_seconds_ / static_cast<double>(this->control_params_->lateral_mpc_prediction_horizon_steps_);
   unsigned int steps_ahead = static_cast<unsigned int>(std::floor(total_delay_s / time_step));
   if (steps_ahead >= full_solution.size() - 1) {
     RCLCPP_WARN(rclcpp::get_logger("AcadosSolver"), "Total delay of %.2f ms exceeds prediction horizon, using last available control", total_delay_ms);
@@ -282,7 +321,7 @@ void MPCzinhoAcadosSolver::publish_interpolated_path(std::shared_ptr<rclcpp::Nod
   }
 
   // Rebuild the interpolated trajectory received by the solver for visualization
-  int N = this->control_params_->mpc_prediction_horizon_steps_;
+  int N = this->control_params_->lateral_mpc_prediction_horizon_steps_;
   std::vector<common_lib::structures::PathPoint> interpolated_path;
   interpolated_path.reserve(N + 1);
   for (int i = 0; i <= N; ++i) {

@@ -53,6 +53,24 @@ double PurePursuit::get_steering_command() {
       if (!lookahead_error) {
         steering_command = pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
                                                    this->params_->car_parameters_.cg_2_rear_axis);
+      } else{  // Fix to prevent invalid lookahead point when the lookahead distance is too small or the path is too curvy
+        int count = 0;
+        while (lookahead_error)
+        {
+          count += 1;
+          if (count>=20) {break;}
+          ld += 0.5;
+          auto [lookahead_point1, lookahead_velocity1, lookahead_error1] =
+          ::get_lookahead_point(this->last_path_msg_, closest_point_id, ld, rear_axis,
+                                this->params_->first_last_max_dist_);
+            lookahead_point = lookahead_point1;
+            lookahead_velocity = lookahead_velocity1;
+            lookahead_error = lookahead_error1;
+        }
+        if (!lookahead_error) {
+          steering_command = pp_steering_control_law(rear_axis, vehicle_cog, lookahead_point,
+                                                   this->params_->car_parameters_.cg_2_rear_axis);
+        }
       }
     }
   }

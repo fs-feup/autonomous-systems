@@ -1,28 +1,34 @@
 publish_frequencies:
   vehicle_model:
-    tire: 0          # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
-    battery: 0       # Battery status (voltage, current, state of charge)
-    motor: 0         # Motor status (RPM, torque, temperature)
-    transmission: 0  # Transmission status (torque on each wheel)
-    aero: 0          # Aerodynamic status (drag, downforce)
-    status: 100      # Overall vehicle status (speed, acceleration, position, yaw, etc.)
-  visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
-    car: 30           # Car visualization 
-    ground: 1         # Ground visualization 
-    ground_truth_cones: 0   # Ground-truth cones visualization
-    slam_cones: 30          # SLAM cones visualization (simulated or from state estimation)
-    perception_cones: 30    # Perception cones visualization (simulated or from perception)
+    tire: 1000 # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
+    battery: 5       # Battery status (voltage, current, state of charge)
+    motor: 5         # Motor status (RPM, torque, temperature)
+    transmission: 5  # Transmission status (torque on each wheel)
+    aero: 5          # Aerodynamic status (drag, downforce)
+    status: 100       # Overall vehicle status (speed, acceleration, position, yaw, etc.) -- MPC/control input on /invictasim/vehicle_model/status
+  visualization:     # Visualization 
+    car: 60 # Car visualization 
+    ground: 1 # Ground visualization 
+    ground_truth_cones: 0 # Ground-truth cones visualization
+    slam_cones: 10 # SLAM cones visualization (simulated or from state estimation)
+    perception_cones: 0 # Perception cones visualization (simulated or from perception)
   sensors:
-    imu: 200             # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 50      # Simulated wheel speed sensors
-    resolver: 5         # Simulated motor/resolver RPM
-    steering: 10         # Simulated steering sensor
+    imu: 0             # Simulated IMU (free_acceleration, angular_velocity)
+    wheel_speed: 200     # Simulated wheel speed sensors
+    resolver: 0         # Simulated motor/resolver RPM
+    steering: 0         # Simulated steering sensor
   map:
-    perception: 10      # Simulated perception output
+    perception: 0      # Simulated perception output
     ground_truth: 0       # Ground-truth track map
-    simulated_slam: 30        # Simulated SLAM map 
+    simulated_slam: 10        # Simulated SLAM map 
   vehicle_state:
-    pose: 10              # Simulated vehicle pose (slam output)
-    velocities: 10        # Simulated velocities (velocity estimation output)
+    pose: 50              # Simulated vehicle pose (slam output)
+    state_vector: 50      # Simulated vehicle state vector (MPC input)
+    velocities: 50        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
+  statistics:
+    lap_summary: 1            # End-of-lap summary: 0 disables, 1 enables
+    lap_current: 10        # Current lap number, lap time, and cones hit
+    control_statistics: 10    # Velocity and path tracking errors
+    lap_counter: 10       # Lap counter (slam output) -- planning + control_evaluator subscribe to /invictasim/state_estimation/lap_counter
   execution_time: 0      # Time taken for each simulation step (ms)

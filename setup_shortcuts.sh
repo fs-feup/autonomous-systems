@@ -63,8 +63,9 @@ c() {
     cd "$ROS_WS" || return 1
 
     MAKEFLAGS=-j2 CMAKE_BUILD_PARALLEL_LEVEL=2 colcon build \
+        --parallel-workers 1 --executor sequential \
         --packages-up-to "$@" \
-        --cmake-args -G Ninja
+        --cmake-args -DCMAKE_BUILD_TYPE=Release
 
     local build_status=$?
 
@@ -93,8 +94,9 @@ cs() {
     cd "$ROS_WS" || return 1
 
     MAKEFLAGS=-j2 CMAKE_BUILD_PARALLEL_LEVEL=2 colcon build \
+        --parallel-workers 1 --executor sequential \
         --packages-select "$@" \
-        --cmake-args -G Ninja
+        --cmake-args -DCMAKE_BUILD_TYPE=Release
 
     local build_status=$?
 
