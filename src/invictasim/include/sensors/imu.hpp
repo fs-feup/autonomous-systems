@@ -41,11 +41,13 @@ public:
   double calculate_acceleration_scale_error(double acceleration_x, double acceleration_y);
 
 private:
+  // Accelerometer parameters
   double accelerometer_noise_std_dev_;  ///< Gaussian noise std dev (m/s²)
   double acceleration_scale_factor_;    ///< Scale error coefficient
   double accelerometer_bias_x_;         ///< Bias in X (m/s²)
   double accelerometer_bias_y_;         ///< Bias in Y (m/s²)
 
+  // Gyroscope parameters
   double gyroscope_noise_std_dev_;        ///< Gaussian noise std dev (rad/s)
   double angular_velocity_scale_factor_;  ///< Scale error coefficient
   double gyroscope_bias_;                 ///< Bias (rad/s)

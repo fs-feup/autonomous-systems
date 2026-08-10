@@ -1,15 +1,15 @@
 publish_frequencies:
   vehicle_model:
-    tire: 30         # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
-    battery: 30       # Battery status (voltage, current, state of charge)
-    motor: 30        # Motor status (RPM, torque, temperature)
-    transmission: 30  # Transmission status (torque on each wheel)
-    aero: 30          # Aerodynamic status (drag, downforce)
-    status: 30        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
-  visualization:     # Visualization will work at the minimum of this frequencies (excluding 0s)
+    tire: 0          # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
+    battery: 0       # Battery status (voltage, current, state of charge)
+    motor: 0         # Motor status (RPM, torque, temperature)
+    transmission: 0  # Transmission status (torque on each wheel)
+    aero: 0          # Aerodynamic status (drag, downforce)
+    status: 50        # Overall vehicle status (speed, acceleration, position, yaw, etc.)
+  visualization:     # Visualization 
     car: 30           # Car visualization 
     ground: 1         # Ground visualization 
-    ground_truth_cones: 30  # Ground-truth cones visualization
+    ground_truth_cones: 10   # Ground-truth cones visualization
     slam_cones: 30          # SLAM cones visualization (simulated or from state estimation)
     perception_cones: 30    # Perception cones visualization (simulated or from perception)
   sensors:
