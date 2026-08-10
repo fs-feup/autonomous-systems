@@ -7,10 +7,10 @@ car:
   total_mass: 177
   sprung_cg_y: 0.726
   sprung_cg_z: 0.245
-  unsprung_cg_y: 0.765
-  unsprung_cg_z: 0.206
+  unsprung_cg_y: 0.765 #não mexi
+  unsprung_cg_z: 0.206 #não mexi
   cg_height: 0.290
   cg_2_rear_axis: 0.6885
   gear_ratio: 12.5882
-  Izz: 101.082
-  front_bearing_drag: 0.25
+  Izz: 101.082 #não mexi
+  front_bearing_drag: 0.25 #não mexi

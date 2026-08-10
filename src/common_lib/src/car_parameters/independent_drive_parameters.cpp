@@ -12,8 +12,7 @@ IndependentDriveParameters::IndependentDriveParameters(const std::string& config
   efficiency = config["efficiency"].as<double>();
   viscous_drag_coeff = config["viscous_drag_coeff"].as<double>();
   coulomb_drag = config["coulomb_drag"].as<double>();
-  coulomb_smooth_stiffness =
-      config["coulomb_smooth_stiffness"] ? config["coulomb_smooth_stiffness"].as<double>() : 20.0;
+  coulomb_smooth_stiffness = config["coulomb_smooth_stiffness"] ? config["coulomb_smooth_stiffness"].as<double>() : 20.0;
 }
 
 }  // namespace common_lib::car_parameters
