@@ -53,6 +53,8 @@ set(IMPLEMENTATION_FILES
   src/car_parameters/load_transfer_parameters.cpp
   src/car_parameters/motor_parameters.cpp
   src/car_parameters/battery_parameters.cpp
+  src/car_parameters/brake_parameters.cpp
+  src/car_parameters/inverter_parameters.cpp
   src/car_parameters/transmission_parameters.cpp
   src/car_parameters/independent_drive_parameters.cpp
   src/car_parameters/steering_motor_parameters.cpp

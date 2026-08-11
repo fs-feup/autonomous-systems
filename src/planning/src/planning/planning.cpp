@@ -74,7 +74,6 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   /*--------------------- Velocity Planning Parameters --------------------*/
   params.vp_minimum_velocity_ = planning_config["vp_minimum_velocity"].as<double>();
   params.vp_braking_acceleration_ = planning_config["vp_braking_acceleration"].as<double>();
-  params.vp_acceleration_ = planning_config["vp_acceleration"].as<double>();
   params.vp_lateral_acceleration_ = planning_config["vp_lateral_acceleration"].as<double>();
   params.vp_longitudinal_acceleration_ =
       planning_config["vp_longitudinal_acceleration"].as<double>();
@@ -267,8 +266,24 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
 }
 
 void Planning::run_full_map() {
-  is_path_final_ = true;
+  // Let the pose and the ground-truth map settle before computing the global loop:
+  // computing on the very first callback races message arrival and can latch a path
+  // that took a wrong branch through the map.
+  if (++full_map_warmup_ < 3) {
+    return;
+  }
+
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
+
+  // Only latch the path as final once the loop was actually built; a failed attempt
+  // (e.g. computed before the pose/map settled) used to be latched forever and the
+  // car would drive the whole session on a garbage 3-point path.
+  if (full_path_.size() < 20) {
+    RCLCPP_WARN(get_logger(), "Full-map path calculation returned only %zu points, retrying",
+                full_path_.size());
+    return;
+  }
+  is_path_final_ = true;
 
   std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
   std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();

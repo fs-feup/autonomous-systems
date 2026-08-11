@@ -15,8 +15,14 @@ vehicle_model:
   battery_model: "thevenin"
   battery_model_params: "03_battery"
 
-  transmission_model: "single_stage"
-  transmission_model_params: "independent_drive"
+  transmission_model: "single_stage" # Options: "single_stage", "viscous_differential", "salisbury_differential"
+  transmission_model_params: "independent_drive" # Options: "02_transmission", "independent_drive"
+
+  inverter_model: "ramp"
+  inverter_model_params: "03_inverter"
+
+  brake_model: "default"
+  brake_model_params: "03_brake"
 
   load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
   load_transfer_model_params: "03_load_transfer"

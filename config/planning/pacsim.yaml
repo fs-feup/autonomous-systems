@@ -12,7 +12,7 @@ planning:
   pc_max_cost: 100.0
   pc_lookback_points: 4
   pc_search_depth: 4
-  pc_max_points: 200
+  pc_max_points: 1000
   pc_minimum_point_distance: 0.8
   pc_reset_interval: 10000
   pc_use_reset_path: false
@@ -36,9 +36,8 @@ planning:
   smoothing_tolerance: 1e-5 
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 2.0
-  vp_braking_acceleration: -2.5
-  vp_acceleration: 5.0
-  vp_lateral_acceleration: 2.5
+  vp_braking_acceleration: -2.0
+  vp_lateral_acceleration: 2.0
   vp_longitudinal_acceleration: 3.0
   vp_use_velocity_planning: true
   vp_desired_velocity: 15.0

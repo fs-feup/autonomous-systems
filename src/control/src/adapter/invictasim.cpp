@@ -8,17 +8,23 @@ InvictasimAdapter::InvictasimAdapter(const ControlParameters &params)
       control_pub_(
           create_publisher<custom_interfaces::msg::ControlCommand>("/control/command", 10)) {
   if (this->params_.using_simulated_slam_) {
-    pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+    this->pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "/invictasim/state_estimation/vehicle_pose", 1,
         std::bind(&InvictasimAdapter::pose_callback, this, std::placeholders::_1));
   }
 
   if (this->params_.using_simulated_velocities_) {
-    velocities_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+    this->velocities_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
         "/invictasim/state_estimation/velocities", 1,
         std::bind(&InvictasimAdapter::velocities_callback, this, std::placeholders::_1));
+
+    this->vehicle_status_sub_ =
+        this->create_subscription<custom_interfaces::msg::VehicleStateVector>(
+            "/invictasim/vehicle_model/status", 1,
+            std::bind(&InvictasimAdapter::vehicle_status_callback, this, std::placeholders::_1));
   }
   RCLCPP_INFO(this->get_logger(), "Invictasim adapter created");
+  this->go_signal_ = true;
 }
 
 void InvictasimAdapter::publish_command(common_lib::structures::ControlCommand cmd) {
@@ -34,22 +40,37 @@ void InvictasimAdapter::publish_command(common_lib::structures::ControlCommand c
 }
 
 void InvictasimAdapter::go_signal_callback(const custom_interfaces::msg::OperationalStatus msg) {
-  go_signal_ = msg.go_signal;
+  this->go_signal_ = msg.go_signal;
   if (!(msg.as_mission == common_lib::competition_logic::Mission::TRACKDRIVE) &&
       !(msg.as_mission == common_lib::competition_logic::Mission::AUTOCROSS) &&
       !(msg.as_mission == common_lib::competition_logic::Mission::SKIDPAD) &&
       !(msg.as_mission == common_lib::competition_logic::Mission::ACCELERATION) &&
       !(msg.as_mission == common_lib::competition_logic::Mission::EBS_TEST)) {
-    go_signal_ = false;
+    this->go_signal_ = false;
   }
 }
 
 void InvictasimAdapter::velocities_callback(const custom_interfaces::msg::Velocities &msg) {
-  custom_interfaces::msg::VehicleStateVector state_vector;
-  state_vector.velocity_x = msg.velocity_x;
-  state_vector.velocity_y = msg.velocity_y;
-  state_vector.yaw_rate = msg.angular_velocity;
-  this->vehicle_state_callback(state_vector);
+  this->current_state_.velocity_x = msg.velocity_x;
+  this->current_state_.velocity_y = msg.velocity_y;
+  this->current_state_.yaw_rate = msg.angular_velocity;
+  this->vehicle_state_callback(this->current_state_);
+}
+
+void InvictasimAdapter::vehicle_status_callback(
+    const custom_interfaces::msg::VehicleStateVector &msg) {
+  // Longitudinal and lateral acceleration in the car's frame
+  this->current_state_.acceleration_x = msg.acceleration_x;
+  this->current_state_.acceleration_y = msg.acceleration_y;
+  // Steering angle
+  this->current_state_.steering_angle = msg.steering_angle;
+  // Individual wheel speeds, converted from RPM to rad/s (the unit the MPC expects, see the
+  // pacsim adapter)
+  this->current_state_.fl_rpm = 2 * M_PI * msg.fl_rpm / 60.0;
+  this->current_state_.fr_rpm = 2 * M_PI * msg.fr_rpm / 60.0;
+  this->current_state_.rl_rpm = 2 * M_PI * msg.rl_rpm / 60.0;
+  this->current_state_.rr_rpm = 2 * M_PI * msg.rr_rpm / 60.0;
+  this->vehicle_state_callback(this->current_state_);
 }
 
 void InvictasimAdapter::pose_callback(const custom_interfaces::msg::Pose &msg) {

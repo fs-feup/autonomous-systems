@@ -34,6 +34,9 @@ set(IMPLEMENTATION_FILES
   src/tire_model/pacejka_MF6_2.cpp
   src/transmission_model/viscous_differential.cpp
   src/independent_drive_model/single_stage_drive.cpp
+  src/transmission_model/salisbury_differential.cpp
+  src/inverter_model/ramped_inverter.cpp
+  src/brake_model/default_brake.cpp
   src/battery_model/thevenin.cpp
   src/motor_model/map_based_motor.cpp
   src/steering_model/parallel_front_steering.cpp

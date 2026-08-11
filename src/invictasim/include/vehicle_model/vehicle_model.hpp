@@ -18,6 +18,7 @@ struct VehicleModelExecutionTimes {
   double steering_ms = 0.0;
   double load_transfer_ms = 0.0;
   double tire_ms = 0.0;
+  double integration_ms = 0.0;
 };
 
 /**
@@ -110,9 +111,7 @@ public:
     state_->x = x;
     state_->y = y;
   }
-  void set_ebs(bool active) {
-    state_->ebs_active = active;
-  }
+  void set_ebs(bool active) { state_->ebs_active = active; }
 
   // Getters
   double get_position_x() const { return state_->x; }

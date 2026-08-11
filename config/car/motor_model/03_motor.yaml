@@ -2,18 +2,19 @@ motor:
   max_peak_rpm: 20000
   max_continuous_rpm: 13250
 
-  max_continous_current: 22.6
+  max_continuous_current: 22.6
   max_peak_current: 66.0       
 
-  max_continous_power: 15400.0  
+  max_continuous_power: 15400.0  
   max_peak_power: 35000.0      
 
-  max_continous_torque: 24.6
+  max_continuous_torque: 24.6
   max_peak_torque: 31.6
 
   kt_constant: 0.492     # Nm / A  Used to convert current to torque (and vice versa) (slighly lower than datasheet as the motor is used with less voltage)
   peak_duration: 120.0   # Não mexi
-
+  fade_start: 0.95     # Fraction of max RPM at which to start fading torque to 0
+  
   efficiency_map:
     2000:
       2: 0.930

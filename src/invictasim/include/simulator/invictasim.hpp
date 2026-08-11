@@ -19,6 +19,9 @@
 #include "config/config.hpp"
 #include "io/output/output_snapshot.hpp"
 #include "statistics/statistics.hpp"
+#include "track/track.hpp"
+#include "vehicle_model/map.hpp"
+#include "vehicle_model/vehicle_model.hpp"
 
 /**
  * @brief Main simulator class

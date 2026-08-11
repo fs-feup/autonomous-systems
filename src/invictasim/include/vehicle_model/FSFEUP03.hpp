@@ -4,6 +4,8 @@
 
 #include "motion_lib/aero_model/map.hpp"
 #include "motion_lib/battery_model/map.hpp"
+#include "motion_lib/brake_model/map.hpp"
+#include "motion_lib/inverter_model/map.hpp"
 #include "motion_lib/load_transfer_model/map.hpp"
 #include "motion_lib/motor_model/map.hpp"
 #include "motion_lib/steering_model/map.hpp"
@@ -52,10 +54,14 @@ private:
   std::shared_ptr<IndependentDriveModel> drive_left_;
   std::shared_ptr<IndependentDriveModel> drive_right_;
   std::shared_ptr<BatteryModel> battery_;
+  std::shared_ptr<TransmissionModel> transmission_;
+  std::shared_ptr<InverterModel> inverter_;
+  std::shared_ptr<BrakeModel> brake_;
   std::shared_ptr<AeroModel> aero_;
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
+  std::string control_mode_;
 
   // Helper function to calculate the torque combining the motor model and the battery model
   std::pair<double, double> calculate_side_powertrain(
