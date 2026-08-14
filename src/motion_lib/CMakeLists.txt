@@ -32,7 +32,6 @@ set(IMPLEMENTATION_FILES
   src/tire_model/base_tire_model.cpp
   src/tire_model/pacejka_combined_slip.cpp
   src/tire_model/pacejka_MF6_2.cpp
-  src/transmission_model/viscous_differential.cpp
   src/independent_drive_model/single_stage_drive.cpp
   src/transmission_model/salisbury_differential.cpp
   src/inverter_model/ramped_inverter.cpp
