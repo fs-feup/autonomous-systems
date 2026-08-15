@@ -29,6 +29,7 @@ set(IMPLEMENTATION_FILES
   src/v2p_models/constant_acceleration_turnrate_model.cpp
   src/v2p_models/odometry_model.cpp
   src/aero_model/default_aero_model.cpp
+  src/aero_model/map_based_aero_model.cpp
   src/tire_model/base_tire_model.cpp
   src/tire_model/pacejka_combined_slip.cpp
   src/tire_model/pacejka_MF6_2.cpp
@@ -80,6 +81,7 @@ if(BUILD_TESTING)
     test/v2p_models/constant_velocity_turnrate_model_test.cpp
     test/v2p_models/constant_acceleration_turnrate_model_test.cpp
     test/vel_process_model/particle_model_test.cpp
+    test/aero_model/map_based_aero_model_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets

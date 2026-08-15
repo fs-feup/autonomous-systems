@@ -19,8 +19,6 @@ FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
   this->drive_right_ =
       independent_drive_models_map.at(simulator_parameters.transmission_model.c_str())(
           simulator_parameters.car_parameters);
-  this->transmission_ = transmission_models_map.at(simulator_parameters.transmission_model.c_str())(
-      simulator_parameters.car_parameters);
   this->inverter_ = inverter_models_map.at(simulator_parameters.inverter_model.c_str())(
       simulator_parameters.car_parameters);
   this->brake_ = brake_models_map.at(simulator_parameters.brake_model.c_str())(
@@ -42,9 +40,9 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
     // Motor + battery
   const auto powertrain_start = Clock::now();
   auto [torque_left, current_left]   = calculate_side_powertrain(
-    throttle.rear_left, state_->wheels_speed.rear_left, motor_left_, drive_left_);
+    throttle.rear_left, state_->wheels_speed.rear_left, motor_left_, drive_left_, true);
   auto [torque_right, current_right] = calculate_side_powertrain(
-    throttle.rear_right, state_->wheels_speed.rear_right, motor_right_, drive_right_);
+    throttle.rear_right, state_->wheels_speed.rear_right, motor_right_, drive_right_, false);
  
     double total_requested = current_left + current_right;
     double total_allowed = battery_->calculate_allowed_current(total_requested);
@@ -174,6 +172,13 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
   const auto tire_end = Clock::now();
 
   const auto integration_start = Clock::now();
+  // Calculate brake torques from brake input
+  common_lib::structures::Wheels brake_torques = {0.0, 0.0, 0.0, 0.0};
+  const double brake_input = -std::min(throttle.rear_left, throttle.rear_right);
+  if (brake_input > 0.0) {
+    brake_torques = brake_->calculate_brake_torques(brake_input);
+  }
+
   // Update wheel speeds
   if (state_->ebs_active) {
     state_->wheels_speed = {0.0, 0.0, 0.0, 0.0};
@@ -334,14 +339,23 @@ std::string FSFEUP03Model::get_model_name() const { return "FSFEUP03Model"; }
 std::pair<double, double> FSFEUP03Model::calculate_side_powertrain(
     double throttle_input, double wheel_speed,
     const std::shared_ptr<MotorModel>& motor,
-    const std::shared_ptr<IndependentDriveModel>& drive) {
-    double motor_omega = drive->calculate_motor_omega(wheel_speed);
-    double motor_rpm = std::abs(motor_omega * 60.0 / (2.0 * M_PI));
+    const std::shared_ptr<IndependentDriveModel>& drive,
+    bool left_side) {
+    const double motor_omega = drive->calculate_motor_omega(wheel_speed);
+    if (left_side) {
+      state_->motor_omega_left = motor_omega;
+    } else {
+      state_->motor_omega_right = motor_omega;
+    }
+    state_->motor_omega = 0.5 * (state_->motor_omega_left + state_->motor_omega_right);
 
-    double max_torque = motor->get_max_torque_at_rpm(motor_rpm);
-    double reference_torque = throttle_input * max_torque;
-    double efficiency = motor->get_efficiency(std::abs(reference_torque), motor_rpm);
-    double requested_current =
+    const double motor_rpm = std::abs(motor_omega * 60.0 / (2.0 * M_PI));
+
+    const double max_torque = motor->get_max_torque_at_rpm(motor_rpm);
+    const double reference_torque = throttle_input * max_torque;
+    const double efficiency = motor->get_efficiency(std::abs(reference_torque), motor_rpm);
+    const double requested_current =
       reference_torque / (car_parameters_->motor_parameters->kt_constant * efficiency);
 
   return {reference_torque, requested_current};
+}

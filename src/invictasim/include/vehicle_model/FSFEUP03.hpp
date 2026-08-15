@@ -54,7 +54,6 @@ private:
   std::shared_ptr<IndependentDriveModel> drive_left_;
   std::shared_ptr<IndependentDriveModel> drive_right_;
   std::shared_ptr<BatteryModel> battery_;
-  std::shared_ptr<TransmissionModel> transmission_;
   std::shared_ptr<InverterModel> inverter_;
   std::shared_ptr<BrakeModel> brake_;
   std::shared_ptr<AeroModel> aero_;
@@ -67,5 +66,6 @@ private:
   std::pair<double, double> calculate_side_powertrain(
     double throttle_input, double wheel_speed,
     const std::shared_ptr<MotorModel>& motor,
-    const std::shared_ptr<IndependentDriveModel>& drive);
+    const std::shared_ptr<IndependentDriveModel>& drive,
+    bool left_side);
 };

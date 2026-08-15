@@ -1,10 +1,12 @@
 #pragma once
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <string>
 
 #include "default_aero_model.hpp"
+#include "map_based_aero_model.hpp"
 
 /*
  * Map of aero models, with the key being the name of the aero model and the value being a lambda
@@ -18,4 +20,7 @@ const std::map<std::string,
         {"default_aero",
          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<AeroModel> { return std::make_shared<DefaultAeroModel>(*params); }},
+        {"map_based_aero",
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
+             -> std::shared_ptr<AeroModel> { return std::make_shared<MapBasedAeroModel>(*params); }},
 };

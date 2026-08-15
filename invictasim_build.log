@@ -1,0 +1,5 @@
+Starting >>> invictasim
+Failed   <<< invictasim [5.46s, exited with code 1]
+
+Summary: 0 packages finished [5.89s]
+  1 package failed: invictasim

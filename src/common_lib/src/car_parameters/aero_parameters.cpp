@@ -25,5 +25,29 @@ AeroParameters::AeroParameters(const std::string& config_name) {
   if (config["air_density"]) {
     air_density = config["air_density"].as<double>();
   }
+  if (config["ride_height_front"]) {
+    ride_height_front = config["ride_height_front"].as<double>();
+  }
+  if (config["ride_height_rear"]) {
+    ride_height_rear = config["ride_height_rear"].as<double>();
+  }
+  if (config["cd_map"]) {
+    for (const auto& rhf_node : config["cd_map"]) {
+      double rhf = rhf_node.first.as<double>();
+      for (const auto& rhr_node : rhf_node.second) {
+        double rhr = rhr_node.first.as<double>();
+        cd_map[rhf][rhr] = rhr_node.second.as<double>();
+      }
+    }
+  }
+  if (config["cl_map"]) {
+    for (const auto& rhf_node : config["cl_map"]) {
+      double rhf = rhf_node.first.as<double>();
+      for (const auto& rhr_node : rhf_node.second) {
+        double rhr = rhr_node.first.as<double>();
+        cl_map[rhf][rhr] = rhr_node.second.as<double>();
+      }
+    }
+  }
 }
 }  // namespace common_lib::car_parameters
