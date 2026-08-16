@@ -48,4 +48,15 @@ public:
    * @return Wheels a struct containing the loads on the four tires in Newtons
    */
   virtual common_lib::structures::Wheels compute_loads(const LoadTransferInput& input) const = 0;
+
+  /**
+   * @brief Returns the portion of longitudinal load transfer that is reacted through spring
+   * compression, as opposed to unsprung inertia or anti-squat/anti-dive suspension geometry.
+   * This is the term relevant for ride-height / heave estimates.
+   *
+   * @param longitudinal_acceleration Value of longitudinal acceleration
+   * @return double The spring-reacted (elastic) component of longitudinal load transfer
+   */
+  virtual double calculate_elastic_longitudinal_transfer(
+      double longitudinal_acceleration) const = 0;
 };

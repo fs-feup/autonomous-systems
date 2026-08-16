@@ -12,6 +12,8 @@ struct LoadTransferParameters {
   double rear_roll_center_z;
   double front_stiffness_distribution;
   double pitch_center_z;
+  double front_wheel_rate;
+  double rear_wheel_rate;
   LoadTransferParameters(const std::string& config_path);
 };
 }  // namespace common_lib::car_parameters

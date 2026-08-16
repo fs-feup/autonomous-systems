@@ -4,3 +4,6 @@ load_transfer:
   rear_roll_center_z: 0.05       # Rear roll center height [m]
   front_stiffness_distribution: 0.5  # Front fraction of total roll stiffness [0-1]
   pitch_center_z: 0.02           # Pitch center height [m]
+  front_wheel_rate: 20000.0      # N/m -- PLACEHOLDER, replace with real front spring+ARB wheel rate
+  rear_wheel_rate: 20000.0       # N/m -- PLACEHOLDER, replace with real rear spring+ARB wheel rate  front_wheel_rate: 0.0          # N/m
+  rear_wheel_rate: 0.0           # N/m

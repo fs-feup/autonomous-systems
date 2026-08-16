@@ -14,6 +14,8 @@ public:
    */
   common_lib::structures::Wheels compute_loads(const LoadTransferInput& input) const override;
 
+  double calculate_elastic_longitudinal_transfer(double longitudinal_acceleration) const override;
+
 private:
   /**
    * @brief Calculates the total difference in frontal load caused by lateral weight transfer using

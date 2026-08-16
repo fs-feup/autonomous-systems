@@ -34,6 +34,30 @@ FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
   this->control_mode_ = simulator_parameters.control_mode;
 }
 
+void FSFEUP03Model::update_ride_height() {
+  const double front_mass_distribution =
+      car_parameters_->cg_2_rear_axis / car_parameters_->wheelbase;
+  const double static_front_load = car_parameters_->total_mass *
+        car_parameters_->physical_constants->gravity * front_mass_distribution;
+  const double static_rear_load = car_parameters_->total_mass *
+        car_parameters_->physical_constants->gravity * (1.0 - front_mass_distribution);
+
+  const double front_load_now = state_->wheels_vertical_load.front_left +
+                                state_->wheels_vertical_load.front_right;
+  const double rear_load_now = state_->wheels_vertical_load.rear_left +
+                               state_->wheels_vertical_load.rear_right;
+
+  // First-order approximation: treats the entire axle load delta, including the unsprung-mass
+  // component, as spring deflection. We intentionally keep the larger simplification here while the
+  // model remains a one-step lagged ride-height estimate.
+  state_->ride_height_front = car_parameters_->aero_parameters->ride_height_front -
+      (front_load_now - static_front_load) /
+          (2.0 * car_parameters_->load_transfer_parameters->front_wheel_rate);
+  state_->ride_height_rear = car_parameters_->aero_parameters->ride_height_rear -
+      (rear_load_now - static_rear_load) /
+          (2.0 * car_parameters_->load_transfer_parameters->rear_wheel_rate);
+}
+
 void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
   using Clock = std::chrono::steady_clock;
 
@@ -83,7 +107,11 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
   // Aerodynamics
   // based on implementation, this forces are negative by default, so we add them
+  update_ride_height();
+  aero_->update_ride_height(state_->ride_height_front, state_->ride_height_rear);
   const auto aero_start = Clock::now();
+  update_ride_height();
+  aero_->update_ride_height(state_->ride_height_front, state_->ride_height_rear);
   const Eigen::Vector3d aero_forces =
       aero_->aero_forces(Eigen::Vector3d(state_->vx, state_->vy, state_->yaw_rate));
   state_->aero_drag = aero_forces[0];
@@ -325,9 +353,41 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
       std::chrono::duration<double, std::milli>(integration_end - integration_start).count();
 }
 
+void FSFEUP03Model::update_ride_height() {
+  const double aero_load_front =
+      std::abs(state_->aero_downforce) * car_parameters_->aero_parameters->aero_balance_front;
+  const double aero_load_rear =
+      std::abs(state_->aero_downforce) * (1.0 - car_parameters_->aero_parameters->aero_balance_front);
+
+  // Only the spring-reacted component -- excludes unsprung inertia and anti-squat/anti-dive geometry.
+  const double elastic_longitudinal_transfer =
+      load_transfer_->calculate_elastic_longitudinal_transfer(state_->ax);
+
+  // Lateral/roll transfer deliberately excluded -- cancels exactly in the axle average by symmetry.
+  state_->ride_height_front = car_parameters_->aero_parameters->ride_height_front -
+      (aero_load_front - elastic_longitudinal_transfer / 2.0) /
+          (2.0 * car_parameters_->load_transfer_parameters->front_wheel_rate);
+  state_->ride_height_rear = car_parameters_->aero_parameters->ride_height_rear -
+      (aero_load_rear + elastic_longitudinal_transfer / 2.0) /
+          (2.0 * car_parameters_->load_transfer_parameters->rear_wheel_rate);
+}
+
 void FSFEUP03Model::reset() {
   state_ = std::make_shared<VehicleState>();
   execution_times_ = std::make_shared<VehicleModelExecutionTimes>();
+
+  const double front_mass_distribution =
+      car_parameters_->cg_2_rear_axis / car_parameters_->wheelbase;
+  const double static_front_load = car_parameters_->total_mass *
+        car_parameters_->physical_constants->gravity * front_mass_distribution;
+  const double static_rear_load = car_parameters_->total_mass *
+        car_parameters_->physical_constants->gravity * (1.0 - front_mass_distribution);
+
+  state_->wheels_vertical_load = {static_front_load / 2.0, static_front_load / 2.0,
+                                 static_rear_load / 2.0, static_rear_load / 2.0};
+  state_->ride_height_front = car_parameters_->aero_parameters->ride_height_front;
+  state_->ride_height_rear = car_parameters_->aero_parameters->ride_height_rear;
+
   motor_left_->reset();
   motor_right_->reset();
   battery_->reset();

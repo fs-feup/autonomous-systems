@@ -49,8 +49,12 @@ struct VehicleState {
   Eigen::Vector4d front_right_forces = {0.0, 0.0, 0.0, 0.0};
   Eigen::Vector4d rear_left_forces = {0.0, 0.0, 0.0, 0.0};
   Eigen::Vector4d rear_right_forces = {0.0, 0.0, 0.0, 0.0};
+  double ride_height_front = 0.0;
+  double ride_height_rear = 0.0;
   double aero_drag = 0.0;
   double aero_downforce = 0.0;
+  double ride_height_front = 0.0;
+  double ride_height_rear = 0.0;
   double motor_torque = 0.0;
   double motor_omega = 0.0;
   double motor_current = 0.0;
@@ -139,6 +143,8 @@ public:
   Eigen::Vector4d get_rear_right_forces() const { return state_->rear_right_forces; }
   double get_aero_drag() const { return state_->aero_drag; }
   double get_aero_downforce() const { return state_->aero_downforce; }
+  double get_ride_height_front() const { return state_->ride_height_front; }
+  double get_ride_height_rear() const { return state_->ride_height_rear; }
   double get_motor_torque() const { return state_->motor_torque; }
   double get_motor_omega() const { return state_->motor_omega; }
   double get_motor_current() const { return state_->motor_current; }

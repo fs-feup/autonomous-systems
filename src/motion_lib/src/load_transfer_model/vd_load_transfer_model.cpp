@@ -40,20 +40,22 @@ common_lib::structures::Wheels VDLoadTransferModel::compute_loads(
 
 // Assuming mass distribution is a value between 0 and 1 representing the percentage of total mass
 // on the front axle and front stiffness distribution is a value between 0 and 1.
-double VDLoadTransferModel::calculate_front_lateral_transfer(double massDistribution,
-                                                             double lateral_acceleration) const {
-  double unsprung_load_transfer = ((car_parameters_->unsprung_mass * massDistribution) *
-                                   lateral_acceleration * car_parameters_->unsprung_cg_z) /
-                                  car_parameters_->track_width;
-  double geometric_load_transfer =
-      ((car_parameters_->sprung_mass * massDistribution) * lateral_acceleration *
-       car_parameters_->load_transfer_parameters->front_roll_center_z) /
-      car_parameters_->track_width;
-  double elastic_load_transfer =
-      (car_parameters_->sprung_mass * lateral_acceleration *
-       (car_parameters_->sprung_cg_z - car_parameters_->load_transfer_parameters->roll_axis_z) *
-       car_parameters_->load_transfer_parameters->front_stiffness_distribution) /
-      car_parameters_->track_width;
+double VDLoadTransferModel::calculate_elastic_longitudinal_transfer(
+    double longitudinal_acceleration) const {
+  return ((car_parameters_->sprung_mass) * longitudinal_acceleration *
+          (car_parameters_->sprung_cg_z - car_parameters_->load_transfer_parameters->pitch_center_z)) /
+         car_parameters_->wheelbase;
+}
+
+double VDLoadTransferModel::calculate_longitudinal_transfer(
+    double longitudinal_acceleration) const {
+  double unsprung_load_transfer = ((car_parameters_->unsprung_mass) * longitudinal_acceleration *
+                                   car_parameters_->unsprung_cg_z) /
+                                  car_parameters_->wheelbase;
+  double elastic_load_transfer = calculate_elastic_longitudinal_transfer(longitudinal_acceleration);
+  double geometric_load_transfer = (car_parameters_->sprung_mass * longitudinal_acceleration *
+                                    car_parameters_->load_transfer_parameters->pitch_center_z) /
+                                   car_parameters_->wheelbase;
   return unsprung_load_transfer + geometric_load_transfer + elastic_load_transfer;
 }
 

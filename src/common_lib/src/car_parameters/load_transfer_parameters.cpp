@@ -13,5 +13,9 @@ LoadTransferParameters::LoadTransferParameters(const std::string& config_name) {
   rear_roll_center_z = config["rear_roll_center_z"].as<double>();
   front_stiffness_distribution = config["front_stiffness_distribution"].as<double>();
   pitch_center_z = config["pitch_center_z"].as<double>();
+  front_wheel_rate = config["front_wheel_rate"].as<double>();
+  rear_wheel_rate = config["rear_wheel_rate"].as<double>();
+ front_wheel_rate = config["front_wheel_rate"].as<double>();
+  rear_wheel_rate = config["rear_wheel_rate"].as<double>();
 }
 }  // namespace common_lib::car_parameters

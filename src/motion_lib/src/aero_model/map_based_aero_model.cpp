@@ -1,36 +1,34 @@
 #include "motion_lib/aero_model/map_based_aero_model.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <iterator>
 
 MapBasedAeroModel::MapBasedAeroModel(
     const common_lib::car_parameters::CarParameters& car_parameters)
     : AeroModel(car_parameters) {
-  extract_coefficients();
+  ride_height_front_ = car_parameters_->aero_parameters->ride_height_front;
+  ride_height_rear_ = car_parameters_->aero_parameters->ride_height_rear;
 }
 
-void MapBasedAeroModel::extract_coefficients() {
-  const auto& aero = car_parameters_->aero_parameters;
+void MapBasedAeroModel::update_ride_height(double ride_height_front, double ride_height_rear) {
+  ride_height_front_ = ride_height_front;
+  ride_height_rear_ = ride_height_rear;
+}
 
-  if (aero->cd_map.empty() || aero->cl_map.empty()) {
-    cd_ = aero->drag_coefficient;
-    cl_ = aero->lift_coefficient;
-    return;
+double MapBasedAeroModel::get_coefficient(
+    const std::map<double, std::map<double, double>>& table, double fallback) const {
+  if (table.empty()) {
+    return fallback;
   }
-
-  cd_ = interpolate_2d(aero->cd_map, aero->ride_height_front, aero->ride_height_rear);
-  cl_ = interpolate_2d(aero->cl_map, aero->ride_height_front, aero->ride_height_rear);
+  return interpolate_2d(table, ride_height_front_, ride_height_rear_);
 }
 
 double MapBasedAeroModel::interpolate_2d(
     const std::map<double, std::map<double, double>>& table, double rhf, double rhr) const {
-  if (table.empty()) {
-    return 0.0;
-  }
-
   auto rhf_upper = table.lower_bound(rhf);
   if (rhf_upper == table.end()) {
-    return interpolate_1d(table.rbegin()->second, rhr);
+    rhf_upper = std::prev(table.end());
   }
   if (rhf_upper == table.begin()) {
     return interpolate_1d(rhf_upper->second, rhr);
@@ -45,10 +43,6 @@ double MapBasedAeroModel::interpolate_2d(
 }
 
 double MapBasedAeroModel::interpolate_1d(const std::map<double, double>& row, double key) const {
-  if (row.empty()) {
-    return 0.0;
-  }
-
   auto upper = row.lower_bound(key);
   if (upper == row.end()) {
     return row.rbegin()->second;
@@ -66,14 +60,17 @@ Eigen::Vector3d MapBasedAeroModel::aero_forces(const Eigen::Vector3d& velocity) 
   const double vx = velocity[0];
   const double vy = velocity[1];
 
-  const double air_density = this->car_parameters_->aero_parameters->air_density;
-  const double frontal_area = this->car_parameters_->aero_parameters->frontal_area;
-  const double side_force_coefficient =
-      this->car_parameters_->aero_parameters->aero_side_force_coefficient;
+  const auto& aero = car_parameters_->aero_parameters;
+  const double cd = get_coefficient(aero->cd_map, aero->drag_coefficient);
+  const double cl = get_coefficient(aero->cl_map, aero->lift_coefficient);
 
-  const double Fx = -0.5 * air_density * frontal_area * cd_ * std::abs(vx) * vx;
+  const double air_density = aero->air_density;
+  const double frontal_area = aero->frontal_area;
+  const double side_force_coefficient = aero->aero_side_force_coefficient;
+
+  const double Fx = -0.5 * air_density * frontal_area * cd * std::abs(vx) * vx;
   const double Fy = -0.5 * air_density * frontal_area * side_force_coefficient * std::abs(vy) * vy;
-  const double Fz = -0.5 * air_density * frontal_area * cl_ * vx * vx;
+  const double Fz = -0.5 * air_density * frontal_area * cl * vx * vx;
 
   return Eigen::Vector3d(Fx, Fy, Fz);
 }

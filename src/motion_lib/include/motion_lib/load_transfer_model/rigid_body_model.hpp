@@ -13,4 +13,6 @@ public:
    * @return Wheels a struct containing the loads on the four tires in Newtons
    */
   common_lib::structures::Wheels compute_loads(const LoadTransferInput& input) const override;
+
+  double calculate_elastic_longitudinal_transfer(double longitudinal_acceleration) const override;
 };

@@ -19,4 +19,10 @@ public:
    * @return Eigen::Vector3d Aero forces in the car's body frame [Fx, Fy, Fz] in Newtons
    */
   virtual Eigen::Vector3d aero_forces(const Eigen::Vector3d& velocity) const = 0;
+
+  /**
+   * @brief Optional hook for aero models whose coefficients depend on ride height.
+   * Default is a no-op; models that don't need this (e.g. DefaultAeroModel) are unaffected.
+   */
+  virtual void update_ride_height(double ride_height_front, double ride_height_rear) {}
 };

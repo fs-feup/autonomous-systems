@@ -42,6 +42,12 @@ public:
   void reset() override;
 
   /**
+   * @brief Update state_->ride_height_front/rear from the previous step's aero downforce and
+   * longitudinal acceleration, and push them into the aero model.
+   */
+  void update_ride_height();
+
+  /**
    * @brief Get the model name
    */
   std::string get_model_name() const override;
@@ -61,6 +67,8 @@ private:
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
   std::string control_mode_;
+
+  void update_ride_height();
 
   // Helper function to calculate the torque combining the motor model and the battery model
   std::pair<double, double> calculate_side_powertrain(
