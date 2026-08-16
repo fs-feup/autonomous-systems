@@ -25,7 +25,6 @@ struct ControlParameters {
   double pid_kp_; // proportional gain for PID controller
   double pid_ki_; // integral gain for PID controller
   double pid_kd_; // derivative gain for PID controller
-  double pid_tau_; // Derivative low pass filter time constant
   double pid_lim_min_; // minimum output limit for PID controller (maximum braking)
   double pid_lim_max_; // maximum output limit for PID controller (maximum throttle)
   double pid_anti_windup_; // anti-windup parameter for PID controller, gain of integrator impact when saturated 
