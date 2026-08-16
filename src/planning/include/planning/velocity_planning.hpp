@@ -47,6 +47,14 @@ public:
   void trackdrive_velocity(std::vector<PathPoint> &final_path);
 
   /**
+   * @brief Accelerate flat out to the braking distance, then brake flat out to a standstill.
+   *
+   * @param final_path Vector of path points to update with planned velocities.
+   * @param braking_distance Distance along the path covered before braking begins.
+   */
+  void acceleration_velocity(std::vector<PathPoint> &final_path, double braking_distance);
+
+  /**
    * @brief Applies a braking velocity profile starting after a given braking distance.
    *
    * @param final_path Vector of path points to update with planned velocities.

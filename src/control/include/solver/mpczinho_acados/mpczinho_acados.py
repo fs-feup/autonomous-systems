@@ -6,15 +6,15 @@ from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs,
 from ament_index_python.packages import get_package_prefix
 import yaml
 
-lr = 0.804  # Distance from the center of mass to the rear axle
-lf = 0.726  # Distance from the center of mass to the front axle
+# Geometry
+lr = 0.706  # Distance from the center of mass to the rear axle
+lf = 0.824  # Distance from the center of mass to the front axle
 L = lr + lf
 
-rolling_resistance_coefficient = 0.015
+# First-order steering actuator
+steering_motor_tau = 0.150
 
-gravity_acceleration = 9.81
-
-steering_motor_tau = 0.25
+max_steering_angle = 0.335  # config/car/steering_model/02_steering.yaml
 
 def get_config_yaml_path(package_name: str, dir: str, filename: str) -> str:
     """
@@ -37,43 +37,50 @@ def get_config_yaml_path(package_name: str, dir: str, filename: str) -> str:
     workspace_path = os.path.join(package_prefix, "../../config", dir, f"{filename}.yaml")
     return workspace_path
 
+def get_active_adapter() -> str:
+    """
+    Read the active adapter from the global config so the generated solver is
+    dimensioned from the same control config the node loads at runtime.
+    """
+    with open(get_config_yaml_path("common_lib", "global", "global_config"), 'r') as f:
+        return yaml.safe_load(f)["global"]["adapter"]
+
+
 def load_mpc_parameters():
     """
-    Load MPC parameters for the adapter selected in the global config YAML file.
+    Load MPC horizon time and steps from the active adapter's control config.
     """
-    global_config_path = get_config_yaml_path("common_lib", "global", "global_config")
-    
-    with open(global_config_path, 'r') as f:
-        global_config = yaml.safe_load(f)
-
-    adapter = global_config["global"]["adapter"]
-    control_config_path = get_config_yaml_path("common_lib", "control", adapter)
+    control_config_path = get_config_yaml_path("common_lib", "control", get_active_adapter())
 
     with open(control_config_path, 'r') as f:
         control_config = yaml.safe_load(f)
-    
-    mpc_horizon_time = control_config["control"]["mpc_prediction_horizon_seconds"]
-    mpc_horizon_steps = control_config["control"]["mpc_prediction_horizon_steps"]
-    max_steering_command_derivative = control_config["control"]["mpczinho_max_steering_command_derivative"]
-    command_time_interval_seconds = control_config["control"]["command_time_interval"] / 1000.0
-    
-    return mpc_horizon_time, mpc_horizon_steps, max_steering_command_derivative, command_time_interval_seconds
 
-def export_mpc_model(command_time_interval_seconds: float) -> AcadosModel:
+    control = control_config["control"]
+    mpc_horizon_time = control.get("lateral_mpc_prediction_horizon_seconds",
+                                   control["mpc_prediction_horizon_seconds"])
+    mpc_horizon_steps = control.get("lateral_mpc_prediction_horizon_steps",
+                                    control["mpc_prediction_horizon_steps"])
+
+    return mpc_horizon_time, mpc_horizon_steps
+
+def export_mpc_model() -> AcadosModel:
     model = AcadosModel()
     model.name = "mpczinho"
-    p = SX.sym("p", 5) # [x_ref, y_ref, v, theta_ref, previous_steering_command]
+    p = SX.sym("p", 4) # [x_ref, y_ref, v, theta_ref]
 
     x = SX.sym("x", 4) # [x_position, y_position, yaw, steering_angle]
     xdot = SX.sym("xdot", 4)
-    u = SX.sym("u", 1)
+    u = SX.sym("u", 1) # [steering_angle_command]
 
-    # dynamics
+    # Kinematic bicycle at the CG, since the pose the controller receives is the CG pose.
+    beta = atan(lr * tan(x[3]) / L)
+
+    # Yaw rate is driven by the actual steering state, not the command, to keep the actuator lag.
     f_expl = vertcat(
-        p[2] * cos(x[2]),
-        p[2] * sin(x[2]),
-        p[2] * tan(u[0]) / L,
-        (u[0] - x[3]) / steering_motor_tau  # Assuming steering angle dynamics
+        p[2] * cos(x[2] + beta),
+        p[2] * sin(x[2] + beta),
+        p[2] * cos(beta) * tan(x[3]) / L,
+        (u[0] - x[3]) / steering_motor_tau
     )
 
     model.p = p
@@ -82,9 +89,6 @@ def export_mpc_model(command_time_interval_seconds: float) -> AcadosModel:
     model.u = u
     model.f_expl_expr = f_expl
     model.f_impl_expr = xdot - f_expl
-    steering_command_derivative = (u[0] - p[4]) / command_time_interval_seconds
-    model.con_h_expr = steering_command_derivative
-    model.con_h_expr_0 = steering_command_derivative
     return model
 
 def setup_cost_function(ocp: AcadosOcp):
@@ -109,8 +113,8 @@ def setup_cost_function(ocp: AcadosOcp):
         x[0] - p[0],      # X Position Error
         x[1] - p[1],      # Y Position Error
         theta_cost_term,  # Orientation Error
-        u[0],             # Penalty on Steering
-        u[0] - p[4]       # Penalty on steering command change
+        x[3],             # Penalty on Steering
+        u[0] - x[3]       # Penalty on Steering Rate (u - delta = tau * delta_dot)
     )
 
     # Terminal Residual (No controls at the last step)
@@ -124,10 +128,11 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.model.cost_y_expr_e = cost_expression_e
 
     # 4. Define Weight Matrices (W)
-    weights = np.array([2.0, 2.0, 1.0, 8.0, 5.0])
-    
+    # [x_err, y_err, heading_err, steering_magnitude, steering_rate]
+    weights = np.array([9.0, 9.0, 6.0, 0.3, 2.0])
+
     # Terminal weights
-    weights_e = np.array([2.0, 2.0, 1.0])
+    weights_e = np.array([9.0, 9.0, 6.0])
 
     ocp.cost.W = np.diag(weights)
     ocp.cost.W_e = np.diag(weights_e)
@@ -157,7 +162,7 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
     os.makedirs(os.path.dirname(c_code_dir), exist_ok=True)
     os.makedirs(os.path.dirname(json_path), exist_ok=True)
 
-    prediction_horizon_seconds, prediction_horizon_steps, max_steering_command_derivative, command_time_interval_seconds = load_mpc_parameters()
+    prediction_horizon_seconds, prediction_horizon_steps = load_mpc_parameters()
 
     if acados_dir is not None:
         acados_dir = os.path.abspath(acados_dir)
@@ -168,7 +173,7 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
         ocp = AcadosOcp(acados_path=acados_dir, acados_lib_path=acados_lib_dir)
     else:
         ocp = AcadosOcp()
-    ocp.model = export_mpc_model(command_time_interval_seconds)
+    ocp.model = export_mpc_model()
     ocp.code_export_directory = c_code_dir
 
     ocp.solver_options.N_horizon = prediction_horizon_steps
@@ -188,27 +193,14 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
 
     # Initial state constraint (required for set_state logic)
     ocp.constraints.x0 = np.zeros(4)
-    ocp.parameter_values = np.zeros(5)
+    ocp.parameter_values = np.zeros(4)
 
     setup_cost_function(ocp)
 
-    # Lower bounds for controls
-    u_min = np.array([-0.335])  # adjust these values as needed
-
-    # Upper bounds for controls
-    u_max = np.array([0.335])  # adjust these values as needed
-
-    ocp.constraints.lbu = u_min  # lower bound on u
-    ocp.constraints.ubu = u_max  # upper bound on u
-    ocp.constraints.idxbu = np.array([0])  # which control inputs have bounds
-
-    ocp.constraints.lh = np.array([-max_steering_command_derivative])
-    ocp.constraints.uh = np.array([max_steering_command_derivative])
-    ocp.dims.nh = 1
-
-    ocp.constraints.lh_0 = np.array([-max_steering_command_derivative])
-    ocp.constraints.uh_0 = np.array([max_steering_command_derivative])
-    ocp.dims.nh_0 = 1
+    # Only the steering angle range is a hard limit in the simulator; rate is shaped by the cost.
+    ocp.constraints.lbu = np.array([-max_steering_angle])
+    ocp.constraints.ubu = np.array([max_steering_angle])
+    ocp.constraints.idxbu = np.array([0])
 
     try:
         solver = AcadosOcpSolver(ocp, json_file=json_path)

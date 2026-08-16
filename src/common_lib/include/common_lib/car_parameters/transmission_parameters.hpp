@@ -14,6 +14,10 @@ struct TransmissionParameters {
   double viscous_drag_coeff;        // Shaft viscous drag coefficient [N.m / (rad/s)]
   double coulomb_drag;              // Shaft Coulomb drag [N.m]
   double coulomb_smooth_stiffness;  // Stiffness for atan smoothing in Coulomb drag
+  
+  double preload;                   // Static locking torque (Nm) for Salisbury LSD
+  double drive_ramp_effect;         // Drive ramp locking multiplier
+  double coast_ramp_effect;         // Coast ramp locking multiplier
 
   TransmissionParameters(const std::string& config_name);
 };

@@ -13,7 +13,6 @@ TEST(PidTests, TestAntiWindUp1) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.5;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.7;
@@ -36,7 +35,6 @@ TEST(PidTests, TestAntiWindUp2) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.5;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.7;
@@ -59,7 +57,6 @@ TEST(PidTests, TestAntiWindUp3) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.5;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.7;
@@ -81,7 +78,6 @@ TEST(PidTests, ProportionalTerm) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.5;
@@ -102,7 +98,6 @@ TEST(PidTests, IntegralTerm1) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.5;
@@ -125,7 +120,6 @@ TEST(PidTests, IntegralTerm2) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.5;
@@ -148,7 +142,6 @@ TEST(PidTests, DerivativeTerm1) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.1;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -171,7 +164,6 @@ TEST(PidTests, DerivativeTerm2) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.1;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -194,7 +186,6 @@ TEST(PidTests, Output1) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -217,7 +208,6 @@ TEST(PidTests, Output2) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -240,7 +230,6 @@ TEST(PidTests, Output3) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.09;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;
@@ -259,7 +248,6 @@ TEST(PidTests, UsesElapsedTimeForIntegrationAndDerivative) {
   params.pid_kp_ = 0.0;
   params.pid_ki_ = 1.0;
   params.pid_kd_ = 1.0;
-  params.pid_tau_ = 0.0;
   params.pid_lim_min_ = -1000;
   params.pid_lim_max_ = 1000;
   params.pid_anti_windup_ = 0.0;
@@ -289,7 +277,6 @@ TEST(PidTests, Update1) {
   params.pid_kp_ = 0.4;
   params.pid_ki_ = 0.3;
   params.pid_kd_ = 0.1;
-  params.pid_tau_ = 0.7;
   params.pid_lim_min_ = -1;
   params.pid_lim_max_ = 1;
   params.pid_anti_windup_ = 0.45;

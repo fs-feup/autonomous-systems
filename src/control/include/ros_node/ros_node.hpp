@@ -44,6 +44,7 @@ protected:
    */
   void path_callback(const custom_interfaces::msg::PathPointArray &msg);
 
+
   /**
    * @brief Called when a new velocity is received
    * @param msg The received velocity message

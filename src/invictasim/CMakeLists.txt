@@ -33,15 +33,12 @@ set(IMPLEMENTATION_FILES
   src/io/input/input_adapter.cpp
   src/io/input/ros.cpp
   src/io/output/ros.cpp
+  src/tuning/tuning_evaluator.cpp
   src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
-  src/track/track.cpp
-  src/sensors/sensors_base.cpp
-  src/sensors/simulated_perception.cpp
-  src/sensors/imu.cpp
-  src/sensors/wss.cpp
   src/vehicle_model/FSFEUP03.cpp
+  src/track/track.cpp
   src/statistics/collision_statistics.cpp
   src/statistics/lap_timer_statistics.cpp
   src/statistics/statistics.cpp
@@ -78,6 +75,37 @@ ament_target_dependencies(invictasim
 )
 
 install(TARGETS invictasim
+  DESTINATION lib/${PROJECT_NAME})
+
+# Standalone high-speed C++ vehicle parameter optimizer
+add_executable(vehicle_model_optimizer
+  src/vehicle_model/optimizer/vehicle_model_optimizer.cpp
+  src/config/config.cpp
+)
+target_include_directories(vehicle_model_optimizer PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+target_compile_features(vehicle_model_optimizer PUBLIC cxx_std_17)
+target_link_libraries(vehicle_model_optimizer yaml-cpp)
+ament_target_dependencies(vehicle_model_optimizer
+  ament_index_cpp
+  rclcpp
+  std_msgs
+  geometry_msgs
+  sensor_msgs
+  nav_msgs
+  rosgraph_msgs
+  tf2
+  tf2_ros
+  yaml-cpp
+  common_lib
+  visualization_msgs
+  custom_interfaces
+  motion_lib
+)
+
+install(TARGETS vehicle_model_optimizer
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY include/

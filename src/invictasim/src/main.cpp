@@ -6,6 +6,7 @@
 #include "io/output/map.hpp"
 #include "rclcpp/executors/multi_threaded_executor.hpp"
 #include "simulator/invictasim.hpp"
+#include "tuning/tuning_evaluator.hpp"
 
 /**
  * @brief Initializes the simulator.
@@ -24,6 +25,7 @@ int main(int argc, char* argv[]) {
 
   auto input_adapter = input_adapters_map.at(params.input_adapter.c_str())(simulator);
   auto output_adapter = output_adapters_map.at(params.output_adapter.c_str())(simulator);
+  std::shared_ptr<TuningEvaluator> tuning_evaluator;
 
   std::thread simulator_thread([&simulator]() { simulator->run(); });
   std::thread input_thread;
@@ -41,6 +43,11 @@ int main(int argc, char* argv[]) {
     executor.add_node(ros_output_node);
   } else {
     output_thread = std::thread([&output_adapter]() { output_adapter->run(); });
+  }
+
+  if (params.rosbag_evaluator_enabled) {
+    tuning_evaluator = std::make_shared<TuningEvaluator>(simulator, params);
+    executor.add_node(tuning_evaluator);
   }
 
   while (rclcpp::ok()) {

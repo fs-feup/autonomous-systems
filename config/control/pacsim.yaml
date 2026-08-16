@@ -2,24 +2,43 @@ control:
   controller: "decoupled" # Options: "decoupled", "bombated_mpc"
   lateral_controller: "mpczinho" # Options: "pure_pursuit", "mpczinho"
   longitudinal_controller: "pid" # Options: "pid"
-  pure_pursuit_lookahead_gain: 1.0
-  pure_pursuit_lookahead_minimum: 2.5  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
+  pure_pursuit_lookahead_gain: 0.5
+  pure_pursuit_lookahead_minimum: 4.0  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
   pure_pursuit_lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   pure_pursuit_lpf_initial_value: 0.0
   first_last_max_dist: 5.0 # Maximum distance between first and last point in the path to consider it a closed track
   pid_kp: 0.2
   pid_ki: 0.0025
   pid_kd: 0.0
-  pid_tau: 0.5
   pid_lim_min: -1.0
   pid_lim_max: 1.0
   pid_anti_windup: 0.7
   pid_max_positive_error: 3
   pid_max_negative_error: -3
   command_time_interval: 25 # Milliseconds
-  mpc_prediction_horizon_seconds: 1.5
-  mpc_prediction_horizon_steps: 100
-  mpczinho_max_steering_command_derivative: 5.0 # Maximum steering command change rate between published controls [rad/s]
+  mpc_prediction_horizon_seconds: 0.5
+  mpc_prediction_horizon_steps: 50
+  lateral_mpc_prediction_horizon_seconds: 1.5 # Lateral (kinematic) MPC horizon
+  lateral_mpc_prediction_horizon_steps: 50
+  # Coupled NMPC stage cost weights (tunable without rebuilding the solver):
+  # [x_err, y_err, heading_err, vx_err, vy, throttle, steering, throttle_rate, steering_rate]
+  mpc_cost_weights: [4.0, 4.0, 3.0, 1.5, 3.0, 0.05, 0.3, 2.0, 4.0]
+  # Terminal: [x_err, y_err, heading_err, vx_err]
+  mpc_terminal_cost_weights: [4.0, 4.0, 3.0, 1.5]
+  # ---- SuperMPC: path tracker whose SPEED comes from its own dynamics ----
+  supermpc_prediction_horizon_seconds: 1.0
+  supermpc_prediction_horizon_steps: 30
+  # Stage cost: [contour, heading, lag, ambition, speed_excess, vy, throttle, steer, thr_rate, str_rate]
+  # contour >> excess >> lag/ambition: the line wins over the speed, the ceiling
+  # wins over the optimism, and the planner's timing never overrides the physics.
+  supermpc_cost_weights: [30.0, 10.0, 0.3, 0.25, 40.0, 3.0, 0.05, 0.3, 2.0, 4.0]
+  supermpc_terminal_cost_weights: [30.0, 10.0, 0.3, 0.25]
+  supermpc_speed_stretch: 1.15   # mildly aims for this multiple of the planner speed
+  supermpc_speed_cap: 1.30       # heavy one-sided penalty above this multiple
+  supermpc_max_rear_slip: 0.16   # rad; rear-axle stability envelope
+  # Lateral MPC stage cost: [x_err, y_err, heading_err, steering, steering_rate]
+  lateral_mpc_cost_weights: [9.0, 9.0, 6.0, 0.3, 2.0]
+  lateral_mpc_terminal_cost_weights: [9.0, 9.0, 6.0]
   wheel_speeds_scale_mpc: 5.0 # Scale factor for wheel speeds in the MPC cost function (higher values make the controller more sensitive to wheel speed errors)
 
 # Parameters for EBS Test
@@ -30,7 +49,6 @@ control:
 #   pid_ki: 0.02
 #   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
 #   pid_kd: 0.09
-#   pid_tau: 0.5
 #   pid_t: 0.01
 #   pid_lim_min: -1.0
 #   pid_lim_max: 1.0
@@ -47,7 +65,6 @@ control:
 #   pid_ki: 0.0025
 #   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
 #   pid_kd: 0.0
-#   pid_tau: 0.5
 #   pid_t: 0.01
 #   pid_lim_min: -1.0
 #   pid_lim_max: 1.0
@@ -64,7 +81,6 @@ control:
 #   pid_ki: 0.0025
 #   first_last_max_dist: 1.0 # Maximum distance between first and last point in the path to consider it a closed track
 #   pid_kd: 0.0
-#   pid_tau: 0.5
 #   pid_t: 0.01
 #   pid_lim_min: -1.0
 #   pid_lim_max: 1.0
