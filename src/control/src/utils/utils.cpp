@@ -1,5 +1,9 @@
 #include "utils/utils.hpp"
 
+#include <algorithm>
+#include <cmath>
+#include <limits>
+
 using namespace common_lib::structures;
 
 Position rear_axis_position(
@@ -31,6 +35,61 @@ std::tuple<Position, int, double> get_closest_point(
   return std::make_tuple(closest_point, closest_point_id, closest_point_velocity);
 }
 
+
+double get_interpolated_velocity(
+    const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, int closest_point_id,
+    const Position &position) {
+  if (pathpoint_array.empty() || closest_point_id < 0) {
+    return 0.0;
+  }
+
+  const int last_id = static_cast<int>(pathpoint_array.size()) - 1;
+  const int closest_id = std::clamp(closest_point_id, 0, last_id);
+
+  // A single-point path has no segment to interpolate along.
+  if (last_id == 0) {
+    return pathpoint_array[0].v;
+  }
+
+  double best_distance = std::numeric_limits<double>::max();
+  double interpolated_velocity = pathpoint_array[closest_id].v;
+
+  // Project onto the segment and keep the result if this segment is the one the car lies against.
+  // Both neighbours are tried because the closest point can sit either ahead of or behind the car.
+  const auto consider_segment = [&](int start_id, int end_id) {
+    const auto &start = pathpoint_array[start_id];
+    const auto &end = pathpoint_array[end_id];
+    const double segment_x = end.x - start.x;
+    const double segment_y = end.y - start.y;
+    const double segment_length_squared = segment_x * segment_x + segment_y * segment_y;
+
+    // Duplicated points carry no direction to project onto.
+    if (segment_length_squared <= 0.0) {
+      return;
+    }
+
+    // Clamped, so the car keeps the end point's velocity instead of extrapolating past it.
+    double ratio = ((position.x - start.x) * segment_x + (position.y - start.y) * segment_y) /
+                   segment_length_squared;
+    ratio = std::clamp(ratio, 0.0, 1.0);
+
+    const double distance = std::hypot(position.x - (start.x + ratio * segment_x),
+                                       position.y - (start.y + ratio * segment_y));
+    if (distance < best_distance) {
+      best_distance = distance;
+      interpolated_velocity = start.v + ratio * (end.v - start.v);
+    }
+  };
+
+  if (closest_id > 0) {
+    consider_segment(closest_id - 1, closest_id);
+  }
+  if (closest_id < last_id) {
+    consider_segment(closest_id, closest_id + 1);
+  }
+
+  return interpolated_velocity;
+}
 
 std::tuple<Position, double, bool> get_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,

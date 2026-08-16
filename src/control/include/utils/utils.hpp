@@ -27,6 +27,28 @@ std::tuple<common_lib::structures::Position, int, double> get_closest_point(
   const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, const common_lib::structures::Position& position) ;
 
 /**
+ * @brief Velocity setpoint at the car's projection onto the path.
+ *
+ * The closest path point alone is a poor setpoint: between two points the target speed jumps
+ * in steps, so the controller chases a staircase rather than the planned profile. This projects
+ * the car onto whichever of the two segments adjacent to the closest point it actually lies
+ * against, and interpolates the velocity along it.
+ *
+ * The projection is clamped to the segment, so a car that has not reached the path yet - no
+ * point behind it - takes the first point's velocity rather than an extrapolation backwards off
+ * the end of the profile. The same holds past the final point.
+ *
+ * @param pathpoint_array path
+ * @param closest_point_id index returned by get_closest_point, -1 if there is none
+ * @param position point to project, in the same frame as the path
+ *
+ * @return interpolated velocity, 0 for an empty path or a missing closest point
+ */
+double get_interpolated_velocity(
+    const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, int closest_point_id,
+    const common_lib::structures::Position &position);
+
+/**
  * @brief Update Lookahead point
  *
  * @param path
