@@ -75,7 +75,7 @@ TEST(PointSolverTests, Test_update_lookahead_point_1) {
   EXPECT_FALSE(result_error);
 }
 
-// Builds a straight path along x with the given velocities, one point per metre.
+// Straight path along x, one point per metre.
 static std::vector<custom_interfaces::msg::PathPoint> straight_path(
     const std::vector<double>& velocities) {
   std::vector<custom_interfaces::msg::PathPoint> path;
@@ -91,26 +91,22 @@ static std::vector<custom_interfaces::msg::PathPoint> straight_path(
 
 TEST(InterpolatedVelocityTests, InterpolatesBetweenTwoPoints) {
   const auto path = straight_path({10.0, 20.0, 30.0});
-  // A quarter of the way along the second segment: 20 + 0.25 * (30 - 20).
   EXPECT_NEAR(get_interpolated_velocity(path, 1, Position(1.25, 0.0)), 22.5, 1e-9);
 }
 
 TEST(InterpolatedVelocityTests, InterpolatesOnTheSegmentBehindTheClosestPoint) {
   const auto path = straight_path({10.0, 20.0, 30.0});
-  // Closest point is index 1, but the car sits behind it, on the first segment.
   EXPECT_NEAR(get_interpolated_velocity(path, 1, Position(0.75, 0.0)), 17.5, 1e-9);
 }
 
 TEST(InterpolatedVelocityTests, LateralOffsetDoesNotChangeTheSetpoint) {
   const auto path = straight_path({10.0, 20.0, 30.0});
-  // Off to one side of the path: the projection, and so the velocity, is unchanged.
   EXPECT_NEAR(get_interpolated_velocity(path, 1, Position(1.5, 3.0)), 25.0, 1e-9);
 }
 
 TEST(InterpolatedVelocityTests, CarBeforeThePathTakesTheFirstVelocity) {
   const auto path = straight_path({10.0, 20.0, 30.0});
-  // No point behind the car, so the first point's velocity is held rather than extrapolated
-  // backwards - which would run the profile off its start and command a nonsense setpoint.
+  // No point behind the car: hold the first point's velocity rather than extrapolate backwards.
   EXPECT_NEAR(get_interpolated_velocity(path, 0, Position(-5.0, 0.0)), 10.0, 1e-9);
   EXPECT_NEAR(get_interpolated_velocity(path, 1, Position(-5.0, 0.0)), 10.0, 1e-9);
 }
@@ -129,9 +125,7 @@ TEST(InterpolatedVelocityTests, DegenerateInputs) {
   const auto path = straight_path({10.0, 20.0, 30.0});
   EXPECT_NEAR(get_interpolated_velocity(path, -1, Position(0.0, 0.0)), 0.0, 1e-9);
   EXPECT_NEAR(get_interpolated_velocity({}, 0, Position(0.0, 0.0)), 0.0, 1e-9);
-  // Single-point path: nothing to interpolate along.
   EXPECT_NEAR(get_interpolated_velocity(straight_path({7.0}), 0, Position(3.0, 0.0)), 7.0, 1e-9);
-  // Out-of-range index is clamped rather than read out of bounds.
   EXPECT_NEAR(get_interpolated_velocity(path, 99, Position(2.0, 0.0)), 30.0, 1e-9);
 }
 
@@ -143,6 +137,5 @@ TEST(InterpolatedVelocityTests, RepeatedPointsDoNotDivideByZero) {
     point.v = 5.0 + i;
     path.push_back(point);
   }
-  // All three points coincide; the closest point's velocity is the only sane answer.
   EXPECT_NEAR(get_interpolated_velocity(path, 1, Position(1.0, 1.0)), 6.0, 1e-9);
 }
