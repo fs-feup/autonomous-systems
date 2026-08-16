@@ -1,40 +1,5 @@
 <map id="src/invictasim/include/sensors/imu.hpp" name="src/invictasim/include/sensors/imu.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="683,5,830,46"/>
-<area shape="rect" id="Node000002" href="$d1/d8d/invictasim_2include_2simulator_2invictasim_8hpp.html" title=" " alt="" coords="590,94,755,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="728,59,693,95,689,92,725,56"/>
-<area shape="rect" id="Node000016" href="$d6/d99/invictasim_2src_2sensors_2imu_8cpp.html" title=" " alt="" coords="779,94,904,135"/>
-<area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="788,55,824,92,820,95,784,59"/>
-<area shape="rect" id="Node000003" href="$df/dc1/input__adapter_8hpp.html" title=" " alt="" coords="339,183,512,223"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="603,143,483,185,481,180,601,138"/>
-<area shape="rect" id="Node000005" href="$d3/d38/invictasim_2include_2io_2input_2map_8hpp.html" title=" " alt="" coords="328,360,475,401"/>
-<area shape="poly" id="edge12_Node000002_Node000005" title=" " alt="" coords="676,150,673,188,665,231,650,275,623,314,604,324,568,337,476,363,475,358,566,332,602,320,620,310,645,273,660,230,668,187,670,150"/>
-<area shape="rect" id="Node000006" href="$dc/dc4/invictasim_2src_2main_8cpp.html" title=" " alt="" coords="339,449,464,489"/>
-<area shape="poly" id="edge20_Node000002_Node000006" title=" " alt="" coords="575,127,431,145,267,175,190,194,122,217,69,243,49,258,34,273,15,306,8,337,14,367,34,399,54,414,84,427,165,446,257,457,339,463,339,468,256,463,164,451,82,432,51,419,30,402,9,369,3,337,10,304,30,270,45,254,66,239,120,212,188,189,266,169,430,140,574,122"/>
-<area shape="rect" id="Node000011" href="$da/d32/invictasim_2include_2io_2output_2map_8hpp.html" title=" " alt="" coords="648,360,795,401"/>
-<area shape="poly" id="edge13_Node000002_Node000011" title=" " alt="" coords="681,149,720,359,715,360,676,150"/>
-<area shape="rect" id="Node000012" href="$d1/de8/output__adapter_8hpp.html" title=" " alt="" coords="735,183,924,223"/>
-<area shape="poly" id="edge15_Node000002_Node000012" title=" " alt="" coords="722,140,795,180,793,185,720,145"/>
-<area shape="rect" id="Node000015" href="$d6/d37/invictasim_2src_2simulator_2invictasim_8cpp.html" title=" " alt="" coords="948,183,1114,223"/>
-<area shape="poly" id="edge21_Node000002_Node000015" title=" " alt="" coords="769,136,950,180,949,185,768,141"/>
-<area shape="rect" id="Node000004" href="$dd/d39/keyboard_8hpp.html" title=" " alt="" coords="44,271,191,312"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="341,231,188,273,187,268,340,225"/>
-<area shape="poly" id="edge7_Node000003_Node000005" title=" " alt="" coords="423,239,407,360,402,359,418,238"/>
-<area shape="rect" id="Node000008" href="$d6/df1/input_2ros_8hpp.html" title=" " alt="" coords="463,271,610,312"/>
-<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="464,231,513,269,510,273,461,235"/>
-<area shape="rect" id="Node000010" href="$dc/d97/input__adapter_8cpp.html" title=" " alt="" coords="215,271,388,312"/>
-<area shape="poly" id="edge11_Node000003_Node000010" title=" " alt="" coords="386,235,331,273,328,269,383,230"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="198,314,338,357,336,362,196,320"/>
-<area shape="rect" id="Node000007" href="$d7/df5/keyboard_8cpp.html" title=" " alt="" coords="44,360,191,401"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="120,328,120,360,115,360,115,328"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="404,416,404,448,399,448,399,416"/>
-<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="495,323,433,362,431,357,492,318"/>
-<area shape="rect" id="Node000009" href="$d9/d25/input_2ros_8cpp.html" title=" " alt="" coords="499,360,624,401"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="549,326,558,359,553,360,544,328"/>
-<area shape="poly" id="edge14_Node000011_Node000006" title=" " alt="" coords="634,408,465,453,463,448,633,403"/>
-<area shape="poly" id="edge16_Node000012_Node000011" title=" " alt="" coords="803,237,776,273,750,319,732,361,727,358,745,317,771,270,799,234"/>
-<area shape="rect" id="Node000013" href="$d3/dff/output_2ros_8hpp.html" title=" " alt="" coords="785,271,933,312"/>
-<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="844,237,855,270,850,272,839,239"/>
-<area shape="poly" id="edge18_Node000013_Node000011" title=" " alt="" coords="816,323,754,362,751,357,813,318"/>
-<area shape="rect" id="Node000014" href="$df/d71/output_2ros_8cpp.html" title=" " alt="" coords="819,360,944,401"/>
-<area shape="poly" id="edge19_Node000013_Node000014" title=" " alt="" coords="870,327,879,359,874,360,865,328"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,153,46"/>
+<area shape="rect" id="Node000002" href="$d6/d99/invictasim_2src_2sensors_2imu_8cpp.html" title=" " alt="" coords="17,94,141,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,62,82,94,76,94,76,62"/>
 </map>

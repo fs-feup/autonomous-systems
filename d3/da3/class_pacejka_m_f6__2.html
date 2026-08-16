@@ -106,9 +106,9 @@ Inheritance diagram for PacejkaMF6_2:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/da7/class_pacejka_m_f6__2__inherit__graph.png" border="0" usemap="#a_pacejka_m_f6__2_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_pacejka_m_f6__2_inherit__map" id="a_pacejka_m_f6__2_inherit__map">
-<area shape="rect" title=" " alt="" coords="9,248,153,553"/>
-<area shape="rect" href="../../d2/dc2/class_tire_model.html" title="Class used to model tires." alt="" coords="5,5,157,200"/>
-<area shape="poly" title=" " alt="" coords="84,215,84,248,79,248,79,215"/>
+<area shape="rect" title=" " alt="" coords="9,387,153,692"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html" title="Class used to model tires." alt="" coords="5,5,157,339"/>
+<area shape="poly" title=" " alt="" coords="84,354,84,387,79,387,79,354"/>
 </map>
 </div>
 <div class="dynheader">
@@ -116,11 +116,11 @@ Collaboration diagram for PacejkaMF6_2:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d1d/class_pacejka_m_f6__2__coll__graph.png" border="0" usemap="#a_pacejka_m_f6__2_coll__map" alt="Collaboration graph"/></div>
 <map name="a_pacejka_m_f6__2_coll__map" id="a_pacejka_m_f6__2_coll__map">
-<area shape="rect" title=" " alt="" coords="85,334,229,639"/>
-<area shape="rect" href="../../d2/dc2/class_tire_model.html" title="Class used to model tires." alt="" coords="5,41,157,235"/>
-<area shape="poly" title=" " alt="" coords="108,250,127,333,121,334,103,251"/>
-<area shape="rect" href="../../dd/d8c/struct_internal_values.html" title=" " alt="" coords="182,5,285,271"/>
-<area shape="poly" title=" " alt="" coords="207,271,197,318,192,317,202,270"/>
+<area shape="rect" title=" " alt="" coords="85,402,229,707"/>
+<area shape="rect" href="../../d2/dc2/class_tire_model.html" title="Class used to model tires." alt="" coords="5,5,157,339"/>
+<area shape="poly" title=" " alt="" coords="120,353,130,402,124,403,115,354"/>
+<area shape="rect" href="../../dd/d8c/struct_internal_values.html" title=" " alt="" coords="182,39,285,305"/>
+<area shape="poly" title=" " alt="" coords="210,305,193,386,188,385,204,304"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -136,6 +136,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a55a41664cd7ff0e02405f121764b60dd inherit pub_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28193de8c7fd222eee272235ba8b879f inherit pub_methods_class_tire_model" id="r_a28193de8c7fd222eee272235ba8b879f"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f">calculate_tire_forces</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
 <tr class="separator:a28193de8c7fd222eee272235ba8b879f inherit pub_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae85b3d9ca967fab0a50ebe5a7aba6d93 inherit pub_methods_class_tire_model" id="r_ae85b3d9ca967fab0a50ebe5a7aba6d93"><td class="memItemLeft" align="right" valign="top">Eigen::Vector4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#ae85b3d9ca967fab0a50ebe5a7aba6d93">calculate_tire_forces_not_transient</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:ae85b3d9ca967fab0a50ebe5a7aba6d93 inherit pub_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -148,9 +150,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a5177cecaf746888a953b7db7e8c45505" id="r_a5177cecaf746888a953b7db7e8c45505"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da3/class_pacejka_m_f6__2.html#a5177cecaf746888a953b7db7e8c45505">calculate_pure_slip</a> (double B, double C, double D, double E, double shifted_slip, double SV) const</td></tr>
 <tr class="memdesc:a5177cecaf746888a953b7db7e8c45505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the pacejka magic formula to calculate either Fx or Fy depending on the input values.  <br /></td></tr>
 <tr class="separator:a5177cecaf746888a953b7db7e8c45505"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24aaa6ca5dd2b31279aad323e863cd4d" id="r_a24aaa6ca5dd2b31279aad323e863cd4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d">calculate_tire_state</a> (double slip_angle, double slip_ratio, double vertical_load, double vx, double vy, double yaw_rate, double wheel_angular_speed, double steering_angle, double distance_to_CG, double camber_angle)</td></tr>
-<tr class="memdesc:a24aaa6ca5dd2b31279aad323e863cd4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate function that calculates all the internal values needed for future calculations.  <br /></td></tr>
-<tr class="separator:a24aaa6ca5dd2b31279aad323e863cd4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70a79d45f47c50d1e9b9fa2ad10836d0" id="r_a70a79d45f47c50d1e9b9fa2ad10836d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0">calculate_tire_state</a> (double slip_angle, double slip_ratio, double vertical_load, double vcx, double vcy, double yaw_rate, double wheel_angular_speed, double camber_angle)</td></tr>
+<tr class="memdesc:a70a79d45f47c50d1e9b9fa2ad10836d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate function that calculates all the internal values needed for future calculations.  <br /></td></tr>
+<tr class="separator:a70a79d45f47c50d1e9b9fa2ad10836d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfb5683d094c0418dc26108801b30c1d" id="r_acfb5683d094c0418dc26108801b30c1d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da3/class_pacejka_m_f6__2.html#acfb5683d094c0418dc26108801b30c1d">calculate_Dy</a> (double vertical_load) const</td></tr>
 <tr class="memdesc:acfb5683d094c0418dc26108801b30c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the D parameter for the Fy calculation using pacejka MF (Peak)  <br /></td></tr>
 <tr class="separator:acfb5683d094c0418dc26108801b30c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +216,12 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:ab5d090c4250ceefa55ec8dce9325620d inherit pro_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81006948323b6dfefb3f37de392c16e3 inherit pro_methods_class_tire_model" id="r_a81006948323b6dfefb3f37de392c16e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a81006948323b6dfefb3f37de392c16e3">calculate_slip_ratio</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
 <tr class="separator:a81006948323b6dfefb3f37de392c16e3 inherit pro_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a673e988f0fa6231b4467bbc2026f4c inherit pro_methods_class_tire_model" id="r_a7a673e988f0fa6231b4467bbc2026f4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a7a673e988f0fa6231b4467bbc2026f4c">calculate_slip_angle_front_not_transient</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:a7a673e988f0fa6231b4467bbc2026f4c inherit pro_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab559264816093f17d40517270a68c993 inherit pro_methods_class_tire_model" id="r_ab559264816093f17d40517270a68c993"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#ab559264816093f17d40517270a68c993">calculate_slip_angle_rear_not_transient</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:ab559264816093f17d40517270a68c993 inherit pro_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab764d0141a3c56ef11343b4988cfe50b inherit pro_methods_class_tire_model" id="r_ab764d0141a3c56ef11343b4988cfe50b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#ab764d0141a3c56ef11343b4988cfe50b">calculate_slip_ratio_not_transient</a> (<a class="el" href="../../d6/da5/struct_tire_input.html">TireInput</a> &amp;tire_input)</td></tr>
+<tr class="separator:ab764d0141a3c56ef11343b4988cfe50b inherit pro_methods_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_tire_model"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_tire_model')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d2/dc2/class_tire_model.html">TireModel</a></td></tr>
 <tr class="memitem:a9c5ecb9c83913ca565012f784beee045 inherit pro_attribs_class_tire_model" id="r_a9c5ecb9c83913ca565012f784beee045"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html">common_lib::car_parameters::CarParameters</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dc2/class_tire_model.html#a9c5ecb9c83913ca565012f784beee045">car_parameters_</a></td></tr>
 <tr class="separator:a9c5ecb9c83913ca565012f784beee045 inherit pro_attribs_class_tire_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -685,7 +693,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00211">211</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00208">208</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -726,7 +734,7 @@ Here is the caller graph for this function:</div>
 <p>Calculates the D parameter for the Fy calculation using pacejka MF (Peak) </p>
 <dl class="section return"><dt>Returns</dt><dd>double The value of Dy </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00206">206</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00203">203</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -979,7 +987,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double Either Fx or Fy depeding on inputs </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00088">88</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1044,7 +1052,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double Rolling resistance moment </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00544">544</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00546">546</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1162,14 +1170,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00591">591</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00595">595</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_a76dbc84d6466dffb7a08b377a9b15631_icgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_a76dbc84d6466dffb7a08b377a9b15631_icgraph" alt=""/></div>
 <map name="ad3/da3/class_pacejka_m_f6__2_a76dbc84d6466dffb7a08b377a9b15631_icgraph" id="ad3/da3/class_pacejka_m_f6__2_a76dbc84d6466dffb7a08b377a9b15631_icgraph">
 <area shape="rect" title=" " alt="" coords="400,13,605,39"/>
-<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
+<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
 <area shape="poly" title=" " alt="" coords="384,28,353,28,353,23,384,23"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a2355a4c9221d7c68a01593c98114715f" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -1288,14 +1296,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00623">623</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00634">634</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_a366cb9bb76dfdc3bc1b5b44bf1a73d27_icgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_a366cb9bb76dfdc3bc1b5b44bf1a73d27_icgraph" alt=""/></div>
 <map name="ad3/da3/class_pacejka_m_f6__2_a366cb9bb76dfdc3bc1b5b44bf1a73d27_icgraph" id="ad3/da3/class_pacejka_m_f6__2_a366cb9bb76dfdc3bc1b5b44bf1a73d27_icgraph">
 <area shape="rect" title=" " alt="" coords="400,13,604,39"/>
-<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
+<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
 <area shape="poly" title=" " alt="" coords="384,28,353,28,353,23,384,23"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a2355a4c9221d7c68a01593c98114715f" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -1304,8 +1312,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a24aaa6ca5dd2b31279aad323e863cd4d" name="a24aaa6ca5dd2b31279aad323e863cd4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24aaa6ca5dd2b31279aad323e863cd4d">&#9670;&#160;</a></span>calculate_tire_state()</h2>
+<a id="a70a79d45f47c50d1e9b9fa2ad10836d0" name="a70a79d45f47c50d1e9b9fa2ad10836d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70a79d45f47c50d1e9b9fa2ad10836d0">&#9670;&#160;</a></span>calculate_tire_state()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1335,13 +1343,13 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>vx</em>, </td>
+          <td class="paramname"><em>vcx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>vy</em>, </td>
+          <td class="paramname"><em>vcy</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1354,18 +1362,6 @@ Here is the caller graph for this function:</div>
           <td></td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>wheel_angular_speed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>steering_angle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>distance_to_CG</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1392,23 +1388,21 @@ Here is the caller graph for this function:</div>
     <tr><td class="paramname">slip_angle</td><td>Slip angle </td></tr>
     <tr><td class="paramname">slip_ratio</td><td>Slip ratio </td></tr>
     <tr><td class="paramname">vertical_load</td><td>Fz </td></tr>
-    <tr><td class="paramname">vx</td><td>Velocity in x direction </td></tr>
-    <tr><td class="paramname">vy</td><td>Velocity in y direction </td></tr>
+    <tr><td class="paramname">vcx</td><td>Longitudinal contact-patch velocity in the tire frame </td></tr>
+    <tr><td class="paramname">vcy</td><td>Lateral contact-patch velocity in the tire frame </td></tr>
     <tr><td class="paramname">yaw_rate</td><td>Yaw rate </td></tr>
     <tr><td class="paramname">wheel_angular_speed</td><td>Angular speed at the wheel </td></tr>
-    <tr><td class="paramname">steering_angle</td><td>Steering angle </td></tr>
-    <tr><td class="paramname">distance_to_CG</td><td>Distance from the wheel to the center of gravity </td></tr>
     <tr><td class="paramname">camber_angle</td><td>Camber angle </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00102">102</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_cgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_cgraph" alt=""/></div>
-<map name="ad3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_cgraph" id="ad3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_cgraph">
+<div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_cgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_cgraph" alt=""/></div>
+<map name="ad3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_cgraph" id="ad3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_cgraph">
 <area shape="rect" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="5,105,172,145"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a76dbc84d6466dffb7a08b377a9b15631" title=" " alt="" coords="220,5,425,31"/>
 <area shape="poly" title=" " alt="" coords="115,102,162,70,219,40,235,33,237,38,221,45,165,74,118,106"/>
@@ -1425,8 +1419,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_icgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_icgraph" alt=""/></div>
-<map name="ad3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_icgraph" id="ad3/da3/class_pacejka_m_f6__2_a24aaa6ca5dd2b31279aad323e863cd4d_icgraph">
+<div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_icgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_icgraph" alt=""/></div>
+<map name="ad3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_icgraph" id="ad3/da3/class_pacejka_m_f6__2_a70a79d45f47c50d1e9b9fa2ad10836d0_icgraph">
 <area shape="rect" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a2355a4c9221d7c68a01593c98114715f" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -1459,14 +1453,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00564">564</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00568">568</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_ad9119e9e68e883c91a31184c7dc2ab73_icgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_ad9119e9e68e883c91a31184c7dc2ab73_icgraph" alt=""/></div>
 <map name="ad3/da3/class_pacejka_m_f6__2_ad9119e9e68e883c91a31184c7dc2ab73_icgraph" id="ad3/da3/class_pacejka_m_f6__2_ad9119e9e68e883c91a31184c7dc2ab73_icgraph">
 <area shape="rect" title=" " alt="" coords="400,5,566,46"/>
-<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
+<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
 <area shape="poly" title=" " alt="" coords="384,28,352,28,352,23,384,23"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a2355a4c9221d7c68a01593c98114715f" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -1499,14 +1493,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00573">573</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00577">577</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_aeebb0aa0540eda5e29495a0a2209a1b3_icgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_aeebb0aa0540eda5e29495a0a2209a1b3_icgraph" alt=""/></div>
 <map name="ad3/da3/class_pacejka_m_f6__2_aeebb0aa0540eda5e29495a0a2209a1b3_icgraph" id="ad3/da3/class_pacejka_m_f6__2_aeebb0aa0540eda5e29495a0a2209a1b3_icgraph">
 <area shape="rect" title=" " alt="" coords="400,5,566,46"/>
-<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
+<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
 <area shape="poly" title=" " alt="" coords="384,28,352,28,352,23,384,23"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a2355a4c9221d7c68a01593c98114715f" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -1538,14 +1532,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00584">584</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html#l00588">588</a> of file <a class="el" href="../../d5/dae/pacejka___m_f6__2_8cpp_source.html">pacejka_MF6_2.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/da3/class_pacejka_m_f6__2_a33d1283502535e08e111c5d858f92e31_icgraph.png" border="0" usemap="#ad3/da3/class_pacejka_m_f6__2_a33d1283502535e08e111c5d858f92e31_icgraph" alt=""/></div>
 <map name="ad3/da3/class_pacejka_m_f6__2_a33d1283502535e08e111c5d858f92e31_icgraph" id="ad3/da3/class_pacejka_m_f6__2_a33d1283502535e08e111c5d858f92e31_icgraph">
 <area shape="rect" title=" " alt="" coords="400,5,566,46"/>
-<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
+<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="186,5,352,46"/>
 <area shape="poly" title=" " alt="" coords="384,28,352,28,352,23,384,23"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a2355a4c9221d7c68a01593c98114715f" title="Calculate the forces acting in a tire based on the tire characteristics and dynamic state." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -1630,7 +1624,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="76,507,82,567,98,650,113,694,132,737,156,777,188,812,191,815,187,819,184,816,152,781,127,740,108,696,93,651,77,568,71,507"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#af07a664f4830c1eca939c26f782ffdf5" title=" " alt="" coords="186,875,384,900"/>
 <area shape="poly" title=" " alt="" coords="75,507,78,575,92,671,106,723,126,773,153,821,188,862,190,864,186,868,184,865,148,824,121,776,101,724,87,672,73,576,70,507"/>
-<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="202,925,368,965"/>
+<area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0" title="Intermediate function that calculates all the internal values needed for future calculations." alt="" coords="202,925,368,965"/>
 <area shape="poly" title=" " alt="" coords="75,507,76,582,80,633,88,690,102,749,122,807,151,862,188,911,191,914,187,918,184,915,146,865,118,810,97,750,83,691,75,634,70,582,69,507"/>
 <area shape="rect" href="../../d3/da3/class_pacejka_m_f6__2.html#a76dbc84d6466dffb7a08b377a9b15631" title=" " alt="" coords="432,825,637,851"/>
 <area shape="poly" title=" " alt="" coords="361,922,383,911,397,898,406,886,415,872,431,860,440,855,443,860,433,864,419,876,410,889,401,902,385,915,364,926"/>

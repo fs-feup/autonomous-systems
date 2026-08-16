@@ -2,7 +2,9 @@ var dir_0cfb8af8b96689a0713c9ab2a1e8600e =
 [
     [ "aero_parameters.cpp", "d0/dff/aero__parameters_8cpp.html", null ],
     [ "battery_parameters.cpp", "d7/df3/battery__parameters_8cpp.html", null ],
+    [ "brake_parameters.cpp", "d6/d7d/brake__parameters_8cpp.html", null ],
     [ "car_parameters.cpp", "d1/d51/car__parameters_8cpp.html", null ],
+    [ "inverter_parameters.cpp", "d6/d08/inverter__parameters_8cpp.html", null ],
     [ "load_transfer_parameters.cpp", "d7/de0/load__transfer__parameters_8cpp.html", null ],
     [ "motor_parameters.cpp", "dc/d27/motor__parameters_8cpp.html", null ],
     [ "steering_motor_parameters.cpp", "d8/d33/steering__motor__parameters_8cpp.html", null ],

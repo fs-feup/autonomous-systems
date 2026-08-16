@@ -1,9 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="5,78,174,104"/>
-<area shape="rect" id="Node000001" href="$d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html" title=" " alt="" coords="222,5,400,46"/>
-<area shape="poly" id="edge58_Node000000_Node000001" title=" " alt="" coords="150,71,239,44,240,49,151,76"/>
-<area shape="rect" id="Node000002" href="$d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html" title="Adapter class to manage the use of Pacsim." alt="" coords="225,71,397,111"/>
-<area shape="poly" id="edge59_Node000000_Node000002" title=" " alt="" coords="189,88,224,88,224,94,189,94"/>
-<area shape="rect" id="Node000003" href="$dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html" title=" " alt="" coords="225,136,397,177"/>
-<area shape="poly" id="edge60_Node000000_Node000003" title=" " alt="" coords="151,106,240,133,239,138,150,111"/>
+<area shape="rect" id="Node000000" href="$d8/d87/class_controller.html" title="Base class for control solvers, that calculate both lateral and longitudinal control commands." alt="" coords="5,31,82,56"/>
+<area shape="rect" id="Node000001" href="$dd/d8f/class_decoupled_controller.html" title=" " alt="" coords="130,5,267,31"/>
+<area shape="poly" id="edge49_Node000000_Node000001" title=" " alt="" coords="97,32,129,27,130,32,98,37"/>
+<area shape="rect" id="Node000002" href="$df/d9d/class_m_p_c.html" title=" " alt="" coords="173,55,224,80"/>
+<area shape="poly" id="edge50_Node000000_Node000002" title=" " alt="" coords="97,49,173,61,172,66,97,54"/>
 </map>

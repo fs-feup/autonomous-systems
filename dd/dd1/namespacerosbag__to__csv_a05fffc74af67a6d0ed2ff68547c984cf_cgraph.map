@@ -1,0 +1,9 @@
+<map id="rosbag_to_csv.main" name="rosbag_to_csv.main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,46,143,72"/>
+<area shape="rect" id="Node000002" href="$dd/dd1/namespacerosbag__to__csv.html#a26a808a4b986f3d694f3269233f260ff" title=" " alt="" coords="212,5,347,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,45,197,36,197,42,143,51"/>
+<area shape="rect" id="Node000004" href="$dd/dd1/namespacerosbag__to__csv.html#a2dce8016ea7cdfec484b3c51f5e74fb1" title=" " alt="" coords="191,71,368,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="143,67,176,72,175,77,142,72"/>
+<area shape="rect" id="Node000003" href="$dd/dd1/namespacerosbag__to__csv.html#a167548903b548c88b05d317414cf0f73" title=" " alt="" coords="416,13,604,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="347,23,400,23,400,28,347,28"/>
+</map>

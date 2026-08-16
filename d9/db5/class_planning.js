@@ -23,6 +23,7 @@ var class_planning =
     [ "brake_time_", "d9/db5/class_planning.html#a9c5d6e87075c32228027703ced47a135", null ],
     [ "cone_array_", "d9/db5/class_planning.html#a344cf5b2a5bcafe4424579a3f1c56120", null ],
     [ "desired_velocity_", "d9/db5/class_planning.html#af8099cf647e569a7bfb2eb6220754e93", null ],
+    [ "full_map_warmup_", "d9/db5/class_planning.html#a631e16028392b12289039c4cb8a3d894", null ],
     [ "full_path_", "d9/db5/class_planning.html#a925f11b6978ebac7174923e8b3624c48", null ],
     [ "full_path_pub_", "d9/db5/class_planning.html#a73811aa22ecf3236e443d1d42f9a5f9a", null ],
     [ "has_received_pose_", "d9/db5/class_planning.html#ac66dcfb85dfda27a5a32fdcc8293c13c", null ],

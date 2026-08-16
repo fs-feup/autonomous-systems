@@ -1,0 +1,10 @@
+<map id="TuningEvaluator::normalize_angle" name="TuningEvaluator::normalize_angle">
+<area shape="rect" id="Node000001" title=" " alt="" coords="672,5,848,46"/>
+<area shape="rect" id="Node000002" href="$dd/d66/class_tuning_evaluator.html#a401920c17bfe4fd106fe33e4d838065f" title=" " alt="" coords="267,5,401,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="657,25,624,24,449,24,401,26,401,20,449,19,624,19,657,20"/>
+<area shape="rect" id="Node000004" href="$dd/d66/class_tuning_evaluator.html#a4ad78de37555d99aa1a6dc971d2c4dcf" title=" " alt="" coords="449,33,624,74"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="657,41,625,45,624,40,657,36"/>
+<area shape="rect" id="Node000003" href="$dd/d66/class_tuning_evaluator.html#a631b7a6136308812e842c92e24339f4f" title=" " alt="" coords="5,13,219,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,28,219,28,219,23,251,23"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="433,42,401,38,402,32,434,37"/>
+</map>

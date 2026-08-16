@@ -1,7 +1,7 @@
 <map id="RosOutputAdapter" name="RosOutputAdapter">
-<area shape="rect" id="Node000001" title="ROS&#45;based simulator output adapter." alt="" coords="28,179,225,763"/>
+<area shape="rect" id="Node000001" title="ROS&#45;based simulator output adapter." alt="" coords="28,179,225,797"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,35,91,101"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,114,72,178,67,179,54,115"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,115,71,178,66,179,54,116"/>
 <area shape="rect" id="Node000003" href="$dc/d98/class_invicta_sim_output_adapter.html" title="Base interface for simulator output adapters." alt="" coords="115,5,299,131"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,146,187,179,182,178,189,145"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,146,188,180,183,179,189,145"/>
 </map>

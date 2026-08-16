@@ -1,0 +1,35 @@
+<map id="tune_vehicle_model.clamp" name="tune_vehicle_model.clamp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="670,177,845,203"/>
+<area shape="rect" id="Node000002" href="$d4/da4/namespacetune__vehicle__model.html#a98763b65d602e66317b288dbe59fa788" title=" " alt="" coords="431,136,618,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="655,178,618,172,619,167,656,172"/>
+<area shape="rect" id="Node000003" href="$d4/da4/namespacetune__vehicle__model.html#a048ee0ffbfa6835e9a933e447069b9d1" title=" " alt="" coords="221,5,378,46"/>
+<area shape="poly" id="edge20_Node000001_Node000003" title=" " alt="" coords="737,166,689,111,657,83,621,61,560,40,496,28,434,23,379,22,379,17,434,17,497,22,562,35,623,57,660,79,693,107,741,162"/>
+<area shape="rect" id="Node000009" href="$d4/da4/namespacetune__vehicle__model.html#a30c4f4b178fa2787c229bcae8f1b94f5" title=" " alt="" coords="221,332,378,373"/>
+<area shape="poly" id="edge21_Node000001_Node000009" title=" " alt="" coords="741,217,693,272,660,299,623,321,562,343,497,355,434,361,379,361,378,355,434,355,496,350,560,338,621,317,657,295,689,268,737,213"/>
+<area shape="rect" id="Node000010" href="$d4/da4/namespacetune__vehicle__model.html#a89ce36d753e7cd8ad967423e71412b9e" title=" " alt="" coords="426,201,622,242"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="656,206,623,211,622,206,655,201"/>
+<area shape="rect" id="Node000011" href="$d4/da4/namespacetune__vehicle__model.html#a4bc8cf33f9ee1ab61ac8ad1c5728baba" title=" " alt="" coords="441,71,607,111"/>
+<area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="716,172,621,127,589,114,591,109,623,122,718,167"/>
+<area shape="rect" id="Node000012" href="$d4/da4/namespacetune__vehicle__model.html#ac966eb62fdbda6261c770d868d212b67" title=" " alt="" coords="435,267,614,307"/>
+<area shape="poly" id="edge18_Node000001_Node000012" title=" " alt="" coords="718,212,623,256,590,269,588,264,621,251,716,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,131,424,125,408,109,399,93,391,77,376,61,357,49,360,44,380,57,395,74,404,90,412,106,428,121,436,126"/>
+<area shape="rect" id="Node000005" href="$d4/da4/namespacetune__vehicle__model.html#ad3a8079fdbfb610e7f6b0a86ce98cb54" title=" " alt="" coords="221,136,378,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="415,159,378,159,378,154,415,154"/>
+<area shape="rect" id="Node000006" href="$d4/da4/namespacetune__vehicle__model.html#af15110408ca1cdb35c2057462cc5a06d" title=" " alt="" coords="221,71,378,111"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="437,134,371,115,373,109,438,129"/>
+<area shape="rect" id="Node000007" href="$d4/da4/namespacetune__vehicle__model.html#ad5aa6e0708c0f4a58ef110f4c5e31b05" title=" " alt="" coords="221,201,378,242"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="438,184,373,203,371,198,437,179"/>
+<area shape="rect" id="Node000008" href="$d4/da4/namespacetune__vehicle__model.html#ad5ab3c86781d11b9ede5cb98c3f3539f" title=" " alt="" coords="221,267,378,307"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="436,187,428,192,412,207,404,223,395,239,380,256,360,268,357,264,376,252,391,236,399,220,408,204,424,188,433,182"/>
+<area shape="poly" id="edge12_Node000002_Node000009" title=" " alt="" coords="432,188,428,191,415,207,408,222,404,254,400,287,393,304,380,321,364,334,361,329,376,317,388,301,395,285,399,253,403,221,411,204,424,188,429,184"/>
+<area shape="rect" id="Node000004" href="$d4/da4/namespacetune__vehicle__model.html#a49d4f0b7ff10a001c899386c325148c3" title=" " alt="" coords="5,177,173,203"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,56,222,61,185,91,151,123,103,178,99,175,147,119,181,86,219,57,228,51"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="206,174,174,179,173,174,205,169"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="235,121,222,127,117,179,115,174,220,122,233,116"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="205,210,173,205,174,200,206,205"/>
+<area shape="poly" id="edge11_Node000008_Node000004" title=" " alt="" coords="233,262,220,256,115,205,118,201,222,251,235,257"/>
+<area shape="poly" id="edge13_Node000009_Node000004" title=" " alt="" coords="228,327,219,321,182,292,147,260,99,205,103,201,151,256,185,288,222,317,231,322"/>
+<area shape="poly" id="edge15_Node000010_Node000008" title=" " alt="" coords="438,249,373,269,371,263,437,244"/>
+<area shape="poly" id="edge17_Node000011_Node000006" title=" " alt="" coords="426,94,378,94,378,88,426,88"/>
+<area shape="poly" id="edge19_Node000012_Node000008" title=" " alt="" coords="419,290,378,290,378,284,419,284"/>
+</map>

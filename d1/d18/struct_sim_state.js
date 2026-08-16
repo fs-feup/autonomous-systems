@@ -1,0 +1,27 @@
+var struct_sim_state =
+[
+    [ "ax", "d1/d18/struct_sim_state.html#ab58b81c207490a76a08c148bb7839ef8", null ],
+    [ "ay", "d1/d18/struct_sim_state.html#a3cee9af72be33300b801a9056bde4a06", null ],
+    [ "battery_current", "d1/d18/struct_sim_state.html#ae85d1f481e4a32094055cce43a3e88f9", null ],
+    [ "battery_open_circuit_voltage", "d1/d18/struct_sim_state.html#a50e69d2209d680bd91a3ee6c8b2b7262", null ],
+    [ "battery_soc", "d1/d18/struct_sim_state.html#a5affea5e69db0a828d9657962486d47a", null ],
+    [ "battery_voltage", "d1/d18/struct_sim_state.html#a96d1099ee5795900ab13dd6c1e3c55e5", null ],
+    [ "ebs_active", "d1/d18/struct_sim_state.html#a61c93e2b29cf9ba798925fb81e2a15a5", null ],
+    [ "motor_current", "d1/d18/struct_sim_state.html#a678f7883bc60b746f509f564cb49afd9", null ],
+    [ "motor_omega", "d1/d18/struct_sim_state.html#ab32e4cbbe0cb641882c98ef36ccacd2d", null ],
+    [ "motor_thermal_capacity", "d1/d18/struct_sim_state.html#a50fd8612391d65fc6d0d7676b3af8608", null ],
+    [ "motor_thermal_state", "d1/d18/struct_sim_state.html#afaf91e78ca6902c33b4feb33ce546af2", null ],
+    [ "motor_torque", "d1/d18/struct_sim_state.html#a615485dad61686fa858f8619fd46c5c8", null ],
+    [ "steering_angle", "d1/d18/struct_sim_state.html#a9b1ff13d65bdc36f3ba6c2c94b4ae035", null ],
+    [ "vx", "d1/d18/struct_sim_state.html#a4f0fb16c1e2dc07cfce4f1a66ecb9afe", null ],
+    [ "vy", "d1/d18/struct_sim_state.html#a3c124fd6b6e010549126f25cba92bcb4", null ],
+    [ "wheels_slip_angle", "d1/d18/struct_sim_state.html#ae21a9ef60d5cf44ede6537daddda0756", null ],
+    [ "wheels_slip_ratio", "d1/d18/struct_sim_state.html#ac3f5ee7e7c2005f4432742de69b24d7e", null ],
+    [ "wheels_speed", "d1/d18/struct_sim_state.html#a547173fab20b5e05ab2c03fa83933c8f", null ],
+    [ "wheels_torque", "d1/d18/struct_sim_state.html#a3171d101fe7a48e8abab9e78e49c914f", null ],
+    [ "wheels_vertical_load", "d1/d18/struct_sim_state.html#af54c4ef18063d1c4d42a570fc2a647ca", null ],
+    [ "x", "d1/d18/struct_sim_state.html#a9c1586992e4d396114b704aab1692317", null ],
+    [ "y", "d1/d18/struct_sim_state.html#a9b55cee46073a094f60be7cb1c617cf7", null ],
+    [ "yaw", "d1/d18/struct_sim_state.html#a2345ea96d930afacce4591ca13ce884c", null ],
+    [ "yaw_rate", "d1/d18/struct_sim_state.html#a088570c0d7682db2e77969e39c0a0c99", null ]
+];

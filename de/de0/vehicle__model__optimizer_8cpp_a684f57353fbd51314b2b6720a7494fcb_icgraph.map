@@ -1,0 +1,9 @@
+<map id="initialise_wheel_speeds" name="initialise_wheel_speeds">
+<area shape="rect" id="Node000001" title=" " alt="" coords="216,55,374,80"/>
+<area shape="rect" id="Node000002" href="$de/de0/vehicle__model__optimizer_8cpp.html#aec5bac049caf0c59016c2214a540fd62" title=" " alt="" coords="20,5,153,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,53,143,34,145,29,223,48"/>
+<area shape="rect" id="Node000003" href="$de/de0/vehicle__model__optimizer_8cpp.html#a29bb2b51fe17f36c7287254cb1502d74" title=" " alt="" coords="5,55,168,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,70,168,70,168,65,200,65"/>
+<area shape="rect" id="Node000004" href="$de/de0/vehicle__model__optimizer_8cpp.html#aa706f89b56b3cf2f2d4198efb2d0b3c0" title=" " alt="" coords="34,104,139,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,87,140,107,139,102,222,82"/>
+</map>

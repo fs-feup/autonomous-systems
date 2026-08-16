@@ -8,10 +8,8 @@ var class_m_p_czinho =
     [ "vehicle_pose_callback", "d5/d58/class_m_p_czinho.html#a434c7f978f3f85ba7a818f29aadcae50", null ],
     [ "vehicle_state_callback", "d5/d58/class_m_p_czinho.html#a7d2a8eac66ccbb6bbdbc6dd64be2b5a3", null ],
     [ "_path_received_", "d5/d58/class_m_p_czinho.html#a9b4aaa37482fe422797916c011cc6703", null ],
-    [ "has_previous_control_command_", "d5/d58/class_m_p_czinho.html#a40e2e523cdf0d596c843603bf2d8d1c5", null ],
     [ "latest_path_", "d5/d58/class_m_p_czinho.html#ada3e7bb0b2dc2c25dccc84e71eed4325", null ],
     [ "local_pather_", "d5/d58/class_m_p_czinho.html#a0c64e9148ce84b93403dc4c289454a6f", null ],
-    [ "previous_control_command_", "d5/d58/class_m_p_czinho.html#ad51f1be51d5c023156655b51b3f7e402", null ],
     [ "solver_", "d5/d58/class_m_p_czinho.html#a25c3b691aae394d1f1d71032affb48bc", null ],
     [ "solver_state_", "d5/d58/class_m_p_czinho.html#adcea8f7eb24dd6bccdc2b55904519642", null ]
 ];

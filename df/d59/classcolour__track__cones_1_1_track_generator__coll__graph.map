@@ -1,6 +1,5 @@
 <map id="colour_track_cones.TrackGenerator" name="colour_track_cones.TrackGenerator">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,167,519"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,167,419"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="64,5,108,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,85,80,119,75,119,76,85"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="96,85,97,119,92,119,90,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,86,89,119,83,119,83,86"/>
 </map>

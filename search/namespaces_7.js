@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lidarpoint_0',['LidarPoint',['../dc/d9c/namespace_lidar_point.html',1,'']]]
+  ['generate_5ftrack_5ffrom_5fslam_0',['generate_track_from_slam',['../de/d8e/namespacegenerate__track__from__slam.html',1,'']]],
+  ['guilogic_1',['guiLogic',['../db/d15/namespacegui_logic.html',1,'']]]
 ];

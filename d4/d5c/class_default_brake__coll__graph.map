@@ -1,0 +1,5 @@
+<map id="DefaultBrake" name="DefaultBrake">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,159,177,244"/>
+<area shape="rect" id="Node000002" href="$df/df1/class_brake_model.html" title=" " alt="" coords="5,5,177,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,126,94,159,89,159,89,126"/>
+</map>

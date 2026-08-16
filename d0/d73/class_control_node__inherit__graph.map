@@ -1,11 +1,11 @@
 <map id="ControlNode" name="ControlNode">
-<area shape="rect" id="Node000001" title="Class responsible for the ROS2 communication of the control module." alt="" coords="173,119,361,579"/>
-<area shape="rect" id="Node000003" href="$dc/d0e/class_invictasim_adapter.html" title="Adapter for interfacing with the invictasim simulator." alt="" coords="5,823,147,1029"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,594,161,627,104,824,99,823,156,626,168,592"/>
-<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="171,659,363,1193"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="269,593,269,659,264,659,264,593"/>
-<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="387,627,595,1225"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="364,592,377,626,389,657,384,659,372,628,359,593"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="224,5,309,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="269,86,269,119,264,119,264,86"/>
+<area shape="rect" id="Node000001" title="Class responsible for the ROS2 communication of the control module." alt="" coords="202,119,390,579"/>
+<area shape="rect" id="Node000003" href="$dc/d0e/class_invictasim_adapter.html" title="Adapter for interfacing with the invictasim simulator." alt="" coords="5,803,176,1049"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,593,191,628,131,804,126,803,185,626,198,592"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="200,659,392,1193"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="299,593,299,659,293,659,293,593"/>
+<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="416,627,624,1225"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="393,592,406,626,419,657,414,659,402,628,388,593"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="253,5,339,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="299,86,299,119,293,119,293,86"/>
 </map>

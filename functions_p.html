@@ -127,7 +127,7 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>path_sub_&#160;:&#160;<a class="el" href="db/d68/class_pac_sim_adapter.html#a740861066526b090077e74a059a33c5e">PacSimAdapter</a>, <a class="el" href="dc/d46/class_ros_input_adapter.html#a41ab778ba37d0e207008a3a2698f6b3f">RosInputAdapter</a></li>
 <li>path_to_car_&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#af94605ed3b94a0f58fc8bae97824a5ae">PathCalculation</a></li>
 <li>path_to_car_pub_&#160;:&#160;<a class="el" href="d9/db5/class_planning.html#a3cf3868f97103889e5632101d60bc3b3">Planning</a></li>
-<li>PathCalculation()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#a0faf438af1a3f04809cde563e96e3db8">PathCalculation</a></li>
+<li>PathCalculation()&#160;:&#160;<a class="el" href="d0/d89/class_path_calculation.html#a7e3b4820188b57de63e1522a1646ee67">PathCalculation</a></li>
 <li>PathCalculationConfig()&#160;:&#160;<a class="el" href="df/d7d/struct_path_calculation_config.html#ab91c83bed2a0e226bac65a07b2fc631e">PathCalculationConfig</a></li>
 <li>PathPoint()&#160;:&#160;<a class="el" href="d9/db0/structcommon__lib_1_1structures_1_1_path_point.html#a82b14f11b7af6f7373728a75355fe31c">common_lib::structures::PathPoint</a></li>
 <li>PathSmoothing()&#160;:&#160;<a class="el" href="d7/db7/class_path_smoothing.html#a48524dbf971d4469d992c09d56178e19">PathSmoothing</a></li>
@@ -187,6 +187,7 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>penalty_time_for_discipline()&#160;:&#160;<a class="el" href="d0/d3a/class_collision_statistics.html#a013a7ca2eebe6ee42d933755f2b150f1">CollisionStatistics</a></li>
 <li>penalty_time_per_cone_&#160;:&#160;<a class="el" href="d0/d3a/class_collision_statistics.html#af54fd513c4761f008488c13e8bfc5057">CollisionStatistics</a></li>
 <li>PENALTY_TYPE&#160;:&#160;<a class="el" href="de/dbe/class_competition_logic.html#ae930134d51d4ec48b29758da3811c8d0">CompetitionLogic</a></li>
+<li>pending_commands_&#160;:&#160;<a class="el" href="d5/d90/class_delayed_inverter.html#a93cc46349bb916f675ca04560f9ad1d0">DelayedInverter</a></li>
 <li>Perception()&#160;:&#160;<a class="el" href="de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af">Perception</a></li>
 <li>perception_callback&#160;:&#160;<a class="el" href="dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html#abf53988486511f047ad90e25d561eb8d">evaluator.vehicle_adapter.VehicleAdapter</a></li>
 <li>perception_cones&#160;:&#160;<a class="el" href="d0/dc5/struct_map_snapshot.html#a79d9c81b8e8f0b5a6bdcae7586bbffa7">MapSnapshot</a></li>
@@ -196,7 +197,6 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>perception_exec_time_ms&#160;:&#160;<a class="el" href="d0/dc5/struct_map_snapshot.html#a8a51d89b9cca89a1a1c2d6f7a1680e47">MapSnapshot</a></li>
 <li>perception_execution_time_callback&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#afae97dbafedb77e7c388ddd99cc42134">evaluator.evaluator.Evaluator</a></li>
 <li>perception_metrics&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa4462f0e563c9284139ddc2bdae8d9e8">evaluator.evaluator.Evaluator</a></li>
-<li>perception_model_&#160;:&#160;<a class="el" href="df/d77/class_invicta_sim.html#a56d8ce0713df7b11731b4d15ccd0df65">InvictaSim</a></li>
 <li>perception_par_pub&#160;:&#160;<a class="el" href="d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html#a496105d7d46e333416a44e532618d597">data_infrastructure.data_infrastructure_node.DataInfrastructureNode</a></li>
 <li>perception_parameters()&#160;:&#160;<a class="el" href="d1/daf/classdata__infrastructure_1_1data__infrastructure__node_1_1_data_infrastructure_node.html#a09fc24041b5343d2f51d885e944cba7e">data_infrastructure.data_infrastructure_node.DataInfrastructureNode</a></li>
 <li>perception_pub_&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a650a630c9d90bf55d5d82cf3ea8bbe2f">RosOutputAdapter</a></li>
@@ -237,7 +237,6 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>pid_lim_min_&#160;:&#160;<a class="el" href="d4/de1/struct_control_parameters.html#aa99a13e24b70bbab07eba1e02066a7ed">ControlParameters</a></li>
 <li>pid_max_negative_error_&#160;:&#160;<a class="el" href="d4/de1/struct_control_parameters.html#ad863dfaa2a425155f3d492ca0da4fc78">ControlParameters</a></li>
 <li>pid_max_positive_error_&#160;:&#160;<a class="el" href="d4/de1/struct_control_parameters.html#ac7b9388826b5a7643375cfb3b1d4776f">ControlParameters</a></li>
-<li>pid_tau_&#160;:&#160;<a class="el" href="d4/de1/struct_control_parameters.html#a8fa20f824ceff20002fe72da1abb0e9a">ControlParameters</a></li>
 <li>PIDSteeringMotor()&#160;:&#160;<a class="el" href="d0/db2/class_p_i_d_steering_motor.html#ade01271196821dd5ad5f563553ab990c">PIDSteeringMotor</a></li>
 <li>pitch&#160;:&#160;<a class="el" href="de/dfe/struct_vehicle_state.html#af31c4871b94df7f71e6338dc8e7ee064">VehicleState</a></li>
 <li>pitch_center_z&#160;:&#160;<a class="el" href="da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters.html#a46da7c7ed3c7837851a0691aba5aed05">common_lib::car_parameters::LoadTransferParameters</a></li>
@@ -294,9 +293,10 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>pose_&#160;:&#160;<a class="el" href="d9/db5/class_planning.html#ad237670ca0e648097e7d6f202678620d">Planning</a></li>
 <li>pose_buffer_capacity()&#160;:&#160;<a class="el" href="d0/d87/class_pose_updater.html#a922db51a7be9c67c5ff1a09ed24a1eca">PoseUpdater</a></li>
 <li>pose_buffer_size()&#160;:&#160;<a class="el" href="d0/d87/class_pose_updater.html#addc7d9afb4abe09501215381af8516d4">PoseUpdater</a></li>
-<li>pose_callback&#160;:&#160;<a class="el" href="d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#ae47daf450bdc6340680d0f62d325883e">evaluator.pacsim_adapter.PacsimAdapter</a>, <a class="el" href="da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af3a805db5b93544bb48b4af97ce7178c">generate_track_from_slam.SlamTrackGenerator</a>, <a class="el" href="d6/d6c/class_invicta_sim_adapter.html#a6b03e0bc6b0467673e6c6fc666e40ebe">InvictaSimAdapter</a>, <a class="el" href="dc/d0e/class_invictasim_adapter.html#a8d48db1ef55fcd11299fca06625af554">InvictasimAdapter</a></li>
+<li>pose_callback&#160;:&#160;<a class="el" href="d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#ae47daf450bdc6340680d0f62d325883e">evaluator.pacsim_adapter.PacsimAdapter</a>, <a class="el" href="da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af3a805db5b93544bb48b4af97ce7178c">generate_track_from_slam.SlamTrackGenerator</a>, <a class="el" href="dc/d0e/class_invictasim_adapter.html#a8d48db1ef55fcd11299fca06625af554">InvictasimAdapter</a>, <a class="el" href="d6/d6c/class_invicta_sim_adapter.html#a6b03e0bc6b0467673e6c6fc666e40ebe">InvictaSimAdapter</a></li>
 <li>pose_covariance&#160;:&#160;<a class="el" href="d8/dfe/struct_vehicle_state_snapshot.html#a700116eac0f376294526323b8e95b14a">VehicleStateSnapshot</a></li>
 <li>pose_difference_&#160;:&#160;<a class="el" href="d7/d79/class_e_k_f_s_l_a_m_solver.html#a7d7b5733ce1a966497441706972b3f71">EKFSLAMSolver</a></li>
+<li>pose_history&#160;:&#160;<a class="el" href="da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a083df94e3c93d66b507a58e522292362">generate_track_from_slam.SlamTrackGenerator</a></li>
 <li>pose_id&#160;:&#160;<a class="el" href="d4/dee/struct_graph_s_l_a_m_instance_1_1_timed_pose.html#a7a5b8839f786d1c0825d0aa7fd6fc974">GraphSLAMInstance::TimedPose</a></li>
 <li>pose_metrics&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aecd3335743e8b2868cc04c1e55d155e4">evaluator.evaluator.Evaluator</a></li>
 <li>pose_ready_for_graph_update()&#160;:&#160;<a class="el" href="d1/d1c/class_difference_based_ready_pose_updater.html#aa5bafd12e1dd6627da3ca0de1ac91710">DifferenceBasedReadyPoseUpdater</a>, <a class="el" href="d0/d87/class_pose_updater.html#acb085d24073ac0a1f5353c6c8f6efea1">PoseUpdater</a></li>
@@ -310,9 +310,10 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>Position()&#160;:&#160;<a class="el" href="dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a051e28f7ac94c4c53f1d4b205d4b6835">common_lib::structures::Position</a></li>
 <li>position&#160;:&#160;<a class="el" href="da/d68/struct_competition_logic_1_1_penalty.html#ae8fd5349a78f93d36279b2cc4bbd4d33">CompetitionLogic::Penalty</a>, <a class="el" href="d9/d25/classdraw_view_1_1_cone_item.html#a63239543a864d0c0e30870bef2d6cfa8">drawView.ConeItem</a>, <a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a3d69f86f94499b848f1fd9efce36a32c">evaluator.evaluator.Evaluator</a>, <a class="el" href="d7/d13/struct_landmark.html#ace5e63f8e3e6198422199dd97a6e475d">Landmark</a>, <a class="el" href="d9/d90/struct_observation_data.html#a2ff91f8d700837f1a32ec743fcfdb5ca">ObservationData</a>, <a class="el" href="dc/dbf/struct_report_1_1_penalty.html#add1c451d1f7b0ed6fbefa48a4a2e1169">Report::Penalty</a>, <a class="el" href="dd/dc4/class_sensor_base.html#af3b835510d1103ef0e1be00d110f4d44">SensorBase&lt; T &gt;</a>, <a class="el" href="dd/d52/class_vehicle_model_bicycle.html#a8dede29a24e940cbbe371f1babf2b297">VehicleModelBicycle</a>, <a class="el" href="d8/dfe/struct_vehicle_state_snapshot.html#a3db7b600f5bf05be328718353d498bad">VehicleStateSnapshot</a></li>
 <li>position_covariance&#160;:&#160;<a class="el" href="da/d17/struct_gnss_data.html#a8654d1d9f870757a58119b8b5ef1e62b">GnssData</a></li>
-<li>position_x&#160;:&#160;<a class="el" href="d5/dec/struct_ros_output_adapter_1_1_ground_visual_config.html#a179ea8781feb63e60acd613c5a4a60c2">RosOutputAdapter::GroundVisualConfig</a></li>
-<li>position_y&#160;:&#160;<a class="el" href="d5/dec/struct_ros_output_adapter_1_1_ground_visual_config.html#a2d7a5009c14bec7d1ca3b52e70d3a2a3">RosOutputAdapter::GroundVisualConfig</a></li>
-<li>position_z&#160;:&#160;<a class="el" href="d5/dec/struct_ros_output_adapter_1_1_ground_visual_config.html#a3eee045ac330de3058a292e96560610f">RosOutputAdapter::GroundVisualConfig</a></li>
+<li>position_error_pub_&#160;:&#160;<a class="el" href="dd/d66/class_tuning_evaluator.html#a7fb5fe32a9bbbe9fd4330011ec46b0f1">TuningEvaluator</a></li>
+<li>position_rmse&#160;:&#160;<a class="el" href="d1/dea/struct_evaluation_metrics.html#a638b557790d3f417b0785d4748ddddb5">EvaluationMetrics</a></li>
+<li>position_rmse_&#160;:&#160;<a class="el" href="dd/d66/class_tuning_evaluator.html#a987ffd483b615331b6c7a8f697a1a7ec">TuningEvaluator</a></li>
+<li>position_rmse_pub_&#160;:&#160;<a class="el" href="dd/d66/class_tuning_evaluator.html#a54352d3044f866adae724204f6cd6cca">TuningEvaluator</a></li>
 <li>positionToWorld()&#160;:&#160;<a class="el" href="d5/da5/classdraw_view_1_1draw_view.html#ab04868346e7f32b0e102f17de6a93631">drawView.drawView</a></li>
 <li>powerGroundForce&#160;:&#160;<a class="el" href="d3/d19/struct_vehicle_model_bicycle_1_1_powertrain_model.html#af81668934f770ab3bfa2b09ec2a8aa2a">VehicleModelBicycle::PowertrainModel</a></li>
 <li>powerGroundSetpoint&#160;:&#160;<a class="el" href="dd/d52/class_vehicle_model_bicycle.html#add544a506f9365db9f85aae77177ed31">VehicleModelBicycle</a></li>
@@ -341,13 +342,13 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>prediction_step_input_size&#160;:&#160;<a class="el" href="df/d4f/class_performance_test.html#a0f2349061b84e42a783f7d48f16129b2">PerformanceTest</a></li>
 <li>prediction_step_time&#160;:&#160;<a class="el" href="df/d4f/class_performance_test.html#a9622e90ef379022e2035b58ebabebf27">PerformanceTest</a></li>
 <li>prediction_step_time_callback&#160;:&#160;<a class="el" href="dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1599c7161cb4fa3bb3e8802afdbcef54">evaluator.evaluator.Evaluator</a></li>
+<li>preload&#160;:&#160;<a class="el" href="d2/d1f/structcommon__lib_1_1car__parameters_1_1_transmission_parameters.html#a202172b0be5accaef954865e6bc2bd0a">common_lib::car_parameters::TransmissionParameters</a></li>
 <li>preloaded_map_noise_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#ad99c870f05aa9e190c593f3889a64ee3">SLAMParameters</a></li>
 <li>PRESMAX&#160;:&#160;<a class="el" href="dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html#a4c786100f0d6deec8fcd586357a275fd">common_lib::car_parameters::TireParameters</a></li>
 <li>PRESMIN&#160;:&#160;<a class="el" href="dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html#a1fcd5683fbdafab5db8cd900f37db263">common_lib::car_parameters::TireParameters</a></li>
 <li>prev_error_&#160;:&#160;<a class="el" href="d6/d5a/class_p_i_d.html#af85f79ab31c0982bfd004b0a543d9461">PID</a></li>
 <li>prev_measurement_&#160;:&#160;<a class="el" href="d6/d5a/class_p_i_d.html#aa960c9dd715e9be8fa818197719ee276">PID</a></li>
 <li>prev_value_&#160;:&#160;<a class="el" href="d7/d25/class_low_pass_filter.html#a59808dd868b359446dd011068f393ee4">LowPassFilter</a></li>
-<li>previous_control_command_&#160;:&#160;<a class="el" href="d5/d58/class_m_p_czinho.html#ad51f1be51d5c023156655b51b3f7e402">MPCzinho</a>, <a class="el" href="d3/dc4/class_m_p_czinho_acados_solver.html#a5e45f12b972e25228e48b599457f8aba">MPCzinhoAcadosSolver</a></li>
 <li>previous_error_&#160;:&#160;<a class="el" href="d0/db2/class_p_i_d_steering_motor.html#aa040b08d0d8471adc73801f92f84231a">PIDSteeringMotor</a></li>
 <li>previous_finish_line_side_&#160;:&#160;<a class="el" href="d0/d03/class_lap_timer_statistics.html#ae2c15cdf8043aa608dfc51c910df9670">LapTimerStatistics</a></li>
 <li>previous_timing_line_side_&#160;:&#160;<a class="el" href="d0/d03/class_lap_timer_statistics.html#a0b4c733693f16dc7ce072d9a49d00a2d">LapTimerStatistics</a></li>
@@ -358,7 +359,7 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>process_new_pose()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a856daf4f7f31af529bff762f7a71f416">GraphSLAMInstance</a></li>
 <li>process_noise_matrix_&#160;:&#160;<a class="el" href="d7/d79/class_e_k_f_s_l_a_m_solver.html#afcecff484c94008ccdca894f0720954b">EKFSLAMSolver</a></li>
 <li>process_observations()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a7501de0af12933b297d61ca341fb3171">GraphSLAMInstance</a></li>
-<li>process_pose_difference()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a6e60bbad16b2888ac5bf3ea1cd4e8449">GraphSLAMInstance</a></li>
+<li>process_pose_difference()&#160;:&#160;<a class="el" href="d4/dca/class_graph_s_l_a_m_instance.html#a7ad32dc3cb22c3257ff1201613468a08">GraphSLAMInstance</a></li>
 <li>process_slice()&#160;:&#160;<a class="el" href="da/d5d/class_himmelsbach.html#a8efa0fdc694cbc16aac83c1bd88b7250">Himmelsbach</a></li>
 <li>process_triangle_edge()&#160;:&#160;<a class="el" href="d8/dab/class_midpoint_generator.html#a71e29f05ff66ef0801b863d1bd5eadd3">MidpointGenerator</a></li>
 <li>processes_usage&#160;:&#160;<a class="el" href="db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#ae44285ef121029621943fde01064b5d6">power_log.power_log_node.PowerNode</a></li>
@@ -368,35 +369,39 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>proportional_&#160;:&#160;<a class="el" href="d6/d5a/class_p_i_d.html#a5c9a04bc4176e30034eba56d950d3989">PID</a></li>
 <li>proximity_weight_&#160;:&#160;<a class="el" href="de/dce/struct_path_smoothing_config.html#a4bc6fcb7f8ffd575a9a46d4cb02bbfdc">PathSmoothingConfig</a></li>
 <li>pts&#160;:&#160;<a class="el" href="dc/d70/class_grid_clustering_test.html#ac4a6dc79b1d490d0e23f5f835739f7bf">GridClusteringTest</a></li>
+<li>publish()&#160;:&#160;<a class="el" href="d4/dc1/classcontrol__evaluator_1_1smoothness__metrics_1_1___smoothness_signal.html#a4767ce5faff2b94784501ef8908f50ab">control_evaluator.smoothness_metrics._SmoothnessSignal</a></li>
 <li>publish_associations_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#afadc9515b46ac53e9917cb8e1f2f55a5">SLAMParameters</a></li>
 <li>publish_closest_point()&#160;:&#160;<a class="el" href="dc/dde/class_pure_pursuit.html#afe721df091e7f9db6c1b020b341bd8b4">PurePursuit</a></li>
 <li>publish_command()&#160;:&#160;<a class="el" href="d6/dc5/class_control_node.html#a676e3848ca5d5266c7e65e77795623c0">ControlNode</a>, <a class="el" href="dc/d0e/class_invictasim_adapter.html#add1076055d3b084d70a9181d719cedfe">InvictasimAdapter</a>, <a class="el" href="db/d68/class_pac_sim_adapter.html#a015957ba6643cdca1a1267f05875812b">PacSimAdapter</a>, <a class="el" href="d1/df1/class_vehicle_adapter.html#ab329488a6765ef5c640d44b8d698ddee">VehicleAdapter</a></li>
+<li>publish_comparison_visualization()&#160;:&#160;<a class="el" href="dd/d66/class_tuning_evaluator.html#ae9c70f5659ed41480897d09ac2bb7c9b">TuningEvaluator</a></li>
 <li>publish_cones()&#160;:&#160;<a class="el" href="de/d07/class_perception.html#a68efe16012264fa6a26bafb9cecd40a5">Perception</a></li>
 <li>publish_control_statistics()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#ae2c706ecb174867ef2095af6a0ab9155">RosOutputAdapter</a></li>
 <li>publish_controls()&#160;:&#160;<a class="el" href="de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148">InspectionMission</a></li>
 <li>publish_data()&#160;:&#160;<a class="el" href="d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc">MockerNode</a></li>
 <li>publish_execution_time()&#160;:&#160;<a class="el" href="d9/db5/class_planning.html#aab7a9fdd3fddc1a07b51281bef96f53a">Planning</a>, <a class="el" href="d6/dc0/class_ros_output_adapter.html#ac79ebc0e1bfc97a2b815613ac006a586">RosOutputAdapter</a></li>
+<li>publish_float()&#160;:&#160;<a class="el" href="dd/d66/class_tuning_evaluator.html#a683486e2e4f8096f415807a9073b2339">TuningEvaluator</a></li>
 <li>publish_fov_trimmed_cloud&#160;:&#160;<a class="el" href="de/dda/struct_perception_parameters.html#ade801c71162c030f9f11de6503799d7a">PerceptionParameters</a></li>
 <li>publish_global_observations_&#160;:&#160;<a class="el" href="d5/d51/struct_s_l_a_m_parameters.html#a1a64ca86e98dc876485819437fdd011f">SLAMParameters</a></li>
 <li>publish_ground_removed_cloud&#160;:&#160;<a class="el" href="de/dda/struct_perception_parameters.html#ae53ae9cee473934a5a904eb3f3b238a7">PerceptionParameters</a></li>
 <li>publish_ground_truth()&#160;:&#160;<a class="el" href="da/deb/classrosbag__groundtruth_1_1rosbag__node_1_1_bag_node.html#a3cb17a709d5c6e2a789aaee0b0e2baf6">rosbag_groundtruth.rosbag_node.BagNode</a></li>
 <li>publish_input()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#ad9fdff984f9e5e5525060c8f6e69e9ff">RosOutputAdapter</a></li>
+<li>publish_interpolated_path()&#160;:&#160;<a class="el" href="d3/dc4/class_m_p_czinho_acados_solver.html#ae5d9261746ff8eabeee65b15fe3a5981">MPCzinhoAcadosSolver</a></li>
 <li>publish_lap_current()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a119327509398d5418963fc67399aabc6">RosOutputAdapter</a></li>
 <li>publish_lap_summary()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#aef920919f24756079b33f5054cbf3729">RosOutputAdapter</a></li>
 <li>publish_lookahead_point()&#160;:&#160;<a class="el" href="dc/dde/class_pure_pursuit.html#ae90520d8a83d48f177a0e92615728b88">PurePursuit</a></li>
 <li>publish_map_ground_truth()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#aebc8a3ee7069fcbaa76bfb61b33daa77">RosOutputAdapter</a></li>
 <li>publish_marker()&#160;:&#160;<a class="el" href="dc/ddc/classtest_1_1_location_publisher.html#a2eb0039552f3341acff37eae9aff241b">test.LocationPublisher</a></li>
+<li>publish_metrics()&#160;:&#160;<a class="el" href="d6/dda/classcontrol__evaluator_1_1error__metrics_1_1_error_metrics.html#a74695e55d2b3788ae073619e332d3b05">control_evaluator.error_metrics.ErrorMetrics</a>, <a class="el" href="dd/da5/classcontrol__evaluator_1_1performance__metrics_1_1_performance_metrics.html#ae71655c45f5690ac37923138afded7c0">control_evaluator.performance_metrics.PerformanceMetrics</a>, <a class="el" href="d4/d0b/classcontrol__evaluator_1_1smoothness__metrics_1_1_smoothness_metrics.html#ac3a2ea89fb389dd1b2b9bc372aaab582">control_evaluator.smoothness_metrics.SmoothnessMetrics</a></li>
 <li>publish_operational_status()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a82356e8a791410a7d293639b9da245dd">RosOutputAdapter</a></li>
 <li>publish_path_points()&#160;:&#160;<a class="el" href="d9/db5/class_planning.html#aa8ad2cbbe8c774e51463142acb1088d2">Planning</a></li>
 <li>publish_pcd()&#160;:&#160;<a class="el" href="de/de3/class_perception_integration_test.html#a6bff0aa7a1d4330e4785c62b341319d6">PerceptionIntegrationTest</a></li>
 <li>publish_perception_cones()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a5b0a54007cadfa94ddcc81f35fdcbe58">RosOutputAdapter</a></li>
+<li>publish_pose()&#160;:&#160;<a class="el" href="dd/d66/class_tuning_evaluator.html#af3df2e162b5fc50d29b68012ebd1c519">TuningEvaluator</a></li>
+<li>publish_received_state()&#160;:&#160;<a class="el" href="d3/dc4/class_m_p_czinho_acados_solver.html#a33a3e7739f0c2fcf993ed877dae07e4c">MPCzinhoAcadosSolver</a></li>
 <li>publish_sensors_imu()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a9aa2e29605b423e2932762311bdbd53b">RosOutputAdapter</a></li>
 <li>publish_sensors_resolver()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a5a9a758482902e9826045307ef2a62a1">RosOutputAdapter</a></li>
 <li>publish_sensors_steering()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a72109ca8b92f6dd81aceec53b3977aa0">RosOutputAdapter</a></li>
-<li>publish_sensors_wheel_speed_fl()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a26f0c8b9dae7fa7449e8d2386f39e610">RosOutputAdapter</a></li>
-<li>publish_sensors_wheel_speed_fr()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#ad1e0310e5bd0e9ac2deb1c22307313d5">RosOutputAdapter</a></li>
-<li>publish_sensors_wheel_speed_rl()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#aa05aec0728fd7ac38041bb8c840b7e43">RosOutputAdapter</a></li>
-<li>publish_sensors_wheel_speed_rr()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a127dfdf3f1bd2c3a965e4ed6de0c2352">RosOutputAdapter</a></li>
+<li>publish_sensors_wheel_speed()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#ae4c0cf88442f890c89fa5f307d9a4fd0">RosOutputAdapter</a></li>
 <li>publish_solver_data()&#160;:&#160;<a class="el" href="de/dea/class_acados_solver.html#a4adb3c40aa7ba37ec886a122c72dc3fe">AcadosSolver</a>, <a class="el" href="d8/d87/class_controller.html#a8730b38203f2f66c699b9815fe776b88">Controller</a>, <a class="el" href="dd/d8f/class_decoupled_controller.html#a762f345adf27327bc9fdb519c2818dd9">DecoupledController</a>, <a class="el" href="d7/d69/class_lateral_controller.html#ad449d61c7570de39d966d6e1236d607c">LateralController</a>, <a class="el" href="da/ded/class_longitudinal_controller.html#aa2445cceff14e90a6c1f53d54429c7ab">LongitudinalController</a>, <a class="el" href="df/d9d/class_m_p_c.html#a893b61389d675e2f4f13bb393810fd45">MPC</a>, <a class="el" href="d5/d58/class_m_p_czinho.html#a05d4b19a2563228107ba8e11c2a9e942">MPCzinho</a>, <a class="el" href="d3/dc4/class_m_p_czinho_acados_solver.html#a85c8a3a784c319bf33e73445e9ab3649">MPCzinhoAcadosSolver</a>, <a class="el" href="d6/d5a/class_p_i_d.html#a3bed9f0b83456b2bde4db41790b38957">PID</a>, <a class="el" href="dc/dde/class_pure_pursuit.html#a0a8fc6a4cd3c8c9f366c320d85999299">PurePursuit</a>, <a class="el" href="df/db9/class_solver_interface.html#a61b35f8ad96d54a41b4daa089e81b042">SolverInterface</a></li>
 <li>publish_state_estimation_lap_counter()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#a3c7d1879fbfec77b00332ef8186496ad">RosOutputAdapter</a></li>
 <li>publish_state_estimation_map()&#160;:&#160;<a class="el" href="d6/dc0/class_ros_output_adapter.html#acc261a6e4c947abd362dfe4ad095fb8d">RosOutputAdapter</a></li>
@@ -438,6 +443,8 @@ $(document).ready(function(){initNavTree('functions_p.html',''); initResizable()
 <li>PW2&#160;:&#160;<a class="el" href="dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html#a625100c49a582db51d824f805449702f">common_lib::car_parameters::TireParameters</a></li>
 <li>PW3&#160;:&#160;<a class="el" href="dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html#a6e03c9ecf931929f5176943003d70476">common_lib::car_parameters::TireParameters</a></li>
 <li>PW4&#160;:&#160;<a class="el" href="dd/d7d/structcommon__lib_1_1car__parameters_1_1_tire_parameters.html#acae9ec2281dd82a1da31faccd20e512e">common_lib::car_parameters::TireParameters</a></li>
+<li>PX&#160;:&#160;<a class="el" href="dd/d5c/class_inline_f_s_f_e_u_p02_model.html#a047fda007470200874cfc23c66317e02ab935d1702c7585b5dfc27f381a47797e">InlineFSFEUP02Model</a></li>
+<li>PY&#160;:&#160;<a class="el" href="dd/d5c/class_inline_f_s_f_e_u_p02_model.html#a047fda007470200874cfc23c66317e02a160e9953349849997b4b81322ce46ad4">InlineFSFEUP02Model</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

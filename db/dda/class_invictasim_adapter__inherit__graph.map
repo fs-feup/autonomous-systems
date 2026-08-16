@@ -1,5 +1,5 @@
 <map id="InvictasimAdapter" name="InvictasimAdapter">
-<area shape="rect" id="Node000001" title="Adapter for interfacing with the invictasim simulator." alt="" coords="29,627,170,832"/>
+<area shape="rect" id="Node000001" title="Adapter for interfacing with the invictasim simulator." alt="" coords="14,627,185,872"/>
 <area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="5,119,193,579"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,594,102,627,97,627,97,594"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="57,5,142,71"/>

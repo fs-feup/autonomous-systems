@@ -1,0 +1,11 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Braking begins at the braking point rather than being deferred to the end of the path." alt="" coords="5,63,60,88"/>
+<area shape="rect" id="Node000002" href="$d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932" title=" " alt="" coords="138,5,271,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,61,107,41,131,33,133,38,109,46,61,65"/>
+<area shape="rect" id="Node000003" href="$d3/dcc/class_velocity_planning.html#afa175409e541c656c54d314b36b136b2" title="Accelerate flat out to the braking distance, then brake flat out to a standstill." alt="" coords="108,55,301,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,73,92,73,92,78,60,78"/>
+<area shape="rect" id="Node000005" href="$d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9" title="Straight path, one metre per point." alt="" coords="160,120,249,146"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="61,86,109,105,145,116,144,121,107,110,59,90"/>
+<area shape="rect" id="Node000004" href="$d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="349,55,492,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="301,73,334,73,334,78,301,78"/>
+</map>

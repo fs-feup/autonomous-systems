@@ -1,7 +1,7 @@
 <map id="TireModel" name="TireModel">
-<area shape="rect" id="Node000001" title="Class used to model tires." alt="" coords="97,5,249,200"/>
-<area shape="rect" id="Node000002" href="$d2/db1/class_pacejka_combined_slip.html" title=" " alt="" coords="5,358,164,443"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,215,99,359,94,357,137,214"/>
-<area shape="rect" id="Node000003" href="$d3/da3/class_pacejka_m_f6__2.html" title=" " alt="" coords="189,248,333,553"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,214,218,247,213,249,203,215"/>
+<area shape="rect" id="Node000001" title="Class used to model tires." alt="" coords="97,5,249,339"/>
+<area shape="rect" id="Node000002" href="$d2/db1/class_pacejka_combined_slip.html" title=" " alt="" coords="5,497,164,582"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,354,97,498,92,496,127,353"/>
+<area shape="rect" id="Node000003" href="$d3/da3/class_pacejka_m_f6__2.html" title=" " alt="" coords="189,387,333,692"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,353,227,386,222,387,213,354"/>
 </map>

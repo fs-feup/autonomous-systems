@@ -75,6 +75,8 @@ var class_vehicle_model_bicycle =
     [ "sf", "dd/d52/class_vehicle_model_bicycle.html#a729ff590380c10595a4d5bca3e1ebbd0", null ],
     [ "sr", "dd/d52/class_vehicle_model_bicycle.html#a111f3471a85694dc6110e10ea776a4ef", null ],
     [ "steeringAngles", "dd/d52/class_vehicle_model_bicycle.html#ab4251396b1f50047fb566cb00165ba93", null ],
+    [ "steeringFrontActual", "dd/d52/class_vehicle_model_bicycle.html#a9371a377b3365d01fc9d297bba7f9c42", null ],
+    [ "steeringFrontSetpoint", "dd/d52/class_vehicle_model_bicycle.html#a5f22b1bc660ec74c709588b25b64b1d2", null ],
     [ "steeringModel", "dd/d52/class_vehicle_model_bicycle.html#aa4d005ca60350f44404a4699a4438352", null ],
     [ "throttleActuationFL", "dd/d52/class_vehicle_model_bicycle.html#a24095d1d5bfeab24fc5d0da545983563", null ],
     [ "throttleActuationFR", "dd/d52/class_vehicle_model_bicycle.html#a70bd384d5d702f29bb3a466093a8168a", null ],

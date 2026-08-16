@@ -125,7 +125,11 @@ $(document).ready(function(){initNavTree('d3/d38/invictasim_2include_2io_2input_
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>         [](<span class="keyword">const</span> std::shared_ptr&lt;InvictaSim&gt;&amp; sim) -&gt; std::shared_ptr&lt;InvictaSimInputAdapter&gt; {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>           <span class="keywordflow">return</span> std::make_shared&lt;KeyboardInputAdapter&gt;(sim);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>         }},</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        {<span class="stringliteral">&quot;manual&quot;</span>,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>         [](<span class="keyword">const</span> std::shared_ptr&lt;InvictaSim&gt;&amp; sim) -&gt; std::shared_ptr&lt;InvictaSimInputAdapter&gt; {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>           <span class="keywordflow">return</span> std::make_shared&lt;KeyboardInputAdapter&gt;(sim);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>         }},</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
 </div>
 <div class="ttc" id="ainput_2ros_8hpp_html"><div class="ttname"><a href="../../d6/df1/input_2ros_8hpp.html">ros.hpp</a></div></div>
 <div class="ttc" id="ainput__adapter_8hpp_html"><div class="ttname"><a href="../../df/dc1/input__adapter_8hpp.html">input_adapter.hpp</a></div></div>

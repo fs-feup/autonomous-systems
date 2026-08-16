@@ -1,0 +1,9 @@
+<map id="TireModel::calculate_slip_ratio_not_transient" name="TireModel::calculate_slip_ratio_not_transient">
+<area shape="rect" id="Node000001" title=" " alt="" coords="409,39,571,79"/>
+<area shape="rect" id="Node000002" href="$d2/dc2/class_tire_model.html#a81006948323b6dfefb3f37de392c16e3" title=" " alt="" coords="207,5,344,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="394,47,343,39,344,34,394,41"/>
+<area shape="rect" id="Node000004" href="$d2/dc2/class_tire_model.html#ae85b3d9ca967fab0a50ebe5a7aba6d93" title=" " alt="" coords="190,71,361,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="394,76,362,81,361,76,393,71"/>
+<area shape="rect" id="Node000003" href="$d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f" title=" " alt="" coords="5,5,142,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="192,28,142,28,142,23,192,23"/>
+</map>

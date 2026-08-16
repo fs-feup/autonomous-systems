@@ -1,8 +1,7 @@
 var struct_velocity_planning_config =
 [
     [ "VelocityPlanningConfig", "d2/d0d/struct_velocity_planning_config.html#ad21fa616c6438fce720217a6f81e8657", null ],
-    [ "VelocityPlanningConfig", "d2/d0d/struct_velocity_planning_config.html#a084ecab88ddaf49ebf97b3ce569979ef", null ],
-    [ "acceleration_", "d2/d0d/struct_velocity_planning_config.html#a9808cdef12f257b093ad91ea5d786a5b", null ],
+    [ "VelocityPlanningConfig", "d2/d0d/struct_velocity_planning_config.html#ad5f3fca68b91c52fd8199fcf289a5299", null ],
     [ "braking_acceleration_", "d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449", null ],
     [ "desired_velocity_", "d2/d0d/struct_velocity_planning_config.html#a09cbaca748273801eca34ce1fb314685", null ],
     [ "lateral_acceleration_", "d2/d0d/struct_velocity_planning_config.html#a51b4eaadcae39c4d092c69fa4d007f64", null ],

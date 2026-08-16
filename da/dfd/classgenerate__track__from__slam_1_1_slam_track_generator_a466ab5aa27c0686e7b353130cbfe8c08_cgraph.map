@@ -1,14 +1,18 @@
 <map id="generate_track_from_slam.SlamTrackGenerator.try_write_track" name="generate_track_from_slam.SlamTrackGenerator.try_write_track">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,127,202,182"/>
-<area shape="rect" id="Node000002" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a4b69c55e753b58e8d020e65ed5938de6" title=" " alt="" coords="250,98,501,139"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,139,234,135,235,140,202,144"/>
-<area shape="rect" id="Node000005" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af7442494e75c5788e84be8c47731fb23" title=" " alt="" coords="270,163,481,218"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="202,165,255,172,255,177,202,170"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,243,202,298"/>
+<area shape="rect" id="Node000002" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a4b69c55e753b58e8d020e65ed5938de6" title=" " alt="" coords="250,173,501,214"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,240,286,216,287,221,203,245"/>
+<area shape="rect" id="Node000007" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af7442494e75c5788e84be8c47731fb23" title=" " alt="" coords="270,279,481,334"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="202,281,255,288,255,293,202,286"/>
 <area shape="rect" id="Node000003" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a163c657ecd763928e9b42d1c8161efd0" title=" " alt="" coords="557,5,759,61"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="445,95,548,64,549,69,446,100"/>
-<area shape="rect" id="Node000004" href="$d9/d1e/tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="631,110,684,135"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="501,118,616,119,616,125,501,123"/>
-<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="630,119,607,108,602,102,604,95,622,86,658,83,690,85,709,92,713,103,700,113,697,109,707,101,705,96,689,91,658,88,623,91,608,98,608,100,610,104,632,114"/>
-<area shape="rect" id="Node000006" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a0296925f62bb0d8bc111d1f69b128d89" title=" " alt="" coords="549,163,766,218"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="481,188,533,188,533,193,481,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="401,170,465,122,548,71,559,65,561,70,550,75,468,126,404,174"/>
+<area shape="rect" id="Node000004" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a01256d5fd1b8b4805fc1bda648f87e59" title=" " alt="" coords="554,85,761,141"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="449,170,541,143,543,148,451,175"/>
+<area shape="rect" id="Node000005" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af9d05aa1c410c43c2465e1755ec014e5" title=" " alt="" coords="552,165,763,221"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="501,191,536,191,536,196,501,196"/>
+<area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="631,270,684,295"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="443,212,617,267,616,272,441,217"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="630,279,607,268,602,262,604,255,622,246,658,243,690,245,709,252,713,263,700,273,697,269,707,261,705,256,689,251,658,248,623,251,608,258,608,260,610,264,632,274"/>
+<area shape="rect" id="Node000008" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a0296925f62bb0d8bc111d1f69b128d89" title=" " alt="" coords="549,320,766,376"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="481,319,534,327,533,332,480,325"/>
 </map>

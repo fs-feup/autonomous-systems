@@ -11,8 +11,8 @@
 <area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="502,184,517,229,537,317,552,401,547,402,532,318,511,230,497,186"/>
 <area shape="rect" id="Node000008" href="$d8/dfe/struct_vehicle_state_snapshot.html" title="Snapshot of the vehicle&#39;s state for publishing the current pose and operational status,..." alt="" coords="653,358,794,623"/>
 <area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="541,156,578,189,612,228,647,283,675,341,671,343,642,285,608,231,575,193,537,160"/>
-<area shape="rect" id="Node000005" href="$dd/d2b/struct_execution_times_snapshot.html" title="Snapshot of execution times for different components of the vehicle model." alt="" coords="818,398,978,583"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="885,583,871,638,852,692,799,800,738,898,734,896,795,797,848,690,866,636,880,582"/>
+<area shape="rect" id="Node000005" href="$dd/d2b/struct_execution_times_snapshot.html" title="Snapshot of execution times for different components of the vehicle model." alt="" coords="818,388,978,593"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="883,593,870,643,852,692,799,800,738,898,734,896,795,797,848,690,865,642,878,592"/>
 <area shape="rect" id="Node000006" href="$d0/dc5/struct_map_snapshot.html" title="Snapshot of the track map, containing both the ground truth cone positions and simulated slam map." alt="" coords="1009,418,1184,563"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1084,564,1063,629,1048,662,1030,693,965,775,890,849,813,914,742,966,739,962,810,909,886,845,961,771,1025,690,1043,659,1058,627,1079,562"/>
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="563,563,564,625,570,691,571,698,566,699,565,692,559,626,557,563"/>

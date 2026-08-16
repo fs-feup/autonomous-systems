@@ -1,9 +1,0 @@
-<map id="control_command_bridge_node._build_control_from_legacy" name="control_command_bridge_node._build_control_from_legacy">
-<area shape="rect" id="Node000001" title=" " alt="" coords="655,5,828,61"/>
-<area shape="rect" id="Node000002" href="$dd/d82/namespacecontrol__command__bridge__node.html#a2aa5135733f16ae808831fbad072f0e5" title=" " alt="" coords="434,5,607,61"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="640,36,608,36,608,31,640,31"/>
-<area shape="rect" id="Node000003" href="$dd/d82/namespacecontrol__command__bridge__node.html#aed5b0a2fd979ae5a109da64057fb54b3" title=" " alt="" coords="220,13,386,54"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="419,36,386,36,386,31,419,31"/>
-<area shape="rect" id="Node000004" href="$dd/d82/namespacecontrol__command__bridge__node.html#a7faecab397e54303a2d02646373a927c" title=" " alt="" coords="5,13,172,54"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="204,36,172,36,172,31,204,31"/>
-</map>

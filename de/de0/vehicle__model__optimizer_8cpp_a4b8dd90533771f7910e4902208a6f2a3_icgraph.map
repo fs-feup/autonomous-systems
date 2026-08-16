@@ -1,0 +1,9 @@
+<map id="detect_motion_window" name="detect_motion_window">
+<area shape="rect" id="Node000001" title=" " alt="" coords="218,55,372,80"/>
+<area shape="rect" id="Node000002" href="$de/de0/vehicle__model__optimizer_8cpp.html#aa706f89b56b3cf2f2d4198efb2d0b3c0" title=" " alt="" coords="35,5,140,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,53,140,33,141,28,224,48"/>
+<area shape="rect" id="Node000003" href="$de/de0/vehicle__model__optimizer_8cpp.html#aebcb151fbb6fa061e16c6b0bed255bee" title=" " alt="" coords="13,55,162,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,70,162,70,162,65,202,65"/>
+<area shape="rect" id="Node000004" href="$de/de0/vehicle__model__optimizer_8cpp.html#ae792007db78c33bdf96878533f4c19a5" title=" " alt="" coords="5,104,170,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="224,87,145,106,144,101,222,82"/>
+</map>

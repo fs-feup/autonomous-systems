@@ -107,57 +107,64 @@ $(document).ready(function(){initNavTree('dc/dc4/invictasim_2src_2main_8cpp_sour
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d32/invictasim_2include_2io_2output_2map_8hpp.html">io/output/map.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;rclcpp/executors/multi_threaded_executor.hpp&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d8d/invictasim_2include_2simulator_2invictasim_8hpp.html">simulator/invictasim.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../dc/dc4/invictasim_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">   19</a></span><span class="keywordtype">int</span> <a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  rclcpp::init(argc, argv);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <a class="code hl_struct" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a> params = <a class="code hl_struct" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a>();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">auto</span> simulator = std::make_shared&lt;InvictaSim&gt;(params);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keyword">auto</span> input_adapter = <a class="code hl_variable" href="../../d3/d38/invictasim_2include_2io_2input_2map_8hpp.html#a752345e6008eb461d7a0e7607dd6a375">input_adapters_map</a>.at(params.<a class="code hl_variable" href="../../df/d28/struct_invicta_sim_parameters.html#a73e77211ea42724debeaef93c71d513f">input_adapter</a>.c_str())(simulator);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">auto</span> output_adapter = <a class="code hl_variable" href="../../da/d32/invictasim_2include_2io_2output_2map_8hpp.html#aa4b2b5981922312697262caa955a9b63">output_adapters_map</a>.at(params.<a class="code hl_variable" href="../../df/d28/struct_invicta_sim_parameters.html#a775e2d32259aa6200b65fd8c81d85759">output_adapter</a>.c_str())(simulator);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  std::thread simulator_thread([&amp;simulator]() { simulator-&gt;run(); });</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  std::thread input_thread;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  std::thread output_thread;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  rclcpp::executors::MultiThreadedExecutor <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/d78/tuning__evaluator_8hpp.html">tuning/tuning_evaluator.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../dc/dc4/invictasim_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">   20</a></span><span class="keywordtype">int</span> <a class="code hl_namespace" href="../../d2/dc1/namespacemain.html">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  rclcpp::init(argc, argv);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <a class="code hl_struct" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a> params = <a class="code hl_struct" href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keyword">auto</span> simulator = std::make_shared&lt;InvictaSim&gt;(params);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">auto</span> input_adapter = <a class="code hl_variable" href="../../d3/d38/invictasim_2include_2io_2input_2map_8hpp.html#a752345e6008eb461d7a0e7607dd6a375">input_adapters_map</a>.at(params.<a class="code hl_variable" href="../../df/d28/struct_invicta_sim_parameters.html#a73e77211ea42724debeaef93c71d513f">input_adapter</a>.c_str())(simulator);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">auto</span> output_adapter = <a class="code hl_variable" href="../../da/d32/invictasim_2include_2io_2output_2map_8hpp.html#aa4b2b5981922312697262caa955a9b63">output_adapters_map</a>.at(params.<a class="code hl_variable" href="../../df/d28/struct_invicta_sim_parameters.html#a775e2d32259aa6200b65fd8c81d85759">output_adapter</a>.c_str())(simulator);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  std::shared_ptr&lt;TuningEvaluator&gt; tuning_evaluator;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  std::thread simulator_thread([&amp;simulator]() { simulator-&gt;run(); });</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  std::thread input_thread;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  std::thread output_thread;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordflow">if</span> (<span class="keyword">auto</span> ros_input_node = std::dynamic_pointer_cast&lt;rclcpp::Node&gt;(input_adapter)) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>.add_node(ros_input_node);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    input_thread = std::thread([&amp;input_adapter]() { input_adapter-&gt;run(); });</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keywordflow">if</span> (<span class="keyword">auto</span> ros_output_node = std::dynamic_pointer_cast&lt;rclcpp::Node&gt;(output_adapter)) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>.add_node(ros_output_node);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    output_thread = std::thread([&amp;output_adapter]() { output_adapter-&gt;run(); });</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordflow">while</span> (rclcpp::ok()) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>.spin_some(std::chrono::milliseconds(1));</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  simulator-&gt;stop();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  input_adapter-&gt;stop();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  output_adapter-&gt;stop();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keywordflow">if</span> (simulator_thread.joinable()) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    simulator_thread.join();</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordflow">if</span> (input_thread.joinable()) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    input_thread.join();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordflow">if</span> (output_thread.joinable()) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    output_thread.join();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordflow">if</span> (rclcpp::ok()) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    rclcpp::shutdown();</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  rclcpp::executors::MultiThreadedExecutor <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keywordflow">if</span> (<span class="keyword">auto</span> ros_input_node = std::dynamic_pointer_cast&lt;rclcpp::Node&gt;(input_adapter)) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>.add_node(ros_input_node);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    input_thread = std::thread([&amp;input_adapter]() { input_adapter-&gt;run(); });</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keywordflow">if</span> (<span class="keyword">auto</span> ros_output_node = std::dynamic_pointer_cast&lt;rclcpp::Node&gt;(output_adapter)) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>.add_node(ros_output_node);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    output_thread = std::thread([&amp;output_adapter]() { output_adapter-&gt;run(); });</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keywordflow">if</span> (params.<a class="code hl_variable" href="../../df/d28/struct_invicta_sim_parameters.html#ab51e2a13384d9046b6d5a61d65d78cdb">rosbag_evaluator_enabled</a>) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    tuning_evaluator = std::make_shared&lt;TuningEvaluator&gt;(simulator, params);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>.add_node(tuning_evaluator);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordflow">while</span> (rclcpp::ok()) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_variable" href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a>.spin_some(std::chrono::milliseconds(1));</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  simulator-&gt;stop();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  input_adapter-&gt;stop();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  output_adapter-&gt;stop();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keywordflow">if</span> (simulator_thread.joinable()) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    simulator_thread.join();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordflow">if</span> (input_thread.joinable()) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    input_thread.join();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordflow">if</span> (output_thread.joinable()) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    output_thread.join();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordflow">if</span> (rclcpp::ok()) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    rclcpp::shutdown();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
 </div>
 <div class="ttc" id="aconfig_8hpp_html"><div class="ttname"><a href="../../d8/dfd/config_8hpp.html">config.hpp</a></div></div>
 <div class="ttc" id="ainvictasim_2include_2io_2input_2map_8hpp_html"><div class="ttname"><a href="../../d3/d38/invictasim_2include_2io_2input_2map_8hpp.html">map.hpp</a></div></div>
@@ -168,8 +175,10 @@ $(document).ready(function(){initNavTree('dc/dc4/invictasim_2src_2main_8cpp_sour
 <div class="ttc" id="anamespacemain_html"><div class="ttname"><a href="../../d2/dc1/namespacemain.html">main</a></div><div class="ttdef"><b>Definition</b> <a href="../../dc/da4/pacsim_2track__editor_2main_8py_source.html#l00001">main.py:1</a></div></div>
 <div class="ttc" id="apacsim__main_8cpp_html_ac8074560b9641b374932c9ffce3a5b58"><div class="ttname"><a href="../../d9/d88/pacsim__main_8cpp.html#ac8074560b9641b374932c9ffce3a5b58">executor</a></div><div class="ttdeci">std::shared_ptr&lt; rclcpp::executors::SingleThreadedExecutor &gt; executor</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d88/pacsim__main_8cpp_source.html#l00060">pacsim_main.cpp:60</a></div></div>
 <div class="ttc" id="astruct_invicta_sim_parameters_html"><div class="ttname"><a href="../../df/d28/struct_invicta_sim_parameters.html">InvictaSimParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/dfd/config_8hpp_source.html#l00010">config.hpp:10</a></div></div>
-<div class="ttc" id="astruct_invicta_sim_parameters_html_a73e77211ea42724debeaef93c71d513f"><div class="ttname"><a href="../../df/d28/struct_invicta_sim_parameters.html#a73e77211ea42724debeaef93c71d513f">InvictaSimParameters::input_adapter</a></div><div class="ttdeci">std::string input_adapter</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dfd/config_8hpp_source.html#l00023">config.hpp:23</a></div></div>
-<div class="ttc" id="astruct_invicta_sim_parameters_html_a775e2d32259aa6200b65fd8c81d85759"><div class="ttname"><a href="../../df/d28/struct_invicta_sim_parameters.html#a775e2d32259aa6200b65fd8c81d85759">InvictaSimParameters::output_adapter</a></div><div class="ttdeci">std::string output_adapter</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dfd/config_8hpp_source.html#l00024">config.hpp:24</a></div></div>
+<div class="ttc" id="astruct_invicta_sim_parameters_html_a73e77211ea42724debeaef93c71d513f"><div class="ttname"><a href="../../df/d28/struct_invicta_sim_parameters.html#a73e77211ea42724debeaef93c71d513f">InvictaSimParameters::input_adapter</a></div><div class="ttdeci">std::string input_adapter</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dfd/config_8hpp_source.html#l00024">config.hpp:24</a></div></div>
+<div class="ttc" id="astruct_invicta_sim_parameters_html_a775e2d32259aa6200b65fd8c81d85759"><div class="ttname"><a href="../../df/d28/struct_invicta_sim_parameters.html#a775e2d32259aa6200b65fd8c81d85759">InvictaSimParameters::output_adapter</a></div><div class="ttdeci">std::string output_adapter</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dfd/config_8hpp_source.html#l00025">config.hpp:25</a></div></div>
+<div class="ttc" id="astruct_invicta_sim_parameters_html_ab51e2a13384d9046b6d5a61d65d78cdb"><div class="ttname"><a href="../../df/d28/struct_invicta_sim_parameters.html#ab51e2a13384d9046b6d5a61d65d78cdb">InvictaSimParameters::rosbag_evaluator_enabled</a></div><div class="ttdeci">bool rosbag_evaluator_enabled</div><div class="ttdef"><b>Definition</b> <a href="../../d8/dfd/config_8hpp_source.html#l00026">config.hpp:26</a></div></div>
+<div class="ttc" id="atuning__evaluator_8hpp_html"><div class="ttname"><a href="../../d2/d78/tuning__evaluator_8hpp.html">tuning_evaluator.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

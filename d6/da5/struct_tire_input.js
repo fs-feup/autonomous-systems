@@ -9,6 +9,8 @@ var struct_tire_input =
     [ "slip_ratio", "d6/da5/struct_tire_input.html#af069fea5bd9516fdbc1f628ff4338c24", null ],
     [ "steering_angle", "d6/da5/struct_tire_input.html#a4bf651290d0f9a70d9390ee02f8b020c", null ],
     [ "tire", "d6/da5/struct_tire_input.html#a92e673431dfd6155e8b5e1df7cd00706", null ],
+    [ "vcx", "d6/da5/struct_tire_input.html#aafdc6cf71baa5f3e9943282842f5706d", null ],
+    [ "vcy", "d6/da5/struct_tire_input.html#acd3ed1b016881e19ace8adfdb7ce1eb5", null ],
     [ "vertical_load", "d6/da5/struct_tire_input.html#af8c9eb247edfcf4d5cf508c48fce01eb", null ],
     [ "vx", "d6/da5/struct_tire_input.html#addca5ff87bb26c5d70473468164203a0", null ],
     [ "vy", "d6/da5/struct_tire_input.html#a12eb3518502846626ecd6ad6e2672d50", null ],

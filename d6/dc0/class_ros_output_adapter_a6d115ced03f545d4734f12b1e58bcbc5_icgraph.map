@@ -1,0 +1,9 @@
+<map id="RosOutputAdapter::add_timing_line_markers" name="RosOutputAdapter::add_timing_line_markers">
+<area shape="rect" id="Node000001" title=" " alt="" coords="667,13,823,54"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#ada13564e9019ca829b7fea05407277d0" title=" " alt="" coords="461,5,619,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="652,36,620,36,620,31,652,31"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#aff80929b38affa12b7d28a7127fc1cda" title=" " alt="" coords="250,13,413,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="446,36,413,36,413,31,446,31"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#a395da5a7032d98f5eeabfcc4e1c5ca94" title="Construct a new RosOutputAdapter." alt="" coords="5,13,202,54"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="234,36,202,36,202,31,234,31"/>
+</map>

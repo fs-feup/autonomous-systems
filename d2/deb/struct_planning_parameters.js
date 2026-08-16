@@ -38,7 +38,6 @@ var struct_planning_parameters =
     [ "smoothing_tolerance_", "d2/deb/struct_planning_parameters.html#a6c5fb32cdaa816997119d23b31e5c81a", null ],
     [ "smoothing_use_optimization_", "d2/deb/struct_planning_parameters.html#aee154a46c3f1dd03a82a74af3c005e38", null ],
     [ "smoothing_use_path_smoothing_", "d2/deb/struct_planning_parameters.html#a18a2ad572aced2230f459cacd0919997", null ],
-    [ "vp_acceleration_", "d2/deb/struct_planning_parameters.html#a4dcf5ea2aef6c92eeb92d17cec180b66", null ],
     [ "vp_braking_acceleration_", "d2/deb/struct_planning_parameters.html#a114bc925fcba2bf01421a6ac73d91c70", null ],
     [ "vp_desired_velocity_", "d2/deb/struct_planning_parameters.html#a31aed02c7b8451edf822b2f72c735f63", null ],
     [ "vp_lateral_acceleration_", "d2/deb/struct_planning_parameters.html#a299ce847ca8ec1dd5cae83f3de1f06ad", null ],

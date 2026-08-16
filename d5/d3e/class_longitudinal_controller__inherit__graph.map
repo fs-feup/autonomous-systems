@@ -1,5 +1,5 @@
 <map id="LongitudinalController" name="LongitudinalController">
 <area shape="rect" id="Node000001" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
-<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="5,239,169,968"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,206,90,239,85,239,85,206"/>
+<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="5,239,169,888"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,205,90,239,85,239,85,205"/>
 </map>

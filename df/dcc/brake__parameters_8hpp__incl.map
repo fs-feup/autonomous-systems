@@ -1,0 +1,11 @@
+<map id="src/common_lib/include/common_lib/car_parameters/brake_parameters.hpp" name="src/common_lib/include/common_lib/car_parameters/brake_parameters.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="48,5,237,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,117,120,142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,63,84,107,80,103,117,60"/>
+<area shape="rect" id="Node000003" href="$d0/d20/config__load_8hpp.html" title=" " alt="" coords="144,109,304,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,60,199,96,195,99,164,63"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="90,198,235,238"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="212,152,187,186,183,183,208,149"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="259,205,312,231"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="240,149,270,191,266,194,236,152"/>
+</map>

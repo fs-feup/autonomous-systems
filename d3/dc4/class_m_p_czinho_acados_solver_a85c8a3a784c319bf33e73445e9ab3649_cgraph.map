@@ -1,0 +1,13 @@
+<map id="MPCzinhoAcadosSolver::publish_solver_data" name="MPCzinhoAcadosSolver::publish_solver_data">
+<area shape="rect" id="Node000001" title="Publish any relevant solver data for visualization or debugging purposes." alt="" coords="5,72,167,113"/>
+<area shape="rect" id="Node000002" href="$d3/dc4/class_m_p_czinho_acados_solver.html#ae5d9261746ff8eabeee65b15fe3a5981" title=" " alt="" coords="215,39,389,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,77,199,72,199,78,168,82"/>
+<area shape="rect" id="Node000006" href="$d3/dc4/class_m_p_czinho_acados_solver.html#a33a3e7739f0c2fcf993ed877dae07e4c" title=" " alt="" coords="221,104,383,145"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="168,102,206,107,205,113,167,107"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="437,39,657,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,56,421,56,421,62,389,62"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a2f7dd6410634ac7a63480f740476e8e5" title=" " alt="" coords="705,5,891,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="657,42,690,37,690,43,658,47"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad5a808e4748ad2bf69138abd4aeb9b8c" title=" " alt="" coords="705,71,891,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="658,70,690,75,690,80,657,76"/>
+</map>

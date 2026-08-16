@@ -109,8 +109,8 @@ Inheritance diagram for FSFEUP03Model:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/dd3/class_f_s_f_e_u_p03_model__inherit__graph.png" border="0" usemap="#a_f_s_f_e_u_p03_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_f_s_f_e_u_p03_model_inherit__map" id="a_f_s_f_e_u_p03_model_inherit__map">
-<area shape="rect" title="Four wheel vehicle model (tuned for FSFEUP03)" alt="" coords="5,359,148,679"/>
-<area shape="rect" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="11,5,142,311"/>
+<area shape="rect" title="Four wheel vehicle model (tuned for FSFEUP03)" alt="" coords="5,359,148,739"/>
+<area shape="rect" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="7,5,147,311"/>
 <area shape="poly" title=" " alt="" coords="79,326,79,359,74,359,74,326"/>
 </map>
 </div>
@@ -119,8 +119,8 @@ Collaboration diagram for FSFEUP03Model:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d33/class_f_s_f_e_u_p03_model__coll__graph.png" border="0" usemap="#a_f_s_f_e_u_p03_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_f_s_f_e_u_p03_model_coll__map" id="a_f_s_f_e_u_p03_model_coll__map">
-<area shape="rect" title="Four wheel vehicle model (tuned for FSFEUP03)" alt="" coords="5,359,148,679"/>
-<area shape="rect" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="11,5,142,311"/>
+<area shape="rect" title="Four wheel vehicle model (tuned for FSFEUP03)" alt="" coords="5,359,148,739"/>
+<area shape="rect" href="../../d6/dbc/class_vehicle_model.html" title="Vehicle model interface." alt="" coords="7,5,147,311"/>
 <area shape="poly" title=" " alt="" coords="79,326,79,359,74,359,74,326"/>
 </map>
 </div>
@@ -151,6 +151,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a95d86bdeebab1e74b1b73f21b52bd700 inherit pub_methods_class_vehicle_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c6f94f94059a74ab8cfacda158ca7cf inherit pub_methods_class_vehicle_model" id="r_a2c6f94f94059a74ab8cfacda158ca7cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a2c6f94f94059a74ab8cfacda158ca7cf">set_initial_pose</a> (double x, double y)</td></tr>
 <tr class="separator:a2c6f94f94059a74ab8cfacda158ca7cf inherit pub_methods_class_vehicle_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dbb4ccb72f8de57feb736c51be0ccd2 inherit pub_methods_class_vehicle_model" id="r_a1dbb4ccb72f8de57feb736c51be0ccd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a1dbb4ccb72f8de57feb736c51be0ccd2">set_initial_pose</a> (double x, double y, double yaw)</td></tr>
+<tr class="memdesc:a1dbb4ccb72f8de57feb736c51be0ccd2 inherit pub_methods_class_vehicle_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the full planar pose, so the car can be spawned at an arbitrary point on the track rather than only at the timing line.  <br /></td></tr>
+<tr class="separator:a1dbb4ccb72f8de57feb736c51be0ccd2 inherit pub_methods_class_vehicle_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6f52253b9821cd3e540fea0cbef1461 inherit pub_methods_class_vehicle_model" id="r_ab6f52253b9821cd3e540fea0cbef1461"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#ab6f52253b9821cd3e540fea0cbef1461">set_initial_velocity</a> (double vx, double vy=0.0, double yaw_rate=0.0)</td></tr>
+<tr class="memdesc:ab6f52253b9821cd3e540fea0cbef1461 inherit pub_methods_class_vehicle_model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seed the body velocities.  <br /></td></tr>
+<tr class="separator:ab6f52253b9821cd3e540fea0cbef1461 inherit pub_methods_class_vehicle_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91bc7311e7ef6f6d376788b1ad2b93e0 inherit pub_methods_class_vehicle_model" id="r_a91bc7311e7ef6f6d376788b1ad2b93e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a91bc7311e7ef6f6d376788b1ad2b93e0">set_wheels_speed</a> (const <a class="el" href="../../d4/d9d/structcommon__lib_1_1structures_1_1_wheels.html">common_lib::structures::Wheels</a> &amp;wheels_speed)</td></tr>
+<tr class="separator:a91bc7311e7ef6f6d376788b1ad2b93e0 inherit pub_methods_class_vehicle_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a028e97318a8579e300d926d10dd3ed06 inherit pub_methods_class_vehicle_model" id="r_a028e97318a8579e300d926d10dd3ed06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a028e97318a8579e300d926d10dd3ed06">set_steering_angle</a> (double steering_angle)</td></tr>
+<tr class="separator:a028e97318a8579e300d926d10dd3ed06 inherit pub_methods_class_vehicle_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95daf4abaf6cabf3570d923f529b522e inherit pub_methods_class_vehicle_model" id="r_a95daf4abaf6cabf3570d923f529b522e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a95daf4abaf6cabf3570d923f529b522e">set_ebs</a> (bool active)</td></tr>
 <tr class="separator:a95daf4abaf6cabf3570d923f529b522e inherit pub_methods_class_vehicle_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a0820244a95113cf1e9d042dfda7892 inherit pub_methods_class_vehicle_model" id="r_a3a0820244a95113cf1e9d042dfda7892"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dbc/class_vehicle_model.html#a3a0820244a95113cf1e9d042dfda7892">get_position_x</a> () const</td></tr>
@@ -249,6 +259,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a368e75aab0d0160b255a6e64cdbb8a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab82996be14a59fabed5cbce8540797b0" id="r_ab82996be14a59fabed5cbce8540797b0"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d7c/class_transmission_model.html">TransmissionModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d00/class_f_s_f_e_u_p03_model.html#ab82996be14a59fabed5cbce8540797b0">transmission_</a></td></tr>
 <tr class="separator:ab82996be14a59fabed5cbce8540797b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf7ce66d2b64293e01384f1732898b16" id="r_acf7ce66d2b64293e01384f1732898b16"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../db/dba/class_inverter_model.html">InverterModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d00/class_f_s_f_e_u_p03_model.html#acf7ce66d2b64293e01384f1732898b16">inverter_</a></td></tr>
+<tr class="separator:acf7ce66d2b64293e01384f1732898b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a984d6cd4d09e2193cce0ad2ac464b91b" id="r_a984d6cd4d09e2193cce0ad2ac464b91b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../df/df1/class_brake_model.html">BrakeModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d00/class_f_s_f_e_u_p03_model.html#a984d6cd4d09e2193cce0ad2ac464b91b">brake_</a></td></tr>
+<tr class="separator:a984d6cd4d09e2193cce0ad2ac464b91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82b7ace85e853b74a933dbf0e980a923" id="r_a82b7ace85e853b74a933dbf0e980a923"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d2/d35/class_aero_model.html">AeroModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d00/class_f_s_f_e_u_p03_model.html#a82b7ace85e853b74a933dbf0e980a923">aero_</a></td></tr>
 <tr class="separator:a82b7ace85e853b74a933dbf0e980a923"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae6b6f32236dfb479160bd7c1632eb8e" id="r_aae6b6f32236dfb479160bd7c1632eb8e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d4/da2/class_load_transfer_model.html">LoadTransferModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d00/class_f_s_f_e_u_p03_model.html#aae6b6f32236dfb479160bd7c1632eb8e">load_transfer_</a></td></tr>
@@ -257,6 +271,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a8f2529a6b9179b540894ed5469f03f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace84743ddced508db9932c3090dbdc6d" id="r_ace84743ddced508db9932c3090dbdc6d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d48/class_steering_motor_model.html">SteeringMotorModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d00/class_f_s_f_e_u_p03_model.html#ace84743ddced508db9932c3090dbdc6d">steering_motor_</a></td></tr>
 <tr class="separator:ace84743ddced508db9932c3090dbdc6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e70630bdde5b0129a51256c1fd9740" id="r_a41e70630bdde5b0129a51256c1fd9740"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d00/class_f_s_f_e_u_p03_model.html#a41e70630bdde5b0129a51256c1fd9740">control_mode_</a></td></tr>
+<tr class="separator:a41e70630bdde5b0129a51256c1fd9740"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -271,7 +287,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Four wheel vehicle model (tuned for FSFEUP03) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a07fc9498bf0a54514928481087deab2e" name="a07fc9498bf0a54514928481087deab2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07fc9498bf0a54514928481087deab2e">&#9670;&#160;</a></span>FSFEUP03Model()</h2>
@@ -365,7 +381,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00320">320</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00300">300</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -406,7 +422,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d6/dbc/class_vehicle_model.html#a52cb0863f25e6af7819ae264195096c5">VehicleModel</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00318">318</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00298">298</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
 
 </div>
 </div>
@@ -437,7 +453,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d6/dbc/class_vehicle_model.html#af474e391f855e49b05b2b402abf9fa0b">VehicleModel</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00275">275</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00290">290</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
 
 </div>
 </div>
@@ -485,7 +501,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../d6/dbc/class_vehicle_model.html#a97b8f1f584858e97f06eb5c972e9b65e">VehicleModel</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html#l00028">28</a> of file <a class="el" href="../../d7/d4b/_f_s_f_e_u_p03_8cpp_source.html">FSFEUP03.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -520,7 +536,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>
@@ -544,7 +560,79 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a984d6cd4d09e2193cce0ad2ac464b91b" name="a984d6cd4d09e2193cce0ad2ac464b91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a984d6cd4d09e2193cce0ad2ac464b91b">&#9670;&#160;</a></span>brake_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../df/df1/class_brake_model.html">BrakeModel</a>&gt; FSFEUP03Model::brake_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41e70630bdde5b0129a51256c1fd9740" name="a41e70630bdde5b0129a51256c1fd9740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41e70630bdde5b0129a51256c1fd9740">&#9670;&#160;</a></span>control_mode_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string FSFEUP03Model::control_mode_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acf7ce66d2b64293e01384f1732898b16" name="acf7ce66d2b64293e01384f1732898b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf7ce66d2b64293e01384f1732898b16">&#9670;&#160;</a></span>inverter_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../db/dba/class_inverter_model.html">InverterModel</a>&gt; FSFEUP03Model::inverter_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>
@@ -568,7 +656,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>
@@ -592,7 +680,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>
@@ -616,7 +704,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>
@@ -640,7 +728,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>
@@ -664,7 +752,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>
@@ -688,7 +776,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../d1/da9/_f_s_f_e_u_p03_8hpp_source.html">FSFEUP03.hpp</a>.</p>
 
 </div>
 </div>

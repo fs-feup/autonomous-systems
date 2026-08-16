@@ -300,10 +300,372 @@ Functions</h2></td></tr>
 <tr class="memitem:aa66702413e03977b4630566218ffde6a" id="r_aa66702413e03977b4630566218ffde6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#aa66702413e03977b4630566218ffde6a">TEST</a> (<a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, velocity3)</td></tr>
 <tr class="memdesc:aa66702413e03977b4630566218ffde6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">test for a path with no points  <br /></td></tr>
 <tr class="separator:aa66702413e03977b4630566218ffde6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1e1054979d78b6493ae07ed35010ea9" id="r_ad1e1054979d78b6493ae07ed35010ea9"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9">straight_run</a> (int points)</td></tr>
+<tr class="memdesc:ad1e1054979d78b6493ae07ed35010ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Straight path, one metre per point.  <br /></td></tr>
+<tr class="separator:ad1e1054979d78b6493ae07ed35010ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb7f966f41c877acb7dfaab96dcb6932" id="r_acb7f966f41c877acb7dfaab96dcb6932"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d2/d0d/struct_velocity_planning_config.html">VelocityPlanningConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932">acceleration_config</a> ()</td></tr>
+<tr class="separator:acb7f966f41c877acb7dfaab96dcb6932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7ddb669c6ccee863b0fe045940303b9" id="r_ad7ddb669c6ccee863b0fe045940303b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad7ddb669c6ccee863b0fe045940303b9">TEST</a> (<a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, AccelerationAcceleratesUntilTheBrakingDistance)</td></tr>
+<tr class="memdesc:ad7ddb669c6ccee863b0fe045940303b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accelerates all the way to the braking point rather than levelling off early.  <br /></td></tr>
+<tr class="separator:ad7ddb669c6ccee863b0fe045940303b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db4c83d44dfec2f7bc160de689edfaa" id="r_a8db4c83d44dfec2f7bc160de689edfaa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#a8db4c83d44dfec2f7bc160de689edfaa">TEST</a> (<a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, AccelerationBrakesAsEarlyAsPossible)</td></tr>
+<tr class="memdesc:a8db4c83d44dfec2f7bc160de689edfaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Braking begins at the braking point rather than being deferred to the end of the path.  <br /></td></tr>
+<tr class="separator:a8db4c83d44dfec2f7bc160de689edfaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad690598546328a29eacefa17367d222b" id="r_ad690598546328a29eacefa17367d222b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad690598546328a29eacefa17367d222b">TEST</a> (<a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, AccelerationBrakesAllTheWayToZero)</td></tr>
+<tr class="memdesc:ad690598546328a29eacefa17367d222b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The profile commands a standstill rather than trailing off at the minimum velocity.  <br /></td></tr>
+<tr class="separator:ad690598546328a29eacefa17367d222b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a4b0f928e0dd3c5a73b671a8a32ab8a" id="r_a2a4b0f928e0dd3c5a73b671a8a32ab8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#a2a4b0f928e0dd3c5a73b671a8a32ab8a">TEST</a> (<a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, AccelerationShorterThanTheBrakingDistanceDoesNotBrake)</td></tr>
+<tr class="memdesc:a2a4b0f928e0dd3c5a73b671a8a32ab8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A path shorter than the run is all acceleration, with no braking phase yet.  <br /></td></tr>
+<tr class="separator:a2a4b0f928e0dd3c5a73b671a8a32ab8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2baec1884ef53615f9b916527ca86a85" id="r_a2baec1884ef53615f9b916527ca86a85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/velocity__planning__tests_8cpp.html#a2baec1884ef53615f9b916527ca86a85">TEST</a> (<a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>, StopBrakesToZeroButLeavesTheLoopTailDriveable)</td></tr>
+<tr class="memdesc:a2baec1884ef53615f9b916527ca86a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices are back at the start line where a car still finishing its lap sits.  <br /></td></tr>
+<tr class="separator:a2baec1884ef53615f9b916527ca86a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="acb7f966f41c877acb7dfaab96dcb6932" name="acb7f966f41c877acb7dfaab96dcb6932"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb7f966f41c877acb7dfaab96dcb6932">&#9670;&#160;</a></span>acceleration_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../d2/d0d/struct_velocity_planning_config.html">VelocityPlanningConfig</a> acceleration_config </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html#l00075">75</a> of file <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html">velocity_planning_tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dba/velocity__planning__tests_8cpp_acb7f966f41c877acb7dfaab96dcb6932_icgraph.png" border="0" usemap="#ad9/dba/velocity__planning__tests_8cpp_acb7f966f41c877acb7dfaab96dcb6932_icgraph" alt=""/></div>
+<map name="ad9/dba/velocity__planning__tests_8cpp_acb7f966f41c877acb7dfaab96dcb6932_icgraph" id="ad9/dba/velocity__planning__tests_8cpp_acb7f966f41c877acb7dfaab96dcb6932_icgraph">
+<area shape="rect" title=" " alt="" coords="108,104,240,130"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad7ddb669c6ccee863b0fe045940303b9" title="Accelerates all the way to the braking point rather than levelling off early." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="140,97,51,34,54,29,143,93"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad690598546328a29eacefa17367d222b" title="The profile commands a standstill rather than trailing off at the minimum velocity." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="119,101,59,79,61,74,121,96"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a8db4c83d44dfec2f7bc160de689edfaa" title="Braking begins at the braking point rather than being deferred to the end of the path." alt="" coords="5,104,60,130"/>
+<area shape="poly" title=" " alt="" coords="92,120,60,120,60,114,92,114"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a2a4b0f928e0dd3c5a73b671a8a32ab8a" title="A path shorter than the run is all acceleration, with no braking phase yet." alt="" coords="5,153,60,179"/>
+<area shape="poly" title=" " alt="" coords="121,138,61,159,59,154,119,133"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a2baec1884ef53615f9b916527ca86a85" title="stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices ..." alt="" coords="5,203,60,228"/>
+<area shape="poly" title=" " alt="" coords="143,141,54,204,51,200,140,137"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad1e1054979d78b6493ae07ed35010ea9" name="ad1e1054979d78b6493ae07ed35010ea9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1e1054979d78b6493ae07ed35010ea9">&#9670;&#160;</a></span>straight_run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt; straight_run </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>points</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Straight path, one metre per point. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html#l00062">62</a> of file <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html">velocity_planning_tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dba/velocity__planning__tests_8cpp_ad1e1054979d78b6493ae07ed35010ea9_icgraph.png" border="0" usemap="#ad9/dba/velocity__planning__tests_8cpp_ad1e1054979d78b6493ae07ed35010ea9_icgraph" alt=""/></div>
+<map name="ad9/dba/velocity__planning__tests_8cpp_ad1e1054979d78b6493ae07ed35010ea9_icgraph" id="ad9/dba/velocity__planning__tests_8cpp_ad1e1054979d78b6493ae07ed35010ea9_icgraph">
+<area shape="rect" title="Straight path, one metre per point." alt="" coords="108,104,197,130"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad7ddb669c6ccee863b0fe045940303b9" title="Accelerates all the way to the braking point rather than levelling off early." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="122,96,48,34,51,30,125,92"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad690598546328a29eacefa17367d222b" title="The profile commands a standstill rather than trailing off at the minimum velocity." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="104,100,59,81,61,76,106,95"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a8db4c83d44dfec2f7bc160de689edfaa" title="Braking begins at the braking point rather than being deferred to the end of the path." alt="" coords="5,104,60,130"/>
+<area shape="poly" title=" " alt="" coords="92,120,60,120,60,114,92,114"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a2a4b0f928e0dd3c5a73b671a8a32ab8a" title="A path shorter than the run is all acceleration, with no braking phase yet." alt="" coords="5,153,60,179"/>
+<area shape="poly" title=" " alt="" coords="106,139,61,157,59,153,104,134"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#a2baec1884ef53615f9b916527ca86a85" title="stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices ..." alt="" coords="5,203,60,228"/>
+<area shape="poly" title=" " alt="" coords="125,142,51,204,48,200,122,138"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad7ddb669c6ccee863b0fe045940303b9" name="ad7ddb669c6ccee863b0fe045940303b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7ddb669c6ccee863b0fe045940303b9">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AccelerationAcceleratesUntilTheBrakingDistance&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Accelerates all the way to the braking point rather than levelling off early. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html">velocity_planning_tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dba/velocity__planning__tests_8cpp_ad7ddb669c6ccee863b0fe045940303b9_cgraph.png" border="0" usemap="#ad9/dba/velocity__planning__tests_8cpp_ad7ddb669c6ccee863b0fe045940303b9_cgraph" alt=""/></div>
+<map name="ad9/dba/velocity__planning__tests_8cpp_ad7ddb669c6ccee863b0fe045940303b9_cgraph" id="ad9/dba/velocity__planning__tests_8cpp_ad7ddb669c6ccee863b0fe045940303b9_cgraph">
+<area shape="rect" title="Accelerates all the way to the braking point rather than levelling off early." alt="" coords="5,63,60,88"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932" title=" " alt="" coords="138,5,271,31"/>
+<area shape="poly" title=" " alt="" coords="59,61,107,41,131,33,133,38,109,46,61,65"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#afa175409e541c656c54d314b36b136b2" title="Accelerate flat out to the braking distance, then brake flat out to a standstill." alt="" coords="108,55,301,96"/>
+<area shape="poly" title=" " alt="" coords="60,73,92,73,92,78,60,78"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9" title="Straight path, one metre per point." alt="" coords="160,120,249,146"/>
+<area shape="poly" title=" " alt="" coords="61,86,109,105,145,116,144,121,107,110,59,90"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="349,55,492,96"/>
+<area shape="poly" title=" " alt="" coords="301,73,334,73,334,78,301,78"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad690598546328a29eacefa17367d222b" name="ad690598546328a29eacefa17367d222b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad690598546328a29eacefa17367d222b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AccelerationBrakesAllTheWayToZero&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The profile commands a standstill rather than trailing off at the minimum velocity. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html#l00108">108</a> of file <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html">velocity_planning_tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dba/velocity__planning__tests_8cpp_ad690598546328a29eacefa17367d222b_cgraph.png" border="0" usemap="#ad9/dba/velocity__planning__tests_8cpp_ad690598546328a29eacefa17367d222b_cgraph" alt=""/></div>
+<map name="ad9/dba/velocity__planning__tests_8cpp_ad690598546328a29eacefa17367d222b_cgraph" id="ad9/dba/velocity__planning__tests_8cpp_ad690598546328a29eacefa17367d222b_cgraph">
+<area shape="rect" title="The profile commands a standstill rather than trailing off at the minimum velocity." alt="" coords="5,63,60,88"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932" title=" " alt="" coords="138,5,271,31"/>
+<area shape="poly" title=" " alt="" coords="59,61,107,41,131,33,133,38,109,46,61,65"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#afa175409e541c656c54d314b36b136b2" title="Accelerate flat out to the braking distance, then brake flat out to a standstill." alt="" coords="108,55,301,96"/>
+<area shape="poly" title=" " alt="" coords="60,73,92,73,92,78,60,78"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9" title="Straight path, one metre per point." alt="" coords="160,120,249,146"/>
+<area shape="poly" title=" " alt="" coords="61,86,109,105,145,116,144,121,107,110,59,90"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="349,55,492,96"/>
+<area shape="poly" title=" " alt="" coords="301,73,334,73,334,78,301,78"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a8db4c83d44dfec2f7bc160de689edfaa" name="a8db4c83d44dfec2f7bc160de689edfaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db4c83d44dfec2f7bc160de689edfaa">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AccelerationBrakesAsEarlyAsPossible&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Braking begins at the braking point rather than being deferred to the end of the path. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html#l00093">93</a> of file <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html">velocity_planning_tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dba/velocity__planning__tests_8cpp_a8db4c83d44dfec2f7bc160de689edfaa_cgraph.png" border="0" usemap="#ad9/dba/velocity__planning__tests_8cpp_a8db4c83d44dfec2f7bc160de689edfaa_cgraph" alt=""/></div>
+<map name="ad9/dba/velocity__planning__tests_8cpp_a8db4c83d44dfec2f7bc160de689edfaa_cgraph" id="ad9/dba/velocity__planning__tests_8cpp_a8db4c83d44dfec2f7bc160de689edfaa_cgraph">
+<area shape="rect" title="Braking begins at the braking point rather than being deferred to the end of the path." alt="" coords="5,63,60,88"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932" title=" " alt="" coords="138,5,271,31"/>
+<area shape="poly" title=" " alt="" coords="59,61,107,41,131,33,133,38,109,46,61,65"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#afa175409e541c656c54d314b36b136b2" title="Accelerate flat out to the braking distance, then brake flat out to a standstill." alt="" coords="108,55,301,96"/>
+<area shape="poly" title=" " alt="" coords="60,73,92,73,92,78,60,78"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9" title="Straight path, one metre per point." alt="" coords="160,120,249,146"/>
+<area shape="poly" title=" " alt="" coords="61,86,109,105,145,116,144,121,107,110,59,90"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="349,55,492,96"/>
+<area shape="poly" title=" " alt="" coords="301,73,334,73,334,78,301,78"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2a4b0f928e0dd3c5a73b671a8a32ab8a" name="a2a4b0f928e0dd3c5a73b671a8a32ab8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4b0f928e0dd3c5a73b671a8a32ab8a">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AccelerationShorterThanTheBrakingDistanceDoesNotBrake&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A path shorter than the run is all acceleration, with no braking phase yet. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html#l00131">131</a> of file <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html">velocity_planning_tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dba/velocity__planning__tests_8cpp_a2a4b0f928e0dd3c5a73b671a8a32ab8a_cgraph.png" border="0" usemap="#ad9/dba/velocity__planning__tests_8cpp_a2a4b0f928e0dd3c5a73b671a8a32ab8a_cgraph" alt=""/></div>
+<map name="ad9/dba/velocity__planning__tests_8cpp_a2a4b0f928e0dd3c5a73b671a8a32ab8a_cgraph" id="ad9/dba/velocity__planning__tests_8cpp_a2a4b0f928e0dd3c5a73b671a8a32ab8a_cgraph">
+<area shape="rect" title="A path shorter than the run is all acceleration, with no braking phase yet." alt="" coords="5,63,60,88"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932" title=" " alt="" coords="138,5,271,31"/>
+<area shape="poly" title=" " alt="" coords="59,61,107,41,131,33,133,38,109,46,61,65"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#afa175409e541c656c54d314b36b136b2" title="Accelerate flat out to the braking distance, then brake flat out to a standstill." alt="" coords="108,55,301,96"/>
+<area shape="poly" title=" " alt="" coords="60,73,92,73,92,78,60,78"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9" title="Straight path, one metre per point." alt="" coords="160,120,249,146"/>
+<area shape="poly" title=" " alt="" coords="61,86,109,105,145,116,144,121,107,110,59,90"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="349,55,492,96"/>
+<area shape="poly" title=" " alt="" coords="301,73,334,73,334,78,301,78"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2baec1884ef53615f9b916527ca86a85" name="a2baec1884ef53615f9b916527ca86a85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2baec1884ef53615f9b916527ca86a85">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/dcc/class_velocity_planning.html">VelocityPlanning</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">StopBrakesToZeroButLeavesTheLoopTailDriveable&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices are back at the start line where a car still finishing its lap sits. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html#l00143">143</a> of file <a class="el" href="../../d9/dba/velocity__planning__tests_8cpp_source.html">velocity_planning_tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/dba/velocity__planning__tests_8cpp_a2baec1884ef53615f9b916527ca86a85_cgraph.png" border="0" usemap="#ad9/dba/velocity__planning__tests_8cpp_a2baec1884ef53615f9b916527ca86a85_cgraph" alt=""/></div>
+<map name="ad9/dba/velocity__planning__tests_8cpp_a2baec1884ef53615f9b916527ca86a85_cgraph" id="ad9/dba/velocity__planning__tests_8cpp_a2baec1884ef53615f9b916527ca86a85_cgraph">
+<area shape="rect" title="stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices ..." alt="" coords="5,173,60,199"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932" title=" " alt="" coords="116,86,248,112"/>
+<area shape="poly" title=" " alt="" coords="45,170,72,146,106,122,119,116,121,120,109,127,75,150,49,174"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an velocity to each point of the path." alt="" coords="111,136,253,177"/>
+<area shape="poly" title=" " alt="" coords="60,178,96,171,97,176,61,183"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a9ea9a22c5bbe7c086f8813331e5111dd" title="Applies a braking velocity profile starting after a given braking distance." alt="" coords="108,201,256,227"/>
+<area shape="poly" title=" " alt="" coords="61,188,95,195,94,200,60,193"/>
+<area shape="rect" href="../../d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9" title="Straight path, one metre per point." alt="" coords="137,250,227,276"/>
+<area shape="poly" title=" " alt="" coords="51,197,77,217,109,237,124,243,122,248,106,241,74,222,48,201"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a06f29f36065934907e63c79a15c7b60a" title="Limits velocities based on forward acceleration constraints and friction ellipse." alt="" coords="304,5,497,46"/>
+<area shape="poly" title=" " alt="" coords="238,133,254,122,269,106,277,90,286,74,302,57,311,51,314,56,306,61,290,77,282,92,273,109,258,126,240,138"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a7cdfc3e526166d4f9e73149a708acfd1" title="Limits velocities based on backward braking constraints and friction ellipse." alt="" coords="318,71,483,111"/>
+<area shape="poly" title=" " alt="" coords="251,133,315,114,316,119,253,138"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="329,201,472,242"/>
+<area shape="poly" title=" " alt="" coords="253,175,316,194,315,199,251,180"/>
+<area shape="rect" href="../../d3/dcc/class_velocity_planning.html#a41e22edbc0ebfb1da077ddd222823c0c" title="Computes the maximum velocity at each point based on curvature constraints." alt="" coords="325,136,476,177"/>
+<area shape="poly" title=" " alt="" coords="253,154,310,154,310,159,253,159"/>
+<area shape="poly" title=" " alt="" coords="256,214,314,216,313,221,256,219"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ae7bdb50e99a2d0bae5638143bf25e069" name="ae7bdb50e99a2d0bae5638143bf25e069"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7bdb50e99a2d0bae5638143bf25e069">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7bdb50e99a2d0bae5638143bf25e069">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,7 +719,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a1fa6f577535226be0d06a954e74e448a" name="a1fa6f577535226be0d06a954e74e448a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fa6f577535226be0d06a954e74e448a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fa6f577535226be0d06a954e74e448a">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,7 +773,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="af97fb83dccb617636d3886e3a3a352a6" name="af97fb83dccb617636d3886e3a3a352a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af97fb83dccb617636d3886e3a3a352a6">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af97fb83dccb617636d3886e3a3a352a6">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -465,7 +827,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="aa66702413e03977b4630566218ffde6a" name="aa66702413e03977b4630566218ffde6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa66702413e03977b4630566218ffde6a">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66702413e03977b4630566218ffde6a">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

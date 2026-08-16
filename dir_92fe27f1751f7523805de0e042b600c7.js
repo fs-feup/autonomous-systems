@@ -6,6 +6,7 @@ var dir_92fe27f1751f7523805de0e042b600c7 =
     [ "simulator", "dir_b3d038745a95cb5be2c27d01ed36509b.html", "dir_b3d038745a95cb5be2c27d01ed36509b" ],
     [ "statistics", "dir_ac1b85a6b3c52a0729be93e3d89a858a.html", "dir_ac1b85a6b3c52a0729be93e3d89a858a" ],
     [ "track", "dir_c83a4591247a2008ee93f433bd05b16b.html", "dir_c83a4591247a2008ee93f433bd05b16b" ],
+    [ "tuning", "dir_59eb2b53bb5ac04e9860afcd88368753.html", "dir_59eb2b53bb5ac04e9860afcd88368753" ],
     [ "vehicle_model", "dir_a414cdbc25882185e1335969bd748603.html", "dir_a414cdbc25882185e1335969bd748603" ],
     [ "main.cpp", "dc/dc4/invictasim_2src_2main_8cpp.html", "dc/dc4/invictasim_2src_2main_8cpp" ]
 ];

@@ -21,7 +21,7 @@ var class_pacejka_m_f6__2 =
     [ "calculate_SVx", "d3/da3/class_pacejka_m_f6__2.html#a21e38c0631c097f2127c943523916f6a", null ],
     [ "calculate_SVy", "d3/da3/class_pacejka_m_f6__2.html#af07a664f4830c1eca939c26f782ffdf5", null ],
     [ "calculate_SVyk", "d3/da3/class_pacejka_m_f6__2.html#a366cb9bb76dfdc3bc1b5b44bf1a73d27", null ],
-    [ "calculate_tire_state", "d3/da3/class_pacejka_m_f6__2.html#a24aaa6ca5dd2b31279aad323e863cd4d", null ],
+    [ "calculate_tire_state", "d3/da3/class_pacejka_m_f6__2.html#a70a79d45f47c50d1e9b9fa2ad10836d0", null ],
     [ "calculate_Zeta1", "d3/da3/class_pacejka_m_f6__2.html#ad9119e9e68e883c91a31184c7dc2ab73", null ],
     [ "calculate_Zeta2", "d3/da3/class_pacejka_m_f6__2.html#aeebb0aa0540eda5e29495a0a2209a1b3", null ],
     [ "calculate_Zeta3", "d3/da3/class_pacejka_m_f6__2.html#a33d1283502535e08e111c5d858f92e31", null ],

@@ -1,6 +1,6 @@
 <map id="limit_velocity_according_to_current" name="limit_velocity_according_to_current">
 <area shape="rect" id="Node000001" title=" " alt="" coords="646,27,806,68"/>
-<area shape="rect" id="Node000002" href="$d0/d30/path__stager_8cpp.html#ad32a1acc1cbb2cc0a95cdd1d0afa811d" title=" " alt="" coords="451,27,598,68"/>
+<area shape="rect" id="Node000002" href="$d0/d30/path__stager_8cpp.html#aca3c43a378692ad8e37ac157f2c6b174" title="Resample the global path into one reference point per MPC stage." alt="" coords="451,27,598,68"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="631,50,599,50,599,45,631,45"/>
 <area shape="rect" id="Node000003" href="$df/d9d/class_m_p_c.html#a5c77747e8246ca315fd904d4975aa3b5" title=" " alt="" coords="238,5,403,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="435,37,403,33,404,27,436,32"/>

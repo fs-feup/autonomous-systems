@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('df/dab/alpha__beta_8cpp_source.html','
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97">   26</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97">AlphaBeta::convergence_distance</a>(<span class="keywordtype">double</span> error_distance)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordflow">return</span> 5.0 * std::log(<a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a2ca3843277292d610c5bfc9a6fbf9d13">error_distance</a> + 1.0);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordflow">return</span> 14.0 * std::log(<a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a2ca3843277292d610c5bfc9a6fbf9d13">error_distance</a> + 1.0);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
@@ -167,34 +167,72 @@ $(document).ready(function(){initNavTree('df/dab/alpha__beta_8cpp_source.html','
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordtype">double</span> error_dist = <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a2ca3843277292d610c5bfc9a6fbf9d13">error_distance</a>(path_msg, vehicle_state);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="keywordtype">double</span> conv_dist = <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97">convergence_distance</a>(error_dist);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> num_points = <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a5ed19917ff15b7148e41ab3314662aec">number_of_points</a>(path_msg, conv_dist);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> path_points_local = std::min((<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)path_msg.pathpoint_array.size(), num_points);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keywordtype">double</span> factor = <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a6adaaa34c09426190fd025256fe1f10c">phoenician_factor</a>(path_points_local);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordtype">double</span> x = vehicle_state.x;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordtype">double</span> y = vehicle_state.y;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordtype">double</span> v = vehicle_state.velocity_x;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordtype">double</span> yaw = vehicle_state.orientation;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keywordtype">double</span> alpha = 1.0;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; path_points_local; ++i) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    custom_interfaces::msg::PathPoint&amp; current_point = path_msg.pathpoint_array[i];</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">double</span> dx = current_point.x - x;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">double</span> dy = current_point.y - y;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">double</span> dv = current_point.v - v;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">double</span> dyaw = current_point.orientation - yaw;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    current_point.x = x + (1 - alpha) * dx;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    current_point.y = y + (1 - alpha) * dy;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    current_point.v = v + (1 - alpha) * dv;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    current_point.orientation = yaw + (1 - alpha) * dyaw;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    alpha *= factor; <span class="comment">// Adjust alpha based on the phoenician factor</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keyword">auto</span>&amp; points = path_msg.pathpoint_array;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="comment">// Rejoin length scales with the lateral error, so large errors get room to stay feasible.</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> error_dist = <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a2ca3843277292d610c5bfc9a6fbf9d13">error_distance</a>(path_msg, vehicle_state);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> conv_dist = <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97">convergence_distance</a>(error_dist);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> num_points = <a class="code hl_function" href="../../dd/d9d/class_alpha_beta.html#a5ed19917ff15b7148e41ab3314662aec">number_of_points</a>(path_msg, conv_dist);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> path_points_local = std::min((<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)points.size(), num_points);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="comment">// Car boundary state (hard requirement: the local path must start here exactly).</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> x0 = vehicle_state.x;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> y0 = vehicle_state.y;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> yaw0 = vehicle_state.orientation;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> v0 = vehicle_state.velocity_x;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="comment">// Not enough room to shape a spline: just pin the first point to the car.</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keywordflow">if</span> (path_points_local &lt; 3) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    points[0].x = x0;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    points[0].y = y0;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    points[0].orientation = yaw0;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    points[0].v = v0;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <span class="comment">// Rejoin point: the far boundary condition, so the local path arrives tangent to the global.</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> merge_idx = path_points_local - 1;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> x1 = points[merge_idx].x;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> y1 = points[merge_idx].y;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> yaw1 = points[merge_idx].orientation;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="comment">// Cubic Bezier in Hermite form: matches position and heading at both ends, so the blend</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="comment">// leaves along the car&#39;s yaw and arrives tangent to the global path. Handles ~1/3 of chord.</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> chord = std::hypot(x1 - x0, y1 - y0);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> handle = chord / 3.0;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b0x = x0;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b0y = y0;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b1x = x0 + handle * std::cos(yaw0);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b1y = y0 + handle * std::sin(yaw0);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b2x = x1 - handle * std::cos(yaw1);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b2y = y1 - handle * std::sin(yaw1);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b3x = x1;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> b3y = y1;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt;= merge_idx; ++i) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> t = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(i) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(merge_idx);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> u = 1.0 - t;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> bx = u * u * u * b0x + 3 * u * u * t * b1x + 3 * u * t * t * b2x + t * t * t * b3x;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> by = u * u * u * b0y + 3 * u * u * t * b1y + 3 * u * t * t * b2y + t * t * t * b3y;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">// Bezier derivative -&gt; tangent heading (starts at yaw0, ends at yaw1 by construction).</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> dx = 3 * u * u * (b1x - b0x) + 6 * u * t * (b2x - b1x) + 3 * t * t * (b3x - b2x);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> dy = 3 * u * u * (b1y - b0y) + 6 * u * t * (b2y - b1y) + 3 * t * t * (b3y - b2y);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    custom_interfaces::msg::PathPoint&amp; p = points[i];</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    p.x = bx;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    p.y = by;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">if</span> (dx * dx + dy * dy &gt; 1e-12) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>      p.orientation = std::atan2(dy, dx);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="comment">// Only the first point takes the car&#39;s velocity; blending the rest erases the speed error.</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (i == 0) {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      p.v = v0;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
 </div>
 <div class="ttc" id="aalpha__beta_8hpp_html"><div class="ttname"><a href="../../d3/d14/alpha__beta_8hpp.html">alpha_beta.hpp</a></div></div>
 <div class="ttc" id="aclass_alpha_beta_html_a1279d33d05ba0a933a2c84a8ad814d97"><div class="ttname"><a href="../../dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97">AlphaBeta::convergence_distance</a></div><div class="ttdeci">double convergence_distance(double error_distance) const</div><div class="ttdef"><b>Definition</b> <a href="../../df/dab/alpha__beta_8cpp_source.html#l00026">alpha_beta.cpp:26</a></div></div>

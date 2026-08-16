@@ -1,0 +1,36 @@
+<map id="VelocityPlanning::acceleration_velocity" name="VelocityPlanning::acceleration_velocity">
+<area shape="rect" id="Node000001" title="Accelerate flat out to the braking distance, then brake flat out to a standstill." alt="" coords="1114,228,1307,269"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="894,137,1066,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1160,222,1115,198,1065,176,1034,166,1036,161,1067,171,1117,194,1162,218"/>
+<area shape="rect" id="Node000013" href="$d9/dba/velocity__planning__tests_8cpp.html#ad7ddb669c6ccee863b0fe045940303b9" title="Accelerates all the way to the braking point rather than levelling off early." alt="" coords="953,186,1007,212"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="1099,227,1007,207,1008,202,1100,222"/>
+<area shape="rect" id="Node000014" href="$d9/dba/velocity__planning__tests_8cpp.html#ad690598546328a29eacefa17367d222b" title="The profile commands a standstill rather than trailing off at the minimum velocity." alt="" coords="953,236,1007,261"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="1099,251,1008,251,1008,246,1099,246"/>
+<area shape="rect" id="Node000015" href="$d9/dba/velocity__planning__tests_8cpp.html#a8db4c83d44dfec2f7bc160de689edfaa" title="Braking begins at the braking point rather than being deferred to the end of the path." alt="" coords="953,285,1007,311"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="1100,275,1008,295,1007,289,1099,270"/>
+<area shape="rect" id="Node000016" href="$d9/dba/velocity__planning__tests_8cpp.html#a2a4b0f928e0dd3c5a73b671a8a32ab8a" title="A path shorter than the run is all acceleration, with no braking phase yet." alt="" coords="953,334,1007,360"/>
+<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="1162,279,1117,303,1067,325,1008,344,1007,338,1065,321,1115,298,1160,274"/>
+<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="695,129,846,170"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="878,152,846,152,846,147,878,147"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="484,84,622,125"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="680,134,622,121,623,116,681,128"/>
+<area shape="rect" id="Node000010" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="458,161,647,202"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="681,166,648,170,648,165,680,160"/>
+<area shape="rect" id="Node000005" href="$d6/d6c/class_invicta_sim_adapter.html#ace8412ee14b229914a32ae8899b0f5f0" title=" " alt="" coords="269,71,404,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="468,102,404,98,404,92,468,96"/>
+<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructs a Planning node with the specified configuration parameters." alt="" coords="273,136,400,161"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="469,124,401,138,400,133,468,119"/>
+<area shape="rect" id="Node000008" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="263,5,410,46"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="480,81,394,49,396,44,481,76"/>
+<area shape="rect" id="Node000006" href="$d6/d6c/class_invicta_sim_adapter.html#a2f0a4905f525592edc583e6839266d6f" title=" " alt="" coords="43,159,177,199"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="275,120,216,145,175,161,173,156,214,141,273,115"/>
+<area shape="rect" id="Node000009" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,105,215,131"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="271,55,145,107,143,102,269,50"/>
+<area shape="poly" id="edge10_Node000010_Node000007" title=" " alt="" coords="442,167,400,161,401,156,443,162"/>
+<area shape="rect" id="Node000011" href="$d6/d6c/class_invicta_sim_adapter.html#a6b03e0bc6b0467673e6c6fc666e40ebe" title=" " alt="" coords="269,251,404,291"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="488,211,389,252,387,248,486,206"/>
+<area shape="rect" id="Node000012" href="$db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,185,410,226"/>
+<area shape="poly" id="edge13_Node000010_Node000012" title=" " alt="" coords="443,197,410,200,410,195,442,191"/>
+<area shape="poly" id="edge12_Node000011_Node000006" title=" " alt="" coords="269,247,161,202,163,197,272,242"/>
+<area shape="poly" id="edge14_Node000012_Node000009" title=" " alt="" coords="271,181,261,176,238,162,214,149,167,134,168,129,216,145,240,157,264,171,274,176"/>
+</map>

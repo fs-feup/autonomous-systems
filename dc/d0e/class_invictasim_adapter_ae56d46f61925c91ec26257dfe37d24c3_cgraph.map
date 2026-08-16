@@ -1,11 +1,14 @@
 <map id="InvictasimAdapter::InvictasimAdapter" name="InvictasimAdapter::InvictasimAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,138,79"/>
-<area shape="rect" id="Node000002" href="$dc/d0e/class_invictasim_adapter.html#a8d48db1ef55fcd11299fca06625af554" title=" " alt="" coords="186,5,318,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,44,170,38,171,43,138,49"/>
-<area shape="rect" id="Node000004" href="$dc/d0e/class_invictasim_adapter.html#aa4495de31797c5fb3c0bb815c7e6906a" title=" " alt="" coords="186,71,318,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,68,171,74,170,79,138,73"/>
-<area shape="rect" id="Node000003" href="$d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="366,5,506,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="318,23,351,23,351,28,318,28"/>
-<area shape="rect" id="Node000005" href="$d6/dc5/class_control_node.html#a6a6198d08ac15d6b51750cd30953a647" title="Called when a new velocity is received." alt="" coords="366,71,506,111"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="318,88,351,88,351,94,318,94"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,71,138,111"/>
+<area shape="rect" id="Node000002" href="$dc/d0e/class_invictasim_adapter.html#a8d48db1ef55fcd11299fca06625af554" title=" " alt="" coords="200,5,332,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,68,188,49,190,54,135,73"/>
+<area shape="rect" id="Node000004" href="$dc/d0e/class_invictasim_adapter.html#a3b0323800dabe532bdb52324d567eaf4" title=" " alt="" coords="186,71,346,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,88,170,88,170,94,138,94"/>
+<area shape="rect" id="Node000006" href="$dc/d0e/class_invictasim_adapter.html#aa4495de31797c5fb3c0bb815c7e6906a" title=" " alt="" coords="200,136,332,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="135,109,190,128,188,133,133,114"/>
+<area shape="rect" id="Node000003" href="$d6/dc5/class_control_node.html#a73f934ff5ed27706be539777807b2a5f" title="Called when a new vehicle pose is received." alt="" coords="394,5,534,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="332,23,378,23,378,28,332,28"/>
+<area shape="rect" id="Node000005" href="$d6/dc5/class_control_node.html#a6a6198d08ac15d6b51750cd30953a647" title="Called when a new velocity is received." alt="" coords="394,103,534,143"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="347,101,379,107,378,112,346,107"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="332,143,378,135,379,140,333,148"/>
 </map>

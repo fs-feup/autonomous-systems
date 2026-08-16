@@ -1,0 +1,14 @@
+<map id="normalize_angle" name="normalize_angle">
+<area shape="rect" id="Node000001" title=" " alt="" coords="425,57,539,82"/>
+<area shape="rect" id="Node000002" href="$de/de0/vehicle__model__optimizer_8cpp.html#aec5bac049caf0c59016c2214a540fd62" title=" " alt="" coords="20,6,153,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="446,51,413,34,376,21,318,12,259,9,154,13,154,8,259,3,319,7,378,16,415,29,448,46"/>
+<area shape="rect" id="Node000003" href="$de/de0/vehicle__model__optimizer_8cpp.html#a29bb2b51fe17f36c7287254cb1502d74" title=" " alt="" coords="5,69,168,94"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="409,74,168,82,168,76,409,69"/>
+<area shape="rect" id="Node000004" href="$de/de0/vehicle__model__optimizer_8cpp.html#aa706f89b56b3cf2f2d4198efb2d0b3c0" title=" " alt="" coords="34,118,139,144"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="410,83,140,125,139,120,409,78"/>
+<area shape="rect" id="Node000005" href="$de/de0/vehicle__model__optimizer_8cpp.html#aebc61991d8d81aac9c0520fa85b697f3" title=" " alt="" coords="216,31,377,57"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="409,62,377,58,378,52,410,57"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="200,35,153,29,154,24,201,30"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="206,63,163,71,162,65,205,58"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="259,67,169,109,138,120,136,115,167,104,256,62"/>
+</map>

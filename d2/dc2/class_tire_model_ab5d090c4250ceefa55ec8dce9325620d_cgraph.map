@@ -1,0 +1,8 @@
+<map id="TireModel::calculate_slip_angle_rear" name="TireModel::calculate_slip_angle_rear">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,142,46"/>
+<area shape="rect" id="Node000002" href="$d1/d41/base__tire__model_8cpp.html#ae2d307552ea1a061a5fa8d5ff059bd33" title=" " alt="" coords="378,5,540,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,18,190,15,330,15,362,16,362,22,330,20,190,20,142,23"/>
+<area shape="rect" id="Node000003" href="$d2/dc2/class_tire_model.html#ab559264816093f17d40517270a68c993" title=" " alt="" coords="190,30,330,86"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="143,35,175,40,174,46,142,40"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="330,44,362,39,363,44,331,49"/>
+</map>

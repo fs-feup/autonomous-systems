@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,60,56"/>
+<area shape="rect" id="Node000002" href="$da/d3b/control_2src_2utils_2utils_8cpp.html#af3bfb3e0aa5c9f986daab22ec2d83a2e" title="Velocity interpolated at the car&#39;s projection onto the path, clamped to the segment." alt="" coords="108,5,272,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,37,92,31,92,37,61,42"/>
+<area shape="rect" id="Node000003" href="$dd/d68/control_2test_2utils_2utils__test_8cpp.html#ae59d5a87580549eb4edf659c6cba45a6" title=" " alt="" coords="142,55,238,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,45,127,55,126,61,60,50"/>
+</map>

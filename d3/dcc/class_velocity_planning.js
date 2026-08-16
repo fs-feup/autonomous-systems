@@ -3,6 +3,7 @@ var class_velocity_planning =
     [ "VelocityPlanning", "d3/dcc/class_velocity_planning.html#acc09f2b70875e2fe2c1bf44cc3600b1c", null ],
     [ "VelocityPlanning", "d3/dcc/class_velocity_planning.html#adff5ddf100f4b322f95903a194c3099a", null ],
     [ "acceleration_limiter", "d3/dcc/class_velocity_planning.html#a06f29f36065934907e63c79a15c7b60a", null ],
+    [ "acceleration_velocity", "d3/dcc/class_velocity_planning.html#afa175409e541c656c54d314b36b136b2", null ],
     [ "braking_limiter", "d3/dcc/class_velocity_planning.html#a7cdfc3e526166d4f9e73149a708acfd1", null ],
     [ "find_curvature", "d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a", null ],
     [ "point_speed", "d3/dcc/class_velocity_planning.html#a41e22edbc0ebfb1da077ddd222823c0c", null ],

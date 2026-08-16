@@ -1,13 +1,11 @@
 <map id="AlphaBeta::create_local_path" name="AlphaBeta::create_local_path">
-<area shape="rect" id="Node000001" title="Called when a new path is sent by Path Planning." alt="" coords="5,62,195,88"/>
-<area shape="rect" id="Node000002" href="$dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97" title=" " alt="" coords="440,25,601,66"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,59,176,33,242,11,284,4,317,3,392,11,434,19,434,24,392,16,317,8,284,10,243,16,178,38,125,64"/>
-<area shape="rect" id="Node000003" href="$dd/d9d/class_alpha_beta.html#a2ca3843277292d610c5bfc9a6fbf9d13" title=" " alt="" coords="649,62,819,88"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="195,74,243,75,601,75,634,75,634,80,601,80,243,80,195,80"/>
-<area shape="rect" id="Node000004" href="$dd/d9d/class_alpha_beta.html#a5ed19917ff15b7148e41ab3314662aec" title=" " alt="" coords="243,25,392,66"/>
-<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="195,60,227,55,228,60,195,65"/>
-<area shape="rect" id="Node000005" href="$dd/d9d/class_alpha_beta.html#a6adaaa34c09426190fd025256fe1f10c" title=" " alt="" coords="243,140,392,181"/>
-<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="136,86,250,131,248,136,134,91"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="602,54,634,59,633,64,601,60"/>
-<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="392,43,425,43,425,48,392,48"/>
+<area shape="rect" id="Node000001" title="Called when a new path is sent by Path Planning." alt="" coords="5,30,195,56"/>
+<area shape="rect" id="Node000002" href="$dd/d9d/class_alpha_beta.html#a1279d33d05ba0a933a2c84a8ad814d97" title=" " alt="" coords="439,23,600,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,27,242,9,317,3,391,9,433,16,433,21,391,14,317,8,243,14,149,32"/>
+<area shape="rect" id="Node000003" href="$dd/d9d/class_alpha_beta.html#a2ca3843277292d610c5bfc9a6fbf9d13" title=" " alt="" coords="648,60,818,85"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="149,54,243,73,347,80,451,83,633,77,633,82,451,88,346,86,242,78,148,59"/>
+<area shape="rect" id="Node000004" href="$dd/d9d/class_alpha_beta.html#a5ed19917ff15b7148e41ab3314662aec" title=" " alt="" coords="243,23,391,64"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="195,41,227,41,227,46,195,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="601,52,633,56,632,61,600,57"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="392,41,423,41,423,46,392,46"/>
 </map>

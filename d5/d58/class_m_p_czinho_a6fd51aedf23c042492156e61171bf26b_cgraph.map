@@ -1,6 +1,6 @@
 <map id="MPCzinho::set_path_in_solver" name="MPCzinho::set_path_in_solver">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,73,142,113"/>
-<area shape="rect" id="Node000002" href="$d0/d30/path__stager_8cpp.html#ad32a1acc1cbb2cc0a95cdd1d0afa811d" title=" " alt="" coords="190,73,337,113"/>
+<area shape="rect" id="Node000002" href="$d0/d30/path__stager_8cpp.html#aca3c43a378692ad8e37ac157f2c6b174" title="Resample the global path into one reference point per MPC stage." alt="" coords="190,73,337,113"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,90,174,90,174,96,142,96"/>
 <area shape="rect" id="Node000003" href="$d0/d30/path__stager_8cpp.html#a0f7577eff9b37f8c9a764121963c2fc6" title=" " alt="" coords="385,5,555,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,70,384,40,403,34,404,39,386,45,311,75"/>

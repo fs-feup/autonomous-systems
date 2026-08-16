@@ -1,6 +1,7 @@
 var struct_vehicle_model_execution_times =
 [
     [ "aero_ms", "d6/dba/struct_vehicle_model_execution_times.html#ac806368072013a886345e812a57c8cff", null ],
+    [ "integration_ms", "d6/dba/struct_vehicle_model_execution_times.html#a1e96bd319ff59f8bd2736ff1908d7db2", null ],
     [ "load_transfer_ms", "d6/dba/struct_vehicle_model_execution_times.html#aa7889a15f694a7b15aff214e05182acb", null ],
     [ "powertrain_ms", "d6/dba/struct_vehicle_model_execution_times.html#a8ec45377d9a6525db27e71413d498812", null ],
     [ "steering_ms", "d6/dba/struct_vehicle_model_execution_times.html#afe9eb84bcab52b07fcd8a22e13b1f866", null ],

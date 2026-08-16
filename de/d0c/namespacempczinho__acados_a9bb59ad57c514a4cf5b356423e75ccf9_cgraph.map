@@ -1,11 +1,14 @@
 <map id="mpczinho_acados.create_ocp_solver" name="mpczinho_acados.create_ocp_solver">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,71,170,111"/>
-<area shape="rect" id="Node000002" href="$de/d0c/namespacempczinho__acados.html#a8d0a22b3744ac74cd0de2f5e985fca1a" title=" " alt="" coords="218,5,381,46"/>
+<area shape="rect" id="Node000002" href="$de/d0c/namespacempczinho__acados.html#ac282bc2e1a1638657c601935ef504244" title=" " alt="" coords="218,5,381,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,68,216,49,217,54,156,73"/>
 <area shape="rect" id="Node000003" href="$de/d0c/namespacempczinho__acados.html#af75c8ec9924857daf996175226a13528" title=" " alt="" coords="223,71,376,111"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,88,208,88,208,94,170,94"/>
-<area shape="rect" id="Node000005" href="$de/d0c/namespacempczinho__acados.html#ac645e3ff396d6b3272ab45bf9f5a3ea1" title=" " alt="" coords="219,136,380,177"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="156,109,217,128,216,133,155,114"/>
-<area shape="rect" id="Node000004" href="$de/d0c/namespacempczinho__acados.html#a24a026c95c3ef89cfa5dcf114896c490" title=" " alt="" coords="429,71,575,111"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="376,88,413,88,413,94,376,94"/>
+<area shape="rect" id="Node000006" href="$de/d0c/namespacempczinho__acados.html#ac645e3ff396d6b3272ab45bf9f5a3ea1" title=" " alt="" coords="219,136,380,177"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="156,109,217,128,216,133,155,114"/>
+<area shape="rect" id="Node000004" href="$de/d0c/namespacempczinho__acados.html#af57ccf04beb4c20d72782de2989108c0" title=" " alt="" coords="429,43,575,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="375,78,413,73,414,78,376,83"/>
+<area shape="rect" id="Node000005" href="$de/d0c/namespacempczinho__acados.html#a24a026c95c3ef89cfa5dcf114896c490" title=" " alt="" coords="623,72,770,113"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="376,91,429,92,575,92,608,92,608,97,575,98,429,98,376,96"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="576,71,609,76,608,82,576,77"/>
 </map>

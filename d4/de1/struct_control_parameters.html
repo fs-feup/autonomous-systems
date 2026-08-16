@@ -154,8 +154,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a44ccca9d008ec4137ef9c6c21206f086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f2680748995a2b6cf9a678360f98319" id="r_a5f2680748995a2b6cf9a678360f98319"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a5f2680748995a2b6cf9a678360f98319">pid_kd_</a></td></tr>
 <tr class="separator:a5f2680748995a2b6cf9a678360f98319"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fa20f824ceff20002fe72da1abb0e9a" id="r_a8fa20f824ceff20002fe72da1abb0e9a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a8fa20f824ceff20002fe72da1abb0e9a">pid_tau_</a></td></tr>
-<tr class="separator:a8fa20f824ceff20002fe72da1abb0e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa99a13e24b70bbab07eba1e02066a7ed" id="r_aa99a13e24b70bbab07eba1e02066a7ed"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#aa99a13e24b70bbab07eba1e02066a7ed">pid_lim_min_</a></td></tr>
 <tr class="separator:aa99a13e24b70bbab07eba1e02066a7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d032cbdfdd455a149dcb89aed985790" id="r_a6d032cbdfdd455a149dcb89aed985790"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a6d032cbdfdd455a149dcb89aed985790">pid_lim_max_</a></td></tr>
@@ -170,8 +168,18 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a724ec51c51f74b829ef994c1683e6b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2ee4a4fbafaa5b4c6204f6580f5c926" id="r_ae2ee4a4fbafaa5b4c6204f6580f5c926"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#ae2ee4a4fbafaa5b4c6204f6580f5c926">mpc_prediction_horizon_steps_</a></td></tr>
 <tr class="separator:ae2ee4a4fbafaa5b4c6204f6580f5c926"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af942af25184c6b2a25607352891e1f90" id="r_af942af25184c6b2a25607352891e1f90"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#af942af25184c6b2a25607352891e1f90">mpczinho_max_steering_command_derivative_</a></td></tr>
-<tr class="separator:af942af25184c6b2a25607352891e1f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a878c6499ae211acad5e1f86080fcfbb6" id="r_a878c6499ae211acad5e1f86080fcfbb6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a878c6499ae211acad5e1f86080fcfbb6">lateral_mpc_prediction_horizon_seconds_</a></td></tr>
+<tr class="separator:a878c6499ae211acad5e1f86080fcfbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a094b06b678d6bb086dbf7645dc4b4fd6" id="r_a094b06b678d6bb086dbf7645dc4b4fd6"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a094b06b678d6bb086dbf7645dc4b4fd6">lateral_mpc_prediction_horizon_steps_</a></td></tr>
+<tr class="separator:a094b06b678d6bb086dbf7645dc4b4fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f623a9b29feac10443b19ac58c26b5f" id="r_a3f623a9b29feac10443b19ac58c26b5f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a3f623a9b29feac10443b19ac58c26b5f">mpc_cost_weights_</a></td></tr>
+<tr class="separator:a3f623a9b29feac10443b19ac58c26b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a592cb9580c18d82f5fb195d63c86ec69" id="r_a592cb9580c18d82f5fb195d63c86ec69"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a592cb9580c18d82f5fb195d63c86ec69">mpc_terminal_cost_weights_</a></td></tr>
+<tr class="separator:a592cb9580c18d82f5fb195d63c86ec69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3718f0463cdeaeecc6035ccd4a37ba98" id="r_a3718f0463cdeaeecc6035ccd4a37ba98"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a3718f0463cdeaeecc6035ccd4a37ba98">lateral_mpc_cost_weights_</a></td></tr>
+<tr class="separator:a3718f0463cdeaeecc6035ccd4a37ba98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d2acde1f417ee00aeb7d8e096189fb1" id="r_a3d2acde1f417ee00aeb7d8e096189fb1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#a3d2acde1f417ee00aeb7d8e096189fb1">lateral_mpc_terminal_cost_weights_</a></td></tr>
+<tr class="separator:a3d2acde1f417ee00aeb7d8e096189fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb967d227b7d5cdb163bbc3d10f006f3" id="r_abb967d227b7d5cdb163bbc3d10f006f3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#abb967d227b7d5cdb163bbc3d10f006f3">wheel_speeds_scale_mpc_</a></td></tr>
 <tr class="separator:abb967d227b7d5cdb163bbc3d10f006f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad583dff74c07eb7bd8ffe630137b7cdc" id="r_ad583dff74c07eb7bd8ffe630137b7cdc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/de1/struct_control_parameters.html#ad583dff74c07eb7bd8ffe630137b7cdc">map_frame_id_</a></td></tr>
@@ -181,7 +189,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abf0239a02a3cbf9e1649d70fcb75a22f" name="abf0239a02a3cbf9e1649d70fcb75a22f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abf0239a02a3cbf9e1649d70fcb75a22f">&#9670;&#160;</a></span>ControlParameters() <span class="overload">[1/2]</span></h2>
@@ -244,7 +252,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html#l00068">68</a> of file <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html">parameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html#l00074">74</a> of file <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html">parameters.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -287,7 +295,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html#l00034">34</a> of file <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html">parameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../de/d4b/control_2src_2config_2parameters_8cpp_source.html">parameters.cpp</a>.</p>
 
 </div>
 </div>
@@ -304,7 +312,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00012">12</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -320,7 +328,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -336,7 +344,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -352,7 +360,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -368,7 +376,71 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3718f0463cdeaeecc6035ccd4a37ba98" name="a3718f0463cdeaeecc6035ccd4a37ba98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3718f0463cdeaeecc6035ccd4a37ba98">&#9670;&#160;</a></span>lateral_mpc_cost_weights_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;double&gt; ControlParameters::lateral_mpc_cost_weights_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a878c6499ae211acad5e1f86080fcfbb6" name="a878c6499ae211acad5e1f86080fcfbb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a878c6499ae211acad5e1f86080fcfbb6">&#9670;&#160;</a></span>lateral_mpc_prediction_horizon_seconds_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ControlParameters::lateral_mpc_prediction_horizon_seconds_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a094b06b678d6bb086dbf7645dc4b4fd6" name="a094b06b678d6bb086dbf7645dc4b4fd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a094b06b678d6bb086dbf7645dc4b4fd6">&#9670;&#160;</a></span>lateral_mpc_prediction_horizon_steps_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int ControlParameters::lateral_mpc_prediction_horizon_steps_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d2acde1f417ee00aeb7d8e096189fb1" name="a3d2acde1f417ee00aeb7d8e096189fb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d2acde1f417ee00aeb7d8e096189fb1">&#9670;&#160;</a></span>lateral_mpc_terminal_cost_weights_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;double&gt; ControlParameters::lateral_mpc_terminal_cost_weights_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -384,7 +456,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -396,6 +468,22 @@ Here is the caller graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname">std::string ControlParameters::map_frame_id_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f623a9b29feac10443b19ac58c26b5f" name="a3f623a9b29feac10443b19ac58c26b5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f623a9b29feac10443b19ac58c26b5f">&#9670;&#160;</a></span>mpc_cost_weights_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;double&gt; ControlParameters::mpc_cost_weights_</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -436,19 +524,19 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="af942af25184c6b2a25607352891e1f90" name="af942af25184c6b2a25607352891e1f90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af942af25184c6b2a25607352891e1f90">&#9670;&#160;</a></span>mpczinho_max_steering_command_derivative_</h2>
+<a id="a592cb9580c18d82f5fb195d63c86ec69" name="a592cb9580c18d82f5fb195d63c86ec69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592cb9580c18d82f5fb195d63c86ec69">&#9670;&#160;</a></span>mpc_terminal_cost_weights_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double ControlParameters::mpczinho_max_steering_command_derivative_</td>
+          <td class="memname">std::vector&lt;double&gt; ControlParameters::mpc_terminal_cost_weights_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -480,7 +568,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -496,7 +584,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -512,7 +600,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -580,22 +668,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a8fa20f824ceff20002fe72da1abb0e9a" name="a8fa20f824ceff20002fe72da1abb0e9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fa20f824ceff20002fe72da1abb0e9a">&#9670;&#160;</a></span>pid_tau_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double ControlParameters::pid_tau_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
-
-</div>
-</div>
 <a id="a3384b408c688c3ac41a1474579037698" name="a3384b408c688c3ac41a1474579037698"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3384b408c688c3ac41a1474579037698">&#9670;&#160;</a></span>pure_pursuit_lookahead_gain_</h2>
 
@@ -608,7 +680,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -624,7 +696,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -640,7 +712,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -656,7 +728,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -672,7 +744,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -688,7 +760,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -704,7 +776,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>
@@ -720,7 +792,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d3/da8/control_2include_2config_2parameters_8hpp_source.html">parameters.hpp</a>.</p>
 
 </div>
 </div>

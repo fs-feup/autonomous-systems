@@ -1,14 +1,14 @@
 <map id="PathCalculation" name="PathCalculation">
-<area shape="rect" id="Node000001" title="Generates optimal local paths." alt="" coords="202,880,394,1589"/>
+<area shape="rect" id="Node000001" title="Generates optimal local paths." alt="" coords="202,880,394,1594"/>
 <area shape="rect" id="Node000002" href="$df/d7d/struct_path_calculation_config.html" title=" " alt="" coords="5,491,180,817"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,816,199,946,194,948,147,818"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,816,199,948,194,949,147,817"/>
 <area shape="rect" id="Node000003" href="$d9/d46/struct_midpoint_generator_config.html" title="Configuration parameters for the Midpoint Generator class." alt="" coords="85,286,263,411"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="120,412,98,453,92,475,86,474,93,451,115,409"/>
 <area shape="rect" id="Node000004" href="$d8/dab/class_midpoint_generator.html" title="Generates midpoints between cones using Delaunay triangulation." alt="" coords="205,531,394,777"/>
 <area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="207,410,226,451,252,515,247,517,221,453,202,412"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="302,776,302,863,296,863,296,776"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="302,777,302,863,296,863,296,777"/>
 <area shape="rect" id="Node000005" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="313,268,459,428"/>
-<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="420,427,426,452,443,565,448,654,442,743,426,856,401,965,396,964,421,855,437,743,443,654,438,565,421,453,415,429"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="420,427,426,452,443,565,448,654,442,743,426,856,401,966,396,965,421,855,437,743,443,654,438,565,421,453,415,429"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="345,429,336,453,320,515,314,514,331,452,340,427"/>
 <area shape="rect" id="Node000006" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="313,5,459,205"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="389,205,389,252,383,252,383,205"/>

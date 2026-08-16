@@ -1,4 +1,4 @@
 var mpczinho__acados_8cpp =
 [
-    [ "solver_parameter_size", "d9/d8b/mpczinho__acados_8cpp.html#a11ac8e38b02989585bd4da4335dc59ca", null ]
+    [ "path_point_size", "d9/d8b/mpczinho__acados_8cpp.html#a0f7de104bdba7219af06cfc6d99a8e7d", null ]
 ];

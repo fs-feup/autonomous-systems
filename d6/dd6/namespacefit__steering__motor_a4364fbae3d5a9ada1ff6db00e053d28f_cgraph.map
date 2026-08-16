@@ -1,0 +1,9 @@
+<map id="fit_steering_motor.score_tau" name="fit_steering_motor.score_tau">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,35,190,60"/>
+<area shape="rect" id="Node000002" href="$d6/dd6/namespacefit__steering__motor.html#a5e594912df324c6bb4a3459bb8911373" title=" " alt="" coords="248,5,404,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,33,232,28,233,33,190,38"/>
+<area shape="rect" id="Node000003" href="$d6/dd6/namespacefit__steering__motor.html#ac21002df38ad287088f69a3ffdeca7d9" title=" " alt="" coords="238,55,414,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,56,222,60,222,65,190,61"/>
+<area shape="rect" id="Node000004" href="$d6/dd6/namespacefit__steering__motor.html#a4b8be1c19bec34c6aaf3806bbd883a98" title=" " alt="" coords="462,63,664,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="415,73,447,73,447,78,415,78"/>
+</map>

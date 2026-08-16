@@ -2,9 +2,9 @@ var searchData=
 [
   ['test_2ecpp_0',['test.cpp',['../d7/d16/mocker__node_2test_2test_8cpp.html',1,'(Global Namespace)'],['../d3/dcc/invictasim_2test_2test_8cpp.html',1,'(Global Namespace)']]],
   ['test_2epy_1',['test.py',['../df/dba/test_8py.html',1,'']]],
-  ['test_5fcopyright_2epy_2',['test_copyright.py',['../db/d71/power__log_2test_2test__copyright_8py.html',1,'(Global Namespace)'],['../d4/d7a/supervisor_2test_2test__copyright_8py.html',1,'(Global Namespace)'],['../dd/dd2/vehicle__dynamics__node_2test_2test__copyright_8py.html',1,'(Global Namespace)']]],
+  ['test_5fcopyright_2epy_2',['test_copyright.py',['../dd/dd2/vehicle__dynamics__node_2test_2test__copyright_8py.html',1,'(Global Namespace)'],['../d4/d7a/supervisor_2test_2test__copyright_8py.html',1,'(Global Namespace)'],['../db/d71/power__log_2test_2test__copyright_8py.html',1,'(Global Namespace)']]],
   ['test_5fdata_5fassociation_5fmetrics_2epy_3',['test_data_association_metrics.py',['../d2/d37/test__data__association__metrics_8py.html',1,'']]],
-  ['test_5fflake8_2epy_4',['test_flake8.py',['../d5/dff/supervisor_2test_2test__flake8_8py.html',1,'(Global Namespace)'],['../d6/def/power__log_2test_2test__flake8_8py.html',1,'(Global Namespace)'],['../d7/d15/vehicle__dynamics__node_2test_2test__flake8_8py.html',1,'(Global Namespace)']]],
+  ['test_5fflake8_2epy_4',['test_flake8.py',['../d7/d15/vehicle__dynamics__node_2test_2test__flake8_8py.html',1,'(Global Namespace)'],['../d5/dff/supervisor_2test_2test__flake8_8py.html',1,'(Global Namespace)'],['../d6/def/power__log_2test_2test__flake8_8py.html',1,'(Global Namespace)']]],
   ['test_5fformats_2epy_5',['test_formats.py',['../de/d8e/test__formats_8py.html',1,'']]],
   ['test_5fpep257_2epy_6',['test_pep257.py',['../d2/d19/vehicle__dynamics__node_2test_2test__pep257_8py.html',1,'(Global Namespace)'],['../d1/d02/supervisor_2test_2test__pep257_8py.html',1,'(Global Namespace)'],['../dc/d67/power__log_2test_2test__pep257_8py.html',1,'(Global Namespace)']]],
   ['tests_2ecpp_7',['tests.cpp',['../d9/d1e/tests_8cpp.html',1,'']]],
@@ -31,6 +31,9 @@ var searchData=
   ['transmission_5fparameters_2ecpp_28',['transmission_parameters.cpp',['../d1/d36/transmission__parameters_8cpp.html',1,'']]],
   ['transmission_5fparameters_2ehpp_29',['transmission_parameters.hpp',['../d3/dd0/transmission__parameters_8hpp.html',1,'']]],
   ['trimming_5fparameters_2ehpp_30',['trimming_parameters.hpp',['../d9/d6e/trimming__parameters_8hpp.html',1,'']]],
-  ['types_2ecpp_31',['types.cpp',['../da/ddf/types_8cpp.html',1,'']]],
-  ['types_2ehpp_32',['types.hpp',['../dd/de3/types_8hpp.html',1,'']]]
+  ['tune_5fvehicle_5fmodel_2epy_31',['tune_vehicle_model.py',['../d8/d5a/tune__vehicle__model_8py.html',1,'']]],
+  ['tuning_5fevaluator_2ecpp_32',['tuning_evaluator.cpp',['../d3/d5c/tuning__evaluator_8cpp.html',1,'']]],
+  ['tuning_5fevaluator_2ehpp_33',['tuning_evaluator.hpp',['../d2/d78/tuning__evaluator_8hpp.html',1,'']]],
+  ['types_2ecpp_34',['types.cpp',['../da/ddf/types_8cpp.html',1,'']]],
+  ['types_2ehpp_35',['types.hpp',['../dd/de3/types_8hpp.html',1,'']]]
 ];

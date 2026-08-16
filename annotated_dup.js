@@ -12,7 +12,9 @@ var annotated_dup =
       [ "car_parameters", "dc/dd9/namespacecommon__lib_1_1car__parameters.html", [
         [ "AeroParameters", "d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters.html", "d5/d5a/structcommon__lib_1_1car__parameters_1_1_aero_parameters" ],
         [ "BatteryParameters", "dd/d0c/structcommon__lib_1_1car__parameters_1_1_battery_parameters.html", "dd/d0c/structcommon__lib_1_1car__parameters_1_1_battery_parameters" ],
+        [ "BrakeParameters", "d0/d3d/structcommon__lib_1_1car__parameters_1_1_brake_parameters.html", "d0/d3d/structcommon__lib_1_1car__parameters_1_1_brake_parameters" ],
         [ "CarParameters", "dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters.html", "dd/d66/structcommon__lib_1_1car__parameters_1_1_car_parameters" ],
+        [ "InverterParameters", "dc/db6/structcommon__lib_1_1car__parameters_1_1_inverter_parameters.html", "dc/db6/structcommon__lib_1_1car__parameters_1_1_inverter_parameters" ],
         [ "LoadTransferParameters", "da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters.html", "da/d10/structcommon__lib_1_1car__parameters_1_1_load_transfer_parameters" ],
         [ "MotorParameters", "d3/dba/structcommon__lib_1_1car__parameters_1_1_motor_parameters.html", "d3/dba/structcommon__lib_1_1car__parameters_1_1_motor_parameters" ],
         [ "SteeringMotorParameters", "d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters.html", "d2/d2e/structcommon__lib_1_1car__parameters_1_1_steering_motor_parameters" ],
@@ -47,9 +49,34 @@ var annotated_dup =
       ] ]
     ] ],
     [ "control_evaluator", "d2/d57/namespacecontrol__evaluator.html", [
+      [ "error_metrics", "d2/dc9/namespacecontrol__evaluator_1_1error__metrics.html", [
+        [ "_ErrorSignal", "de/d75/classcontrol__evaluator_1_1error__metrics_1_1___error_signal.html", "de/d75/classcontrol__evaluator_1_1error__metrics_1_1___error_signal" ],
+        [ "ErrorMetrics", "d6/dda/classcontrol__evaluator_1_1error__metrics_1_1_error_metrics.html", "d6/dda/classcontrol__evaluator_1_1error__metrics_1_1_error_metrics" ]
+      ] ],
+      [ "invictasim_adapter", "d3/de4/namespacecontrol__evaluator_1_1invictasim__adapter.html", [
+        [ "InvictasimAdapter", "dc/daf/classcontrol__evaluator_1_1invictasim__adapter_1_1_invictasim_adapter.html", "dc/daf/classcontrol__evaluator_1_1invictasim__adapter_1_1_invictasim_adapter" ]
+      ] ],
       [ "node", "d9/ddb/namespacecontrol__evaluator_1_1node.html", [
-        [ "ControlEvaluatorNode", "d4/de9/classcontrol__evaluator_1_1node_1_1_control_evaluator_node.html", "d4/de9/classcontrol__evaluator_1_1node_1_1_control_evaluator_node" ],
-        [ "RunningStats", "d3/d4e/classcontrol__evaluator_1_1node_1_1_running_stats.html", "d3/d4e/classcontrol__evaluator_1_1node_1_1_running_stats" ]
+        [ "ControlEvaluatorNode", "d4/de9/classcontrol__evaluator_1_1node_1_1_control_evaluator_node.html", "d4/de9/classcontrol__evaluator_1_1node_1_1_control_evaluator_node" ]
+      ] ],
+      [ "pacsim_adapter", "d6/d8d/namespacecontrol__evaluator_1_1pacsim__adapter.html", [
+        [ "PacsimAdapter", "dc/d6c/classcontrol__evaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", "dc/d6c/classcontrol__evaluator_1_1pacsim__adapter_1_1_pacsim_adapter" ]
+      ] ],
+      [ "params", "db/d28/namespacecontrol__evaluator_1_1params.html", [
+        [ "Params", "d6/d27/classcontrol__evaluator_1_1params_1_1_params.html", "d6/d27/classcontrol__evaluator_1_1params_1_1_params" ]
+      ] ],
+      [ "performance_metrics", "d1/d25/namespacecontrol__evaluator_1_1performance__metrics.html", [
+        [ "PerformanceMetrics", "dd/da5/classcontrol__evaluator_1_1performance__metrics_1_1_performance_metrics.html", "dd/da5/classcontrol__evaluator_1_1performance__metrics_1_1_performance_metrics" ]
+      ] ],
+      [ "smoothness_metrics", "dc/db9/namespacecontrol__evaluator_1_1smoothness__metrics.html", [
+        [ "_SmoothnessSignal", "d4/dc1/classcontrol__evaluator_1_1smoothness__metrics_1_1___smoothness_signal.html", "d4/dc1/classcontrol__evaluator_1_1smoothness__metrics_1_1___smoothness_signal" ],
+        [ "SmoothnessMetrics", "d4/d0b/classcontrol__evaluator_1_1smoothness__metrics_1_1_smoothness_metrics.html", "d4/d0b/classcontrol__evaluator_1_1smoothness__metrics_1_1_smoothness_metrics" ]
+      ] ],
+      [ "stats", "d3/dd4/namespacecontrol__evaluator_1_1stats.html", [
+        [ "RunningStats", "d3/d33/classcontrol__evaluator_1_1stats_1_1_running_stats.html", "d3/d33/classcontrol__evaluator_1_1stats_1_1_running_stats" ]
+      ] ],
+      [ "vehicle_adapter", "d2/dec/namespacecontrol__evaluator_1_1vehicle__adapter.html", [
+        [ "VehicleAdapter", "d0/d2c/classcontrol__evaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html", "d0/d2c/classcontrol__evaluator_1_1vehicle__adapter_1_1_vehicle_adapter" ]
       ] ]
     ] ],
     [ "convert_fssim_sdf_to_yaml", "da/d44/namespaceconvert__fssim__sdf__to__yaml.html", [
@@ -159,6 +186,7 @@ var annotated_dup =
     [ "BaseOptimizer", "df/dc2/class_base_optimizer.html", "df/dc2/class_base_optimizer" ],
     [ "BaseVelocityProcessModel", "d7/d59/class_base_velocity_process_model.html", "d7/d59/class_base_velocity_process_model" ],
     [ "BatteryModel", "db/dc2/class_battery_model.html", "db/dc2/class_battery_model" ],
+    [ "BrakeModel", "df/df1/class_brake_model.html", "df/df1/class_brake_model" ],
     [ "CAParticleModel", "d6/dba/class_c_a_particle_model.html", "d6/dba/class_c_a_particle_model" ],
     [ "CenterCalculator", "df/daa/class_center_calculator.html", "df/daa/class_center_calculator" ],
     [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", "da/d39/class_centroid_calculator" ],
@@ -182,16 +210,20 @@ var annotated_dup =
     [ "Controller", "d8/d87/class_controller.html", "d8/d87/class_controller" ],
     [ "ControlNode", "d6/dc5/class_control_node.html", "d6/dc5/class_control_node" ],
     [ "ControlParameters", "d4/de1/struct_control_parameters.html", "d4/de1/struct_control_parameters" ],
+    [ "CsvRow", "df/d41/struct_csv_row.html", "df/d41/struct_csv_row" ],
     [ "CutTrimming", "d4/d48/class_cut_trimming.html", "d4/d48/class_cut_trimming" ],
     [ "CutTrimmingTest", "d1/dad/class_cut_trimming_test.html", "d1/dad/class_cut_trimming_test" ],
     [ "CylinderValidator", "dd/def/class_cylinder_validator.html", "dd/def/class_cylinder_validator" ],
     [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", "da/dcf/class_cylinder_validator_test" ],
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", "d1/d14/class_data_association_model" ],
     [ "DataAssociationParameters", "d9/d66/struct_data_association_parameters.html", "d9/d66/struct_data_association_parameters" ],
+    [ "DatasetConfig", "df/d17/struct_dataset_config.html", "df/d17/struct_dataset_config" ],
     [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", "df/d6a/class_d_b_s_c_a_n" ],
     [ "DeadTime", "d6/d56/class_dead_time.html", "d6/d56/class_dead_time" ],
     [ "DecoupledController", "dd/d8f/class_decoupled_controller.html", "dd/d8f/class_decoupled_controller" ],
     [ "DefaultAeroModel", "d2/d1b/class_default_aero_model.html", "d2/d1b/class_default_aero_model" ],
+    [ "DefaultBrake", "d9/d3f/class_default_brake.html", "d9/d3f/class_default_brake" ],
+    [ "DelayedInverter", "d5/d90/class_delayed_inverter.html", "d5/d90/class_delayed_inverter" ],
     [ "Deskew", "d1/dab/class_deskew.html", "d1/dab/class_deskew" ],
     [ "DeviationValidator", "d2/d55/class_deviation_validator.html", "d2/d55/class_deviation_validator" ],
     [ "DifferenceBasedReadyPoseUpdater", "d1/d1c/class_difference_based_ready_pose_updater.html", "d1/d1c/class_difference_based_ready_pose_updater" ],
@@ -201,6 +233,8 @@ var annotated_dup =
     [ "EKF", "d7/dbe/class_e_k_f.html", "d7/dbe/class_e_k_f" ],
     [ "EKFSLAMSolver", "d7/d79/class_e_k_f_s_l_a_m_solver.html", "d7/d79/class_e_k_f_s_l_a_m_solver" ],
     [ "EKFSLAMSolverTest", "d3/d78/class_e_k_f_s_l_a_m_solver_test.html", "d3/d78/class_e_k_f_s_l_a_m_solver_test" ],
+    [ "EvaluationMetrics", "d1/dea/struct_evaluation_metrics.html", "d1/dea/struct_evaluation_metrics" ],
+    [ "EvaluationResult", "d3/d5d/struct_evaluation_result.html", "d3/d5d/struct_evaluation_result" ],
     [ "EvaluatorParameters", "d9/d9f/struct_evaluator_parameters.html", "d9/d9f/struct_evaluator_parameters" ],
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
     [ "ExecutionTimesSnapshot", "dd/d2b/struct_execution_times_snapshot.html", "dd/d2b/struct_execution_times_snapshot" ],
@@ -245,6 +279,8 @@ var annotated_dup =
     [ "ImuIntegratorTrait", "db/df5/class_imu_integrator_trait.html", "db/df5/class_imu_integrator_trait" ],
     [ "ImuSensor", "d6/d71/class_imu_sensor.html", "d6/d71/class_imu_sensor" ],
     [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", "d2/d58/class_imu_velocity_model" ],
+    [ "Individual", "dd/d0c/struct_individual.html", "dd/d0c/struct_individual" ],
+    [ "InlineFSFEUP02Model", "dd/d5c/class_inline_f_s_f_e_u_p02_model.html", "dd/d5c/class_inline_f_s_f_e_u_p02_model" ],
     [ "InputSnapshot", "d1/d26/struct_input_snapshot.html", "d1/d26/struct_input_snapshot" ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", "d4/d89/class_inspection_functions" ],
     [ "InspectionMission", "de/d3d/class_inspection_mission.html", "de/d3d/class_inspection_mission" ],
@@ -252,6 +288,7 @@ var annotated_dup =
     [ "InternalValues", "dd/d8c/struct_internal_values.html", "dd/d8c/struct_internal_values" ],
     [ "Interpolator", "da/d8e/class_interpolator.html", "da/d8e/class_interpolator" ],
     [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", "d3/df9/class_invalid_mission_exception" ],
+    [ "InverterModel", "db/dba/class_inverter_model.html", "db/dba/class_inverter_model" ],
     [ "InvictaSim", "df/d77/class_invicta_sim.html", "df/d77/class_invicta_sim" ],
     [ "InvictasimAdapter", "dc/d0e/class_invictasim_adapter.html", "dc/d0e/class_invictasim_adapter" ],
     [ "InvictaSimAdapter", "d6/d6c/class_invicta_sim_adapter.html", "d6/d6c/class_invicta_sim_adapter" ],
@@ -320,9 +357,10 @@ var annotated_dup =
     [ "OdometryModel", "db/d0c/class_odometry_model.html", "db/d0c/class_odometry_model" ],
     [ "PacejkaCombinedSlip", "d2/db1/class_pacejka_combined_slip.html", "d2/db1/class_pacejka_combined_slip" ],
     [ "PacejkaMF6_2", "d3/da3/class_pacejka_m_f6__2.html", "d3/da3/class_pacejka_m_f6__2" ],
-    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
+    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "ParallelFrontSteering", "d2/dab/class_parallel_front_steering.html", "d2/dab/class_parallel_front_steering" ],
+    [ "ParameterSpec", "df/d25/struct_parameter_spec.html", "df/d25/struct_parameter_spec" ],
     [ "PathCalculation", "d0/d89/class_path_calculation.html", "d0/d89/class_path_calculation" ],
     [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html", "df/d7d/struct_path_calculation_config" ],
     [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", "d1/d5e/struct_path_point_equal" ],
@@ -343,6 +381,7 @@ var annotated_dup =
     [ "PlanningConfig", "df/dec/struct_planning_config.html", "df/dec/struct_planning_config" ],
     [ "PlanningParameters", "d2/deb/struct_planning_parameters.html", "d2/deb/struct_planning_parameters" ],
     [ "Pose", "d8/d11/struct_pose.html", "d8/d11/struct_pose" ],
+    [ "PoseSample", "db/d6b/struct_pose_sample.html", "db/d6b/struct_pose_sample" ],
     [ "PoseUpdater", "d0/d87/class_pose_updater.html", "d0/d87/class_pose_updater" ],
     [ "PositionXYAreDouble", "d0/dc2/struct_position_x_y_are_double.html", null ],
     [ "PositionXYAreDouble< T, std::enable_if_t< std::is_same_v< decltype(std::declval< T >().position.x), double > &&std::is_same_v< decltype(std::declval< T >().position.y), double > > >", "d8/da1/struct_position_x_y_are_double_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1is__same__v_3_01declt1791f863a2ceff256cf7e96446ba334e.html", null ],
@@ -356,12 +395,15 @@ var annotated_dup =
     [ "Ring", "d2/db2/struct_ring.html", "d2/db2/struct_ring" ],
     [ "RosInputAdapter", "dc/d46/class_ros_input_adapter.html", "dc/d46/class_ros_input_adapter" ],
     [ "RosOutputAdapter", "d6/dc0/class_ros_output_adapter.html", "d6/dc0/class_ros_output_adapter" ],
+    [ "RunningRmse", "da/da1/struct_running_rmse.html", "da/da1/struct_running_rmse" ],
+    [ "SalisburyDifferential", "d3/d70/class_salisbury_differential.html", "d3/d70/class_salisbury_differential" ],
     [ "ScalarValueSensor", "df/d7c/class_scalar_value_sensor.html", "df/d7c/class_scalar_value_sensor" ],
     [ "SecondPoseInputTrait", "da/df3/class_second_pose_input_trait.html", "da/df3/class_second_pose_input_trait" ],
     [ "SENode", "d4/d43/class_s_e_node.html", "d4/d43/class_s_e_node" ],
     [ "Sensor", "d7/daf/class_sensor.html", "d7/daf/class_sensor" ],
     [ "SensorBase", "dd/dc4/class_sensor_base.html", "dd/dc4/class_sensor_base" ],
     [ "SensorsSnapshot", "db/d58/struct_sensors_snapshot.html", "db/d58/struct_sensors_snapshot" ],
+    [ "SimState", "d1/d18/struct_sim_state.html", "d1/d18/struct_sim_state" ],
     [ "SimulatedPerception", "d0/dc0/class_simulated_perception.html", "d0/dc0/class_simulated_perception" ],
     [ "Skidpad", "de/d3f/class_skidpad.html", "de/d3f/class_skidpad" ],
     [ "SkidpadConfig", "d2/de2/struct_skidpad_config.html", "d2/de2/struct_skidpad_config" ],
@@ -382,6 +424,7 @@ var annotated_dup =
     [ "SteeringModel", "d0/db0/class_steering_model.html", "d0/db0/class_steering_model" ],
     [ "SteeringMotorModel", "d1/d48/class_steering_motor_model.html", "d1/d48/class_steering_motor_model" ],
     [ "Thevenin", "dd/dbf/class_thevenin.html", "dd/dbf/class_thevenin" ],
+    [ "ThreadPool", "d9/df5/class_thread_pool.html", "d9/df5/class_thread_pool" ],
     [ "TireInput", "d6/da5/struct_tire_input.html", "d6/da5/struct_tire_input" ],
     [ "TireModel", "d2/dc2/class_tire_model.html", "d2/dc2/class_tire_model" ],
     [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ],
@@ -391,6 +434,7 @@ var annotated_dup =
     [ "TrimmingParameters", "d8/d2c/struct_trimming_parameters.html", "d8/d2c/struct_trimming_parameters" ],
     [ "TripleComparator", "dd/da8/struct_triple_comparator.html", "dd/da8/struct_triple_comparator" ],
     [ "TripleSpline", "d1/d77/struct_triple_spline.html", "d1/d77/struct_triple_spline" ],
+    [ "TuningEvaluator", "dd/d66/class_tuning_evaluator.html", "dd/d66/class_tuning_evaluator" ],
     [ "V2PMotionModel", "d0/d20/class_v2_p_motion_model.html", "d0/d20/class_v2_p_motion_model" ],
     [ "VDLoadTransferModel", "dc/d38/class_v_d_load_transfer_model.html", "dc/d38/class_v_d_load_transfer_model" ],
     [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", "d1/df1/class_vehicle_adapter" ],

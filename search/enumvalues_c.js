@@ -1,5 +1,11 @@
 var searchData=
 [
-  ['skidpad_0',['skidpad',['../dd/de3/types_8hpp.html#a602139322e3c68f68d494fc57800b110a6bc0810ff00cd4a385271784ee4c46eb',1,'SKIDPAD:&#160;types.hpp'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140abaf272b06d68165527e91888c294dd52',1,'common_lib::competition_logic::SKIDPAD']]],
-  ['started_1',['started',['../d5/dd3/lap__timer__statistics_8hpp.html#ace3243ca83f1d1690d13301a437c005fa3bebb2f89180b03fa5ae736665f648d9',1,'lap_timer_statistics.hpp']]]
+  ['rear_5fleft_0',['REAR_LEFT',['../dd/d27/class_w_s_s.html#ab5e0568f11213d5b3242cdedfc11d749a54db030b91e30e6bac5b48c22e7b06e1',1,'WSS']]],
+  ['rear_5fright_1',['REAR_RIGHT',['../dd/d27/class_w_s_s.html#ab5e0568f11213d5b3242cdedfc11d749a677a01b4c52edce9a45562b44abe199b',1,'WSS']]],
+  ['red_2',['RED',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92febaa2d9547b5d3dd9f05984475f7c926da0',1,'common_lib::competition_logic']]],
+  ['right_3',['right',['../d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4a21507b40c80068eda19865706fdc2403',1,'common_lib::structures::RIGHT'],['../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186a21507b40c80068eda19865706fdc2403',1,'RIGHT:&#160;right_left_enum.hpp']]],
+  ['rl_4',['RL',['../d0/d42/base__tire__model_8hpp.html#a5d4d9f3cdf4eb79ef0fce0101c0987e8a82a0bbc419483ee9d455be67e89ef7a4',1,'base_tire_model.hpp']]],
+  ['rl_5fw_5',['rl_w',['../dd/d5c/class_inline_f_s_f_e_u_p02_model.html#a047fda007470200874cfc23c66317e02a0f90ec382442823c072db7bd83318c17',1,'InlineFSFEUP02Model::RL_W'],['../dc/dbb/_f_s_f_e_u_p02_8hpp.html#a1108f21fb885a99b96322f2bccec349ea12ec9c486d7e400de386e5bff16ed6c7',1,'RL_W:&#160;FSFEUP02.hpp']]],
+  ['rr_6',['RR',['../d0/d42/base__tire__model_8hpp.html#a5d4d9f3cdf4eb79ef0fce0101c0987e8aea4586c054afe1678864fa75dfb1787d',1,'base_tire_model.hpp']]],
+  ['rr_5fw_7',['rr_w',['../dd/d5c/class_inline_f_s_f_e_u_p02_model.html#a047fda007470200874cfc23c66317e02a811de08efdc4e79b9a4234065e176549',1,'InlineFSFEUP02Model::RR_W'],['../dc/dbb/_f_s_f_e_u_p02_8hpp.html#a1108f21fb885a99b96322f2bccec349eaf44daf44325ffbd8906badd77ebb07a9',1,'RR_W:&#160;FSFEUP02.hpp']]]
 ];

@@ -1,49 +1,51 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="262,5,329,31"/>
-<area shape="rect" id="Node000001" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="427,327,537,352"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="345,24,372,40,401,75,425,114,444,155,458,197,476,273,482,326,477,326,470,274,453,198,439,157,420,116,397,78,368,44,342,29"/>
-<area shape="rect" id="Node000008" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="428,425,537,451"/>
-<area shape="poly" id="edge2_Node000000_Node000008" title=" " alt="" coords="345,23,359,30,372,40,389,65,401,89,408,112,411,136,407,182,398,228,388,273,385,319,393,365,404,389,420,412,432,423,428,427,416,416,399,391,388,367,379,319,383,272,393,227,402,181,405,136,402,113,396,91,385,67,368,44,357,34,342,27"/>
-<area shape="rect" id="Node000015" href="$d0/d4b/class_invicta_sim_input_adapter.html" title="Base interface for simulator input adapters." alt="" coords="10,80,168,106"/>
-<area shape="rect" id="Node000016" href="$d7/dce/class_keyboard_input_adapter.html" title="SDL&#45;backed keyboard simulator input adapter." alt="" coords="221,55,370,80"/>
-<area shape="poly" id="edge3_Node000015_Node000016" title=" " alt="" coords="183,79,220,74,221,79,183,84"/>
-<area shape="rect" id="Node000014" href="$dc/d46/class_ros_input_adapter.html" title="ROS&#45;based simulator input adapter." alt="" coords="236,104,355,130"/>
-<area shape="poly" id="edge4_Node000015_Node000014" title=" " alt="" coords="183,101,236,107,235,113,183,106"/>
-<area shape="rect" id="Node000018" href="$dc/d98/class_invicta_sim_output_adapter.html" title="Base interface for simulator output adapters." alt="" coords="5,548,173,574"/>
-<area shape="rect" id="Node000017" href="$d6/dc0/class_ros_output_adapter.html" title="ROS&#45;based simulator output adapter." alt="" coords="231,548,360,574"/>
-<area shape="poly" id="edge5_Node000018_Node000017" title=" " alt="" coords="188,558,231,558,231,564,188,564"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="42,325,136,351"/>
-<area shape="poly" id="edge17_Node000010_Node000014" title=" " alt="" coords="99,310,117,272,143,226,177,179,219,139,238,128,240,133,222,143,181,183,147,229,121,274,104,312"/>
-<area shape="poly" id="edge18_Node000010_Node000017" title=" " alt="" coords="103,364,121,402,147,448,181,495,222,535,240,545,238,550,219,539,177,498,143,451,117,405,99,366"/>
-<area shape="rect" id="Node000006" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="249,499,342,524"/>
-<area shape="poly" id="edge6_Node000010_Node000006" title=" " alt="" coords="109,362,155,424,187,457,222,485,249,498,247,503,219,490,183,461,151,428,104,366"/>
-<area shape="rect" id="Node000011" href="$de/d3d/class_inspection_mission.html" title="Class responsible for the Inspection Mission of the car." alt="" coords="232,153,359,179"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="104,311,151,250,183,217,219,188,240,177,243,182,222,192,187,220,155,253,109,314"/>
-<area shape="rect" id="Node000012" href="$d1/d4c/class_mocker_node.html" title=" " alt="" coords="248,203,343,228"/>
-<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="114,313,161,274,219,237,246,226,248,231,222,242,164,279,118,317"/>
-<area shape="rect" id="Node000013" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="254,252,337,278"/>
-<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="138,317,220,286,252,275,254,280,222,291,139,322"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="260,449,331,475"/>
-<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="117,360,164,398,222,436,260,451,258,456,219,441,161,403,114,364"/>
-<area shape="rect" id="Node000019" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="261,301,330,327"/>
-<area shape="poly" id="edge19_Node000010_Node000019" title=" " alt="" coords="151,328,260,315,261,321,151,334"/>
-<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="251,351,340,376"/>
-<area shape="poly" id="edge20_Node000010_Node000002" title=" " alt="" coords="151,343,251,355,250,361,151,348"/>
-<area shape="rect" id="Node000009" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="261,400,330,426"/>
-<area shape="poly" id="edge24_Node000010_Node000009" title=" " alt="" coords="138,355,222,386,261,400,259,405,220,391,137,360"/>
-<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="355,491,369,485,417,460,442,449,444,454,419,465,371,490,357,496"/>
-<area shape="rect" id="Node000007" href="$dc/d0e/class_invictasim_adapter.html" title="Adapter for interfacing with the invictasim simulator." alt="" coords="419,524,545,550"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="358,517,419,526,418,531,357,523"/>
-<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="426,475,538,500"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="357,501,425,492,426,497,358,506"/>
-<area shape="poly" id="edge16_Node000004_Node000008" title=" " alt="" coords="346,453,427,443,427,448,347,458"/>
-<area shape="poly" id="edge15_Node000004_Node000005" title=" " alt="" coords="347,466,426,477,425,483,346,472"/>
-<area shape="rect" id="Node000003" href="$d6/d6c/class_invicta_sim_adapter.html" title="Adapter class to interface with the InvictaSim simulator for SLAM." alt="" coords="418,376,546,402"/>
-<area shape="poly" id="edge14_Node000004_Node000003" title=" " alt="" coords="345,445,369,436,417,410,442,400,444,405,419,415,371,441,347,450"/>
-<area shape="poly" id="edge22_Node000002_Node000001" title=" " alt="" coords="355,353,426,344,427,349,356,358"/>
-<area shape="poly" id="edge23_Node000002_Node000008" title=" " alt="" coords="356,379,371,385,419,412,444,422,442,427,417,417,369,390,354,384"/>
-<area shape="poly" id="edge21_Node000002_Node000003" title=" " alt="" coords="355,369,418,377,417,383,355,374"/>
-<area shape="poly" id="edge26_Node000009_Node000001" title=" " alt="" coords="344,396,369,386,417,361,442,351,444,355,419,366,371,391,345,401"/>
-<area shape="poly" id="edge27_Node000009_Node000008" title=" " alt="" coords="346,417,427,428,427,433,345,422"/>
-<area shape="poly" id="edge25_Node000009_Node000003" title=" " alt="" coords="345,404,417,394,418,400,346,409"/>
+<area shape="rect" id="Node000000" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="262,449,329,475"/>
+<area shape="rect" id="Node000001" href="$d1/dcb/class_pacsim_adapter.html" title="Adapter class to interface with the Pacsim simulator for SLAM." alt="" coords="427,475,537,500"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="344,466,427,477,426,483,344,471"/>
+<area shape="rect" id="Node000008" href="$d1/df1/class_vehicle_adapter.html" title="Adapter for interfacing with the real vehicle hardware." alt="" coords="428,376,537,402"/>
+<area shape="poly" id="edge2_Node000000_Node000008" title=" " alt="" coords="343,446,369,436,417,410,442,400,444,405,419,415,371,441,344,451"/>
+<area shape="rect" id="Node000015" href="$d0/d4b/class_invicta_sim_input_adapter.html" title="Base interface for simulator input adapters." alt="" coords="10,31,168,56"/>
+<area shape="rect" id="Node000016" href="$d7/dce/class_keyboard_input_adapter.html" title="SDL&#45;backed keyboard simulator input adapter." alt="" coords="221,5,370,31"/>
+<area shape="poly" id="edge3_Node000015_Node000016" title=" " alt="" coords="183,29,220,25,221,30,183,35"/>
+<area shape="rect" id="Node000014" href="$dc/d46/class_ros_input_adapter.html" title="ROS&#45;based simulator input adapter." alt="" coords="236,55,355,80"/>
+<area shape="poly" id="edge4_Node000015_Node000014" title=" " alt="" coords="183,52,236,58,235,63,183,57"/>
+<area shape="rect" id="Node000018" href="$dc/d98/class_invicta_sim_output_adapter.html" title="Base interface for simulator output adapters." alt="" coords="5,597,173,623"/>
+<area shape="rect" id="Node000017" href="$d6/dc0/class_ros_output_adapter.html" title="ROS&#45;based simulator output adapter." alt="" coords="231,597,360,623"/>
+<area shape="poly" id="edge5_Node000018_Node000017" title=" " alt="" coords="188,608,231,608,231,613,188,613"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="42,301,136,327"/>
+<area shape="poly" id="edge17_Node000010_Node000014" title=" " alt="" coords="97,285,113,243,139,190,174,136,219,89,237,79,239,83,222,94,178,139,144,193,118,245,102,287"/>
+<area shape="poly" id="edge18_Node000010_Node000017" title=" " alt="" coords="99,341,113,393,137,458,173,526,196,557,222,584,238,595,236,599,219,588,192,560,168,529,132,460,107,394,93,342"/>
+<area shape="rect" id="Node000006" href="$d6/dc5/class_control_node.html" title="Class responsible for the ROS2 communication of the control module." alt="" coords="249,301,342,327"/>
+<area shape="poly" id="edge6_Node000010_Node000006" title=" " alt="" coords="151,312,248,312,248,317,151,317"/>
+<area shape="rect" id="Node000011" href="$de/d3d/class_inspection_mission.html" title="Class responsible for the Inspection Mission of the car." alt="" coords="232,499,359,524"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="106,340,151,412,184,452,222,485,241,496,239,500,219,490,180,455,147,415,101,342"/>
+<area shape="rect" id="Node000012" href="$d1/d4c/class_mocker_node.html" title=" " alt="" coords="248,104,343,130"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="101,286,147,213,180,173,219,139,246,125,249,130,222,143,184,177,151,216,106,289"/>
+<area shape="rect" id="Node000013" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="254,153,337,179"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="108,288,156,238,186,211,219,188,252,174,254,178,222,192,189,215,159,241,112,291"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Responsible for path planning and trajectory generation for the autonomous vehicle." alt="" coords="260,351,331,376"/>
+<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="151,326,260,352,259,358,150,331"/>
+<area shape="rect" id="Node000019" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="261,203,330,228"/>
+<area shape="poly" id="edge19_Node000010_Node000019" title=" " alt="" coords="122,291,167,264,220,237,259,222,261,227,222,242,170,268,124,295"/>
+<area shape="rect" id="Node000002" href="$d8/d84/class_s_l_a_m_node.html" title="Class representing the main SLAM node responsible for publishing the calculated pose and map." alt="" coords="251,400,340,426"/>
+<area shape="poly" id="edge20_Node000010_Node000002" title=" " alt="" coords="124,333,170,360,222,386,251,398,249,403,220,391,167,365,122,338"/>
+<area shape="rect" id="Node000020" href="$dd/d66/class_tuning_evaluator.html" title=" " alt="" coords="238,252,353,278"/>
+<area shape="poly" id="edge24_Node000010_Node000020" title=" " alt="" coords="150,297,238,276,239,281,151,302"/>
+<area shape="rect" id="Node000009" href="$d3/d43/class_v_e_node.html" title="Node class for the velocity estimation node." alt="" coords="261,548,330,574"/>
+<area shape="poly" id="edge25_Node000010_Node000009" title=" " alt="" coords="102,341,118,384,144,436,178,489,222,535,241,546,261,553,259,558,238,550,219,539,174,492,139,438,113,386,97,343"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="357,330,371,336,419,362,444,373,442,378,417,367,369,341,355,335"/>
+<area shape="rect" id="Node000007" href="$dc/d0e/class_invictasim_adapter.html" title="Adapter for interfacing with the invictasim simulator." alt="" coords="419,277,545,303"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="357,304,418,296,419,301,358,309"/>
+<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title="Adapter for the PacSim simulator." alt="" coords="426,327,538,352"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="358,320,426,329,425,335,357,325"/>
+<area shape="poly" id="edge16_Node000004_Node000008" title=" " alt="" coords="347,368,428,379,427,384,346,373"/>
+<area shape="poly" id="edge15_Node000004_Node000005" title=" " alt="" coords="346,354,425,344,426,349,347,360"/>
+<area shape="rect" id="Node000003" href="$d6/d6c/class_invicta_sim_adapter.html" title="Adapter class to interface with the InvictaSim simulator for SLAM." alt="" coords="418,425,546,451"/>
+<area shape="poly" id="edge14_Node000004_Node000003" title=" " alt="" coords="347,376,371,385,419,412,444,422,442,427,417,417,369,390,345,381"/>
+<area shape="poly" id="edge22_Node000002_Node000001" title=" " alt="" coords="356,428,371,434,419,461,444,472,442,477,417,466,369,439,354,433"/>
+<area shape="poly" id="edge23_Node000002_Node000008" title=" " alt="" coords="355,403,427,393,427,398,355,408"/>
+<area shape="poly" id="edge21_Node000002_Node000003" title=" " alt="" coords="355,418,418,427,417,432,355,423"/>
+<area shape="poly" id="edge27_Node000009_Node000001" title=" " alt="" coords="344,543,369,534,452,498,454,503,371,539,345,548"/>
+<area shape="poly" id="edge28_Node000009_Node000008" title=" " alt="" coords="344,549,368,535,380,520,387,505,392,475,396,443,403,427,416,411,431,400,434,404,420,415,408,430,401,445,397,476,392,507,385,523,372,539,346,554"/>
+<area shape="poly" id="edge26_Node000009_Node000003" title=" " alt="" coords="343,548,368,535,384,517,392,499,400,480,416,460,434,449,437,454,420,464,404,482,397,501,389,520,372,539,346,553"/>
 </map>

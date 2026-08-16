@@ -1,7 +1,5 @@
 <map id="MPCzinhoAcadosSolver" name="MPCzinhoAcadosSolver">
-<area shape="rect" id="Node000001" title=" " alt="" coords="79,343,257,947"/>
-<area shape="rect" id="Node000002" href="$df/db9/class_solver_interface.html" title=" " alt="" coords="5,5,157,280"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,294,119,343,113,344,105,295"/>
-<area shape="rect" id="Node000003" href="$da/d16/structcommon__lib_1_1structures_1_1_control_command.html" title=" " alt="" coords="181,53,328,233"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="242,233,226,327,220,326,237,232"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,259,184,868"/>
+<area shape="rect" id="Node000002" href="$df/db9/class_solver_interface.html" title=" " alt="" coords="21,5,168,211"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,226,97,259,92,259,92,226"/>
 </map>

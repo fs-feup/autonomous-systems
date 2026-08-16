@@ -1,0 +1,18 @@
+<map id="RosOutputAdapter::add_track_quad" name="RosOutputAdapter::add_track_quad">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1325,39,1481,79"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#abd18fbd1cfbb778b95d82715c6430b9a" title=" " alt="" coords="1096,5,1277,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1310,47,1277,42,1278,37,1311,42"/>
+<area shape="rect" id="Node000008" href="$d6/dc0/class_ros_output_adapter.html#af87f3777762c5ed816c5548a13e1def9" title=" " alt="" coords="1109,71,1264,111"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1311,75,1265,82,1264,77,1310,70"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#a853c9f83aa70d850076ef686729644f1" title=" " alt="" coords="887,39,1048,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1081,44,1049,49,1048,44,1081,39"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#aeac03eb5f9ceb3acb550938b9ef54614" title=" " alt="" coords="663,39,839,79"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="871,62,839,62,839,56,871,56"/>
+<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#af5c8880e354607d78f4dcc291affddf3" title=" " alt="" coords="456,39,615,79"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="648,62,616,62,616,56,648,56"/>
+<area shape="rect" id="Node000006" href="$d6/dc0/class_ros_output_adapter.html#ae0731f4371f82f41a127242dfd4316e3" title=" " alt="" coords="250,39,408,79"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="440,62,409,62,409,56,440,56"/>
+<area shape="rect" id="Node000007" href="$d6/dc0/class_ros_output_adapter.html#a395da5a7032d98f5eeabfcc4e1c5ca94" title="Construct a new RosOutputAdapter." alt="" coords="5,39,202,79"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="234,62,202,62,202,56,234,56"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="1093,80,1048,73,1049,68,1094,75"/>
+</map>

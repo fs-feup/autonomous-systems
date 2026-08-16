@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['generate_5ftrack_5ffrom_5fslam_0',['generate_track_from_slam',['../de/d8e/namespacegenerate__track__from__slam.html',1,'']]],
-  ['guilogic_1',['guiLogic',['../db/d15/namespacegui_logic.html',1,'']]]
+  ['fit_5fsteering_5fmotor_0',['fit_steering_motor',['../d6/dd6/namespacefit__steering__motor.html',1,'']]]
 ];

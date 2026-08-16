@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keyboardinputadapter_0',['KeyboardInputAdapter',['../d7/dce/class_keyboard_input_adapter.html',1,'']]]
+  ['jcbb_0',['JCBB',['../df/dd3/class_j_c_b_b.html',1,'']]]
 ];

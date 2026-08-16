@@ -2,6 +2,8 @@ var dir_23b1e2baf60b1178cab28c925184cd73 =
 [
     [ "aero_model", "dir_1982fcac5667d988d8596b4766e9c2f1.html", "dir_1982fcac5667d988d8596b4766e9c2f1" ],
     [ "battery_model", "dir_cde909d7bf4ae77bb10fe5a266a0e73a.html", "dir_cde909d7bf4ae77bb10fe5a266a0e73a" ],
+    [ "brake_model", "dir_f126b8065685098cab7e3674cab3db1b.html", "dir_f126b8065685098cab7e3674cab3db1b" ],
+    [ "inverter_model", "dir_1c50b6dfa4b071838a99c6f840892733.html", "dir_1c50b6dfa4b071838a99c6f840892733" ],
     [ "load_transfer_model", "dir_8833185149d413789b64fb56bf6beb0a.html", "dir_8833185149d413789b64fb56bf6beb0a" ],
     [ "motor_model", "dir_20587098d948f32432d4f81c29a436b9.html", "dir_20587098d948f32432d4f81c29a436b9" ],
     [ "steering_model", "dir_17f0619b0895f54dd7182f9323f3f4ca.html", "dir_17f0619b0895f54dd7182f9323f3f4ca" ],

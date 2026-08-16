@@ -1,13 +1,13 @@
 <map id="VelocityPlanning::stop" name="VelocityPlanning::stop">
-<area shape="rect" id="Node000001" title="Applies a braking velocity profile starting after a given braking distance." alt="" coords="1114,137,1262,163"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a4170039f58df7ad7b622536883596122" title="Executes planning for the acceleration mission." alt="" coords="894,88,1066,113"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1115,135,1037,116,1038,111,1117,130"/>
-<area shape="rect" id="Node000013" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="900,137,1060,163"/>
-<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="1099,152,1060,152,1060,147,1099,147"/>
-<area shape="rect" id="Node000014" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="900,186,1060,212"/>
-<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="1117,169,1038,188,1037,183,1115,164"/>
+<area shape="rect" id="Node000001" title="Applies a braking velocity profile starting after a given braking distance." alt="" coords="1101,161,1249,187"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#a70af1483cc7537f0a28842dda2573fc6" title="Executes planning for the autocross mission." alt="" coords="894,161,1053,187"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1086,176,1053,176,1053,171,1086,171"/>
+<area shape="rect" id="Node000013" href="$d9/db5/class_planning.html#a909c07687558f8c932460259c73c0beb" title="Executes planning for the trackdrive mission." alt="" coords="894,112,1053,137"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="1104,159,1028,140,1030,135,1105,154"/>
+<area shape="rect" id="Node000014" href="$d9/dba/velocity__planning__tests_8cpp.html#a2baec1884ef53615f9b916527ca86a85" title="stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices ..." alt="" coords="946,210,1001,236"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="1105,193,1002,219,1000,214,1104,188"/>
 <area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the appropriate planning algorithm based on current mission." alt="" coords="695,129,846,170"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="908,120,847,135,845,129,907,115"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="878,165,846,161,847,156,879,160"/>
 <area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a0558ca1597121267f23a472b8bdaab0f" title="Callback for track map updates." alt="" coords="484,84,622,125"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="680,134,622,121,623,116,681,128"/>
 <area shape="rect" id="Node000010" href="$d9/db5/class_planning.html#a2e22fca907898026352a7dd16ff30866" title="Callback for vehicle localization pose updates." alt="" coords="458,161,647,202"/>
@@ -29,6 +29,5 @@
 <area shape="poly" id="edge13_Node000010_Node000012" title=" " alt="" coords="443,197,410,200,410,195,442,191"/>
 <area shape="poly" id="edge12_Node000011_Node000006" title=" " alt="" coords="269,247,161,202,163,197,272,242"/>
 <area shape="poly" id="edge14_Node000012_Node000009" title=" " alt="" coords="271,181,261,176,238,162,214,149,167,134,168,129,216,145,240,157,264,171,274,176"/>
-<area shape="poly" id="edge16_Node000013_Node000003" title=" " alt="" coords="885,152,846,152,846,147,885,147"/>
-<area shape="poly" id="edge18_Node000014_Node000003" title=" " alt="" coords="907,185,845,170,847,165,908,179"/>
+<area shape="poly" id="edge16_Node000013_Node000003" title=" " alt="" coords="879,139,847,143,846,138,878,134"/>
 </map>

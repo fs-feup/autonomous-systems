@@ -1,0 +1,20 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices ..." alt="" coords="5,173,60,199"/>
+<area shape="rect" id="Node000002" href="$d9/dba/velocity__planning__tests_8cpp.html#acb7f966f41c877acb7dfaab96dcb6932" title=" " alt="" coords="116,86,248,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="45,170,72,146,106,122,119,116,121,120,109,127,75,150,49,174"/>
+<area shape="rect" id="Node000003" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title="Assigns an velocity to each point of the path." alt="" coords="111,136,253,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,178,96,171,97,176,61,183"/>
+<area shape="rect" id="Node000008" href="$d3/dcc/class_velocity_planning.html#a9ea9a22c5bbe7c086f8813331e5111dd" title="Applies a braking velocity profile starting after a given braking distance." alt="" coords="108,201,256,227"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="61,188,95,195,94,200,60,193"/>
+<area shape="rect" id="Node000009" href="$d9/dba/velocity__planning__tests_8cpp.html#ad1e1054979d78b6493ae07ed35010ea9" title="Straight path, one metre per point." alt="" coords="137,250,227,276"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="51,197,77,217,109,237,124,243,122,248,106,241,74,222,48,201"/>
+<area shape="rect" id="Node000004" href="$d3/dcc/class_velocity_planning.html#a06f29f36065934907e63c79a15c7b60a" title="Limits velocities based on forward acceleration constraints and friction ellipse." alt="" coords="304,5,497,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="238,133,254,122,269,106,277,90,286,74,302,57,311,51,314,56,306,61,290,77,282,92,273,109,258,126,240,138"/>
+<area shape="rect" id="Node000005" href="$d3/dcc/class_velocity_planning.html#a7cdfc3e526166d4f9e73149a708acfd1" title="Limits velocities based on backward braking constraints and friction ellipse." alt="" coords="318,71,483,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="251,133,315,114,316,119,253,138"/>
+<area shape="rect" id="Node000006" href="$d3/dcc/class_velocity_planning.html#a2d300f73be19a560cf992f798eb9fa3a" title="Computes the curvature at a point using the Menger curvature formula." alt="" coords="329,201,472,242"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="253,175,316,194,315,199,251,180"/>
+<area shape="rect" id="Node000007" href="$d3/dcc/class_velocity_planning.html#a41e22edbc0ebfb1da077ddd222823c0c" title="Computes the maximum velocity at each point based on curvature constraints." alt="" coords="325,136,476,177"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="253,154,310,154,310,159,253,159"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="256,214,314,216,313,221,256,219"/>
+</map>

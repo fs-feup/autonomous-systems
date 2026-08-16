@@ -1,5 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d8/d0d/class_wall_removal.html" title="Abstract base class for wall removal of point clouds." alt="" coords="5,5,103,31"/>
-<area shape="rect" id="Node000001" href="$df/d89/class_grid_wall_removal.html" title="Wall removal implementation using a grid&#45;based approach." alt="" coords="151,5,272,31"/>
-<area shape="poly" id="edge185_Node000000_Node000001" title=" " alt="" coords="118,16,150,16,150,21,118,21"/>
+<area shape="rect" id="Node000000" href="$dc/d7c/class_transmission_model.html" title="Base class for transmission models." alt="" coords="5,31,140,56"/>
+<area shape="rect" id="Node000001" href="$d3/d70/class_salisbury_differential.html" title=" " alt="" coords="188,5,323,31"/>
+<area shape="poly" id="edge178_Node000000_Node000001" title=" " alt="" coords="155,29,187,25,188,30,155,35"/>
+<area shape="rect" id="Node000002" href="$d4/d46/class_viscous_differential.html" title="Single&#45;speed rear&#45;drive transmission with viscous LSD behavior." alt="" coords="191,55,320,80"/>
+<area shape="poly" id="edge179_Node000000_Node000002" title=" " alt="" coords="155,52,191,56,190,62,154,57"/>
 </map>

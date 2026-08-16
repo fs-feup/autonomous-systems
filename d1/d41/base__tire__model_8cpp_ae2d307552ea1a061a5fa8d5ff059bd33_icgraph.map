@@ -1,0 +1,26 @@
+<map id="calculate_contact_patch_velocity" name="calculate_contact_patch_velocity">
+<area shape="rect" id="Node000001" title=" " alt="" coords="619,141,782,182"/>
+<area shape="rect" id="Node000002" href="$d2/dc2/class_tire_model.html#a920cbb6ad43ee45690dcea298e35033b" title=" " alt="" coords="207,42,344,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="677,129,658,101,634,72,604,45,570,25,539,15,506,10,439,12,376,26,324,44,322,39,375,21,439,7,507,4,540,10,572,20,607,41,638,68,663,98,682,126"/>
+<area shape="rect" id="Node000004" href="$d2/dc2/class_tire_model.html#a7a673e988f0fa6231b4467bbc2026f4c" title=" " alt="" coords="418,35,562,90"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="640,136,550,93,552,89,643,131"/>
+<area shape="rect" id="Node000006" href="$d2/dc2/class_tire_model.html#ab5d090c4250ceefa55ec8dce9325620d" title=" " alt="" coords="207,108,344,148"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="604,156,344,136,344,131,604,151"/>
+<area shape="rect" id="Node000007" href="$d2/dc2/class_tire_model.html#ab559264816093f17d40517270a68c993" title=" " alt="" coords="420,165,560,221"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="604,179,561,185,560,180,603,173"/>
+<area shape="rect" id="Node000008" href="$d2/dc2/class_tire_model.html#a81006948323b6dfefb3f37de392c16e3" title=" " alt="" coords="207,245,344,286"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="682,196,637,252,607,279,572,300,541,310,509,316,443,315,381,304,328,289,330,284,382,299,443,310,508,310,540,305,570,295,604,275,633,249,677,193"/>
+<area shape="rect" id="Node000009" href="$d2/dc2/class_tire_model.html#ab764d0141a3c56ef11343b4988cfe50b" title=" " alt="" coords="409,245,571,286"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="653,192,573,236,548,247,545,242,570,231,651,187"/>
+<area shape="rect" id="Node000003" href="$d2/dc2/class_tire_model.html#a28193de8c7fd222eee272235ba8b879f" title=" " alt="" coords="5,108,142,148"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="197,91,140,110,138,104,195,86"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="402,65,344,65,344,60,402,60"/>
+<area shape="rect" id="Node000005" href="$d2/dc2/class_tire_model.html#ae85b3d9ca967fab0a50ebe5a7aba6d93" title=" " alt="" coords="190,173,361,214"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="447,103,407,133,362,162,337,175,335,170,360,158,404,129,444,99"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="192,131,142,131,142,125,192,125"/>
+<area shape="poly" id="edge10_Node000007_Node000005" title=" " alt="" coords="404,196,361,196,361,191,404,191"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="404,170,343,151,345,146,406,165"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="210,240,188,228,136,188,94,151,98,147,140,184,191,223,212,235"/>
+<area shape="poly" id="edge15_Node000009_Node000005" title=" " alt="" coords="412,242,337,217,339,212,414,237"/>
+<area shape="poly" id="edge14_Node000009_Node000008" title=" " alt="" coords="393,268,344,268,344,263,393,263"/>
+</map>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['timingline_0',['timingline',['../d6/dc0/class_ros_output_adapter.html#af0243fa0cf4a6f041b5d5bd3ba216492',1,'RosOutputAdapter::TimingLine'],['../d0/d03/class_lap_timer_statistics.html#add7a9a800b8a6fcd0133bc1bb938b897',1,'LapTimerStatistics::TimingLine']]],
-  ['twodvector_1',['TwoDVector',['../d2/d32/namespacecommon__lib_1_1maths.html#aa8a0bc2a3bbcbb54e11a8c1862cab93a',1,'common_lib::maths']]]
+  ['statevec_0',['statevec',['../df/d75/class_f_s_f_e_u_p02_model.html#a2f89a9d86402830b2d38025432e5d846',1,'FSFEUP02Model::StateVec'],['../dd/d5c/class_inline_f_s_f_e_u_p02_model.html#ac607576bd86f1449b792bea47e001071',1,'InlineFSFEUP02Model::StateVec']]]
 ];

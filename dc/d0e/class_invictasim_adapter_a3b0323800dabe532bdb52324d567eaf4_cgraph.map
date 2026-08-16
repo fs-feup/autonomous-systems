@@ -1,0 +1,5 @@
+<map id="InvictasimAdapter::vehicle_status_callback" name="InvictasimAdapter::vehicle_status_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,166,46"/>
+<area shape="rect" id="Node000002" href="$d6/dc5/class_control_node.html#a6a6198d08ac15d6b51750cd30953a647" title="Called when a new velocity is received." alt="" coords="214,5,354,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,23,198,23,198,28,166,28"/>
+</map>

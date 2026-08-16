@@ -1,0 +1,5 @@
+<map id="SalisburyDifferential::calculate_motor_omega" name="SalisburyDifferential::calculate_motor_omega">
+<area shape="rect" id="Node000001" title="Returns equivalent motor shaft speed from wheel speeds." alt="" coords="224,5,389,46"/>
+<area shape="rect" id="Node000002" href="$d3/d70/class_salisbury_differential.html#abfa8bd3e0918920f2bfdfe75d0e7ead3" title="Applies transmission losses and distributes torque to wheels." alt="" coords="5,5,176,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,28,176,28,176,23,208,23"/>
+</map>

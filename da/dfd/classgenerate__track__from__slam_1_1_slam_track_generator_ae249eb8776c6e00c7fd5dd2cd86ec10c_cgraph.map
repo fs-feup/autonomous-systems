@@ -1,16 +1,20 @@
 <map id="generate_track_from_slam.SlamTrackGenerator.planning_color_callback" name="generate_track_from_slam.SlamTrackGenerator.planning_color_callback">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,127,236,182"/>
-<area shape="rect" id="Node000002" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a466ab5aa27c0686e7b353130cbfe8c08" title=" " alt="" coords="284,127,480,182"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,152,268,152,268,157,236,157"/>
-<area shape="rect" id="Node000003" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a4b69c55e753b58e8d020e65ed5938de6" title=" " alt="" coords="528,98,779,139"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="480,139,512,135,513,140,481,144"/>
-<area shape="rect" id="Node000006" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af7442494e75c5788e84be8c47731fb23" title=" " alt="" coords="549,163,759,218"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="481,165,534,172,533,177,480,170"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,243,236,298"/>
+<area shape="rect" id="Node000002" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a466ab5aa27c0686e7b353130cbfe8c08" title=" " alt="" coords="284,243,480,298"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,268,268,268,268,273,236,273"/>
+<area shape="rect" id="Node000003" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a4b69c55e753b58e8d020e65ed5938de6" title=" " alt="" coords="528,173,779,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="480,240,564,216,565,221,481,245"/>
+<area shape="rect" id="Node000008" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af7442494e75c5788e84be8c47731fb23" title=" " alt="" coords="549,279,759,334"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="481,281,534,288,533,293,480,286"/>
 <area shape="rect" id="Node000004" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a163c657ecd763928e9b42d1c8161efd0" title=" " alt="" coords="835,5,1037,61"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="723,95,826,64,827,69,725,100"/>
-<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="909,110,963,135"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="780,118,894,119,894,125,780,123"/>
-<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="908,119,885,108,881,102,882,95,900,86,936,83,968,85,987,92,991,103,979,113,975,109,986,101,983,96,967,91,936,88,901,91,886,98,886,100,889,104,910,114"/>
-<area shape="rect" id="Node000007" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a0296925f62bb0d8bc111d1f69b128d89" title=" " alt="" coords="827,163,1045,218"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="759,188,811,188,811,193,759,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="679,170,744,122,826,71,837,65,840,70,829,75,747,126,682,174"/>
+<area shape="rect" id="Node000005" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a01256d5fd1b8b4805fc1bda648f87e59" title=" " alt="" coords="832,85,1040,141"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="727,170,820,143,821,148,729,175"/>
+<area shape="rect" id="Node000006" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#af9d05aa1c410c43c2465e1755ec014e5" title=" " alt="" coords="830,165,1042,221"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="780,191,815,191,815,196,780,196"/>
+<area shape="rect" id="Node000007" href="$d9/d1e/tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="909,270,963,295"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="721,212,895,267,894,272,720,217"/>
+<area shape="poly" id="edge7_Node000007_Node000007" title=" " alt="" coords="908,279,885,268,881,262,882,255,900,246,936,243,968,245,987,252,991,263,979,273,975,269,986,261,983,256,967,251,936,248,901,251,886,258,886,260,889,264,910,274"/>
+<area shape="rect" id="Node000009" href="$da/dfd/classgenerate__track__from__slam_1_1_slam_track_generator.html#a0296925f62bb0d8bc111d1f69b128d89" title=" " alt="" coords="827,320,1045,376"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="760,319,812,327,812,332,759,325"/>
 </map>

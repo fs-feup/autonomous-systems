@@ -1,0 +1,11 @@
+<map id="RosOutputAdapter::load_ground_visualization_resources" name="RosOutputAdapter::load_ground_visualization_resources">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,164,87"/>
+<area shape="rect" id="Node000002" href="$d6/dc0/class_ros_output_adapter.html#a6d115ced03f545d4734f12b1e58bcbc5" title=" " alt="" coords="212,39,367,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,56,196,56,196,62,164,62"/>
+<area shape="rect" id="Node000003" href="$d6/dc0/class_ros_output_adapter.html#ad8c7d4f3ad2e727b641c83b8a91c146b" title=" " alt="" coords="415,39,581,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="367,56,399,56,399,62,367,62"/>
+<area shape="rect" id="Node000004" href="$d6/dc0/class_ros_output_adapter.html#a06c38e5b83954969506a40ea88dd9b6f" title=" " alt="" coords="629,5,804,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="581,44,613,39,614,44,582,49"/>
+<area shape="rect" id="Node000005" href="$d6/dc0/class_ros_output_adapter.html#ad5776f2a7c59944f6dc905f08bf2d31e" title=" " alt="" coords="633,71,800,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="582,69,618,74,617,79,581,74"/>
+</map>

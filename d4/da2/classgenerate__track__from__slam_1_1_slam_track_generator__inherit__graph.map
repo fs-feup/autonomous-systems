@@ -1,5 +1,5 @@
 <map id="generate_track_from_slam.SlamTrackGenerator" name="generate_track_from_slam.SlamTrackGenerator">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,176,599"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="69,5,113,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,86,93,119,88,119,88,86"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,189,719"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="75,5,119,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,85,100,119,95,119,95,85"/>
 </map>

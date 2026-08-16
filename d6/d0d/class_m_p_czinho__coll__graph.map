@@ -1,9 +1,7 @@
 <map id="MPCzinho" name="MPCzinho">
-<area shape="rect" id="Node000001" title=" " alt="" coords="163,254,329,534"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="84,254,251,499"/>
 <area shape="rect" id="Node000002" href="$d7/d69/class_lateral_controller.html" title="Base (abstract) class for lateral control solvers (that calculate steering command)" alt="" coords="5,5,172,191"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,203,174,253,169,255,142,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,204,135,253,130,255,116,206"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="196,65,296,131"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,130,249,236,243,236,243,130"/>
-<area shape="rect" id="Node000004" href="$da/d16/structcommon__lib_1_1structures_1_1_control_command.html" title=" " alt="" coords="321,8,467,188"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="353,189,332,231,328,240,323,237,328,228,348,187"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,131,209,238,204,237,235,130"/>
 </map>

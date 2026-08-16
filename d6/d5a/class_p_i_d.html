@@ -109,9 +109,9 @@ Inheritance diagram for PID:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/dc8/class_p_i_d__inherit__graph.png" border="0" usemap="#a_p_i_d_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_p_i_d_inherit__map" id="a_p_i_d_inherit__map">
-<area shape="rect" title="PI&#45;D Controller class." alt="" coords="5,239,169,968"/>
+<area shape="rect" title="PI&#45;D Controller class." alt="" coords="5,239,169,888"/>
 <area shape="rect" href="../../da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
-<area shape="poly" title=" " alt="" coords="90,206,90,239,85,239,85,206"/>
+<area shape="poly" title=" " alt="" coords="90,205,90,239,85,239,85,205"/>
 </map>
 </div>
 <div class="dynheader">
@@ -119,11 +119,11 @@ Collaboration diagram for PID:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d7b/class_p_i_d__coll__graph.png" border="0" usemap="#a_p_i_d_coll__map" alt="Collaboration graph"/></div>
 <map name="a_p_i_d_coll__map" id="a_p_i_d_coll__map">
-<area shape="rect" title="PI&#45;D Controller class." alt="" coords="69,254,233,963"/>
+<area shape="rect" title="PI&#45;D Controller class." alt="" coords="69,254,233,983"/>
 <area shape="rect" href="../../da/ded/class_longitudinal_controller.html" title="Base (abstract) class for longitudinal controllers (the ones that calculate throttle)" alt="" coords="5,5,169,191"/>
 <area shape="poly" title=" " alt="" coords="103,205,109,254,104,254,98,205"/>
 <area shape="rect" title=" " alt="" coords="194,65,237,131"/>
-<area shape="poly" title=" " alt="" coords="214,131,201,237,195,237,209,130"/>
+<area shape="poly" title=" " alt="" coords="214,131,201,237,196,236,209,130"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -228,6 +228,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a5b80b0c5f3b2bea7a66f1d881d7d97ab" id="r_a5b80b0c5f3b2bea7a66f1d881d7d97ab"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5b80b0c5f3b2bea7a66f1d881d7d97ab">differentiator_</a> {0.0f}</td></tr>
 <tr class="memdesc:a5b80b0c5f3b2bea7a66f1d881d7d97ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Differentiator term current value.  <br /></td></tr>
 <tr class="separator:a5b80b0c5f3b2bea7a66f1d881d7d97ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34d0395f484814d9bd2049fa1a07dc7c" id="r_a34d0395f484814d9bd2049fa1a07dc7c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a34d0395f484814d9bd2049fa1a07dc7c">setpoint_</a> {0.0f}</td></tr>
+<tr class="memdesc:a34d0395f484814d9bd2049fa1a07dc7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current setpoint value.  <br /></td></tr>
+<tr class="separator:a34d0395f484814d9bd2049fa1a07dc7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af85f79ab31c0982bfd004b0a543d9461" id="r_af85f79ab31c0982bfd004b0a543d9461"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#af85f79ab31c0982bfd004b0a543d9461">prev_error_</a> {0.0f}</td></tr>
 <tr class="memdesc:af85f79ab31c0982bfd004b0a543d9461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous error value, required for integrator.  <br /></td></tr>
 <tr class="separator:af85f79ab31c0982bfd004b0a543d9461"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1045,26 +1048,28 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="../../d6/d5a/class_p_i_d_a92a2db4c3ffd6a0a37ea275d96c55b1c_cgraph.png" border="0" usemap="#ad6/d5a/class_p_i_d_a92a2db4c3ffd6a0a37ea275d96c55b1c_cgraph" alt=""/></div>
 <map name="ad6/d5a/class_p_i_d_a92a2db4c3ffd6a0a37ea275d96c55b1c_cgraph" id="ad6/d5a/class_p_i_d_a92a2db4c3ffd6a0a37ea275d96c55b1c_cgraph">
 <area shape="rect" title="Returns the throttle command calculated by the solver (only throttle)" alt="" coords="5,103,184,129"/>
-<area shape="rect" href="../../da/d3b/control_2src_2utils_2utils_8cpp.html#abc841ff1f30fff8e3601c0eb3c5a952b" title="Find the closest point on the path." alt="" coords="233,38,356,63"/>
-<area shape="poly" title=" " alt="" coords="135,100,237,66,239,71,137,105"/>
-<area shape="rect" href="../../da/d3b/control_2src_2utils_2utils_8cpp.html#a9459abdcacae96a282cf61ff8545e8a0" title="Calculate rear axis coordinates." alt="" coords="232,103,357,129"/>
-<area shape="poly" title=" " alt="" coords="184,113,216,113,216,119,184,119"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="250,184,339,210"/>
-<area shape="poly" title=" " alt="" coords="129,127,247,175,245,180,127,132"/>
-<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="432,5,587,61"/>
-<area shape="poly" title=" " alt="" coords="356,43,416,38,416,43,357,48"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="447,86,572,111"/>
-<area shape="poly" title=" " alt="" coords="310,182,351,151,404,120,431,110,433,115,406,125,354,155,313,186"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#adcc75d1df4d4516b707b114d5c08f290" title="Calculate the derivative term (derivative on measurement)" alt="" coords="411,135,608,161"/>
-<area shape="poly" title=" " alt="" coords="339,184,435,162,436,167,340,190"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="442,184,576,210"/>
-<area shape="poly" title=" " alt="" coords="339,195,426,195,426,200,339,200"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aeee186f11a36ecbfa02d0cd84f6b9537" title="Calculate the integral term." alt="" coords="418,234,601,259"/>
-<area shape="poly" title=" " alt="" coords="340,205,436,227,435,232,339,210"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="405,283,613,309"/>
-<area shape="poly" title=" " alt="" coords="313,208,354,239,406,269,422,275,420,280,404,274,351,244,310,213"/>
-<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="438,332,580,358"/>
-<area shape="poly" title=" " alt="" coords="306,209,344,263,373,293,406,319,424,328,422,332,404,323,369,297,340,266,301,212"/>
+<area shape="rect" href="../../da/d3b/control_2src_2utils_2utils_8cpp.html#abc841ff1f30fff8e3601c0eb3c5a952b" title="Find the closest point on the path." alt="" coords="252,24,376,50"/>
+<area shape="poly" title=" " alt="" coords="130,100,231,63,258,53,260,58,233,68,132,105"/>
+<area shape="rect" href="../../da/d3b/control_2src_2utils_2utils_8cpp.html#af3bfb3e0aa5c9f986daab22ec2d83a2e" title="Velocity interpolated at the car&#39;s projection onto the path, clamped to the segment." alt="" coords="232,78,396,103"/>
+<area shape="poly" title=" " alt="" coords="184,103,216,99,216,104,184,108"/>
+<area shape="rect" href="../../da/d3b/control_2src_2utils_2utils_8cpp.html#a9459abdcacae96a282cf61ff8545e8a0" title="Calculate rear axis coordinates." alt="" coords="251,127,377,153"/>
+<area shape="poly" title=" " alt="" coords="184,123,236,129,236,134,184,128"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="270,184,358,210"/>
+<area shape="poly" title=" " alt="" coords="133,127,264,176,262,181,131,132"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="471,5,626,61"/>
+<area shape="poly" title=" " alt="" coords="376,33,455,32,455,37,376,39"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="486,86,611,111"/>
+<area shape="poly" title=" " alt="" coords="356,181,395,163,408,152,418,141,427,131,443,120,470,109,472,114,445,125,431,135,422,145,412,156,397,167,358,186"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#adcc75d1df4d4516b707b114d5c08f290" title="Calculate the derivative term (derivative on measurement)" alt="" coords="450,135,647,161"/>
+<area shape="poly" title=" " alt="" coords="358,185,468,162,469,167,359,191"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="481,184,615,210"/>
+<area shape="poly" title=" " alt="" coords="358,195,465,195,465,200,358,200"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#aeee186f11a36ecbfa02d0cd84f6b9537" title="Calculate the integral term." alt="" coords="457,234,640,259"/>
+<area shape="poly" title=" " alt="" coords="359,204,469,227,468,232,358,209"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="444,283,652,309"/>
+<area shape="poly" title=" " alt="" coords="335,208,384,239,445,269,463,276,461,281,443,274,381,244,332,213"/>
+<area shape="rect" href="../../d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="477,332,619,358"/>
+<area shape="poly" title=" " alt="" coords="327,209,374,263,407,293,445,319,463,327,461,332,443,323,404,297,370,266,323,212"/>
 </map>
 </div>
 
@@ -1147,7 +1152,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="../../da/ded/class_longitudinal_controller.html#aa2445cceff14e90a6c1f53d54429c7ab">LongitudinalController</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00149">149</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00151">151</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1378,7 +1383,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1476,7 +1481,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1526,7 +1531,7 @@ Here is the caller graph for this function:</div>
 
 <p>Current output value. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1552,7 +1557,7 @@ Here is the caller graph for this function:</div>
 
 <p>Previous error value, required for integrator. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1578,7 +1583,7 @@ Here is the caller graph for this function:</div>
 
 <p>Previous measurement value, required for defferentiator. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
@@ -1677,6 +1682,32 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a34d0395f484814d9bd2049fa1a07dc7c" name="a34d0395f484814d9bd2049fa1a07dc7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34d0395f484814d9bd2049fa1a07dc7c">&#9670;&#160;</a></span>setpoint_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PID::setpoint_ {0.0f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Current setpoint value. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>

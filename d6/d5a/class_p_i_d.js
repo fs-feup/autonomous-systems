@@ -40,5 +40,6 @@ var class_p_i_d =
     [ "proportional_", "d6/d5a/class_p_i_d.html#a5c9a04bc4176e30034eba56d950d3989", null ],
     [ "received_first_path_", "d6/d5a/class_p_i_d.html#a7c1fc8d30d96361b38b3f6b07d4a057f", null ],
     [ "received_first_pose_", "d6/d5a/class_p_i_d.html#a4f56fcd2497d3d86e49d591743343b8b", null ],
-    [ "received_first_state_", "d6/d5a/class_p_i_d.html#ab5112bdc37a51bcdf70cd51813acbb83", null ]
+    [ "received_first_state_", "d6/d5a/class_p_i_d.html#ab5112bdc37a51bcdf70cd51813acbb83", null ],
+    [ "setpoint_", "d6/d5a/class_p_i_d.html#a34d0395f484814d9bd2049fa1a07dc7c", null ]
 ];

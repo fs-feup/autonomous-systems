@@ -1,0 +1,13 @@
+<map id="straight_run" name="straight_run">
+<area shape="rect" id="Node000001" title="Straight path, one metre per point." alt="" coords="108,104,197,130"/>
+<area shape="rect" id="Node000002" href="$d9/dba/velocity__planning__tests_8cpp.html#ad7ddb669c6ccee863b0fe045940303b9" title="Accelerates all the way to the braking point rather than levelling off early." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,96,48,34,51,30,125,92"/>
+<area shape="rect" id="Node000003" href="$d9/dba/velocity__planning__tests_8cpp.html#ad690598546328a29eacefa17367d222b" title="The profile commands a standstill rather than trailing off at the minimum velocity." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="104,100,59,81,61,76,106,95"/>
+<area shape="rect" id="Node000004" href="$d9/dba/velocity__planning__tests_8cpp.html#a8db4c83d44dfec2f7bc160de689edfaa" title="Braking begins at the braking point rather than being deferred to the end of the path." alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="92,120,60,120,60,114,92,114"/>
+<area shape="rect" id="Node000005" href="$d9/dba/velocity__planning__tests_8cpp.html#a2a4b0f928e0dd3c5a73b671a8a32ab8a" title="A path shorter than the run is all acceleration, with no braking phase yet." alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="106,139,61,157,59,153,104,134"/>
+<area shape="rect" id="Node000006" href="$d9/dba/velocity__planning__tests_8cpp.html#a2baec1884ef53615f9b916527ca86a85" title="stop() brakes to a standstill inside the lap but leaves the loop tail driveable, since those indices ..." alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="125,142,51,204,48,200,122,138"/>
+</map>

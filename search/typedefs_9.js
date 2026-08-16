@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['xsensimupolicy_0',['xsensimupolicy',['../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd',1,'VehicleAdapter::XsensImuPolicy'],['../d6/d6c/class_invicta_sim_adapter.html#a44455fee66047eaa9f0f68841533ffc6',1,'InvictaSimAdapter::XsensImuPolicy'],['../d1/df1/class_vehicle_adapter.html#a90421a56d996a70720764d27100259dd',1,'VehicleAdapter::XsensImuPolicy']]]
+  ['wheelsspolicy_0',['wheelsspolicy',['../d6/d6c/class_invicta_sim_adapter.html#aab4a352096e24eb42fc59cd0514480b8',1,'InvictaSimAdapter::WheelSSPolicy'],['../d1/df1/class_vehicle_adapter.html#adcdcc8be770dd7499ab6249f17fc66e2',1,'VehicleAdapter::WheelSSPolicy']]],
+  ['wheelsteerpolicy_1',['wheelsteerpolicy',['../d1/dcb/class_pacsim_adapter.html#a6353ef4e67a902698f20eeda9e30af43',1,'PacsimAdapter::WheelSteerPolicy'],['../d1/df1/class_vehicle_adapter.html#ab5dda75ba22b48e7b2b2f0315f107525',1,'VehicleAdapter::WheelSteerPolicy']]],
+  ['wsspolicy_2',['WSSPolicy',['../de/d3d/class_inspection_mission.html#ad02bcc6803db3e09357cd740ebe94ce4',1,'InspectionMission']]]
 ];

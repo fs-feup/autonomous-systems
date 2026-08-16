@@ -1,0 +1,5 @@
+<map id="SalisburyDifferential::calculate_wheel_torques" name="SalisburyDifferential::calculate_wheel_torques">
+<area shape="rect" id="Node000001" title="Applies transmission losses and distributes torque to wheels." alt="" coords="5,5,176,46"/>
+<area shape="rect" id="Node000002" href="$d3/d70/class_salisbury_differential.html#a8968bafcffa50d038d599f926ee739ec" title="Returns equivalent motor shaft speed from wheel speeds." alt="" coords="224,5,389,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,23,208,23,208,28,176,28"/>
+</map>
