@@ -47,6 +47,16 @@ public:
   void trackdrive_velocity(std::vector<PathPoint> &final_path);
 
   /**
+   * @brief Velocity profile for the acceleration event: accelerate flat out to the braking
+   * distance, then brake flat out to a standstill. Both phases integrate forward, unlike
+   * set_velocity() which integrates backwards and so brakes late and only to minimum_velocity_.
+   *
+   * @param final_path Vector of path points to update with planned velocities.
+   * @param braking_distance Distance along the path covered before braking begins.
+   */
+  void acceleration_velocity(std::vector<PathPoint> &final_path, double braking_distance);
+
+  /**
    * @brief Applies a braking velocity profile starting after a given braking distance.
    *
    * @param final_path Vector of path points to update with planned velocities.
