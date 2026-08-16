@@ -271,6 +271,8 @@ if(BUILD_TESTING)
     ${IMPLEMENTATION_FILES}
   )
 
+  # Same generator targets the executable uses; a second target on the same OUTPUT would let
+  # parallel make run the acados generator twice and clobber itself.
   add_dependencies(${PROJECT_NAME}_test generate_bombated_mpc_acados_solver generate_mpczinho_acados_solver)
 
   target_include_directories(${PROJECT_NAME}_test PUBLIC
