@@ -289,15 +289,14 @@ if(BUILD_TESTING)
     ${IMPLEMENTATION_FILES}
   )
 
-  # Add dependencies on the generated .so files for tests too
+  # Reuse the generator targets; a second target on the same OUTPUT makes parallel
+  # make run the acados generator twice at once and the runs clobber each other.
   if(GENERATE_BOMBATED_MPC_ACADOS)
-    add_custom_target(bombated_mpc_test_target DEPENDS ${BOMBATED_MPC_SO})
-    add_dependencies(${PROJECT_NAME}_test bombated_mpc_test_target)
+    add_dependencies(${PROJECT_NAME}_test bombated_mpc_target)
   endif()
 
   if(GENERATE_MPCZINHO_ACADOS)
-    add_custom_target(mpczinho_test_target DEPENDS ${MPCZINHO_SO})
-    add_dependencies(${PROJECT_NAME}_test mpczinho_test_target)
+    add_dependencies(${PROJECT_NAME}_test mpczinho_target)
   endif()
 
   target_include_directories(${PROJECT_NAME}_test PUBLIC
