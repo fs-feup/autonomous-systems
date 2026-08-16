@@ -6,9 +6,7 @@ from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs,
 from ament_index_python.packages import get_package_prefix
 import yaml
 
-# Geometry mirrors config/car/02.yaml: wheel_base 1.53, cg_2_rear_axis 0.706.
-# The simulator uses lr = cg_2_rear_axis and lf = wheel_base - lr (see
-# FSFEUP02::get_state_derivative), so the controller must use the same split.
+# Geometry
 lr = 0.706  # Distance from the center of mass to the rear axle
 lf = 0.824  # Distance from the center of mass to the front axle
 L = lr + lf
@@ -17,9 +15,8 @@ rolling_resistance_coefficient = 0.015
 
 gravity_acceleration = 9.81
 
-# First-order steering actuator, matching the simulator's FirstOrderSteeringMotor
-# with time_constant from config/car/steering_motor_model/02_steering_motor.yaml.
-steering_motor_tau = 0.112
+# First-order steering actuator
+steering_motor_tau = 0.150
 
 max_steering_angle = 0.335  # config/car/steering_model/02_steering.yaml
 

@@ -7,5 +7,5 @@ source /opt/ros/humble/setup.bash 2>/dev/null || true
     --parallel-workers 1 \
     --executor sequential \
     --event-handlers console_direct+ \
-    --packages-up-to invictasim motion_lib custom_interfaces control \
+    --packages-up-to invictasim motion_lib custom_interfaces control planning \
     --cmake-args -DCMAKE_BUILD_TYPE=Release

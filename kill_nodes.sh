@@ -1,6 +1,8 @@
 # Keywords to match against running ROS 2 processes
 NODE_PATTERNS=(
   "invictasim"
+  "planning"
+  "control"
 )
 
 
