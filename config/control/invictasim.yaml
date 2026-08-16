@@ -2,8 +2,8 @@ control:
   controller: "decoupled" # Options: "decoupled", "bombated_mpc"
   lateral_controller: "mpczinho" # Options: "pure_pursuit", "mpczinho"
   longitudinal_controller: "pid" # Options: "pid"
-  pure_pursuit_lookahead_gain: 0.3
-  pure_pursuit_lookahead_minimum: 1.4  # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
+  pure_pursuit_lookahead_gain: 0.30
+  pure_pursuit_lookahead_minimum: 2.0 # Acceleration: 6.0 , Skidpad: 4.0 , Autocross: 4.0 , Trackdrive: 4.0
   pure_pursuit_lpf_alpha: 1 # Smoothing factor for the low-pass filter (0 = max smoothing, 1 = no smoothing)
   pure_pursuit_lpf_initial_value: 0.0
   first_last_max_dist: 5.0 # Maximum distance between first and last point in the path to consider it a closed track
@@ -17,7 +17,16 @@ control:
   pid_max_positive_error: 3
   pid_max_negative_error: -3
   command_time_interval: 25 # Milliseconds
-  mpc_prediction_horizon_seconds: 1.5
-  mpc_prediction_horizon_steps: 100
-  mpczinho_max_steering_command_derivative: 5.0 # Maximum steering command change rate between published controls [rad/s]
-  wheel_speeds_scale_mpc: 5.0 # Scale factor for wheel speeds in the MPC cost function (higher values make the controller more sensitive to wheel speed errors)
+  mpc_prediction_horizon_seconds: 1.0
+  mpc_prediction_horizon_steps: 50
+  lateral_mpc_prediction_horizon_seconds: 1.0 # Lateral (kinematic) MPC horizon
+  lateral_mpc_prediction_horizon_steps: 50
+  # Coupled NMPC stage cost weights (tunable without rebuilding the solver):
+  # [x_err, y_err, heading_err, vx_err, vy, throttle, steering, throttle_rate, steering_rate]
+  mpc_cost_weights: [20.0, 20.0, 5.0, 0.1, 1.0, 0.05, 0.1, 3.0, 10.0]
+  # Terminal: [x_err, y_err, heading_err, vx_err]
+  mpc_terminal_cost_weights: [10.0, 20.0, 10.0, 1.5]
+  # Lateral MPC stage cost: [x_err, y_err, heading_err, steering, steering_rate]
+  lateral_mpc_cost_weights: [9.0, 9.0, 6.0, 0.3, 2.0]
+  lateral_mpc_terminal_cost_weights: [9.0, 9.0, 6.0]
+  wheel_speeds_scale_mpc: 4.0 # Scale factor for wheel speeds in the MPC cost function (higher values make the controller more sensitive to wheel speed errors)

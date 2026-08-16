@@ -1,0 +1,14 @@
+# label            progress  n     theta  lambda  width  slip_ratio  margin
+# Reproduce the config that gave the first clean lap, then vary one axis at a time around it.
+ref                0.05      30    20     0.85    0.8    0.15        1.0
+ratio010           0.05      30    20     0.85    0.8    0.10        1.0
+ratio020           0.05      30    20     0.85    0.8    0.20        1.0
+lam070             0.05      30    20     0.70    0.8    0.15        1.0
+lam100             0.05      30    20     1.00    0.8    0.15        1.0
+n10                0.05      10    20     0.85    0.8    0.15        1.0
+n60                0.05      60    20     0.85    0.8    0.15        1.0
+theta40            0.05      30    40     0.85    0.8    0.15        1.0
+prog02             0.2       30    20     0.85    0.8    0.15        1.0
+prog001            0.01      30    20     0.85    0.8    0.15        1.0
+width06            0.05      30    20     0.85    0.6    0.15        1.0
+margin08           0.05      30    20     0.85    0.8    0.15        0.8

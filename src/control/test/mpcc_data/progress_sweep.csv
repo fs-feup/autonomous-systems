@@ -1,0 +1,9 @@
+case,repeat,time,cones_hit,avg_track_err,max_track_err,solver_failures,killed
+base,1,nan,-1,nan,,58,no_lap
+base,2,nan,-1,nan,,30,off_track(err=9.8m)
+lam060,1,nan,-1,nan,,2,off_track(err=9.8m)
+lam060,2,nan,-1,nan,,8,off_track(err=11.9m)
+lam070,1,nan,-1,nan,,33,off_track(err=8.1m)
+lam070,2,nan,-1,nan,,19,off_track(err=8.7m)
+n10,1,nan,-1,nan,,16,off_track(err=8.2m)
+n10,2,nan,-1,nan,,15,off_track(err=9.8m)
