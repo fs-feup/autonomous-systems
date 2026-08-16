@@ -6,27 +6,11 @@
 
 namespace common_lib::car_parameters {
 
-/*
- * Every member below carries a default. The loader assigns each field only when the key is
- * present in the tyre YAML (`if (config[...]) field = ...`), so any absent key previously left
- * the member reading uninitialised heap memory.
- *
- * Two of them are read by the MF6.2 model on every tyre evaluation: PPZ1 (absent from
- * 02_fitted_tire.yaml) and QDTP1 (never read by the loader at all). Both scale the pneumatic
- * trail, so the self-aligning moment -- and through it the yaw moment -- varied between runs of
- * the same scenario. Measured: 40 identically configured models produced 5 distinct yaw rates
- * after a single 1 ms step.
- *
- * The defaults chosen here are the values the simulator was in practice already using: the
- * garbage was consistently denormal, so `1 - PPZ1` evaluated to 1 and `cos(atan(QDTP1*Re*phi))`
- * to 1. Zero reproduces that exactly, and for QDTP1 it also matches the model's stated intent --
- * PacejkaMF6_2 already pins zeta7 and zeta8 to 1 to "ignore turnslip effects on self-aligning
- * moment", and zeta5 is the same effect on the trail. NOTE: the MF6.2 standard default for
- * QDTP1 is 1.0; enabling it is a deliberate plant change, not a bug fix.
- *
- * Scaling factors (L*) and Amu default to 1.0 because they are multiplicative; everything else
- * defaults to 0.0.
- */
+// Defaults matter: the loader only assigns a field when its key is present, so an absent key
+// previously left the member reading uninitialised memory. PPZ1 and QDTP1 are read on every tyre
+// evaluation and scale the pneumatic trail, which made the yaw moment vary between identical runs.
+// Zero reproduces what the simulator was already doing; scaling factors and Amu are multiplicative
+// so they default to 1.0. Note MF6.2's standard QDTP1 default is 1.0 - enabling it is a plant change.
 struct TireParameters {
   // Original fields
   double tire_B_lateral = 0.0;

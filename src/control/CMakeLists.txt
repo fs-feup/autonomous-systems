@@ -26,9 +26,7 @@ endif()
 # Workspace paths
 set(WORKSPACE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../install)
 
-# The generated solvers bake in the prediction horizon read from these configs,
-# so they must be regenerated whenever the configs change - otherwise the solver
-# dimensions silently disagree with what the node loads at runtime.
+# Solvers bake in the horizon from these configs, so changing them must force a regen.
 file(GLOB MPC_CONFIG_DEPS
   ${CMAKE_CURRENT_SOURCE_DIR}/../../config/global/global_config.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/../../config/control/*.yaml

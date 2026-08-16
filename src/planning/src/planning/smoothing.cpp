@@ -145,9 +145,7 @@ void PathSmoothing::add_boundary_constraints(
           center_path[point_index].position.y - center_path[point_index - 1].position.y);
     }
 
-    // A degenerate segment used to `continue`, which skipped this point's boundary rows and so
-    // left it with no corridor constraint at all - free to be placed anywhere the objective
-    // liked. Reuse the previous direction instead.
+    // Reuse the previous direction: skipping left the point with no corridor constraint at all.
     Eigen::Vector2d lateral_direction;
     if (forward_direction.norm() < 1e-6) {
       RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Degenerate forward direction at point %d",

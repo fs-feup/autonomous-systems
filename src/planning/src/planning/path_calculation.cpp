@@ -136,9 +136,8 @@ int PathCalculation::find_cutoff_index(const Point& car_point) const {
 
   const int path_size = static_cast<int>(past_path_.size());
 
-  // A global search finds the start of the path once the track closes and the car comes back
-  // around, collapsing cutoff_index to ~0 so the path is rebuilt from scratch. The car only moves
-  // forward, so search forward from the last result, tolerating a little backward jitter.
+  // Searching globally finds the path start once the track closes, collapsing the index to ~0.
+  // The car only moves forward, so search forward from the last result.
   const int search_begin =
       last_cutoff_index_ >= 0 ? std::max(0, last_cutoff_index_ - config_.lookback_points_) : 0;
 

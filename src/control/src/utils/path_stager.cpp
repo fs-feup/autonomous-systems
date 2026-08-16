@@ -198,24 +198,12 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
     }
   }
 
-  // Scale the whole reference speed profile by how fast the car is actually
-  // going relative to the plan, for controllers that choose their own speed.
-  //
-  // Without this the reference is laid out at the planner's pace: a car running
-  // 20% fast outruns its own reference within the horizon and the last stages
-  // point at ground it has already covered. Scaling the profile (rather than
-  // integrating freely from the car's speed, which decouples it from the
-  // planner's shape entirely and collapses to nothing at a standstill) keeps the
-  // braking/acceleration shape intact while spanning the distance the car will
-  // really travel.
+  // Scale the reference profile by the car's speed relative to the plan, so a car running fast
+  // does not outrun its own reference within the horizon.
   if (free_speed && velocities.size() > 2) {
     const double planner_v = velocities[2];
     if (planner_v > 0.5) {
-      // Lower bound of 1.0 is deliberate. Scaling BELOW the plan when the car is
-      // slower than planned removes the very signal that tells the controller to
-      // speed back up: it asks for 0.6x, the car obeys, the ratio stays low, and
-      // the car crawls. This is only here to make the reference span the extra
-      // ground when the car is running FAST, so it must never shrink it.
+      // Never scale below 1.0: shrinking the reference removes the signal to speed back up.
       const double scale = std::clamp(velocities[0] / planner_v, 1.0, 1.8);
       for (size_t i = 1; i < velocities.size(); ++i) {
         velocities[i] *= scale;
@@ -230,14 +218,8 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
   spline_x.set_boundary(tk::spline::first_deriv, std::cos(car_yaw), tk::spline::second_deriv, 0.0);
   spline_y.set_boundary(tk::spline::first_deriv, std::sin(car_yaw), tk::spline::second_deriv, 0.0);
 
-  // Use shape-preserving Hermite splines (local, C^1) instead of the classical
-  // C^2 cubic. The C^2 cubic overshoots when the car sits off the path at a
-  // corner entry: the clamped start tangent plus the sharp turn in the data one
-  // point later makes it bulge, producing a spurious "hook" in the reference
-  // (heading spiking ~90 deg then snapping back within ~0.5 m). The kinematic
-  // lateral MPC follows that hook faithfully, over-rotates, and spins off. The
-  // Hermite form still honours the clamped start tangent (car heading) but takes
-  // interior tangents from local finite differences, so it cannot overshoot.
+  // Shape-preserving Hermite rather than C^2 cubic: the latter overshoots into a spurious
+  // heading hook at corner entry when the car sits off the path, and the MPC follows it off.
   spline_x.set_points(s, x, tk::spline::cspline_hermite);
   spline_y.set_points(s, y, tk::spline::cspline_hermite);
 

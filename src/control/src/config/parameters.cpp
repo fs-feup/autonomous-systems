@@ -114,9 +114,7 @@ std::string ControlParameters::load_config() {
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
   this->mpc_prediction_horizon_seconds_ = control_config["mpc_prediction_horizon_seconds"].as<double>();
   this->mpc_prediction_horizon_steps_ = control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
-  // The lateral (kinematic) MPC and the coupled (dynamic) MPC need very different
-  // horizons, so they are configured independently. Fall back to the coupled
-  // horizon when the lateral keys are absent, to stay compatible with older configs.
+  // Lateral and coupled MPCs need different horizons; fall back to the coupled keys if absent.
   this->lateral_mpc_prediction_horizon_seconds_ =
       control_config["lateral_mpc_prediction_horizon_seconds"]
           ? control_config["lateral_mpc_prediction_horizon_seconds"].as<double>()
@@ -125,9 +123,7 @@ std::string ControlParameters::load_config() {
       control_config["lateral_mpc_prediction_horizon_steps"]
           ? control_config["lateral_mpc_prediction_horizon_steps"].as<unsigned int>()
           : this->mpc_prediction_horizon_steps_;
-  // Cost weights are read at runtime rather than baked into the generated
-  // solver, so they can be tuned without a codegen rebuild. An empty/absent list
-  // leaves the weights compiled into the solver untouched.
+  // Read at runtime so weights can be tuned without a codegen rebuild; empty leaves them as generated.
   auto load_weights = [&control_config](const char* key) {
     std::vector<double> weights;
     if (control_config[key]) {

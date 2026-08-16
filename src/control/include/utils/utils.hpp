@@ -27,13 +27,9 @@ std::tuple<common_lib::structures::Position, int, double> get_closest_point(
   const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, const common_lib::structures::Position& position) ;
 
 /**
- * @brief Velocity at the car's projection onto the path, interpolated along the segment rather
- * than stepped from the closest point. Clamped to the segment, so a car before the path start
- * takes the first point's velocity instead of extrapolating off the profile.
+ * @brief Velocity interpolated at the car's projection onto the path, clamped to the segment.
  *
- * @param pathpoint_array path
- * @param closest_point_id index returned by get_closest_point, -1 if there is none
- * @param position point to project, in the same frame as the path
+ * @param closest_point_id index from get_closest_point, -1 if there is none
  * @return interpolated velocity, 0 for an empty path or a missing closest point
  */
 double get_interpolated_velocity(
