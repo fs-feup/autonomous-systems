@@ -49,8 +49,6 @@ struct VehicleState {
   Eigen::Vector4d front_right_forces = {0.0, 0.0, 0.0, 0.0};
   Eigen::Vector4d rear_left_forces = {0.0, 0.0, 0.0, 0.0};
   Eigen::Vector4d rear_right_forces = {0.0, 0.0, 0.0, 0.0};
-  double ride_height_front = 0.0;
-  double ride_height_rear = 0.0;
   double aero_drag = 0.0;
   double aero_downforce = 0.0;
   double ride_height_front = 0.0;

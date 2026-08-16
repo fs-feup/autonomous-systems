@@ -23,57 +23,55 @@ public:
   /**
    * @brief Construct a new FSFEUP03Model object
    */
-  explicit FSFEUP03Model(const InvictaSimParameters& params);
+explicit FSFEUP03Model(const InvictaSimParameters& params);
 
   /**
    * @brief Destroy the FSFEUP03Model object
    */
-  ~FSFEUP03Model() override = default;
+~FSFEUP03Model() override = default;
 
   /**
    * @brief Step the vehicle model forward in time based on the current state and the control inputs
    * (steering angle and throttle)
    */
-  void step(double dt, common_lib::structures::Wheels throttle, double angle) override;
+void step(double dt, common_lib::structures::Wheels throttle, double angle) override;
 
   /**
    * @brief Reset the vehicle state to the initial conditions
    */
-  void reset() override;
+void reset() override;
+
+  /**
+   * @brief Get the model name
+   */
+std::string get_model_name() const override;
+
+private:
+  // Vehicle state struct is defined in the base class
+std::shared_ptr<TireModel> tire_model_;
+std::shared_ptr<MotorModel> motor_left_;
+std::shared_ptr<MotorModel> motor_right_;
+std::shared_ptr<IndependentDriveModel> drive_left_;
+std::shared_ptr<IndependentDriveModel> drive_right_;
+std::shared_ptr<BatteryModel> battery_;
+std::shared_ptr<InverterModel> inverter_;
+std::shared_ptr<BrakeModel> brake_;
+std::shared_ptr<AeroModel> aero_;
+std::shared_ptr<LoadTransferModel> load_transfer_;
+std::shared_ptr<SteeringModel> steering_;
+std::shared_ptr<SteeringMotorModel> steering_motor_;
+std::string control_mode_;
 
   /**
    * @brief Update state_->ride_height_front/rear from the previous step's aero downforce and
    * longitudinal acceleration, and push them into the aero model.
    */
-  void update_ride_height();
-
-  /**
-   * @brief Get the model name
-   */
-  std::string get_model_name() const override;
-
-private:
-  // Vehicle state struct is defined in the base class
-  std::shared_ptr<TireModel> tire_model_;
-  std::shared_ptr<MotorModel> motor_left_;
-  std::shared_ptr<MotorModel> motor_right_;
-  std::shared_ptr<IndependentDriveModel> drive_left_;
-  std::shared_ptr<IndependentDriveModel> drive_right_;
-  std::shared_ptr<BatteryModel> battery_;
-  std::shared_ptr<InverterModel> inverter_;
-  std::shared_ptr<BrakeModel> brake_;
-  std::shared_ptr<AeroModel> aero_;
-  std::shared_ptr<LoadTransferModel> load_transfer_;
-  std::shared_ptr<SteeringModel> steering_;
-  std::shared_ptr<SteeringMotorModel> steering_motor_;
-  std::string control_mode_;
-
-  void update_ride_height();
+void update_ride_height();
 
   // Helper function to calculate the torque combining the motor model and the battery model
-  std::pair<double, double> calculate_side_powertrain(
-    double throttle_input, double wheel_speed,
-    const std::shared_ptr<MotorModel>& motor,
-    const std::shared_ptr<IndependentDriveModel>& drive,
-    bool left_side);
+std::pair<double, double> calculate_side_powertrain(
+double throttle_input, double wheel_speed,
+const std::shared_ptr<MotorModel>& motor,
+const std::shared_ptr<IndependentDriveModel>& drive,
+bool left_side);
 };
