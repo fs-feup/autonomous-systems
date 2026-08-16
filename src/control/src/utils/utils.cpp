@@ -46,7 +46,6 @@ double get_interpolated_velocity(
   const int last_id = static_cast<int>(pathpoint_array.size()) - 1;
   const int closest_id = std::clamp(closest_point_id, 0, last_id);
 
-  // A single-point path has no segment to interpolate along.
   if (last_id == 0) {
     return pathpoint_array[0].v;
   }
@@ -54,8 +53,7 @@ double get_interpolated_velocity(
   double best_distance = std::numeric_limits<double>::max();
   double interpolated_velocity = pathpoint_array[closest_id].v;
 
-  // Project onto the segment and keep the result if this segment is the one the car lies against.
-  // Both neighbours are tried because the closest point can sit either ahead of or behind the car.
+  // Both neighbours are tried: the closest point can sit either ahead of or behind the car.
   const auto consider_segment = [&](int start_id, int end_id) {
     const auto &start = pathpoint_array[start_id];
     const auto &end = pathpoint_array[end_id];
@@ -63,12 +61,10 @@ double get_interpolated_velocity(
     const double segment_y = end.y - start.y;
     const double segment_length_squared = segment_x * segment_x + segment_y * segment_y;
 
-    // Duplicated points carry no direction to project onto.
     if (segment_length_squared <= 0.0) {
       return;
     }
 
-    // Clamped, so the car keeps the end point's velocity instead of extrapolating past it.
     double ratio = ((position.x - start.x) * segment_x + (position.y - start.y) * segment_y) /
                    segment_length_squared;
     ratio = std::clamp(ratio, 0.0, 1.0);

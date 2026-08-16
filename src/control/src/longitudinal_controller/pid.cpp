@@ -139,8 +139,6 @@ common_lib::structures::ControlCommand PID::get_throttle_command()  {
         ::get_closest_point(this->last_path_msg_, rear_axis);
 
     if (closest_point_id != -1) {
-      // Interpolated along the path rather than taken from the closest point, so the setpoint
-      // follows the planned profile instead of stepping between points.
       this->setpoint_ =
           ::get_interpolated_velocity(this->last_path_msg_, closest_point_id, rear_axis);
       command.throttle_rl = command.throttle_rr = update(this->setpoint_, this->absolute_velocity_);
