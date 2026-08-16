@@ -34,20 +34,13 @@ std::vector<PathPoint> PathCalculation::calculate_path(const std::vector<Cone>& 
 
   Point car_point(vehicle_pose_.position.x, vehicle_pose_.position.y);
 
-  // Find the point in the past_path_ closest to the car
-  int cutoff_index = -1;
-  double min_dist = std::numeric_limits<double>::max();
-  for (size_t i = 0; i < past_path_.size(); ++i) {
-    double dist = CGAL::squared_distance(past_path_[i].point, car_point);
-    if (dist < min_dist) {
-      min_dist = dist;
-      cutoff_index = static_cast<int>(i);
-    }
-  }
+  int cutoff_index = find_cutoff_index(car_point);
 
   if (cutoff_index == -1) {
     RCLCPP_WARN(rclcpp::get_logger("planning"), "No valid path points found near the car.");
   }
+
+  last_cutoff_index_ = cutoff_index;
 
   path_to_car_.reserve(past_path_.size());
   // Retain part of the existing path leading to the car
@@ -136,6 +129,43 @@ void PathCalculation::clear_path_state() {
   blue_cones_.clear();
 }
 
+int PathCalculation::find_cutoff_index(const Point& car_point) const {
+  if (past_path_.empty()) {
+    return -1;
+  }
+
+  const int path_size = static_cast<int>(past_path_.size());
+
+  // A global search finds the start of the path once the track closes and the car comes back
+  // around, collapsing cutoff_index to ~0 so the path is rebuilt from scratch. The car only moves
+  // forward, so search forward from the last result, tolerating a little backward jitter.
+  const int search_begin =
+      last_cutoff_index_ >= 0 ? std::max(0, last_cutoff_index_ - config_.lookback_points_) : 0;
+
+  const auto nearest_from = [&](int begin) {
+    int best_index = -1;
+    double best_distance = std::numeric_limits<double>::max();
+    for (int i = begin; i < path_size; ++i) {
+      const double distance = CGAL::squared_distance(past_path_[i].point, car_point);
+      if (distance < best_distance) {
+        best_distance = distance;
+        best_index = i;
+      }
+    }
+    return std::make_pair(best_index, best_distance);
+  };
+
+  auto [cutoff_index, min_distance] = nearest_from(search_begin);
+
+  // Car nowhere near the path ahead of that index, so the forward assumption no longer holds.
+  const double window_radius = config_.midpoint_generator_.sliding_window_radius_;
+  if (search_begin > 0 && (cutoff_index == -1 || min_distance > window_radius * window_radius)) {
+    std::tie(cutoff_index, min_distance) = nearest_from(0);
+  }
+
+  return cutoff_index;
+}
+
 int PathCalculation::reset_path(bool should_reset) {
   int max_points = config_.max_points_;
   reset_path_counter_++;
@@ -144,6 +174,7 @@ int PathCalculation::reset_path(bool should_reset) {
     max_points = static_cast<int>(path_to_car_.size()) + config_.max_points_;
     path_to_car_.clear();
     past_path_.clear();
+    last_cutoff_index_ = -1;
     reset_path_counter_ = 0;
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Global path reset");
   }
