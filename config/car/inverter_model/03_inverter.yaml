@@ -1,0 +1,4 @@
+inverter:
+  acceleration_delay_ms: 100.0
+  coast_delay_ms: 0.0
+  regen_braking_delay_ms: 100.0

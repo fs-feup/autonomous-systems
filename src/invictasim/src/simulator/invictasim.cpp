@@ -9,14 +9,6 @@ InvictaSim::InvictaSim(const InvictaSimParameters& params)
   // Initialize Objects
   vehicle_model_ = vehicle_models_map.at(params_.vehicle_model.c_str())(params);
   track_ = std::make_shared<Track>(params_.track_name);
-  std::string imu_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "imu");
-  std::string wss_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "wss");
-  imu_model_ = std::make_unique<IMU>(imu_cfg);
-  wss_model_ = std::make_unique<WSS>(wss_cfg);
-  if (params_.use_simulated_perception) {
-    std::string perception_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "perception");
-    perception_model_ = std::make_unique<SimulatedPerception>(perception_cfg);
-}
   statistics_ = std::make_unique<Statistics>(*track_, params_.car_parameters, params_.discipline,
                                              params_.car_parameters_config);
 
@@ -81,6 +73,7 @@ void InvictaSim::reset_sim() {
   // Reset inputs
   throttle_ = {0.0, 0.0, 0.0, 0.0};
   steering_ = 0.0;
+  go_signal_ = params_.initial_go_signal;
 
   // Reset loop timing
   const auto now = std::chrono::steady_clock::now();
@@ -208,6 +201,7 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
   snapshot.steering_ms = model_times.steering_ms;
   snapshot.load_transfer_ms = model_times.load_transfer_ms;
   snapshot.tire_ms = model_times.tire_ms;
+  snapshot.integration_ms = model_times.integration_ms;
   snapshot.total_step_ms = total_step_ms;
 
   return snapshot;
@@ -215,7 +209,7 @@ ExecutionTimesSnapshot InvictaSim::build_execution_times_snapshot(double total_s
 
 MapSnapshot InvictaSim::build_map_snapshot(const InputSnapshot& input_snapshot) const {
   MapSnapshot snapshot;
-  
+
   // For now, all of them publish the same ground truth cones,
   // but later this would publish the slam map and the perception cones
   snapshot.ground_truth = track_->get_cones();
@@ -227,58 +221,29 @@ MapSnapshot InvictaSim::build_map_snapshot(const InputSnapshot& input_snapshot) 
     snapshot.simulated_slam_map = input_snapshot.external_slam_cones;
   }
 
-  if (params_.use_simulated_perception && perception_model_) {
-    common_lib::structures::Pose vehicle_pose;
-    vehicle_pose.position.x = vehicle_model_->get_position_x();
-    vehicle_pose.position.y = vehicle_model_->get_position_y();
-    vehicle_pose.orientation = vehicle_model_->get_yaw();
-
-    common_lib::structures::Velocities vehicle_velocities;
-    vehicle_velocities.velocity_x = vehicle_model_->get_velocity_x();
-    vehicle_velocities.velocity_y = vehicle_model_->get_velocity_y();
-    vehicle_velocities.rotational_velocity = vehicle_model_->get_yaw_rate();
-
-    snapshot.perception_cones = perception_model_->perception_error(track_->get_cones(),
-                                                                 vehicle_pose,
-                                                                 vehicle_velocities);
+  if (params_.use_simulated_perception) {
+    snapshot.perception_cones = track_->get_cones();
   } else {
     snapshot.perception_cones = input_snapshot.external_perception_cones;
   }
 
-  snapshot.perception_exec_time_ms = 0.0;  // Will allow to simulate the perception delay
+  snapshot.perception_exec_time_ms = 0.0;  // Will allow to simualte the perception delay
   return snapshot;
 }
 
 SensorsSnapshot InvictaSim::build_sensors_snapshot(
     const VehicleModelSnapshot& vehicle_snapshot) const {
   SensorsSnapshot snapshot;
-  if (imu_model_) {
-    std::vector<double> imu_measurement = imu_model_->apply_imu_error(
-        vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y,
-        vehicle_snapshot.yaw_rate);
-    snapshot.free_acceleration = Eigen::Vector3d(imu_measurement[0], imu_measurement[1], 0.0);
-    snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, imu_measurement[2]);
-  } else {
-    snapshot.free_acceleration =
-        Eigen::Vector3d(vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y, 0.0);
-    snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, vehicle_snapshot.yaw_rate);
-  }
-
-  if (wss_model_) {
-    snapshot.wheel_rpm = wss_model_->simulate_wheel_speeds(
-        vehicle_snapshot.wheel_speed.front_left,
-        vehicle_snapshot.wheel_speed.front_right,
-        vehicle_snapshot.wheel_speed.rear_left,
-        vehicle_snapshot.wheel_speed.rear_right);
-    snapshot.wheel_rpm_dropout = wss_model_->get_wheel_dropout_status();
-  } else {
-    snapshot.wheel_rpm = common_lib::structures::Wheels(
-        vehicle_snapshot.wheel_speed.front_left * 60 / (2 * M_PI),
-        vehicle_snapshot.wheel_speed.front_right * 60 / (2 * M_PI),
-        vehicle_snapshot.wheel_speed.rear_left * 60 / (2 * M_PI),
-        vehicle_snapshot.wheel_speed.rear_right * 60 / (2 * M_PI));
-  }
-
+  // For now, publishing the ground truth as sensor data, but later this would be the sensor
+  // simulated data
+  snapshot.free_acceleration =
+      Eigen::Vector3d(vehicle_snapshot.acceleration_x, vehicle_snapshot.acceleration_y, 0.0);
+  snapshot.angular_velocity = Eigen::Vector3d(0.0, 0.0, vehicle_snapshot.yaw_rate);
+  snapshot.wheel_rpm =
+      common_lib::structures::Wheels(vehicle_snapshot.wheel_speed.front_left * 60 / (2 * M_PI),
+                                     vehicle_snapshot.wheel_speed.front_right * 60 / (2 * M_PI),
+                                     vehicle_snapshot.wheel_speed.rear_left * 60 / (2 * M_PI),
+                                     vehicle_snapshot.wheel_speed.rear_right * 60 / (2 * M_PI));
   snapshot.steering_angle = vehicle_snapshot.steering_angle;
   snapshot.motor_rpm = vehicle_snapshot.motor_omega * 60 / (2 * M_PI);  // Convert rad/s to rpm
   return snapshot;
@@ -302,11 +267,9 @@ VehicleStateSnapshot InvictaSim::build_vehicle_state_snapshot() const {
   snapshot.acceleration_y = vehicle_model_->get_acceleration_y();
   snapshot.steering_angle = vehicle_model_->get_steering_angle();
   const auto wheel_speed = vehicle_model_->get_wheels_speed();
-  snapshot.wheel_rpm =
-      common_lib::structures::Wheels(wheel_speed.front_left * 60.0 / (2.0 * M_PI),
-                                     wheel_speed.front_right * 60.0 / (2.0 * M_PI),
-                                     wheel_speed.rear_left * 60.0 / (2.0 * M_PI),
-                                     wheel_speed.rear_right * 60.0 / (2.0 * M_PI));
+  snapshot.wheel_rpm = common_lib::structures::Wheels(
+      wheel_speed.front_left * 60.0 / (2.0 * M_PI), wheel_speed.front_right * 60.0 / (2.0 * M_PI),
+      wheel_speed.rear_left * 60.0 / (2.0 * M_PI), wheel_speed.rear_right * 60.0 / (2.0 * M_PI));
   snapshot.velocity_covariance =
       std::vector<double>(9, 0.0);  // Placeholder for velocity covariance
 
