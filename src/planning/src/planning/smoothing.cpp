@@ -124,6 +124,8 @@ void PathSmoothing::add_boundary_constraints(
     std::vector<OSQPFloat>& constraint_upper_bounds, int& constraint_count,
     const std::vector<PathPoint>& left_boundary, const std::vector<PathPoint>& right_boundary,
     const std::vector<PathPoint>& center_path, int num_path_points, double safety_margin) const {
+  Eigen::Vector2d previous_lateral_direction(0.0, 1.0);
+
   for (int point_index = 0; point_index < num_path_points; ++point_index) {
     const Eigen::Vector2d left_boundary_point(left_boundary[point_index].position.x,
                                               left_boundary[point_index].position.y);
@@ -143,15 +145,22 @@ void PathSmoothing::add_boundary_constraints(
           center_path[point_index].position.y - center_path[point_index - 1].position.y);
     }
 
+    // A degenerate segment used to `continue`, which skipped this point's boundary rows and so
+    // left it with no corridor constraint at all - free to be placed anywhere the objective
+    // liked. Reuse the previous direction instead.
+    Eigen::Vector2d lateral_direction;
     if (forward_direction.norm() < 1e-6) {
       RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Degenerate forward direction at point %d",
                   point_index);
-      continue;
+      if (point_index == 0) {
+        continue;
+      }
+      lateral_direction = previous_lateral_direction;
+    } else {
+      forward_direction.normalize();
+      // Lateral is perpendicular to forward (points left by default)
+      lateral_direction = Eigen::Vector2d(-forward_direction.y(), forward_direction.x());
     }
-    forward_direction.normalize();
-
-    // Lateral is perpendicular to forward (points left by default)
-    Eigen::Vector2d lateral_direction(-forward_direction.y(), forward_direction.x());
 
     // Ensure lateral points from right to left (left proj > right proj)
     double left_lateral_projection = left_boundary_point.dot(lateral_direction);
@@ -174,6 +183,8 @@ void PathSmoothing::add_boundary_constraints(
       right_bound = midpoint - 0.01;
       left_bound = midpoint + 0.01;
     }
+
+    previous_lateral_direction = lateral_direction;
 
     const int slack_col = 2 * num_path_points + point_index;
     const int x_col = 2 * point_index;
@@ -450,9 +461,10 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization_implementation(
     solver_settings.polishing = 1;
 
     const OSQPInt setup_status =
+        // osqp_setup takes the number of constraints (m) before the number of variables (n).
         ::osqp_setup(&solver_, &objective_matrix, linear_objective.data(), &constraint_matrix,
                      constraint_lower_bounds.data(), constraint_upper_bounds.data(),
-                     total_variables, total_constraints, &solver_settings);
+                     total_constraints, total_variables, &solver_settings);
 
     if (setup_status != 0) {
       RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "OSQP setup failed with status %lld",
