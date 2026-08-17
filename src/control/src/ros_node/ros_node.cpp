@@ -37,11 +37,28 @@ ControlNode::ControlNode(const ControlParameters& params)
         this->state.steering_angle = msg.steering_angle;
         this->vehicle_state_callback(this->state);
       });
-
+  remote_ebs_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+      "/remote/ebs", rclcpp::QoS(1).transient_local().reliable(),
+      [this](const std_msgs::msg::Bool& msg) {
+        if (remote_ebs_ != msg.data) {
+          RCLCPP_INFO(this->get_logger(), "Remote EBS %s", msg.data ? "active" : "inactive");
+        }
+        remote_ebs_ = msg.data;
+      });
+  remote_take_control_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+      "/remote/take_control", rclcpp::QoS(1).transient_local().reliable(),
+      [this](const std_msgs::msg::Bool& msg) {
+        if (remote_take_control_ != msg.data) {
+          RCLCPP_INFO(this->get_logger(), "Remote manual control %s",
+                      msg.data ? "active" : "inactive");
+        }
+        remote_take_control_ = msg.data;
+      });
 }
 
 void ControlNode::control_timer_callback() {
   if (!go_signal_) return;
+  if (remote_ebs_ || remote_take_control_) return;
 
   rclcpp::Time start = this->now();
   common_lib::structures::ControlCommand command = this->controller_->get_control_command();

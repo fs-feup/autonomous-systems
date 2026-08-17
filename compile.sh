@@ -8,8 +8,8 @@
 # echo "Sourcing workspace..."
 # source install/setup.bash
 # echo "Building selected packages with -j2 parallelism..."
-CMAKE_BUILD_PARALLEL_LEVEL=2 MAKEFLAGS=-j2 colcon build \
+CMAKE_BUILD_PARALLEL_LEVEL=3 MAKEFLAGS=-j2 colcon build \
   --parallel-workers 2 \
   --event-handlers console_direct+ \
-  --packages-up-to perception slam velocity_estimation planning control launcher inspection supervisor hesai_ros_driver ros_can \
+  --packages-up-to emergency_remote_control control pacsim planning ros_can \
   --cmake-args -G Ninja -DCMAKE_VERBOSE_MAKEFILE=ON
