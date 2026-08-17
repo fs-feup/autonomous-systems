@@ -123,8 +123,6 @@ class DataInfrastructureNode(Node):
         control_msg.pid_kp = float(parameters.get("pid_kp", 0.0))
         control_msg.pid_ki = float(parameters.get("pid_ki", 0.0))
         control_msg.pid_kd = float(parameters.get("pid_kd", 0.0))
-        control_msg.pid_tau = float(parameters.get("pid_tau", 0.0))
-        control_msg.pid_t = float(parameters.get("pid_t", 0.0))
         control_msg.pid_lim_min = float(parameters.get("pid_lim_min", 0.0))
         control_msg.pid_lim_max = float(parameters.get("pid_lim_max", 0.0))
         control_msg.pid_anti_windup = float(parameters.get("pid_anti_windup", 0.0))

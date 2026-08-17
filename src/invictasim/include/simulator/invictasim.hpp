@@ -5,9 +5,11 @@
 #include <memory>
 #include <mutex>
 
+#include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 #include "io/output/output_snapshot.hpp"
+#include "statistics/statistics.hpp"
 #include "track/track.hpp"
 #include "vehicle_model/map.hpp"
 #include "vehicle_model/vehicle_model.hpp"
@@ -125,6 +127,9 @@ public:
     InputSnapshot snapshot;
     snapshot.throttle = throttle_;
     snapshot.steering = steering_;
+    snapshot.external_slam_cones = external_slam_cones_;
+    snapshot.external_perception_cones = external_perception_cones_;
+    snapshot.external_path_points = external_path_points_;
     return snapshot;
   }
 
@@ -156,11 +161,35 @@ public:
   }
 
   /**
+   * @brief Get the latest statistics snapshot.
+   * @return StatisticsSnapshot Latest accumulated simulator statistics.
+   */
+  StatisticsSnapshot get_statistics_snapshot() const {
+    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    return statistics_snapshot_;
+  }
+
+  /**
+   * @brief Get the immutable track timing line endpoints.
+   */
+  std::pair<common_lib::structures::Position, common_lib::structures::Position> get_timing_line()
+      const {
+    return track_->get_timing_line();
+  }
+
+  const std::vector<std::pair<common_lib::structures::Position, common_lib::structures::Position>>&
+  get_timing_lines() const {
+    return track_->get_timing_lines();
+  }
+
+  std::string get_discipline() const { return params_.discipline; }
+
+  /**
    * @brief Set the external SLAM cones.
    * @param cones The map cones received from the external SLAM node.
    */
   void set_external_slam_cones(const std::vector<common_lib::structures::Cone>& cones) {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    std::lock_guard<std::mutex> lock(input_mutex_);
     external_slam_cones_ = cones;
   }
 
@@ -169,8 +198,17 @@ public:
    * @param cones The map cones received from the external perception node.
    */
   void set_external_perception_cones(const std::vector<common_lib::structures::Cone>& cones) {
-    std::lock_guard<std::mutex> lock(output_snapshot_mutex_);
+    std::lock_guard<std::mutex> lock(input_mutex_);
     external_perception_cones_ = cones;
+  }
+
+  /**
+   * @brief Set the path points received from path planning.
+   * @param path_points Planning path points.
+   */
+  void set_path_points(const std::vector<common_lib::structures::PathPoint>& path_points) {
+    std::lock_guard<std::mutex> lock(input_mutex_);
+    external_path_points_ = path_points;
   }
 
 private:
@@ -179,6 +217,7 @@ private:
   // Simulation components
   std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
   std::shared_ptr<Track> track_;                 ///< Track information.
+  std::shared_ptr<Statistics> statistics_;       ///< Statistics calculator.
 
   // Simulation loop timing
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.
@@ -196,6 +235,7 @@ private:
   MapSnapshot map_snapshot_;                         ///< Latest map snapshot.
   SensorsSnapshot sensors_snapshot_;                 ///< Latest sensors snapshot.
   VehicleStateSnapshot vehicle_state_snapshot_;      ///< Latest vehicle state snapshot.
+  StatisticsSnapshot statistics_snapshot_;           ///< Latest statistics snapshot.
 
   // Current commands
   mutable std::mutex input_mutex_;           ///< Protects input access.
@@ -203,10 +243,13 @@ private:
   double steering_;                          ///< Current steering command (radians).
   bool ebs_active_{false};                   ///< Current EBS state.
 
-  std::atomic<bool> go_signal_{false};       ///< Global go signal state.
+  std::atomic<bool> go_signal_{false};  ///< Global go signal state.
 
-  std::vector<common_lib::structures::Cone> external_slam_cones_;       ///< External SLAM cones.
-  std::vector<common_lib::structures::Cone> external_perception_cones_; ///< External perception cones.
+  std::vector<common_lib::structures::Cone> external_slam_cones_;  ///< External SLAM cones.
+  std::vector<common_lib::structures::Cone>
+      external_perception_cones_;  ///< External perception cones.
+  std::vector<common_lib::structures::PathPoint>
+      external_path_points_;  ///< Latest external path points.
 
   /**
    * @brief Build a consolidated vehicle model snapshot with all vehicle state data.
@@ -225,7 +268,7 @@ private:
    * @brief Build map snapshot with ground truth map, slam simulation and perception cones.
    * @return MapSnapshot Latest map snapshot.
    */
-  MapSnapshot build_map_snapshot() const;
+  MapSnapshot build_map_snapshot(const InputSnapshot& input_snapshot) const;
 
   /**
    * @brief Build sensors snapshot with latest simulated sensors data.

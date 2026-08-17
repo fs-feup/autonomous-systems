@@ -112,7 +112,9 @@ std::vector<PathPoint> Skidpad::skidpad_path(const std::vector<Cone>& cone_array
       std::istringstream iss(line);
       double x = 0.0, y = 0.0, v = 0.0;
       if (iss >> x >> y >> v) {
-        (void)hardcoded_path_.emplace_back(x, y, 0, v);
+        // PathPoint ctor is (x, y, orientation, ideal_velocity); the file's third
+        // column is the velocity. Orientation is recomputed later by planning.
+        (void)hardcoded_path_.emplace_back(x, y, 0.0, v);
       } else {
         break;
       }

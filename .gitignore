@@ -24,3 +24,7 @@ rosbag2*
 ext/osqp/install/
 ext/osqp/src/build/
 ext/osqp-eigen/src/build/
+
+# Simulation run artifacts (lap traces, campaign outputs)
+runs/
+src/invictasim/runs/

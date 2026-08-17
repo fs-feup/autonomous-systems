@@ -3,7 +3,6 @@ float64 pid_kp
 float64 pid_ki
 float64 pid_kd
 float64 pid_tau
-float64 pid_t
 float64 pid_lim_min
 float64 pid_lim_max
 float64 pid_anti_windup

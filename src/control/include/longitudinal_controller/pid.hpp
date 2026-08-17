@@ -1,5 +1,7 @@
 #pragma once
 
+#include <chrono>
+
 #include "base_longitudinal_controller.hpp"
 #include "common_lib/structures/position.hpp"
 #include "utils/utils.hpp"
@@ -30,9 +32,13 @@ private:
   double proportional_{0.0f};   /**< Proportional term current value */
   double integrator_{0.0f};     /**< Integrator term current value */
   double differentiator_{0.0f}; /**< Differentiator term current value */
+  double setpoint_{0.0f};       /**< Current setpoint value */
 
   double prev_error_{0.0f};       /**< Previous error value, required for integrator */
   double prev_measurement_{0.0f}; /**< Previous measurement value, required for defferentiator */
+
+  std::chrono::steady_clock::time_point last_update_time_{};
+  bool has_last_update_time_{false};
 
   double out_{0.0f}; /**< Current output value */
 
@@ -57,7 +63,7 @@ private:
    *
    * @param error
    */
-  void calculate_integral_term(double error);
+  void calculate_integral_term(double error, double dt = -1.0);
 
   /**
    * @brief Anti-wind-up via dynamic integrator clamping
@@ -69,7 +75,7 @@ private:
    *
    * @param measurement
    */
-  void calculate_derivative_term(double measurement);
+  void calculate_derivative_term(double measurement, double dt = -1.0);
 
   /**
    * @brief Compute the output value and apply limits
@@ -98,6 +104,7 @@ public:
   common_lib::structures::ControlCommand get_throttle_command() override;
   void publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) override;
 
+  FRIEND_TEST(PidTests, UsesElapsedTimeForIntegrationAndDerivative);
   FRIEND_TEST(PidTests, TestAntiWindUp1);
   FRIEND_TEST(PidTests, TestAntiWindUp2);
   FRIEND_TEST(PidTests, TestAntiWindUp3);

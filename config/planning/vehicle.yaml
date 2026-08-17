@@ -37,7 +37,6 @@ planning:
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 3.0
   vp_braking_acceleration: -3.5
-  vp_acceleration: 10.0
   vp_lateral_acceleration: 5.0
   vp_longitudinal_acceleration: 5.0
   vp_use_velocity_planning: true
