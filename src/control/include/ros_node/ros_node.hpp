@@ -14,6 +14,7 @@
 #include "utils/utils.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "controller/map.hpp"
+#include "std_msgs/msg/bool.hpp"
 #include "std_msgs/msg/float64_multi_array.hpp"
 
 
@@ -27,6 +28,8 @@
 class ControlNode : public rclcpp::Node {
 protected:
   bool go_signal_{false};
+  bool remote_ebs_{false};
+  bool remote_take_control_{false};
   ControlParameters params_;
 
   // Used to store values from the callbacks before passing to the controller
@@ -75,6 +78,8 @@ private:
   // Temporary subscription, until State Estimation publishes the full state vector
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr velocity_sub_;
   rclcpp::Subscription<custom_interfaces::msg::SteeringAngle>::SharedPtr steering_angle_sub_;
+  rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr remote_ebs_sub_;
+  rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr remote_take_control_sub_;
   custom_interfaces::msg::VehicleStateVector state;
 
   /**

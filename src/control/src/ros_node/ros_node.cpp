@@ -22,10 +22,43 @@ ControlNode::ControlNode(const ControlParameters& params)
         "/state_estimation/vehicle_pose", 10,
         std::bind(&ControlNode::vehicle_pose_callback, this, std::placeholders::_1));
   }
+  if (!params_.using_simulated_velocities_) {
+    velocity_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+        "/state_estimation/velocities", 10,
+        [this](const custom_interfaces::msg::Velocities& msg) {
+          this->state.velocity_x = msg.velocity_x;
+          this->state.velocity_y = msg.velocity_y;
+          this->state.yaw_rate = msg.angular_velocity;
+          this->vehicle_state_callback(this->state);
+        });
+  }
+  steering_angle_sub_ = this->create_subscription<custom_interfaces::msg::SteeringAngle>(
+      "/vehicle/steering_motor_state", 10, [this](const custom_interfaces::msg::SteeringAngle& msg) {
+        this->state.steering_angle = msg.steering_angle;
+        this->vehicle_state_callback(this->state);
+      });
+  remote_ebs_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+      "/remote/ebs", rclcpp::QoS(1).transient_local().reliable(),
+      [this](const std_msgs::msg::Bool& msg) {
+        if (remote_ebs_ != msg.data) {
+          RCLCPP_INFO(this->get_logger(), "Remote EBS %s", msg.data ? "active" : "inactive");
+        }
+        remote_ebs_ = msg.data;
+      });
+  remote_take_control_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+      "/remote/take_control", rclcpp::QoS(1).transient_local().reliable(),
+      [this](const std_msgs::msg::Bool& msg) {
+        if (remote_take_control_ != msg.data) {
+          RCLCPP_INFO(this->get_logger(), "Remote manual control %s",
+                      msg.data ? "active" : "inactive");
+        }
+        remote_take_control_ = msg.data;
+      });
 }
 
 void ControlNode::control_timer_callback() {
   if (!go_signal_) return;
+  if (remote_ebs_ || remote_take_control_) return;
 
   rclcpp::Time start = this->now();
   common_lib::structures::ControlCommand command = this->controller_->get_control_command();
