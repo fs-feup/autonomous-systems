@@ -65,7 +65,7 @@ def bootstrap_ros_environment() -> None:
 bootstrap_ros_environment()
 
 import rclpy
-from custom_interfaces.msg import ControlCommand, LapCurrent, TireForces, VehicleStateVector
+from custom_interfaces.msg import ControlCommand, TireForces, VehicleStateVector
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
@@ -81,23 +81,21 @@ STEERING_WHEEL_CUTOFF = 0.30
 CONTROL_TOPIC = "/control/command"
 SELF_ALIGNING_MOMENT_TOPIC = "/invictasim/vehicle_model/tire/forces"
 VEHICLE_STATE_TOPIC = "/invictasim/vehicle_model/status"
-LAP_CURRENT_TOPIC = "/invictasim/statistics/lap_current"
 
 PUBLISH_PERIOD_SECONDS = 0.005  # 200 Hz
 
-SELF_ALIGNING_MOMENT_TO_WHEEL_TORQUE = 0.5
+SELF_ALIGNING_MOMENT_TO_WHEEL_TORQUE = 2.5
 MAX_FORCE_FEEDBACK_TORQUE_NM = 2.3
+# Master force-feedback scale applied to the final torque (steering Mz + vibration).
+# 1.0 = full, lower = weaker. Tune to taste.
+FORCE_FEEDBACK_GAIN = 0.8
 FORCE_FEEDBACK_INVERT = True
 FORCE_FEEDBACK_USE_FRONT_MZ_ONLY = True
 
-# Max slew rate to protect physical motors
-FORCE_FEEDBACK_MAX_SLEW_NM_PER_SECOND = 25.0
+# Reduces punches from abrupt Mz changes. Kept high to minimize felt delay: at 150 Nm/s
+# a full-scale change settles in ~15 ms (vs ~90 ms at 25). Lower it if FFB feels notchy.
+FORCE_FEEDBACK_MAX_SLEW_NM_PER_SECOND = 150.0
 FORCE_FEEDBACK_DEADBAND_NM = 0.015
-
-# Cone Hit Haptic Vibration Settings
-CONE_HIT_VIBRATION_DURATION_SECONDS = 0.2
-CONE_HIT_VIBRATION_AMPLITUDE_NM = 1.0
-CONE_HIT_VIBRATION_FREQUENCY_HZ = 20.0
 
 # If tire force messages stop, ramp force back to zero.
 FORCE_FEEDBACK_TIMEOUT_SECONDS = 0.10
@@ -105,11 +103,11 @@ FORCE_FEEDBACK_TIMEOUT_SECONDS = 0.10
 # If vehicle state messages stop, vibration fades to zero.
 VEHICLE_STATE_TIMEOUT_SECONDS = 0.25
 
-# Disable heavy synthetic vibration that causes gear rattle on G923.
-ENABLE_FORCE_FEEDBACK_VIBRATION = False
+# Asphalt / motor vibration model.
+ENABLE_FORCE_FEEDBACK_VIBRATION = True
 
-# Start conservative.
-MAX_VIBRATION_TORQUE_NM = 0.15
+# Start conservative. Increase gradually if it is too weak.
+MAX_VIBRATION_TORQUE_NM = 0.8
 
 VIBRATION_MIN_SPEED_MPS = 0.5
 VIBRATION_FULL_SPEED_MPS = 25.0
@@ -128,12 +126,38 @@ MOTOR_VIBRATION_WEIGHT = 0.35
 VIBRATION_AMPLITUDE_TIME_CONSTANT = 0.20
 
 # HID behavior.
-HIDRAW_REPORT_ID = 0x08
+HIDRAW_REPORT_ID = 0x08  # Logitech input report id
 HIDRAW_INPUT_REPORT_SIZE = 12
 HIDRAW_OUTPUT_REPORT_SIZE = 16
+HIDRAW_READ_SIZE = 64  # generous read buffer; one full HID report is returned per read
+
+# Thrustmaster input report (e.g. T598 "Advance Racer"), little-endian:
+#   byte 0     report id (0x07)
+#   bytes 1-2  steering  (X,  u16, centered ~32768)
+#   bytes 3-4  brake     (Y,  u16, 1023 = released .. 0 = pressed)
+#   bytes 5-6  throttle  (Rz, u16, 1023 = released .. 0 = pressed)
+#   bytes 7-8  clutch    (Slider, u16) -- unused
+TM_HIDRAW_REPORT_ID = 0x07
 
 # Logitech neutral force byte. 128 is approximately zero.
 LG4FF_NEUTRAL_FORCE = 128
+
+# Evdev force feedback (used for Thrustmaster wheels driven by hid-tmff2). This is the
+# standard Linux input FF_CONSTANT effect; the kernel driver translates it to the wheel's
+# protocol. struct ff_effect is 48 bytes on x86-64.
+EV_FF = 0x15
+FF_CONSTANT = 0x52
+FF_EFFECT_SIZE = 48
+FF_DIRECTION = 0x4000  # 90 deg; the sign of the level selects torque direction
+
+
+def _ioc_write(type_char: str, nr: int, size: int) -> int:
+    # asm-generic _IOC for a write-direction ioctl.
+    return (1 << 30) | (size << 16) | (ord(type_char) << 8) | nr
+
+
+EVIOCSFF = _ioc_write("E", 0x80, FF_EFFECT_SIZE)
+EVIOCRMFF = _ioc_write("E", 0x81, 4)
 
 # Joystick fallback constants. Used only if HID input is unavailable.
 ABS_X = 0
@@ -147,13 +171,27 @@ JSIOCGAXES = 0x80016A11
 JSIOCGNAME = 0x81006A13
 JSIOCGAXMAP = 0x80406A32
 
-WHEEL_NAME_KEYWORDS = (
+LOGITECH_KEYWORDS = (
     "g923",
     "g29",
     "g920",
-    "racing wheel",
     "driving force",
 )
+
+THRUSTMASTER_KEYWORDS = (
+    "thrustmaster",
+    "advance racer",
+    "t598",
+    "t300",
+    "t248",
+    "t150",
+    "tmx",
+    "ts-xw",
+    "t-gt",
+)
+
+# Union, plus a generic term. Used only to decide "is this a wheel at all".
+WHEEL_NAME_KEYWORDS = LOGITECH_KEYWORDS + THRUSTMASTER_KEYWORDS + ("racing wheel",)
 
 
 # =============================================================================
@@ -171,13 +209,30 @@ def clamp(value: float, minimum: float, maximum: float) -> float:
     return max(minimum, min(maximum, value))
 
 
-def is_wheel_name(name: str) -> bool:
+def _name_matches(name: str, keywords: tuple[str, ...]) -> bool:
     lowered = name.lower()
-    return any(keyword in lowered for keyword in WHEEL_NAME_KEYWORDS)
+    return any(keyword in lowered for keyword in keywords)
+
+
+def is_wheel_name(name: str) -> bool:
+    return _name_matches(name, WHEEL_NAME_KEYWORDS)
+
+
+def is_logitech_name(name: str) -> bool:
+    return _name_matches(name, LOGITECH_KEYWORDS)
+
+
+def is_thrustmaster_name(name: str) -> bool:
+    return _name_matches(name, THRUSTMASTER_KEYWORDS)
 
 
 def pedal_from_raw_255(value: int) -> float:
     return clamp((255.0 - float(value)) / 255.0, 0.0, 1.0)
+
+
+def pedal_from_raw_1023(value: int) -> float:
+    # Thrustmaster pedals report 1023 = released, 0 = fully pressed.
+    return clamp((1023.0 - float(value)) / 1023.0, 0.0, 1.0)
 
 
 def pedal_from_axis(value: int, released: int, minimum: int = -32767, maximum: int = 32767) -> float:
@@ -238,10 +293,13 @@ class WheelReader:
 
 
 class HidrawWheelReader(WheelReader):
-    """Direct HID input reader.
+    """Direct HID input reader (Logitech report layout).
 
     This is the preferred path. Controls come from HID, not evdev.
     """
+
+    report_id = HIDRAW_REPORT_ID
+    read_size = HIDRAW_READ_SIZE
 
     def __init__(self, path: str):
         self.path = path
@@ -269,7 +327,7 @@ class HidrawWheelReader(WheelReader):
 
             while self.running:
                 try:
-                    data = os.read(self.fd, HIDRAW_INPUT_REPORT_SIZE)
+                    data = os.read(self.fd, self.read_size)
                 except BlockingIOError:
                     break
                 except OSError:
@@ -281,7 +339,7 @@ class HidrawWheelReader(WheelReader):
         if len(data) < HIDRAW_INPUT_REPORT_SIZE:
             return
 
-        if data[0] != HIDRAW_REPORT_ID:
+        if data[0] != self.report_id:
             return
 
         steering_raw = data[4] | (data[5] << 8)
@@ -311,6 +369,34 @@ class HidrawWheelReader(WheelReader):
             os.close(self.fd)
         except OSError:
             pass
+
+
+class ThrustmasterHidrawWheelReader(HidrawWheelReader):
+    """Direct HID input reader for Thrustmaster wheels (e.g. T598).
+
+    Reuses the threaded read loop; only the report parsing differs. See the
+    TM_HIDRAW_REPORT_ID notes for the report 0x07 layout.
+    """
+
+    report_id = TM_HIDRAW_REPORT_ID
+
+    def _handle_report(self, data: bytes) -> None:
+        # Need bytes 0..6 (report id, steering, brake, throttle).
+        if len(data) < 7 or data[0] != self.report_id:
+            return
+
+        steering_raw = data[1] | (data[2] << 8)
+        brake_raw = data[3] | (data[4] << 8)
+        throttle_raw = data[5] | (data[6] << 8)
+
+        state = WheelState(
+            steering=steering_from_raw_u16(steering_raw),
+            throttle=pedal_from_raw_1023(throttle_raw),
+            brake=pedal_from_raw_1023(brake_raw),
+        )
+
+        with self.lock:
+            self.state = state
 
 
 class JoystickWheelReader(WheelReader):
@@ -433,8 +519,12 @@ def find_hidraw_reader() -> tuple[WheelReader, str] | None:
         if not phys.endswith("/input0"):
             continue
 
+        reader_cls = (
+            ThrustmasterHidrawWheelReader if is_thrustmaster_name(name) else HidrawWheelReader
+        )
+
         try:
-            return HidrawWheelReader(path), f"{path}: {name} via HID raw input"
+            return reader_cls(path), f"{path}: {name} via HID raw input"
         except OSError:
             continue
 
@@ -485,7 +575,7 @@ def find_wheel_reader() -> tuple[WheelReader, str, bool]:
         reader, description = joystick_reader
         return reader, description, True
 
-    raise RuntimeError("No readable Logitech G923-compatible wheel input was found")
+    raise RuntimeError("No readable Logitech/Thrustmaster wheel input was found")
 
 
 # =============================================================================
@@ -599,6 +689,68 @@ class HidrawLg4ffForceFeedback(ForceFeedback):
             pass
 
 
+class EvdevForceFeedback(ForceFeedback):
+    """Standard Linux input FF_CONSTANT force feedback.
+
+    Works with any FF-capable evdev device, including Thrustmaster wheels driven by
+    hid-tmff2 (the Logitech LG4FF HID command set does not apply to those). The node
+    outputs a normalized force; the wheelbase's own gain sets the physical Nm, so this
+    is correct for a direct-drive base like the T598 without hard-coding its torque.
+    """
+
+    def __init__(self, path: str):
+        self.path = path
+        self.fd = os.open(path, os.O_RDWR)
+        self.effect_id = -1
+        self.last_level: int | None = None
+        self._upload(0)  # allocate the effect (raises OSError if the device has no FF)
+        self._play()
+
+    def _pack_effect(self, level: int) -> bytearray:
+        buf = bytearray(FF_EFFECT_SIZE)
+        # type, id, direction, trigger.button, trigger.interval, replay.length, replay.delay
+        struct.pack_into(
+            "<HhHHHHH", buf, 0, FF_CONSTANT, self.effect_id, FF_DIRECTION, 0, 0, 0, 0
+        )
+        # ff_constant_effect.level lives at offset 16 (after 2 bytes of union alignment pad).
+        struct.pack_into("<h", buf, 16, level)
+        return buf
+
+    def _upload(self, level: int) -> None:
+        buf = self._pack_effect(level)
+        fcntl.ioctl(self.fd, EVIOCSFF, buf, True)  # writes the assigned id back into buf
+        self.effect_id = struct.unpack_from("<h", buf, 2)[0]
+
+    def _play(self) -> None:
+        # input_event{ time(16), type, code, value } -> start the effect, play indefinitely.
+        os.write(self.fd, struct.pack("<qqHHi", 0, 0, EV_FF, self.effect_id, 1))
+
+    def set_torque(self, torque_nm: float) -> None:
+        normalized = clamp(torque_nm / max(MAX_FORCE_FEEDBACK_TORQUE_NM, 1e-9), -1.0, 1.0)
+        level = int(round(normalized * 32767.0))
+
+        if level == self.last_level:
+            return
+
+        try:
+            self._upload(level)  # re-uploading the same id updates the live force
+            self.last_level = level
+        except OSError:
+            pass
+
+    def close(self) -> None:
+        try:
+            self.set_torque(0.0)
+            fcntl.ioctl(self.fd, EVIOCRMFF, self.effect_id)
+        except OSError:
+            pass
+
+        try:
+            os.close(self.fd)
+        except OSError:
+            pass
+
+
 class NullForceFeedback(ForceFeedback):
     def set_torque(self, torque_nm: float) -> None:
         return
@@ -611,7 +763,10 @@ def find_hidraw_force_feedback() -> tuple[ForceFeedback, str] | None:
         except OSError:
             continue
 
-        if not is_wheel_name(name):
+        # The LG4FF command set is Logitech-specific. Never send it to other wheels
+        # (e.g. Thrustmaster) -- it does nothing useful and could confuse the device.
+        # Thrustmaster FFB needs the hid-tmff2 driver + evdev FF_CONSTANT instead.
+        if not is_logitech_name(name):
             continue
 
         # Use the same HID interface as the input reader.
@@ -626,8 +781,31 @@ def find_hidraw_force_feedback() -> tuple[ForceFeedback, str] | None:
     return None
 
 
+def find_evdev_force_feedback() -> tuple[ForceFeedback, str] | None:
+    """Force feedback via evdev FF_CONSTANT (Thrustmaster / hid-tmff2)."""
+    for sysdir in sorted(glob.glob("/sys/class/input/event*")):
+        try:
+            with open(os.path.join(sysdir, "device", "name"), encoding="utf-8") as f:
+                name = f.read().strip()
+        except OSError:
+            continue
+
+        # Only Thrustmaster here; Logitech keeps its working LG4FF hidraw path below.
+        if not is_thrustmaster_name(name):
+            continue
+
+        node = os.path.join("/dev/input", os.path.basename(sysdir))
+        try:
+            return EvdevForceFeedback(node), f"{node}: {name} via evdev FF_CONSTANT"
+        except OSError:
+            # No FF yet (driver not loaded) or node/permission missing.
+            continue
+
+    return None
+
+
 def find_force_feedback() -> tuple[ForceFeedback, str] | None:
-    return find_hidraw_force_feedback()
+    return find_evdev_force_feedback() or find_hidraw_force_feedback()
 
 
 # =============================================================================
@@ -670,17 +848,9 @@ class WheelNode(Node):
             qos,
         )
 
-        self.lap_current_subscription = self.create_subscription(
-            LapCurrent,
-            LAP_CURRENT_TOPIC,
-            self.lap_current_callback,
-            10,
-        )
-
         self.force_lock = threading.Lock()
         self.target_wheel_torque_nm = 0.0
         self.current_wheel_torque_nm = 0.0
-        self.filtered_mz = 0.0
         self.last_force_feedback_time = 0.0
         self.last_force_update_time = time.monotonic()
 
@@ -692,11 +862,6 @@ class WheelNode(Node):
         self.asphalt_vibration_phase = 0.0
         self.motor_vibration_phase = 0.0
         self.current_vibration_amplitude_nm = 0.0
-
-        self.cone_hit_lock = threading.Lock()
-        self.last_cone_count = 0
-        self.cone_hit_start_time = 0.0
-        self.cone_hit_phase = 0.0
 
         self.get_logger().info(f"Using wheel input {description}")
 
@@ -794,38 +959,6 @@ class WheelNode(Node):
             self.vehicle_velocity_x = abs(float(msg.velocity_x))
             self.vehicle_average_rpm = average_rpm
             self.last_vehicle_state_time = time.monotonic()
-
-    def lap_current_callback(self, msg: LapCurrent) -> None:
-        cones_hit = int(msg.current_lap_cones_hit)
-        with self.cone_hit_lock:
-            if cones_hit > self.last_cone_count:
-                self.get_logger().warn(
-                    f"💥 CONE HIT DETECTED! Cones hit count increased ({self.last_cone_count} -> {cones_hit}). Triggering steering wheel hit vibration!"
-                )
-                self.cone_hit_start_time = time.monotonic()
-            self.last_cone_count = cones_hit
-
-    def compute_cone_hit_vibration_torque(self, dt: float, now: float) -> float:
-        with self.cone_hit_lock:
-            start_time = self.cone_hit_start_time
-
-        if start_time <= 0.0:
-            return 0.0
-
-        elapsed = now - start_time
-        if elapsed >= CONE_HIT_VIBRATION_DURATION_SECONDS:
-            return 0.0
-
-        # Linear decay envelope from 1.0 down to 0.0 over the impact duration
-        decay = 1.0 - (elapsed / CONE_HIT_VIBRATION_DURATION_SECONDS)
-
-        two_pi = 2.0 * math.pi
-        self.cone_hit_phase += two_pi * CONE_HIT_VIBRATION_FREQUENCY_HZ * dt
-        self.cone_hit_phase %= two_pi
-
-        # Sharp tactile impact pulse
-        pulse = 1.0 if math.sin(self.cone_hit_phase) > 0.0 else -1.0
-        return CONE_HIT_VIBRATION_AMPLITUDE_NM * decay * pulse
 
     def compute_vibration_torque(self, dt: float, now: float) -> float:
         if not ENABLE_FORCE_FEEDBACK_VIBRATION:
@@ -935,9 +1068,8 @@ class WheelNode(Node):
             self.current_wheel_torque_nm = 0.0
 
         vibration_torque = self.compute_vibration_torque(dt, now)
-        cone_hit_torque = self.compute_cone_hit_vibration_torque(dt, now)
 
-        final_torque = self.current_wheel_torque_nm + vibration_torque + cone_hit_torque
+        final_torque = (self.current_wheel_torque_nm + vibration_torque) * FORCE_FEEDBACK_GAIN
 
         final_torque = clamp(
             final_torque,

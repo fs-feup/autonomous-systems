@@ -5,6 +5,8 @@
 #include <string>
 
 #include "FSFEUP02.hpp"
+#include "rk4_state_est_model.hpp"
+#include "state_est_model.hpp"
 #include "FSFEUP03.hpp"
 #include "vehicle_model.hpp"
 
@@ -20,8 +22,14 @@ const std::map<std::string,
          [](const InvictaSimParameters& params) -> std::shared_ptr<VehicleModel> {
            return std::make_shared<FSFEUP02Model>(params);
          }},
-        {"03",
+        {"StateEstModel",
          [](const InvictaSimParameters& params) -> std::shared_ptr<VehicleModel> {
-           return std::make_shared<FSFEUP03Model>(params);
          }},
+        {"rk4StateEstModel",
+         [](const InvictaSimParameters& params) -> std::shared_ptr<VehicleModel> {
+           return std::make_shared<RK4StateEstModel>(params);
+         }},
+         {"03",
+         [](const InvictaSimParameters& params) -> std::shared_ptr<VehicleModel> {
+         }}
 };

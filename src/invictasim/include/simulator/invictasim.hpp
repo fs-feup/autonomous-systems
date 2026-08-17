@@ -4,6 +4,7 @@
 #include <chrono>
 #include <memory>
 #include <mutex>
+#include <vector>
 
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/wheels.hpp"
@@ -92,8 +93,7 @@ public:
    */
   bool is_ebs_active() const {
     std::lock_guard<std::mutex> lock(input_mutex_);
-    return ebs_active_;
-  }
+    return ebs_active_; }
 
   /**
    * @brief Get the simulator configuration parameters. Used by adapters to get car config.

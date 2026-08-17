@@ -37,6 +37,8 @@ set(IMPLEMENTATION_FILES
   src/io/input/keyboard.cpp
   src/config/config.cpp
   src/vehicle_model/FSFEUP02.cpp
+  src/vehicle_model/state_est_model.cpp
+  src/vehicle_model/rk4_state_est_model.cpp
   src/vehicle_model/FSFEUP03.cpp
   src/track/track.cpp
   src/statistics/collision_statistics.cpp

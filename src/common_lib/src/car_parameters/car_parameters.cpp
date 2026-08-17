@@ -14,6 +14,8 @@ common_lib::car_parameters::CarParameters::CarParameters() {
   this->wheelbase = config["car"]["wheel_base"].as<double>();
   this->track_width = config["car"]["track_width"].as<double>();
   this->cg_2_rear_axis = config["car"]["cg_2_rear_axis"].as<double>();
+  this->imu_position_x = config["car"]["imu_position_x"].as<double>(0.0);
+  this->imu_yaw_offset = config["car"]["imu_yaw_offset"].as<double>(0.0);
   this->gear_ratio = config["car"]["gear_ratio"].as<double>();
   this->sprung_mass = config["car"]["sprung_mass"].as<double>();
   this->unsprung_mass = config["car"]["unsprung_mass"].as<double>();
@@ -57,6 +59,8 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
   this->wheelbase = car_config["car"]["wheel_base"].as<double>();
   this->track_width = car_config["car"]["track_width"].as<double>();
   this->cg_2_rear_axis = car_config["car"]["cg_2_rear_axis"].as<double>();
+  this->imu_position_x = car_config["car"]["imu_position_x"].as<double>(0.0);
+  this->imu_yaw_offset = car_config["car"]["imu_yaw_offset"].as<double>(0.0);
   this->gear_ratio = car_config["car"]["gear_ratio"].as<double>();
   this->sprung_mass = car_config["car"]["sprung_mass"].as<double>();
   this->unsprung_mass = car_config["car"]["unsprung_mass"].as<double>();

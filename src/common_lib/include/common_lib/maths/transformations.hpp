@@ -55,4 +55,14 @@ Eigen::VectorXd global_to_local_coordinates(const Eigen::Vector3d& local_referen
  */
 Eigen::VectorXd local_to_global_coordinates(const Eigen::Vector3d& local_reference_frame,
                                             const Eigen::VectorXd& local_points);
+
+/**
+ * @brief Rotate a vector from the IMU local (ENU navigation) frame into the sensor/body frame.
+ *
+ * @param vector_local vector expressed in the local frame
+ * @param orientation sensor orientation quaternion (sensor -> local)
+ * @return Eigen::Vector3d the vector expressed in the sensor frame
+ */
+Eigen::Vector3d local_to_sensor_frame(const Eigen::Vector3d& vector_local,
+                                      const Eigen::Quaterniond& orientation);
 }  // namespace common_lib::maths

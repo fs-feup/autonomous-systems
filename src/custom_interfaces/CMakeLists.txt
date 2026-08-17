@@ -59,6 +59,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BatteryState.msg"
   "msg/MotorState.msg"
   "msg/ExecutionTimes.msg"
+  "msg/SensorHealth.msg"
   "msg/LapStatistics.msg"
   "msg/LapSummary.msg"
   "msg/LapCurrent.msg"
