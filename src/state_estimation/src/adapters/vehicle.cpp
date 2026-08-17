@@ -99,9 +99,7 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& fl_whe
 
 void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {
   // Convert to wheel steering angle [rad].
-  const double steering_angle =
-      msg.steering_angle / this->_params_->car_parameters_->steering_motor_to_wheel_ratio;
-  this->_state_estimator_->steering_callback(steering_angle, rclcpp::Time(msg.header.stamp));
+  this->_state_estimator_->steering_callback(msg.steering_angle, rclcpp::Time(msg.header.stamp));
 }
 
 void VehicleAdapter::resolver_callback(custom_interfaces::msg::WheelRPM msg) {

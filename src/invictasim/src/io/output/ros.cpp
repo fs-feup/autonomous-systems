@@ -94,6 +94,8 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   operational_status_pub_ = this->create_publisher<custom_interfaces::msg::OperationalStatus>(
       "invictasim/operational_status", 10);
 
+  // Load configs and setup timers
+  load_visualization_resources();
   load_publish_frequencies(config_file);
   setup_timers();
 }
@@ -125,86 +127,100 @@ void RosOutputAdapter::load_publish_frequencies(const std::string& config_file) 
 }
 
 void RosOutputAdapter::map_callbacks() {
+  const auto refresh_vehicle_model = [this]() { refresh_vehicle_model_snapshot(); };
+  const auto refresh_execution_times = [this]() { refresh_execution_times_snapshot(); };
+  const auto refresh_map = [this]() { refresh_map_snapshot(); };
+  const auto refresh_sensors = [this]() { refresh_sensors_snapshot(); };
+  const auto refresh_vehicle_state = [this]() { refresh_vehicle_state_snapshot(); };
+  const auto refresh_statistics = [this]() { refresh_statistics_snapshot(); };
+
   // Vehicle model
-  register_pub_helper("tire", [this](const rclcpp::Time& stamp) { publish_vm_tire(stamp); });
-  register_pub_helper("motor", [this](const rclcpp::Time& stamp) { publish_vm_motor(stamp); });
-  register_pub_helper("battery", [this](const rclcpp::Time& stamp) { publish_vm_battery(stamp); });
-  register_pub_helper("transmission",
+  register_pub_helper("tire", refresh_vehicle_model,
+                      [this](const rclcpp::Time& stamp) { publish_vm_tire(stamp); });
+  register_pub_helper("motor", refresh_vehicle_model,
+                      [this](const rclcpp::Time& stamp) { publish_vm_motor(stamp); });
+  register_pub_helper("battery", refresh_vehicle_model,
+                      [this](const rclcpp::Time& stamp) { publish_vm_battery(stamp); });
+  register_pub_helper("transmission", refresh_vehicle_model,
                       [this](const rclcpp::Time& stamp) { publish_vm_transmission(stamp); });
-  register_pub_helper("aero", [this](const rclcpp::Time& stamp) { publish_vm_aero(stamp); });
-  register_pub_helper("status", [this](const rclcpp::Time& stamp) {
+  register_pub_helper("aero", refresh_vehicle_model,
+                      [this](const rclcpp::Time& stamp) { publish_vm_aero(stamp); });
+  register_pub_helper("status", refresh_vehicle_model, [this](const rclcpp::Time& stamp) {
     publish_vm_status(stamp);
     publish_input(stamp);
   });
 
   // Visualization
-  register_pub_helper("car",
+  register_pub_helper("car", refresh_vehicle_model,
                       [this](const rclcpp::Time& stamp) { publish_visualization_car(stamp); });
-  register_pub_helper("ground",
+  register_pub_helper("ground", refresh_map,
                       [this](const rclcpp::Time& stamp) { publish_visualization_ground(stamp); });
-  register_pub_helper("ground_truth_cones",
+  register_pub_helper("ground_truth_cones", refresh_map,
                       [this](const rclcpp::Time& stamp) { publish_visualization_gt_cones(stamp); });
 
   // Sensors
-  register_pub_helper("imu", [this](const rclcpp::Time& stamp) { publish_sensors_imu(stamp); });
-  register_pub_helper("wheel_speed",
+  register_pub_helper("imu", refresh_sensors,
+                      [this](const rclcpp::Time& stamp) { publish_sensors_imu(stamp); });
+  register_pub_helper("wheel_speed", refresh_sensors,
                       [this](const rclcpp::Time& stamp) { publish_sensors_wheel_speed(stamp); });
-  register_pub_helper("resolver",
+  register_pub_helper("resolver", refresh_sensors,
                       [this](const rclcpp::Time& stamp) { publish_sensors_resolver(stamp); });
-  register_pub_helper("steering",
+  register_pub_helper("steering", refresh_sensors,
                       [this](const rclcpp::Time& stamp) { publish_sensors_steering(stamp); });
 
   // Map
-  register_pub_helper("ground_truth",
+  register_pub_helper("ground_truth", refresh_map,
                       [this](const rclcpp::Time& stamp) { publish_map_ground_truth(stamp); });
 
   // Operational status
-  register_pub_helper("operational_status",
+  register_pub_helper("operational_status", refresh_vehicle_state,
                       [this](const rclcpp::Time& stamp) { publish_operational_status(stamp); });
 
   // Exec times
-  register_pub_helper("execution_time",
+  register_pub_helper("execution_time", refresh_execution_times,
                       [this](const rclcpp::Time& stamp) { publish_execution_time(stamp); });
 
   // Statistics
-  register_pub_helper("lap_summary",
+  register_pub_helper("lap_summary", refresh_statistics,
                       [this](const rclcpp::Time& stamp) { publish_lap_summary(stamp); });
-  register_pub_helper("lap_current",
+  register_pub_helper("lap_current", refresh_statistics,
                       [this](const rclcpp::Time& stamp) { publish_lap_current(stamp); });
-  register_pub_helper("control_statistics",
+  register_pub_helper("control_statistics", refresh_statistics,
                       [this](const rclcpp::Time& stamp) { publish_control_statistics(stamp); });
 
   // SLAM Cones Visualization (either external or simulated)
-  register_pub_helper(
-      "slam_cones", [this](const rclcpp::Time& stamp) { publish_visualization_slam_cones(stamp); });
+  register_pub_helper("slam_cones", refresh_map, [this](const rclcpp::Time& stamp) {
+    publish_visualization_slam_cones(stamp);
+  });
 
   // Perception Cones Visualization (either external or simulated)
-  register_pub_helper("perception_cones", [this](const rclcpp::Time& stamp) {
+  register_pub_helper("perception_cones", refresh_map, [this](const rclcpp::Time& stamp) {
     publish_visualization_perception_cones(stamp);
   });
 
   // Simulated state estimation
   if (simulator_->get_params().use_simulated_se) {
-    register_pub_helper("simulated_slam",
+    register_pub_helper("simulated_slam", refresh_map,
                         [this](const rclcpp::Time& stamp) { publish_state_estimation_map(stamp); });
-    register_pub_helper("lap_counter",
+    register_pub_helper("lap_counter", refresh_statistics,
                         [this](const rclcpp::Time&) { publish_state_estimation_lap_counter(); });
-    register_pub_helper(
-        "pose", [this](const rclcpp::Time& stamp) { publish_state_estimation_pose(stamp); });
-    register_pub_helper("state_vector", [this](const rclcpp::Time& stamp) {
+    register_pub_helper("pose", refresh_vehicle_state, [this](const rclcpp::Time& stamp) {
+      publish_state_estimation_pose(stamp);
+    });
+    register_pub_helper("state_vector", refresh_vehicle_state, [this](const rclcpp::Time& stamp) {
       publish_state_estimation_state_vector(stamp);
     });
   }
 
   // Simulated perception
   if (simulator_->get_params().use_simulated_perception) {
-    register_pub_helper("perception",
+    register_pub_helper("perception", refresh_map,
                         [this](const rclcpp::Time& stamp) { publish_perception_cones(stamp); });
   }
 
   // Simulated velocities
   if (simulator_->get_params().use_simulated_velocities) {
-    register_pub_helper("velocities", [this](const rclcpp::Time& stamp) {
+    register_pub_helper("velocities", refresh_vehicle_state, [this](const rclcpp::Time& stamp) {
       publish_state_estimation_velocities(stamp);
     });
   }
@@ -224,9 +240,14 @@ void RosOutputAdapter::load_group_from_yaml(const YAML::Node& config,
 }
 
 void RosOutputAdapter::register_pub_helper(const std::string& topic,
+                                           std::function<void()> refresh_snapshot,
                                            std::function<void(const rclcpp::Time&)> func) {
   if (topic_frequencies_.count(topic) && topic_frequencies_[topic] > 0) {
-    frequency_callbacks_[topic_frequencies_[topic]].push_back(func);
+    const int frequency = topic_frequencies_[topic];
+    frequency_callbacks_[frequency].push_back([refresh_snapshot, func](const rclcpp::Time& stamp) {
+      refresh_snapshot();
+      func(stamp);
+    });
   }
 }
 
@@ -242,16 +263,14 @@ void RosOutputAdapter::setup_timers() {
   }
 }
 
+void RosOutputAdapter::load_visualization_resources() {
+  load_cone_visualization_resources();
+  load_ground_visualization_resources();
+  load_car_visualization_resources();
+}
+
 void RosOutputAdapter::on_frequency_tick(int frequency_hz) {
   const rclcpp::Time stamp = this->now();
-
-  // Refresh snapshots
-  refresh_vehicle_model_snapshot();
-  refresh_execution_times_snapshot();
-  refresh_map_snapshot();
-  refresh_sensors_snapshot();
-  refresh_vehicle_state_snapshot();
-  refresh_statistics_snapshot();
 
   // Execute functions for this frequency
   for (const auto& publish_func : frequency_callbacks_[frequency_hz]) {
@@ -516,6 +535,7 @@ void RosOutputAdapter::publish_execution_time(const rclcpp::Time& stamp) {
   times_msg.steering_ms = execution_times_snapshot_cache_.steering_ms;
   times_msg.load_transfer_ms = execution_times_snapshot_cache_.load_transfer_ms;
   times_msg.tire_ms = execution_times_snapshot_cache_.tire_ms;
+  times_msg.integration_ms = execution_times_snapshot_cache_.integration_ms;
   times_msg.total_step_ms = execution_times_snapshot_cache_.total_step_ms;
   execution_times_pub_->publish(times_msg);
 }
@@ -636,7 +656,6 @@ void RosOutputAdapter::publish_visualization_car(const rclcpp::Time& stamp) {
     dt = 0.0;
   }
   visualization_msgs::msg::MarkerArray vehicle_marker_array;
-  visualization_msgs::msg::MarkerArray track_marker_array;
 
   add_vehicle_transform(stamp);
   add_body_marker(vehicle_marker_array, stamp);
@@ -648,33 +667,13 @@ void RosOutputAdapter::publish_visualization_car(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
-  visualization_msgs::msg::MarkerArray ground_marker_array;
-  const GroundVisualConfig ground_config = load_ground_visual_config();
-  visualization_msgs::msg::Marker ground;
-  ground.header.stamp = stamp;
-  ground.header.frame_id = "map";
-  ground.ns = "invictasim_ground";
-  ground.id = 100;
-  ground.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
-  ground.action = visualization_msgs::msg::Marker::ADD;
-  ground.pose.position.x = ground_config.position_x;
-  ground.pose.position.y = ground_config.position_y;
-  ground.pose.position.z = ground_config.position_z;
-  ground.pose.orientation.x = 0.0;
-  ground.pose.orientation.y = 0.0;
-  ground.pose.orientation.z = 0.0;
-  ground.pose.orientation.w = 1.0;
-  ground.scale.x = ground_config.scale_x;
-  ground.scale.y = ground_config.scale_y;
-  ground.scale.z = ground_config.scale_z;
-  ground.color.a = static_cast<float>(ground_config.color_a);
-  ground.color.r = static_cast<float>(ground_config.color_r);
-  ground.color.g = static_cast<float>(ground_config.color_g);
-  ground.color.b = static_cast<float>(ground_config.color_b);
-  ground.mesh_resource = "package://invictasim/resources/meshes/ground/ground_plane.dae";
-  ground.mesh_use_embedded_materials = true;
-  ground_marker_array.markers.push_back(ground);
-  add_timing_line_markers(ground_marker_array, stamp);
+  visualization_msgs::msg::MarkerArray ground_marker_array = ground_marker_template_;
+  for (auto& marker : ground_marker_array.markers) {
+    marker.header.stamp = stamp;
+  }
+  if (use_generated_track_visualization_) {
+    add_track_surface_markers(ground_marker_array, map_snapshot_cache_.ground_truth, stamp);
+  }
   visualization_ground_pub_->publish(ground_marker_array);
 }
 
@@ -699,79 +698,136 @@ void RosOutputAdapter::publish_visualization_perception_cones(const rclcpp::Time
   visualization_perception_cones_pub_->publish(perception_marker_array);
 }
 
-RosOutputAdapter::ConeVisualConfig RosOutputAdapter::load_cone_visual_config() const {
-  ConeVisualConfig cone_config;
+void RosOutputAdapter::load_cone_visualization_resources() {
   const std::string path =
       std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/cones/config.yaml";
   const YAML::Node config = YAML::LoadFile(path);
 
+  double hitbox_z = 0.02;
+  double hitbox_height = 0.04;
+  double hitbox_alpha = 0.35;
   const YAML::Node hitboxes = config["visualization"]["hitboxes"];
   if (hitboxes) {
-    cone_config.visualize_hitboxes = hitboxes["visualize"].as<bool>(cone_config.visualize_hitboxes);
-    cone_config.hitbox_z = hitboxes["z"].as<double>(cone_config.hitbox_z);
-    cone_config.hitbox_height = hitboxes["height"].as<double>(cone_config.hitbox_height);
-    cone_config.hitbox_alpha = hitboxes["alpha"].as<double>(cone_config.hitbox_alpha);
+    visualize_cone_hitboxes_ = hitboxes["visualize"].as<bool>(visualize_cone_hitboxes_);
+    hitbox_z = hitboxes["z"].as<double>(hitbox_z);
+    hitbox_height = hitboxes["height"].as<double>(hitbox_height);
+    hitbox_alpha = hitboxes["alpha"].as<double>(hitbox_alpha);
   }
 
   const YAML::Node collision = config["collision"];
   if (collision) {
-    cone_config.standard_radius =
-        collision["standard_radius"].as<double>(cone_config.standard_radius);
-    cone_config.large_radius = collision["large_radius"].as<double>(cone_config.large_radius);
-    cone_config.hit_match_distance =
-        collision["hit_match_distance"].as<double>(cone_config.hit_match_distance);
+    cone_standard_radius_ = collision["standard_radius"].as<double>(cone_standard_radius_);
+    cone_large_radius_ = collision["large_radius"].as<double>(cone_large_radius_);
+    cone_hit_match_distance_ = collision["hit_match_distance"].as<double>(cone_hit_match_distance_);
   }
 
-  return cone_config;
+  cone_hitbox_marker_template_.ns = "cone_hitboxes";
+  cone_hitbox_marker_template_.type = visualization_msgs::msg::Marker::CYLINDER;
+  cone_hitbox_marker_template_.action = visualization_msgs::msg::Marker::ADD;
+  cone_hitbox_marker_template_.pose.position.z = hitbox_z;
+  cone_hitbox_marker_template_.pose.orientation.w = 1.0;
+  cone_hitbox_marker_template_.scale.z = hitbox_height;
+  cone_hitbox_marker_template_.color.r = 0.0f;
+  cone_hitbox_marker_template_.color.g = 0.8f;
+  cone_hitbox_marker_template_.color.b = 1.0f;
+  cone_hitbox_marker_template_.color.a = static_cast<float>(hitbox_alpha);
 }
 
-RosOutputAdapter::GroundVisualConfig RosOutputAdapter::load_ground_visual_config() const {
-  GroundVisualConfig ground_config;
+void RosOutputAdapter::load_ground_visualization_resources() {
   const std::string path =
       std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/ground/config.yaml";
   const YAML::Node config = YAML::LoadFile(path);
+  double position_x = 0.0;
+  double position_y = 0.0;
+  double position_z = -0.02;
+  double scale_x = 400.0;
+  double scale_y = 400.0;
+  double color_a = 1.0;
+  double timing_line_target_cell_length = 0.5;
+  int timing_line_row_count = 2;
+  double timing_line_total_width = 0.45;
+  double timing_line_z = 0.01;
+  double timing_line_height = 0.02;
 
   const YAML::Node visualization = config["visualization"];
-  if (!visualization) {
-    return ground_config;
+  if (visualization) {
+    const std::string track_visualization =
+        visualization["track_visualization"].as<std::string>("generated_track");
+    use_generated_track_visualization_ = track_visualization != "asphalt_texture_everywhere";
+
+    const YAML::Node track_surface = visualization["track_surface"];
+    if (track_surface) {
+      track_surface_max_boundary_segment_length_ =
+          track_surface["max_boundary_segment_length"].as<double>(
+              track_surface_max_boundary_segment_length_);
+      track_surface_max_loop_segment_length_ = track_surface["max_loop_segment_length"].as<double>(
+          track_surface_max_loop_segment_length_);
+      track_surface_cone_clearance_ =
+          track_surface["cone_clearance"].as<double>(track_surface_cone_clearance_);
+      track_surface_curb_width_ = track_surface["curb_width"].as<double>(track_surface_curb_width_);
+      track_surface_curb_block_length_ =
+          track_surface["curb_block_length"].as<double>(track_surface_curb_block_length_);
+      track_surface_curb_z_ = track_surface["curb_z"].as<double>(track_surface_curb_z_);
+      track_surface_asphalt_z_ = track_surface["asphalt_z"].as<double>(track_surface_asphalt_z_);
+    }
+
+    const YAML::Node position = visualization["position"];
+    if (position) {
+      position_x = position["x"].as<double>(position_x);
+      position_y = position["y"].as<double>(position_y);
+      position_z = position["z"].as<double>(position_z);
+    }
+
+    const YAML::Node scale = visualization["scale"];
+    if (scale) {
+      scale_x = scale["x"].as<double>(scale_x);
+      scale_y = scale["y"].as<double>(scale_y);
+    }
+
+    const YAML::Node color = visualization["color"];
+    if (color) {
+      color_a = color["a"].as<double>(color_a);
+    }
+
+    const YAML::Node timing_line = visualization["timing_line"];
+    if (timing_line) {
+      timing_line_target_cell_length =
+          timing_line["target_cell_length"].as<double>(timing_line_target_cell_length);
+      timing_line_row_count = timing_line["row_count"].as<int>(timing_line_row_count);
+      timing_line_total_width = timing_line["total_width"].as<double>(timing_line_total_width);
+      timing_line_z = timing_line["z"].as<double>(timing_line_z);
+      timing_line_height = timing_line["height"].as<double>(timing_line_height);
+    }
   }
 
-  const YAML::Node position = visualization["position"];
-  if (position) {
-    ground_config.position_x = position["x"].as<double>(ground_config.position_x);
-    ground_config.position_y = position["y"].as<double>(ground_config.position_y);
-    ground_config.position_z = position["z"].as<double>(ground_config.position_z);
+  visualization_msgs::msg::Marker ground;
+  ground.header.frame_id = "map";
+  ground.ns = "invictasim_ground";
+  ground.id = 100;
+  ground.type = use_generated_track_visualization_ ? visualization_msgs::msg::Marker::CUBE
+                                                   : visualization_msgs::msg::Marker::MESH_RESOURCE;
+  ground.action = visualization_msgs::msg::Marker::ADD;
+  ground.pose.position.x = position_x;
+  ground.pose.position.y = position_y;
+  ground.pose.position.z = position_z;
+  ground.pose.orientation.w = 1.0;
+  ground.scale.x = scale_x;
+  ground.scale.y = scale_y;
+  ground.scale.z = use_generated_track_visualization_ ? 0.02 : 1.0;
+  ground.color.r = use_generated_track_visualization_ ? 0.28f : 1.0f;
+  ground.color.g = use_generated_track_visualization_ ? 0.42f : 1.0f;
+  ground.color.b = use_generated_track_visualization_ ? 0.22f : 1.0f;
+  ground.color.a = static_cast<float>(color_a);
+  if (!use_generated_track_visualization_) {
+    ground.mesh_resource = "package://invictasim/resources/meshes/ground/asphalt_plane.dae";
+    ground.mesh_use_embedded_materials = true;
   }
 
-  const YAML::Node scale = visualization["scale"];
-  if (scale) {
-    ground_config.scale_x = scale["x"].as<double>(ground_config.scale_x);
-    ground_config.scale_y = scale["y"].as<double>(ground_config.scale_y);
-    ground_config.scale_z = scale["z"].as<double>(ground_config.scale_z);
-  }
-
-  const YAML::Node color = visualization["color"];
-  if (color) {
-    ground_config.color_r = color["r"].as<double>(ground_config.color_r);
-    ground_config.color_g = color["g"].as<double>(ground_config.color_g);
-    ground_config.color_b = color["b"].as<double>(ground_config.color_b);
-    ground_config.color_a = color["a"].as<double>(ground_config.color_a);
-  }
-
-  const YAML::Node timing_line = visualization["timing_line"];
-  if (timing_line) {
-    ground_config.timing_line_target_cell_length =
-        timing_line["target_cell_length"].as<double>(ground_config.timing_line_target_cell_length);
-    ground_config.timing_line_row_count =
-        timing_line["row_count"].as<int>(ground_config.timing_line_row_count);
-    ground_config.timing_line_total_width =
-        timing_line["total_width"].as<double>(ground_config.timing_line_total_width);
-    ground_config.timing_line_z = timing_line["z"].as<double>(ground_config.timing_line_z);
-    ground_config.timing_line_height =
-        timing_line["height"].as<double>(ground_config.timing_line_height);
-  }
-
-  return ground_config;
+  ground_marker_template_.markers.clear();
+  ground_marker_template_.markers.push_back(ground);
+  add_timing_line_markers(ground_marker_template_, timing_line_target_cell_length,
+                          timing_line_row_count, timing_line_total_width, timing_line_z,
+                          timing_line_height);
 }
 
 visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_markers(
@@ -779,7 +835,7 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     const std::string& frame_id) const {
   visualization_msgs::msg::MarkerArray marker_array;
   int cone_id = 0;
-  const ConeVisualConfig cone_config = load_cone_visual_config();
+  static const std::string cone_mesh_path = "package://invictasim/resources/meshes/cones/";
   for (const auto& cone : cone_array) {
     visualization_msgs::msg::Marker m;
     m.header.stamp = stamp;
@@ -808,54 +864,42 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
     m.color.b = 1.0f;
     m.color.a = 1.0f;
 
-    std::string path = "package://invictasim/resources/meshes/cones/";
-
     switch (cone.color) {
       case common_lib::competition_logic::Color::BLUE:
-        m.mesh_resource = path + "cone_blue.dae";
+        m.mesh_resource = cone_mesh_path + "cone_blue.dae";
         break;
       case common_lib::competition_logic::Color::YELLOW:
-        m.mesh_resource = path + "cone_yellow.dae";
+        m.mesh_resource = cone_mesh_path + "cone_yellow.dae";
         break;
       case common_lib::competition_logic::Color::LARGE_ORANGE:
-        m.mesh_resource = path + "cone_orange_big.dae";
+        m.mesh_resource = cone_mesh_path + "cone_orange_big.dae";
         m.pose.position.z = 0.03;  // Adjusted height for large cone
         break;
       case common_lib::competition_logic::Color::RED:
-        m.mesh_resource = path + "cone_red.dae";
+        m.mesh_resource = cone_mesh_path + "cone_red.dae";
         break;
       case common_lib::competition_logic::Color::GREEN:
-        m.mesh_resource = path + "cone_green.dae";
+        m.mesh_resource = cone_mesh_path + "cone_green.dae";
         break;
       case common_lib::competition_logic::Color::ORANGE:
       default:
-        m.mesh_resource = path + "cone_orange.dae";
+        m.mesh_resource = cone_mesh_path + "cone_orange.dae";
         break;
     }
     marker_array.markers.push_back(m);
-    if (cone_config.visualize_hitboxes) {
+    if (visualize_cone_hitboxes_) {
       const bool is_large =
           cone.is_large || cone.color == common_lib::competition_logic::Color::LARGE_ORANGE;
-      const double radius = is_large ? cone_config.large_radius : cone_config.standard_radius;
-      visualization_msgs::msg::Marker hitbox;
+      const double radius = is_large ? cone_large_radius_ : cone_standard_radius_;
+      visualization_msgs::msg::Marker hitbox = cone_hitbox_marker_template_;
       hitbox.header = m.header;
       hitbox.frame_locked = m.frame_locked;
       hitbox.lifetime = m.lifetime;
-      hitbox.ns = "cone_hitboxes";
       hitbox.id = 10000 + current_cone_id;
-      hitbox.type = visualization_msgs::msg::Marker::CYLINDER;
-      hitbox.action = visualization_msgs::msg::Marker::ADD;
       hitbox.pose.position.x = cone.position.x;
       hitbox.pose.position.y = cone.position.y;
-      hitbox.pose.position.z = cone_config.hitbox_z;
-      hitbox.pose.orientation.w = 1.0;
       hitbox.scale.x = radius * 2.0;
       hitbox.scale.y = radius * 2.0;
-      hitbox.scale.z = cone_config.hitbox_height;
-      hitbox.color.r = 0.0f;
-      hitbox.color.g = 0.8f;
-      hitbox.color.b = 1.0f;
-      hitbox.color.a = static_cast<float>(cone_config.hitbox_alpha);
       marker_array.markers.push_back(hitbox);
     }
   }
@@ -864,10 +908,9 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
 
 std::vector<common_lib::structures::Cone> RosOutputAdapter::mark_recently_hit_cones_red(
     std::vector<common_lib::structures::Cone> cones) const {
-  const double same_cone_max_dist = load_cone_visual_config().hit_match_distance;
   for (auto& cone : cones) {
     for (const auto& hit_cone : map_snapshot_cache_.recently_hit_cones) {
-      if (cone.position.euclidean_distance(hit_cone.position) <= same_cone_max_dist) {
+      if (cone.position.euclidean_distance(hit_cone.position) <= cone_hit_match_distance_) {
         cone.color = common_lib::competition_logic::Color::RED;
         break;
       }
@@ -881,23 +924,90 @@ std::string RosOutputAdapter::get_car_mesh_resource(const std::string& mesh_name
          simulator_->get_params().car_parameters_config + "/" + mesh_name;
 }
 
-std::vector<RosOutputAdapter::HitboxVisual> RosOutputAdapter::load_car_hitboxes() const {
-  std::vector<HitboxVisual> hitboxes;
+void RosOutputAdapter::load_car_visualization_resources() {
   const std::string car_folder = simulator_->get_params().car_parameters_config;
   const std::string pos_file =
       std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" + car_folder + "/config.yaml";
-
   const YAML::Node config = YAML::LoadFile(pos_file);
+  const auto positions = load_car_mesh_positions(config);
+  const auto car_params = simulator_->get_params().car_parameters;
+  const double wheel_center_z = car_params->wheel_diameter * 0.5;
+  const double front_axle_x = car_params->wheelbase - car_params->cg_2_rear_axis;
+  const double rear_axle_x = -car_params->cg_2_rear_axis;
+  const double half_track = car_params->track_width * 0.5;
+
+  body_marker_template_.header.frame_id = "car";
+  body_marker_template_.frame_locked = true;
+  body_marker_template_.ns = "invictasim_vehicle";
+  body_marker_template_.id = 0;
+  body_marker_template_.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+  body_marker_template_.action = visualization_msgs::msg::Marker::ADD;
+  body_marker_template_.pose.orientation.w = 1.0;
+  body_marker_template_.scale.x = 1.0;
+  body_marker_template_.scale.y = 1.0;
+  body_marker_template_.scale.z = 1.0;
+  body_marker_template_.color.a = 1.0f;
+  body_marker_template_.color.r = 0.82f;
+  body_marker_template_.color.g = 0.02f;
+  body_marker_template_.color.b = 0.03f;
+  body_marker_template_.mesh_resource = get_car_mesh_resource("car_body.glb");
+  body_marker_template_.mesh_use_embedded_materials = car_folder != "02";
+
+  steering_marker_template_.header.frame_id = "car";
+  steering_marker_template_.frame_locked = true;
+  steering_marker_template_.ns = "invictasim_vehicle";
+  steering_marker_template_.id = 5;
+  steering_marker_template_.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+  steering_marker_template_.action = visualization_msgs::msg::Marker::ADD;
+  steering_marker_template_.pose.position.x = positions[0];
+  steering_marker_template_.pose.position.y = positions[1];
+  steering_marker_template_.pose.position.z = positions[2];
+  tf2::Quaternion steering_mount;
+  steering_mount.setRPY(positions[3], positions[4], positions[5]);
+  steering_marker_template_.pose.orientation.x = steering_mount.x();
+  steering_marker_template_.pose.orientation.y = steering_mount.y();
+  steering_marker_template_.pose.orientation.z = steering_mount.z();
+  steering_marker_template_.pose.orientation.w = steering_mount.w();
+  steering_rotation_multiplier_ = positions[9];
+  steering_marker_template_.scale.x = 1.0;
+  steering_marker_template_.scale.y = 1.0;
+  steering_marker_template_.scale.z = 1.0;
+  steering_marker_template_.color.a = 1.0f;
+  steering_marker_template_.mesh_resource = get_car_mesh_resource("steering.glb");
+  steering_marker_template_.mesh_use_embedded_materials = false;
+
+  const double local_x[4] = {front_axle_x, front_axle_x, rear_axle_x, rear_axle_x};
+  const double local_y[4] = {half_track, -half_track, half_track, -half_track};
+  for (int i = 0; i < 4; ++i) {
+    auto& wheel = wheel_marker_templates_[i];
+    wheel.header.frame_id = "car";
+    wheel.frame_locked = true;
+    wheel.ns = "invictasim_vehicle";
+    wheel.id = i + 1;
+    wheel.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+    wheel.action = visualization_msgs::msg::Marker::ADD;
+    wheel.pose.position.x = local_x[i] + positions[6];
+    wheel.pose.position.y = local_y[i] + positions[7];
+    wheel.pose.position.z = wheel_center_z + positions[8];
+    wheel.scale.x = 1.0;
+    wheel.scale.y = 1.0;
+    wheel.scale.z = 1.0;
+    wheel.color.a = 1.0f;
+    wheel.mesh_resource = get_car_mesh_resource(i < 2 ? "wheel_front.glb" : "wheel_back.glb");
+    wheel.mesh_use_embedded_materials = false;
+  }
+
   const YAML::Node yaml_hitboxes = config["hitboxes"];
   if (!yaml_hitboxes || !yaml_hitboxes["visualize"].as<bool>(false)) {
-    return hitboxes;
+    return;
   }
 
   const YAML::Node yaml_boxes = yaml_hitboxes["boxes"];
   if (!yaml_boxes || !yaml_boxes.IsSequence()) {
-    return hitboxes;
+    return;
   }
 
+  car_hitbox_marker_templates_.clear();
   for (const auto& node : yaml_boxes) {
     const double length = node["length"].as<double>(0.0);
     const double width = node["width"].as<double>(0.0);
@@ -905,20 +1015,29 @@ std::vector<RosOutputAdapter::HitboxVisual> RosOutputAdapter::load_car_hitboxes(
       continue;
     }
 
-    hitboxes.push_back(
-        {node["center_x"].as<double>(0.0), node["center_y"].as<double>(0.0), length, width});
+    visualization_msgs::msg::Marker marker;
+    marker.header.frame_id = "car";
+    marker.frame_locked = true;
+    marker.ns = "invictasim_vehicle_hitboxes";
+    marker.id = static_cast<int>(car_hitbox_marker_templates_.size());
+    marker.type = visualization_msgs::msg::Marker::CUBE;
+    marker.action = visualization_msgs::msg::Marker::ADD;
+    marker.pose.position.x = node["center_x"].as<double>(0.0);
+    marker.pose.position.y = node["center_y"].as<double>(0.0);
+    marker.pose.position.z = 0.12;
+    marker.pose.orientation.w = 1.0;
+    marker.scale.x = length;
+    marker.scale.y = width;
+    marker.scale.z = 0.08;
+    marker.color.a = 0.28f;
+    marker.color.g = 0.8f;
+    marker.color.b = 1.0f;
+    car_hitbox_marker_templates_.push_back(marker);
   }
-
-  return hitboxes;
 }
 
-std::vector<double> RosOutputAdapter::load_car_mesh_positions() const {
-  std::vector<double> positions(10, 0.0);
-  const std::string car_folder = simulator_->get_params().car_parameters_config;
-  std::string pos_file =
-      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" + car_folder + "/config.yaml";
-
-  const YAML::Node config = YAML::LoadFile(pos_file);
+std::array<double, 10> RosOutputAdapter::load_car_mesh_positions(const YAML::Node& config) {
+  std::array<double, 10> positions{};
   const YAML::Node yaml_positions = config["positions"];
   if (!yaml_positions) {
     return positions;
@@ -967,186 +1086,432 @@ std::vector<RosOutputAdapter::TimingLine> RosOutputAdapter::make_acceleration_ti
 }
 
 void RosOutputAdapter::add_timing_line_markers(visualization_msgs::msg::MarkerArray& marker_array,
-                                               const rclcpp::Time& stamp) const {
+                                               double target_cell_length, int row_count,
+                                               double total_width, double z, double height) const {
   const auto timing_lines = make_timing_lines();
+  const double cell_length_target = std::max(0.01, target_cell_length);
+  const int rows = std::max(1, row_count);
+
   for (std::size_t i = 0; i < timing_lines.size(); ++i) {
-    add_timing_line_marker(marker_array, stamp, timing_lines[i], static_cast<int>(i) * 1000);
+    const auto& start = std::get<0>(timing_lines[i]);
+    const auto& end = std::get<1>(timing_lines[i]);
+    const double dx = end.x - start.x;
+    const double dy = end.y - start.y;
+    const double length = std::hypot(dx, dy);
+    if (length <= std::numeric_limits<double>::epsilon()) {
+      continue;
+    }
+
+    const double yaw = std::atan2(dy, dx);
+    tf2::Quaternion orientation;
+    orientation.setRPY(0.0, 0.0, yaw);
+
+    const int id_offset = static_cast<int>(i) * 1000;
+    const int column_count = std::max(2, static_cast<int>(std::ceil(length / cell_length_target)));
+    const double cell_length = length / static_cast<double>(column_count);
+    const double cell_width = total_width / static_cast<double>(rows);
+
+    for (int column = 0; column < column_count; ++column) {
+      for (int row = 0; row < rows; ++row) {
+        visualization_msgs::msg::Marker cell;
+        cell.header.frame_id = "map";
+        cell.ns = "invictasim_timing_line";
+        cell.id = 200 + id_offset + column * rows + row;
+        cell.type = visualization_msgs::msg::Marker::CUBE;
+        cell.action = visualization_msgs::msg::Marker::ADD;
+
+        const double t = (static_cast<double>(column) + 0.5) / static_cast<double>(column_count);
+        const double lateral_offset =
+            (static_cast<double>(row) + 0.5 - static_cast<double>(rows) * 0.5) * cell_width;
+        cell.pose.position.x = start.x + t * dx - std::sin(yaw) * lateral_offset;
+        cell.pose.position.y = start.y + t * dy + std::cos(yaw) * lateral_offset;
+        cell.pose.position.z = z;
+        cell.pose.orientation.x = orientation.x();
+        cell.pose.orientation.y = orientation.y();
+        cell.pose.orientation.z = orientation.z();
+        cell.pose.orientation.w = orientation.w();
+
+        cell.scale.x = cell_length;
+        cell.scale.y = cell_width;
+        cell.scale.z = height;
+        cell.color.a = 1.0f;
+        const bool is_white = ((column + row) % 2) == 0;
+        cell.color.r = is_white ? 1.0f : 0.02f;
+        cell.color.g = is_white ? 1.0f : 0.02f;
+        cell.color.b = is_white ? 1.0f : 0.02f;
+        marker_array.markers.push_back(cell);
+      }
+    }
   }
 }
 
-void RosOutputAdapter::add_timing_line_marker(visualization_msgs::msg::MarkerArray& marker_array,
-                                              const rclcpp::Time& stamp,
-                                              const TimingLine& timing_line, int id_offset) const {
-  const auto& start = std::get<0>(timing_line);
-  const auto& end = std::get<1>(timing_line);
-  const GroundVisualConfig ground_config = load_ground_visual_config();
-  const double dx = end.x - start.x;
-  const double dy = end.y - start.y;
+std_msgs::msg::ColorRGBA RosOutputAdapter::make_track_color(float r, float g, float b) const {
+  std_msgs::msg::ColorRGBA color;
+  color.r = r;
+  color.g = g;
+  color.b = b;
+  color.a = 1.0f;
+  return color;
+}
+
+geometry_msgs::msg::Point RosOutputAdapter::make_track_point(double x, double y) const {
+  geometry_msgs::msg::Point point;
+  point.x = x;
+  point.y = y;
+  point.z = 0.0;
+  return point;
+}
+
+std::array<double, 2> RosOutputAdapter::track_segment_outward_normal(
+    const std::vector<common_lib::structures::Cone>& side_cones,
+    const std::vector<common_lib::structures::Cone>& opposite_cones, std::size_t start_i,
+    std::size_t end_i) const {
+  const auto& start = side_cones[start_i];
+  const auto& end = side_cones[end_i];
+  const double dx = end.position.x - start.position.x;
+  const double dy = end.position.y - start.position.y;
   const double length = std::hypot(dx, dy);
   if (length <= std::numeric_limits<double>::epsilon()) {
+    return {0.0, 0.0};
+  }
+
+  std::array<double, 2> normal{-dy / length, dx / length};
+  const double mid_x = 0.5 * (start.position.x + end.position.x);
+  const double mid_y = 0.5 * (start.position.y + end.position.y);
+  double closest_distance_squared = std::numeric_limits<double>::max();
+  std::size_t closest_opposite_i = 0;
+  for (std::size_t i = 0; i < opposite_cones.size(); ++i) {
+    const double x = opposite_cones[i].position.x - mid_x;
+    const double y = opposite_cones[i].position.y - mid_y;
+    const double distance_squared = x * x + y * y;
+    if (distance_squared < closest_distance_squared) {
+      closest_distance_squared = distance_squared;
+      closest_opposite_i = i;
+    }
+  }
+
+  const double to_opposite_x = opposite_cones[closest_opposite_i].position.x - mid_x;
+  const double to_opposite_y = opposite_cones[closest_opposite_i].position.y - mid_y;
+  if (normal[0] * to_opposite_x + normal[1] * to_opposite_y > 0.0) {
+    normal[0] = -normal[0];
+    normal[1] = -normal[1];
+  }
+  return normal;
+}
+
+void RosOutputAdapter::add_track_quad(visualization_msgs::msg::Marker& marker,
+                                      const geometry_msgs::msg::Point& a,
+                                      const geometry_msgs::msg::Point& b,
+                                      const geometry_msgs::msg::Point& c,
+                                      const geometry_msgs::msg::Point& d,
+                                      const std_msgs::msg::ColorRGBA& color) const {
+  marker.points.push_back(a);
+  marker.points.push_back(b);
+  marker.points.push_back(c);
+  marker.points.push_back(a);
+  marker.points.push_back(c);
+  marker.points.push_back(d);
+  for (int i = 0; i < 6; ++i) {
+    marker.colors.push_back(color);
+  }
+}
+
+visualization_msgs::msg::Marker RosOutputAdapter::make_track_triangle_marker(
+    const std::string& ns, int id, double z, const rclcpp::Time& stamp) const {
+  visualization_msgs::msg::Marker marker;
+  marker.header.frame_id = "map";
+  marker.header.stamp = stamp;
+  marker.ns = ns;
+  marker.id = id;
+  marker.type = visualization_msgs::msg::Marker::TRIANGLE_LIST;
+  marker.action = visualization_msgs::msg::Marker::ADD;
+  marker.pose.orientation.w = 1.0;
+  marker.pose.position.z = z;
+  marker.scale.x = 1.0;
+  marker.scale.y = 1.0;
+  marker.scale.z = 1.0;
+  marker.color.r = 1.0f;
+  marker.color.g = 1.0f;
+  marker.color.b = 1.0f;
+  marker.color.a = 1.0f;
+  return marker;
+}
+
+RosOutputAdapter::TrackRibbon RosOutputAdapter::build_track_ribbon(
+    const std::vector<common_lib::structures::Cone>& side_cones,
+    const std::vector<common_lib::structures::Cone>& opposite_cones) const {
+  TrackRibbon ribbon;
+  ribbon.inner.resize(side_cones.size());
+  ribbon.outer.resize(side_cones.size());
+  ribbon.closed = side_cones.back().position.euclidean_distance(side_cones.front().position) <=
+                  track_surface_max_loop_segment_length_;
+
+  for (std::size_t i = 0; i < side_cones.size(); ++i) {
+    const bool has_previous = ribbon.closed || i > 0;
+    const bool has_next = ribbon.closed || i + 1 < side_cones.size();
+    std::array<double, 2> normal{0.0, 0.0};
+    if (has_previous) {
+      const std::size_t previous_i = i == 0 ? side_cones.size() - 1 : i - 1;
+      const auto previous_normal =
+          track_segment_outward_normal(side_cones, opposite_cones, previous_i, i);
+      normal[0] += previous_normal[0];
+      normal[1] += previous_normal[1];
+    }
+    if (has_next) {
+      const std::size_t next_i = i + 1 == side_cones.size() ? 0 : i + 1;
+      const auto next_normal = track_segment_outward_normal(side_cones, opposite_cones, i, next_i);
+      normal[0] += next_normal[0];
+      normal[1] += next_normal[1];
+    }
+
+    const double normal_length = std::hypot(normal[0], normal[1]);
+    if (normal_length <= std::numeric_limits<double>::epsilon()) {
+      continue;
+    }
+    normal[0] /= normal_length;
+    normal[1] /= normal_length;
+
+    const auto& cone = side_cones[i];
+    ribbon.inner[i] = make_track_point(cone.position.x + normal[0] * track_surface_cone_clearance_,
+                                       cone.position.y + normal[1] * track_surface_cone_clearance_);
+    ribbon.outer[i] = make_track_point(
+        cone.position.x + normal[0] * (track_surface_cone_clearance_ + track_surface_curb_width_),
+        cone.position.y + normal[1] * (track_surface_cone_clearance_ + track_surface_curb_width_));
+  }
+  return ribbon;
+}
+
+double RosOutputAdapter::track_path_length(const std::vector<geometry_msgs::msg::Point>& points,
+                                           bool closed) const {
+  double length = 0.0;
+  const std::size_t segment_count = closed ? points.size() : points.size() - 1;
+  for (std::size_t i = 0; i < segment_count; ++i) {
+    const std::size_t next_i = (i + 1) % points.size();
+    length += std::hypot(points[next_i].x - points[i].x, points[next_i].y - points[i].y);
+  }
+  return length;
+}
+
+geometry_msgs::msg::Point RosOutputAdapter::sample_track_path(
+    const std::vector<geometry_msgs::msg::Point>& points, bool closed,
+    double target_distance) const {
+  const std::size_t segment_count = closed ? points.size() : points.size() - 1;
+  double distance = std::max(0.0, target_distance);
+  for (std::size_t i = 0; i < segment_count; ++i) {
+    const std::size_t next_i = (i + 1) % points.size();
+    const double segment_length =
+        std::hypot(points[next_i].x - points[i].x, points[next_i].y - points[i].y);
+    if (segment_length <= std::numeric_limits<double>::epsilon()) {
+      continue;
+    }
+    if (distance <= segment_length || i + 1 == segment_count) {
+      const double t = std::clamp(distance / segment_length, 0.0, 1.0);
+      return make_track_point(points[i].x + (points[next_i].x - points[i].x) * t,
+                              points[i].y + (points[next_i].y - points[i].y) * t);
+    }
+    distance -= segment_length;
+  }
+  return points.back();
+}
+
+geometry_msgs::msg::Point RosOutputAdapter::closest_point_on_track_path(
+    const std::vector<geometry_msgs::msg::Point>& points, bool closed,
+    const geometry_msgs::msg::Point& query) const {
+  geometry_msgs::msg::Point closest = points.front();
+  double closest_distance_squared = std::numeric_limits<double>::max();
+  const std::size_t segment_count = closed ? points.size() : points.size() - 1;
+  for (std::size_t i = 0; i < segment_count; ++i) {
+    const std::size_t next_i = (i + 1) % points.size();
+    const double dx = points[next_i].x - points[i].x;
+    const double dy = points[next_i].y - points[i].y;
+    const double length_squared = dx * dx + dy * dy;
+    if (length_squared <= std::numeric_limits<double>::epsilon()) {
+      continue;
+    }
+
+    const double query_dx = query.x - points[i].x;
+    const double query_dy = query.y - points[i].y;
+    const double t = std::clamp((query_dx * dx + query_dy * dy) / length_squared, 0.0, 1.0);
+    const geometry_msgs::msg::Point candidate =
+        make_track_point(points[i].x + dx * t, points[i].y + dy * t);
+    const double distance_x = candidate.x - query.x;
+    const double distance_y = candidate.y - query.y;
+    const double distance_squared = distance_x * distance_x + distance_y * distance_y;
+    if (distance_squared < closest_distance_squared) {
+      closest = candidate;
+      closest_distance_squared = distance_squared;
+    }
+  }
+  return closest;
+}
+
+void RosOutputAdapter::add_track_curb_ribbon(visualization_msgs::msg::Marker& curb_marker,
+                                             const TrackRibbon& ribbon,
+                                             const std_msgs::msg::ColorRGBA& curb_red,
+                                             const std_msgs::msg::ColorRGBA& curb_white) const {
+  int color_index = 0;
+  const std::size_t segment_count = ribbon.closed ? ribbon.inner.size() : ribbon.inner.size() - 1;
+  for (std::size_t i = 0; i < segment_count; ++i) {
+    const std::size_t next_i = (i + 1) % ribbon.inner.size();
+    const double length = std::hypot(ribbon.inner[next_i].x - ribbon.inner[i].x,
+                                     ribbon.inner[next_i].y - ribbon.inner[i].y);
+    const double max_segment_length = next_i == 0 ? track_surface_max_loop_segment_length_
+                                                  : track_surface_max_boundary_segment_length_;
+    if (length <= std::numeric_limits<double>::epsilon() || length > max_segment_length) {
+      continue;
+    }
+
+    const int block_count =
+        std::max(1, static_cast<int>(std::ceil(length / track_surface_curb_block_length_)));
+    for (int block = 0; block < block_count; ++block) {
+      const double t0 = static_cast<double>(block) / static_cast<double>(block_count);
+      const double t1 = static_cast<double>(block + 1) / static_cast<double>(block_count);
+      const auto inner_a =
+          make_track_point(ribbon.inner[i].x + (ribbon.inner[next_i].x - ribbon.inner[i].x) * t0,
+                           ribbon.inner[i].y + (ribbon.inner[next_i].y - ribbon.inner[i].y) * t0);
+      const auto inner_b =
+          make_track_point(ribbon.inner[i].x + (ribbon.inner[next_i].x - ribbon.inner[i].x) * t1,
+                           ribbon.inner[i].y + (ribbon.inner[next_i].y - ribbon.inner[i].y) * t1);
+      const auto outer_a =
+          make_track_point(ribbon.outer[i].x + (ribbon.outer[next_i].x - ribbon.outer[i].x) * t0,
+                           ribbon.outer[i].y + (ribbon.outer[next_i].y - ribbon.outer[i].y) * t0);
+      const auto outer_b =
+          make_track_point(ribbon.outer[i].x + (ribbon.outer[next_i].x - ribbon.outer[i].x) * t1,
+                           ribbon.outer[i].y + (ribbon.outer[next_i].y - ribbon.outer[i].y) * t1);
+      add_track_quad(curb_marker, inner_a, inner_b, outer_b, outer_a,
+                     (color_index % 2) == 0 ? curb_red : curb_white);
+      ++color_index;
+    }
+  }
+}
+
+void RosOutputAdapter::add_track_asphalt_from_ribbon(
+    visualization_msgs::msg::Marker& asphalt_marker, const TrackRibbon& source_ribbon,
+    const TrackRibbon& target_ribbon, const std_msgs::msg::ColorRGBA& asphalt_color,
+    bool reverse_winding) const {
+  constexpr double asphalt_sample_length = 2.0;
+  const double source_length = track_path_length(source_ribbon.inner, source_ribbon.closed);
+  const int segment_count =
+      std::max(1, static_cast<int>(std::ceil(source_length / asphalt_sample_length)));
+  std::vector<AsphaltSample> samples;
+  samples.reserve(static_cast<std::size_t>(segment_count) + 1);
+  std::vector<double> widths;
+  widths.reserve(static_cast<std::size_t>(segment_count) + 1);
+  for (int sample = 0; sample <= segment_count; ++sample) {
+    const double distance =
+        source_length * static_cast<double>(sample) / static_cast<double>(segment_count);
+    AsphaltSample asphalt_sample;
+    asphalt_sample.source = sample_track_path(source_ribbon.inner, source_ribbon.closed, distance);
+    asphalt_sample.target = closest_point_on_track_path(target_ribbon.inner, target_ribbon.closed,
+                                                        asphalt_sample.source);
+    asphalt_sample.width = std::hypot(asphalt_sample.target.x - asphalt_sample.source.x,
+                                      asphalt_sample.target.y - asphalt_sample.source.y);
+    widths.push_back(asphalt_sample.width);
+    samples.push_back(asphalt_sample);
+  }
+
+  std::nth_element(widths.begin(), widths.begin() + static_cast<long>(widths.size() / 2),
+                   widths.end());
+  const double max_width = widths[widths.size() / 2] * 1.5;
+  for (int segment = 0; segment < segment_count; ++segment) {
+    const auto& start = samples[static_cast<std::size_t>(segment)];
+    const auto& end = samples[static_cast<std::size_t>(segment + 1)];
+    const double target_step =
+        std::hypot(end.target.x - start.target.x, end.target.y - start.target.y);
+    if (start.width > max_width || end.width > max_width ||
+        target_step > track_surface_max_boundary_segment_length_) {
+      continue;
+    }
+
+    if (reverse_winding) {
+      add_track_quad(asphalt_marker, start.target, end.target, end.source, start.source,
+                     asphalt_color);
+    } else {
+      add_track_quad(asphalt_marker, start.source, end.source, end.target, start.target,
+                     asphalt_color);
+    }
+  }
+}
+
+void RosOutputAdapter::add_track_surface_markers(
+    visualization_msgs::msg::MarkerArray& marker_array,
+    const std::vector<common_lib::structures::Cone>& cones, const rclcpp::Time& stamp) const {
+  std::vector<common_lib::structures::Cone> blue_cones;
+  std::vector<common_lib::structures::Cone> yellow_cones;
+  for (const auto& cone : cones) {
+    if (cone.color == common_lib::competition_logic::Color::BLUE) {
+      blue_cones.push_back(cone);
+    } else if (cone.color == common_lib::competition_logic::Color::YELLOW) {
+      yellow_cones.push_back(cone);
+    }
+  }
+
+  if (blue_cones.size() < 2 || yellow_cones.size() < 2) {
     return;
   }
 
-  const double yaw = std::atan2(dy, dx);
-  tf2::Quaternion orientation;
-  orientation.setRPY(0.0, 0.0, yaw);
+  const auto curb_red = make_track_color(0.88f, 0.02f, 0.02f);
+  const auto curb_white = make_track_color(0.96f, 0.96f, 0.92f);
+  const auto asphalt_color = make_track_color(0.18f, 0.18f, 0.17f);
+  auto asphalt_marker =
+      make_track_triangle_marker("invictasim_track_asphalt", 1000, track_surface_asphalt_z_, stamp);
+  auto curb_marker =
+      make_track_triangle_marker("invictasim_track_curbs", 3000, track_surface_curb_z_, stamp);
+  const auto blue_ribbon = build_track_ribbon(blue_cones, yellow_cones);
+  const auto yellow_ribbon = build_track_ribbon(yellow_cones, blue_cones);
 
-  const double target_cell_length = std::max(0.01, ground_config.timing_line_target_cell_length);
-  const int row_count = std::max(1, ground_config.timing_line_row_count);
-  const int column_count = std::max(2, static_cast<int>(std::ceil(length / target_cell_length)));
-  const double cell_length = length / static_cast<double>(column_count);
-  const double cell_width = ground_config.timing_line_total_width / static_cast<double>(row_count);
+  add_track_asphalt_from_ribbon(asphalt_marker, blue_ribbon, yellow_ribbon, asphalt_color, false);
+  add_track_asphalt_from_ribbon(asphalt_marker, yellow_ribbon, blue_ribbon, asphalt_color, true);
+  add_track_curb_ribbon(curb_marker, blue_ribbon, curb_red, curb_white);
+  add_track_curb_ribbon(curb_marker, yellow_ribbon, curb_red, curb_white);
 
-  for (int column = 0; column < column_count; ++column) {
-    for (int row = 0; row < row_count; ++row) {
-      visualization_msgs::msg::Marker cell;
-      cell.header.stamp = stamp;
-      cell.header.frame_id = "map";
-      cell.ns = "invictasim_timing_line";
-      cell.id = 200 + id_offset + column * row_count + row;
-      cell.type = visualization_msgs::msg::Marker::CUBE;
-      cell.action = visualization_msgs::msg::Marker::ADD;
-
-      const double t = (static_cast<double>(column) + 0.5) / static_cast<double>(column_count);
-      const double lateral_offset =
-          (static_cast<double>(row) + 0.5 - static_cast<double>(row_count) * 0.5) * cell_width;
-      cell.pose.position.x = start.x + t * dx - std::sin(yaw) * lateral_offset;
-      cell.pose.position.y = start.y + t * dy + std::cos(yaw) * lateral_offset;
-      cell.pose.position.z = ground_config.timing_line_z;
-      cell.pose.orientation.x = orientation.x();
-      cell.pose.orientation.y = orientation.y();
-      cell.pose.orientation.z = orientation.z();
-      cell.pose.orientation.w = orientation.w();
-
-      cell.scale.x = cell_length;
-      cell.scale.y = cell_width;
-      cell.scale.z = ground_config.timing_line_height;
-      cell.color.a = 1.0f;
-      const bool is_white = ((column + row) % 2) == 0;
-      cell.color.r = is_white ? 1.0f : 0.02f;
-      cell.color.g = is_white ? 1.0f : 0.02f;
-      cell.color.b = is_white ? 1.0f : 0.02f;
-      marker_array.markers.push_back(cell);
-    }
+  if (!asphalt_marker.points.empty()) {
+    marker_array.markers.push_back(asphalt_marker);
+  }
+  if (!curb_marker.points.empty()) {
+    marker_array.markers.push_back(curb_marker);
   }
 }
 
 void RosOutputAdapter::add_body_marker(visualization_msgs::msg::MarkerArray& marker_array,
                                        const rclcpp::Time& stamp) const {
-  visualization_msgs::msg::Marker body;
+  visualization_msgs::msg::Marker body = body_marker_template_;
   body.header.stamp = stamp;
-  body.header.frame_id = "car";
-  body.frame_locked = true;
-  body.ns = "invictasim_vehicle";
-  body.id = 0;
-  body.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
-  body.action = visualization_msgs::msg::Marker::ADD;
-
-  body.pose.position.x = 0.0;
-  body.pose.position.y = 0.0;
-  body.pose.position.z = 0.0;
-
-  body.pose.orientation.x = 0.0;
-  body.pose.orientation.y = 0.0;
-  body.pose.orientation.z = 0.0;
-  body.pose.orientation.w = 1.0;
-
-  body.scale.x = 1.0;
-  body.scale.y = 1.0;
-  body.scale.z = 1.0;
-  body.color.a = 1.0f;
-  body.color.r = 0.85f;
-  body.color.g = 0.0f;
-  body.color.b = 0.0f;
-  body.mesh_resource = get_car_mesh_resource("car_body.glb");
-  body.mesh_use_embedded_materials = true;
-
   marker_array.markers.push_back(body);
 }
 
 void RosOutputAdapter::add_hitbox_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                           const rclcpp::Time& stamp) const {
-  const std::vector<HitboxVisual> hitboxes = load_car_hitboxes();
-
-  for (std::size_t i = 0; i < hitboxes.size(); ++i) {
-    const HitboxVisual& hitbox = hitboxes[i];
-
-    visualization_msgs::msg::Marker marker;
+  for (auto marker : car_hitbox_marker_templates_) {
     marker.header.stamp = stamp;
-    marker.header.frame_id = "car";
-    marker.frame_locked = true;
-    marker.ns = "invictasim_vehicle_hitboxes";
-    marker.id = static_cast<int>(i);
-    marker.type = visualization_msgs::msg::Marker::CUBE;
-    marker.action = visualization_msgs::msg::Marker::ADD;
-
-    marker.pose.position.x = hitbox.center_x;
-    marker.pose.position.y = hitbox.center_y;
-    marker.pose.position.z = 0.12;
-    marker.pose.orientation.w = 1.0;
-
-    marker.scale.x = hitbox.length;
-    marker.scale.y = hitbox.width;
-    marker.scale.z = 0.08;
-    marker.color.a = 0.28f;
-    marker.color.r = 0.0f;
-    marker.color.g = 0.8f;
-    marker.color.b = 1.0f;
-
     marker_array.markers.push_back(marker);
   }
 }
 
 void RosOutputAdapter::add_steering_marker(visualization_msgs::msg::MarkerArray& marker_array,
                                            const rclcpp::Time& stamp) const {
-  const std::vector<double> positions = load_car_mesh_positions();
-
-  tf2::Quaternion q_mount;
-  q_mount.setRPY(positions[3], positions[4], positions[5]);
+  const auto& mount = steering_marker_template_.pose.orientation;
+  tf2::Quaternion q_mount(mount.x, mount.y, mount.z, mount.w);
 
   tf2::Quaternion q_steering;
-  q_steering.setRPY(-vehicle_model_snapshot_cache_.steering_angle * positions[9], 0.0, 0.0);
+  q_steering.setRPY(-vehicle_model_snapshot_cache_.steering_angle * steering_rotation_multiplier_,
+                    0.0, 0.0);
 
   tf2::Quaternion q_total = q_mount * q_steering;
   q_total.normalize();
 
-  visualization_msgs::msg::Marker steering;
+  visualization_msgs::msg::Marker steering = steering_marker_template_;
   steering.header.stamp = stamp;
-  steering.header.frame_id = "car";
-  steering.frame_locked = true;
-  steering.ns = "invictasim_vehicle";
-  steering.id = 5;
-  steering.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
-  steering.action = visualization_msgs::msg::Marker::ADD;
-
-  steering.pose.position.x = positions[0];
-  steering.pose.position.y = positions[1];
-  steering.pose.position.z = positions[2];
-
   steering.pose.orientation.x = q_total.x();
   steering.pose.orientation.y = q_total.y();
   steering.pose.orientation.z = q_total.z();
   steering.pose.orientation.w = q_total.w();
-
-  steering.scale.x = 1.0;
-  steering.scale.y = 1.0;
-  steering.scale.z = 1.0;
-  steering.color.a = 1.0f;
-  steering.color.r = 0.0f;
-  steering.color.g = 0.0f;
-  steering.color.b = 0.0f;
-  steering.mesh_resource = get_car_mesh_resource("steering.glb");
-  steering.mesh_use_embedded_materials = false;
 
   marker_array.markers.push_back(steering);
 }
 
 void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                          const rclcpp::Time& stamp, double dt) {
-  const auto car_params = simulator_->get_params().car_parameters;
-  const std::vector<double> positions = load_car_mesh_positions();
-  const double wheel_center_z = car_params->wheel_diameter * 0.5;
-
   if (dt > 0.0) {
     const auto wheel_speed = vehicle_model_snapshot_cache_.wheel_speed;
     wheel_spin_fl_ += (wheel_speed.front_left) * dt;
@@ -1156,13 +1521,6 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
   }
 
   const double steer = vehicle_model_snapshot_cache_.steering_angle;
-
-  const double front_axle_x = car_params->wheelbase - car_params->cg_2_rear_axis;
-  const double rear_axle_x = -car_params->cg_2_rear_axis;
-  const double half_track = car_params->track_width * 0.5;
-
-  const double local_x[4] = {front_axle_x, front_axle_x, rear_axle_x, rear_axle_x};
-  const double local_y[4] = {half_track, -half_track, half_track, -half_track};
   const double steer_angles[4] = {steer, steer, 0.0, 0.0};
   const double spins[4] = {wheel_spin_fl_, wheel_spin_fr_, wheel_spin_rl_, wheel_spin_rr_};
 
@@ -1181,34 +1539,12 @@ void RosOutputAdapter::add_wheel_markers(visualization_msgs::msg::MarkerArray& m
     tf2::Quaternion q_wheel = q_steer * q_spin * q_side_offset;
     q_wheel.normalize();
 
-    visualization_msgs::msg::Marker wheel;
+    visualization_msgs::msg::Marker wheel = wheel_marker_templates_[i];
     wheel.header.stamp = stamp;
-    wheel.frame_locked = true;
-    wheel.header.frame_id = "car";  // Locked to the moving car frame
-    wheel.ns = "invictasim_vehicle";
-    wheel.id = i + 1;
-    wheel.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
-    wheel.action = visualization_msgs::msg::Marker::ADD;
-
-    // Use pure local offsets
-    wheel.pose.position.x = local_x[i] + positions[6];
-    wheel.pose.position.y = local_y[i] + positions[7];
-    wheel.pose.position.z = wheel_center_z + positions[8];
-
     wheel.pose.orientation.x = q_wheel.x();
     wheel.pose.orientation.y = q_wheel.y();
     wheel.pose.orientation.z = q_wheel.z();
     wheel.pose.orientation.w = q_wheel.w();
-
-    wheel.scale.x = 1.0;
-    wheel.scale.y = 1.0;
-    wheel.scale.z = 1.0;
-    wheel.color.a = 1.0f;
-    wheel.color.r = 0.0f;
-    wheel.color.g = 0.0f;
-    wheel.color.b = 0.0f;
-    wheel.mesh_resource = get_car_mesh_resource(i < 2 ? "wheel_front.glb" : "wheel_back.glb");
-    wheel.mesh_use_embedded_materials = false;
 
     marker_array.markers.push_back(wheel);
   }

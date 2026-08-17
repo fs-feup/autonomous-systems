@@ -243,6 +243,12 @@ private:
     Wheels maxTorques = {0.0, 0.0, 0.0, 0.0, 0.0};
     Wheels minTorques = {0.0, 0.0, 0.0, 0.0, 0.0};
     
+    // First-order front steering actuator state. The commanded setpoint is not applied
+    // to the wheels instantly; the actual steering lags it (see forwardIntegrate), matching
+    // the MPC's steering model (steering_motor_tau) and real steering hardware.
+    double steeringFrontSetpoint = 0.0;
+    double steeringFrontActual = 0.0;
+
     // Input state
     double throttleActuationFL = 0.0;
     double throttleActuationFR = 0.0;

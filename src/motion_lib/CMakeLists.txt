@@ -33,7 +33,9 @@ set(IMPLEMENTATION_FILES
   src/tire_model/pacejka_combined_slip.cpp
   src/tire_model/pacejka_MF6_2.cpp
   src/transmission_model/viscous_differential.cpp
-  src/transmission_model/open_differential.cpp
+  src/transmission_model/salisbury_differential.cpp
+  src/inverter_model/delayed_inverter.cpp
+  src/brake_model/default_brake.cpp
   src/battery_model/thevenin.cpp
   src/motor_model/map_based_motor.cpp
   src/steering_model/parallel_front_steering.cpp
@@ -42,7 +44,6 @@ set(IMPLEMENTATION_FILES
   src/load_transfer_model/vd_load_transfer_model.cpp
   src/steering_motor_model/first_order_model.cpp
   src/steering_motor_model/pid_steering_motor.cpp
-  src/steering_motor_model/first_order_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})

@@ -67,6 +67,7 @@ struct ExecutionTimesSnapshot {
   double steering_ms = 0.0;
   double load_transfer_ms = 0.0;
   double tire_ms = 0.0;
+  double integration_ms = 0.0;
   double total_step_ms = 0.0;
 };
 
@@ -129,6 +130,7 @@ struct SensorsSnapshot {
   Eigen::Vector3d free_acceleration = {0.0, 0.0, 0.0};
   Eigen::Vector3d angular_velocity = {0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheel_rpm = {0.0, 0.0, 0.0, 0.0};
+  std::vector<bool> wheel_rpm_dropout = {false, false, false, false};
   double steering_angle = 0.0;
   double motor_rpm = 0.0;
 };

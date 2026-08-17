@@ -1,5 +1,7 @@
 #include "utils/path_stager.hpp"
 
+#include <algorithm>
+
 unsigned int get_s_index(std::vector<double>& s, double query_s) {
   // Simple linear search (can be optimized with binary search if needed)
   for (size_t i = 0; i < s.size() - 1; ++i) {
@@ -80,7 +82,7 @@ void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray&
   }
 }
 
-void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& path_msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state, std::shared_ptr<LocalPather> local_pather, unsigned int number_of_stages, double horizon_length_seconds, custom_interfaces::msg::PathPointArray& output_path_data) {
+void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& path_msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state, std::shared_ptr<LocalPather> local_pather, unsigned int number_of_stages, double horizon_length_seconds, custom_interfaces::msg::PathPointArray& output_path_data, bool free_speed) {
   if (path_msg.pathpoint_array.size() == 0) {
     return;
   }
@@ -109,7 +111,7 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
   double car_yaw = new_path.pathpoint_array[0].orientation;
   double car_v = new_path.pathpoint_array[0].v;
   double car_yaw_rate = vehicle_state.yaw_rate;
-  double max_breaking_acceleration = 3.5; // m/s^2
+  double max_breaking_acceleration = 6.0; // m/s^2
   double max_yaw_acceleration = 1.0; // rad/s^2
   double dt = horizon_length_seconds / static_cast<double>(number_of_stages);
   output_path_data.pathpoint_array.clear();
@@ -196,6 +198,19 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
     }
   }
 
+  // Scale the reference profile by the car's speed relative to the plan, so a car running fast
+  // does not outrun its own reference within the horizon.
+  if (free_speed && velocities.size() > 2) {
+    const double planner_v = velocities[2];
+    if (planner_v > 0.5) {
+      // Never scale below 1.0: shrinking the reference removes the signal to speed back up.
+      const double scale = std::clamp(velocities[0] / planner_v, 1.0, 1.8);
+      for (size_t i = 1; i < velocities.size(); ++i) {
+        velocities[i] *= scale;
+      }
+    }
+  }
+
   // --- 2. Fit the splines ---
   tk::spline spline_x, spline_y;
 
@@ -203,8 +218,10 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
   spline_x.set_boundary(tk::spline::first_deriv, std::cos(car_yaw), tk::spline::second_deriv, 0.0);
   spline_y.set_boundary(tk::spline::first_deriv, std::sin(car_yaw), tk::spline::second_deriv, 0.0);
 
-  spline_x.set_points(s, x);
-  spline_y.set_points(s, y);
+  // Shape-preserving Hermite rather than C^2 cubic: the latter overshoots into a spurious
+  // heading hook at corner entry when the car sits off the path, and the MPC follows it off.
+  spline_x.set_points(s, x, tk::spline::cspline_hermite);
+  spline_y.set_points(s, y, tk::spline::cspline_hermite);
 
   // --- 3. Sample the splines based on MPC dt ---    
   current_s = 0.0;
@@ -212,7 +229,7 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
 
   for (unsigned int i = 0; i <= number_of_stages; ++i) {
     custom_interfaces::msg::PathPoint p;
-    
+
     // Clamp to prevent querying outside the spline bounds
     p.x = spline_x(current_s);
     p.y = spline_y(current_s);

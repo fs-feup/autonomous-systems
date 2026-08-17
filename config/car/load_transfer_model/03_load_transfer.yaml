@@ -1,1 +1,6 @@
 load_transfer:
+  roll_axis_z: 0.05              # Height of roll axis above ground [m]
+  front_roll_center_z: 0.04      # Front roll center height [m]
+  rear_roll_center_z: 0.05       # Rear roll center height [m]
+  front_stiffness_distribution: 0.5  # Front fraction of total roll stiffness [0-1]
+  pitch_center_z: 0.02           # Pitch center height [m]

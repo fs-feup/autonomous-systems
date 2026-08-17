@@ -129,6 +129,7 @@ private:
   std::vector<Colorpoint> path_to_car_;
   std::vector<Colorpoint> past_path_;
   int reset_path_counter_ = 0;
+  int last_cutoff_index_ = -1;
 
   // Midpoints for the current track
   std::vector<std::shared_ptr<Midpoint>> midpoints_;
@@ -150,6 +151,14 @@ private:
    * when no previous path exists.
    */
   void initialize_path_from_initial_pose();
+
+  /**
+   * @brief Index in past_path_ of the point the car has reached.
+   *
+   * @param car_point current vehicle position
+   * @return index into past_path_, or -1 if the path is empty
+   */
+  int find_cutoff_index(const Point& car_point) const;
 
   /**
    * @brief Initialize the path from the previous path.
