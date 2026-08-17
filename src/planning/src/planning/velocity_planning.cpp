@@ -200,7 +200,7 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
   }
 
   // After the car stop the rest of the points should have 0.0 speed
-  while (index < (path_size - path_size/4)) {
+  while (index < path_size) {
     final_path[index].ideal_velocity = 0.0;
     ++index;
   }

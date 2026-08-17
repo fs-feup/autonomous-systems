@@ -124,7 +124,7 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.model.cost_y_expr_e = cost_expression_e
 
     # 4. Define Weight Matrices (W)
-    weights = np.array([2.0, 2.0, 1.0, 8.0, 5.0])
+    weights = np.array([0.2, 0.2, 4.0, 1.81416, 20.0])
     
     # Terminal weights
     weights_e = np.array([2.0, 2.0, 1.0])
