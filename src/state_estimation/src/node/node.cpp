@@ -70,6 +70,40 @@ void SENode::publish_state(const State& state, const rclcpp::Time time) {
 void SENode::timer_callback() {
   rclcpp::Time start_time = this->get_clock()->now();
   auto hrc_start = std::chrono::high_resolution_clock::now();
+
+  if (!this->should_update_estimator()) {
+    const State curr_state = this->_state_estimator_->get_state();
+    publish_state(curr_state, start_time);
+
+    std_msgs::msg::Float64MultiArray execution_time_msg;
+    if (this->_params_->publish_exec_times_) {
+      execution_time_msg.data.resize(5);
+      execution_time_msg.data[0] = 0.0;
+      execution_time_msg.data[1] = 0.0;
+      execution_time_msg.data[2] = 0.0;
+      execution_time_msg.data[3] = 0.0;
+      execution_time_msg.data[4] = 0.0;
+    } else {
+      execution_time_msg.data.resize(1);
+      execution_time_msg.data[0] = 0.0;
+    }
+    this->_execution_time_pub_->publish(execution_time_msg);
+
+    if (this->_params_->publish_sensor_health_) {
+      const std::vector<SensorHealth> health = this->_state_estimator_->get_sensor_health();
+      custom_interfaces::msg::SensorHealth health_msg;
+      health_msg.header.stamp = start_time;
+      health_msg.names.reserve(health.size());
+      health_msg.statuses.reserve(health.size());
+      for (const SensorHealth& sensor : health) {
+        health_msg.names.push_back(sensor.name);
+        health_msg.statuses.push_back(static_cast<uint8_t>(sensor.status));
+      }
+      this->_sensor_health_pub_->publish(health_msg);
+    }
+    return;
+  }
+
   State curr_state;
   this->_state_estimator_->timer_callback(curr_state);
   auto hrc_end = std::chrono::high_resolution_clock::now();

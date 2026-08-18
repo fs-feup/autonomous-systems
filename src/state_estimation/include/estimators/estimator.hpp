@@ -16,6 +16,7 @@
 class StateEstimator {
 public:
   StateEstimator() = default;
+  virtual State get_state() const = 0;
   /**
    * @brief callback for control commands that the SENode should call when new control commands are
    * received

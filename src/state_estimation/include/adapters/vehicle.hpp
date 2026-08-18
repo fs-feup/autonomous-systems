@@ -8,8 +8,10 @@
 #include "common_lib/sensor_data/wheel_encoders.hpp"
 #include "common_lib/structures/control_command.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "geometry_msgs/msg/quaternion_stamped.hpp"
 #include "geometry_msgs/msg/vector3_stamped.hpp"
 #include "node/node.hpp"
@@ -43,9 +45,13 @@ class VehicleAdapter : public SENode {
   rclcpp::Subscription<custom_interfaces::msg::SteeringAngle>::SharedPtr _steering_angle_sub_;
   rclcpp::Subscription<custom_interfaces::msg::WheelRPM>::SharedPtr _resolver_sub_;
   rclcpp::Subscription<custom_interfaces::msg::ControlCommand>::SharedPtr _control_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr _go_sub_;
 
   double average_imu_bias_ = 0.0;
   int number_of_imu_readings_ = 0;
+  bool go_signal_ = false;
+
+  bool should_update_estimator() const override { return go_signal_; }
 
 public:
   explicit VehicleAdapter(const std::shared_ptr<SEParameters>& parameters);
@@ -81,4 +87,6 @@ public:
    * process model's prediction step.
    */
   void control_callback(const custom_interfaces::msg::ControlCommand msg);
+
+  void go_signal_callback(const custom_interfaces::msg::OperationalStatus msg);
 };

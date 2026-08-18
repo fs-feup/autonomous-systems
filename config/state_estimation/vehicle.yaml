@@ -34,16 +34,13 @@ state_estimation:
   beta: 2.0 # UKF beta parameter
   kappa: 0.0 # UKF kappa parameter
 
+  use_fresh_measurements_only: false # Only apply measurement rows whose sensor delivered a NEW sample since the previous filter
+  innovation_gate: 25.0 # Soft-reject any measurement row whose normalized innovation squared exceeds this gate. 0 disables.
+
   # --- Publishing options ---
   publish_vm_debug_info: false # Whether to publish debug information about the vehicle model calculations (e.g., tire forces, slip ratios, etc.)
   publish_exec_times: true # Whether to publish execution time statistics for filter stages (overhead, prediction, correction, update)
   publish_sensor_health: true # Whether to publish per-sensor health (LIVE/FAULTY/DEAD/INVALID) from the Overseer
-
-  # Only apply measurement rows whose sensor delivered a NEW sample since the previous filter
-  use_fresh_measurements_only: true
-
-  # Soft-reject any measurement row whose normalized innovation squared exceeds this gate. 0 disables.
-  innovation_gate: 25.0
 
   # --- Sensor fault detection (Overseer) ---
   sensor_fault_detection_enabled: true # Whether to enable sensor fault detection

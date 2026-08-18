@@ -35,6 +35,8 @@ protected:
   // For now so i dont have to change the entire fucking pipeline
   rclcpp::Publisher<custom_interfaces::msg::Velocities>::SharedPtr _velocity_pub_;
 
+  virtual bool should_update_estimator() const { return true; }
+
   void publish_state(const State& state, const rclcpp::Time time);
 
   void timer_callback();

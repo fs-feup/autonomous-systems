@@ -6,6 +6,10 @@
 
 VehicleAdapter::VehicleAdapter(const std::shared_ptr<SEParameters>& parameters)
     : SENode(parameters) {
+  this->_go_sub_ = this->create_subscription<custom_interfaces::msg::OperationalStatus>(
+      "/vehicle/operational_status", 10,
+      std::bind(&VehicleAdapter::go_signal_callback, this, std::placeholders::_1));
+
   // IMU: free acceleration, angular velocity and orientation are published separately and synchronized.
   this->_free_acceleration_subscription_.subscribe(this, "/filter/free_acceleration");
   this->_angular_velocity_subscription_.subscribe(this, "/imu/angular_velocity");
@@ -117,4 +121,15 @@ void VehicleAdapter::control_callback(const custom_interfaces::msg::ControlComma
   control_command.throttle_rr = msg.throttle_rr;
   control_command.steering_angle = msg.steering;
   this->_state_estimator_->control_callback(control_command);
+}
+
+void VehicleAdapter::go_signal_callback(const custom_interfaces::msg::OperationalStatus msg) {
+  go_signal_ = msg.go_signal;
+  if (!(msg.as_mission == common_lib::competition_logic::Mission::TRACKDRIVE) &&
+      !(msg.as_mission == common_lib::competition_logic::Mission::AUTOCROSS) &&
+      !(msg.as_mission == common_lib::competition_logic::Mission::SKIDPAD) &&
+      !(msg.as_mission == common_lib::competition_logic::Mission::ACCELERATION) &&
+      !(msg.as_mission == common_lib::competition_logic::Mission::EBS_TEST)) {
+    go_signal_ = false;
+  }
 }

@@ -89,6 +89,8 @@ public:
   UKF(std::shared_ptr<SEParameters> se_parameters, std::shared_ptr<ProcessModel> process_model,
       std::shared_ptr<ObservationModel> observation_model);
 
+  State get_state() const override { return state_; }
+
   void control_callback(const common_lib::structures::ControlCommand& control_command) override;
   void imu_callback(const common_lib::sensor_data::ImuData& imu_data) override;
   void wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
