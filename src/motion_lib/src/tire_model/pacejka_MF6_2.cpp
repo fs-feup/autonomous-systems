@@ -102,14 +102,14 @@ double PacejkaMF6_2::calculate_pure_slip(double B, double C, double D, double E,
 
 void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load,
                                         double vcx, double vcy, double yaw_rate,
-                                        double wheel_angular_speed, double camber_angle,
-                                        bool is_front) {
+                    double wheel_angular_speed, double camber_angle,
+                    bool is_front) {
   const double axle_stiffness_scale = is_front
-      ? car_parameters_->tire_parameters->front_lateral_stiffness_scale
-      : car_parameters_->tire_parameters->rear_lateral_stiffness_scale;
+    ? car_parameters_->tire_parameters->front_lateral_stiffness_scale
+    : car_parameters_->tire_parameters->rear_lateral_stiffness_scale;
   const double axle_peak_scale = is_front
-      ? car_parameters_->tire_parameters->front_lateral_peak_scale
-      : car_parameters_->tire_parameters->rear_lateral_peak_scale;
+    ? car_parameters_->tire_parameters->front_lateral_peak_scale
+    : car_parameters_->tire_parameters->rear_lateral_peak_scale;
   // Load related calculations
   // (4.E1) -> Assuming we have a tire with a different nominal load we approxiamte using scaling
   // factor LFZO The result is the adpated nominal load

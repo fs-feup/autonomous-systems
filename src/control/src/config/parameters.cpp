@@ -16,7 +16,6 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   pid_kp_ = params.pid_kp_;
   pid_ki_ = params.pid_ki_;
   pid_kd_ = params.pid_kd_;
-  pid_tau_ = params.pid_tau_;
   pid_lim_min_ = params.pid_lim_min_;
   pid_lim_max_ = params.pid_lim_max_;
   pid_anti_windup_ = params.pid_anti_windup_;
@@ -28,13 +27,6 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   lateral_mpc_prediction_horizon_steps_ = params.lateral_mpc_prediction_horizon_steps_;
   mpc_cost_weights_ = params.mpc_cost_weights_;
   mpc_terminal_cost_weights_ = params.mpc_terminal_cost_weights_;
-  supermpc_prediction_horizon_seconds_ = params.supermpc_prediction_horizon_seconds_;
-  supermpc_prediction_horizon_steps_ = params.supermpc_prediction_horizon_steps_;
-  supermpc_cost_weights_ = params.supermpc_cost_weights_;
-  supermpc_terminal_cost_weights_ = params.supermpc_terminal_cost_weights_;
-  supermpc_speed_stretch_ = params.supermpc_speed_stretch_;
-  supermpc_speed_cap_ = params.supermpc_speed_cap_;
-  supermpc_max_rear_slip_ = params.supermpc_max_rear_slip_;
   lateral_mpc_cost_weights_ = params.lateral_mpc_cost_weights_;
   lateral_mpc_terminal_cost_weights_ = params.lateral_mpc_terminal_cost_weights_;
   wheel_speeds_scale_mpc_ = params.wheel_speeds_scale_mpc_;
@@ -59,7 +51,6 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     pid_kp_ = other.pid_kp_;
     pid_ki_ = other.pid_ki_;
     pid_kd_ = other.pid_kd_;
-    pid_tau_ = other.pid_tau_;
     pid_lim_min_ = other.pid_lim_min_;
     pid_lim_max_ = other.pid_lim_max_;
     pid_anti_windup_ = other.pid_anti_windup_;
@@ -71,13 +62,6 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     lateral_mpc_prediction_horizon_steps_ = other.lateral_mpc_prediction_horizon_steps_;
     mpc_cost_weights_ = other.mpc_cost_weights_;
     mpc_terminal_cost_weights_ = other.mpc_terminal_cost_weights_;
-    supermpc_prediction_horizon_seconds_ = other.supermpc_prediction_horizon_seconds_;
-    supermpc_prediction_horizon_steps_ = other.supermpc_prediction_horizon_steps_;
-    supermpc_cost_weights_ = other.supermpc_cost_weights_;
-    supermpc_terminal_cost_weights_ = other.supermpc_terminal_cost_weights_;
-    supermpc_speed_stretch_ = other.supermpc_speed_stretch_;
-    supermpc_speed_cap_ = other.supermpc_speed_cap_;
-    supermpc_max_rear_slip_ = other.supermpc_max_rear_slip_;
     lateral_mpc_cost_weights_ = other.lateral_mpc_cost_weights_;
     lateral_mpc_terminal_cost_weights_ = other.lateral_mpc_terminal_cost_weights_;
     wheel_speeds_scale_mpc_ = other.wheel_speeds_scale_mpc_;
@@ -123,7 +107,6 @@ std::string ControlParameters::load_config() {
   this->pid_kp_ = control_config["pid_kp"].as<double>();
   this->pid_ki_ = control_config["pid_ki"].as<double>();
   this->pid_kd_ = control_config["pid_kd"].as<double>();
-  this->pid_tau_ = control_config["pid_tau"].as<double>();
   this->pid_lim_min_ = control_config["pid_lim_min"].as<double>();
   this->pid_lim_max_ = control_config["pid_lim_max"].as<double>();
   this->pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
@@ -131,9 +114,7 @@ std::string ControlParameters::load_config() {
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
   this->mpc_prediction_horizon_seconds_ = control_config["mpc_prediction_horizon_seconds"].as<double>();
   this->mpc_prediction_horizon_steps_ = control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
-  // The lateral (kinematic) MPC and the coupled (dynamic) MPC need very different
-  // horizons, so they are configured independently. Fall back to the coupled
-  // horizon when the lateral keys are absent, to stay compatible with older configs.
+  // Lateral and coupled MPCs need different horizons; fall back to the coupled keys if absent.
   this->lateral_mpc_prediction_horizon_seconds_ =
       control_config["lateral_mpc_prediction_horizon_seconds"]
           ? control_config["lateral_mpc_prediction_horizon_seconds"].as<double>()
@@ -142,9 +123,7 @@ std::string ControlParameters::load_config() {
       control_config["lateral_mpc_prediction_horizon_steps"]
           ? control_config["lateral_mpc_prediction_horizon_steps"].as<unsigned int>()
           : this->mpc_prediction_horizon_steps_;
-  // Cost weights are read at runtime rather than baked into the generated
-  // solver, so they can be tuned without a codegen rebuild. An empty/absent list
-  // leaves the weights compiled into the solver untouched.
+  // Read at runtime so weights can be tuned without a codegen rebuild; empty leaves them as generated.
   auto load_weights = [&control_config](const char* key) {
     std::vector<double> weights;
     if (control_config[key]) {
@@ -152,27 +131,6 @@ std::string ControlParameters::load_config() {
     }
     return weights;
   };
-  // SuperMPC keeps its own horizon and cost so it can be tuned independently of
-  // the bombated MPC it was derived from.
-  this->supermpc_prediction_horizon_seconds_ =
-      control_config["supermpc_prediction_horizon_seconds"]
-          ? control_config["supermpc_prediction_horizon_seconds"].as<double>()
-          : this->mpc_prediction_horizon_seconds_;
-  this->supermpc_prediction_horizon_steps_ =
-      control_config["supermpc_prediction_horizon_steps"]
-          ? control_config["supermpc_prediction_horizon_steps"].as<unsigned int>()
-          : this->mpc_prediction_horizon_steps_;
-  this->supermpc_speed_stretch_ = control_config["supermpc_speed_stretch"]
-                                      ? control_config["supermpc_speed_stretch"].as<double>()
-                                      : 1.15;
-  this->supermpc_speed_cap_ = control_config["supermpc_speed_cap"]
-                                  ? control_config["supermpc_speed_cap"].as<double>()
-                                  : 1.30;
-  this->supermpc_max_rear_slip_ = control_config["supermpc_max_rear_slip"]
-                                      ? control_config["supermpc_max_rear_slip"].as<double>()
-                                      : 0.16;
-  this->supermpc_cost_weights_ = load_weights("supermpc_cost_weights");
-  this->supermpc_terminal_cost_weights_ = load_weights("supermpc_terminal_cost_weights");
   this->mpc_cost_weights_ = load_weights("mpc_cost_weights");
   this->mpc_terminal_cost_weights_ = load_weights("mpc_terminal_cost_weights");
   this->lateral_mpc_cost_weights_ = load_weights("lateral_mpc_cost_weights");

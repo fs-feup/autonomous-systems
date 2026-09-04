@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-#include "ramped_inverter.hpp"
+#include "delayed_inverter.hpp"
 
 /*
  * Map of inverter models, with the key being the model name and the value
@@ -16,9 +16,9 @@ const std::map<std::string,
                    const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
                std::less<>>
     inverter_models_map = {
-        {"ramp",
+        {"delay",
          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
              -> std::shared_ptr<InverterModel> {
-           return std::make_shared<RampedInverter>(*params);
+           return std::make_shared<DelayedInverter>(*params);
          }},
 };

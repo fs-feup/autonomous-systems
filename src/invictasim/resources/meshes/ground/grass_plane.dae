@@ -2,21 +2,29 @@
 <COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
   <asset>
     <contributor>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
       <authoring_tool>InvictaSim grass plane</authoring_tool>
+========
+      <authoring_tool>InvictaSim asphalt plane</authoring_tool>
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
     </contributor>
-    <created>2026-04-13T00:00:00Z</created>
-    <modified>2026-04-13T00:00:00Z</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
 
   <library_images>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
     <image id="grass_texture-image" name="grass_texture">
       <init_from>grass_texture.png</init_from>
+========
+    <image id="asphalt_texture-image" name="asphalt_texture">
+      <init_from>asphalt_texture.png</init_from>
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
     </image>
   </library_images>
 
   <library_effects>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
     <effect id="grass_effect">
       <profile_COMMON>
         <newparam sid="grass_surface">
@@ -27,6 +35,18 @@
         <newparam sid="grass_sampler">
           <sampler2D>
             <source>grass_surface</source>
+========
+    <effect id="asphalt_effect">
+      <profile_COMMON>
+        <newparam sid="asphalt_surface">
+          <surface type="2D">
+            <init_from>asphalt_texture-image</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="asphalt_sampler">
+          <sampler2D>
+            <source>asphalt_surface</source>
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
             <wrap_s>WRAP</wrap_s>
             <wrap_t>WRAP</wrap_t>
             <minfilter>LINEAR_MIPMAP_LINEAR</minfilter>
@@ -35,20 +55,28 @@
         </newparam>
         <technique sid="common">
           <phong>
-            <emission>
-              <color>0 0 0 1</color>
-            </emission>
             <ambient>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
               <color>0.02 0.02 0.02 1</color>
             </ambient>
             <diffuse>
               <texture texture="grass_sampler" texcoord="UVMap"/>
+========
+              <color>0.04 0.04 0.04 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="asphalt_sampler" texcoord="UVMap"/>
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
             </diffuse>
             <specular>
               <color>0 0 0 1</color>
             </specular>
             <shininess>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
               <float>0.05</float>
+========
+              <float>0.5</float>
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
             </shininess>
           </phong>
         </technique>
@@ -57,45 +85,74 @@
   </library_effects>
 
   <library_materials>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
     <material id="grass_material" name="grass_material">
       <instance_effect url="#grass_effect"/>
+========
+    <material id="asphalt_material" name="asphalt_material">
+      <instance_effect url="#asphalt_effect"/>
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
     </material>
   </library_materials>
 
   <library_geometries>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
     <geometry id="grass_plane-mesh" name="grass_plane">
       <mesh>
         <source id="grass_plane-positions">
           <float_array id="grass_plane-positions-array" count="12">-0.5 -0.5 0 0.5 -0.5 0 0.5 0.5 0 -0.5 0.5 0</float_array>
           <technique_common>
             <accessor source="#grass_plane-positions-array" count="4" stride="3">
+========
+    <geometry id="asphalt_plane-mesh" name="asphalt_plane">
+      <mesh>
+        <source id="asphalt_plane-positions">
+          <float_array id="asphalt_plane-positions-array" count="12">-0.5 -0.5 0 0.5 -0.5 0 0.5 0.5 0 -0.5 0.5 0</float_array>
+          <technique_common>
+            <accessor source="#asphalt_plane-positions-array" count="4" stride="3">
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
 
         <source id="grass_plane-normals">
           <float_array id="grass_plane-normals-array" count="3">0 0 1</float_array>
           <technique_common>
             <accessor source="#grass_plane-normals-array" count="1" stride="3">
+========
+        <source id="asphalt_plane-normals">
+          <float_array id="asphalt_plane-normals-array" count="3">0 0 1</float_array>
+          <technique_common>
+            <accessor source="#asphalt_plane-normals-array" count="1" stride="3">
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
 
         <source id="grass_plane-map-0">
           <float_array id="grass_plane-map-0-array" count="8">0 0 420 0 420 420 0 420</float_array>
           <technique_common>
             <accessor source="#grass_plane-map-0-array" count="4" stride="2">
+========
+        <source id="asphalt_plane-map-0">
+          <float_array id="asphalt_plane-map-0-array" count="8">0 0 128 0 128 128 0 128</float_array>
+          <technique_common>
+            <accessor source="#asphalt_plane-map-0-array" count="4" stride="2">
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
               <param name="S" type="float"/>
               <param name="T" type="float"/>
             </accessor>
           </technique_common>
         </source>
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
 
         <vertices id="grass_plane-vertices">
           <input semantic="POSITION" source="#grass_plane-positions"/>
@@ -105,6 +162,15 @@
           <input semantic="VERTEX" source="#grass_plane-vertices" offset="0"/>
           <input semantic="NORMAL" source="#grass_plane-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#grass_plane-map-0" offset="2" set="0"/>
+========
+        <vertices id="asphalt_plane-vertices">
+          <input semantic="POSITION" source="#asphalt_plane-positions"/>
+        </vertices>
+        <triangles count="2" material="asphalt_material">
+          <input semantic="VERTEX" source="#asphalt_plane-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#asphalt_plane-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#asphalt_plane-map-0" offset="2" set="0"/>
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
           <p>0 0 0 1 0 1 2 0 2 0 0 0 2 0 2 3 0 3</p>
         </triangles>
       </mesh>
@@ -113,11 +179,19 @@
 
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
+<<<<<<<< HEAD:src/invictasim/resources/meshes/ground/grass_plane.dae
       <node id="grass_plane-node" name="grass_plane" type="NODE">
         <instance_geometry url="#grass_plane-mesh">
           <bind_material>
             <technique_common>
               <instance_material symbol="grass_material" target="#grass_material">
+========
+      <node id="asphalt_plane-node" name="asphalt_plane" type="NODE">
+        <instance_geometry url="#asphalt_plane-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="asphalt_material" target="#asphalt_material">
+>>>>>>>> main:src/invictasim/resources/meshes/ground/asphalt_plane.dae
                 <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
               </instance_material>
             </technique_common>

@@ -854,9 +854,6 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
   for (auto& marker : ground_marker_array.markers) {
     marker.header.stamp = stamp;
   }
-  if (!ground_marker_array.markers.empty()) {
-    fit_ground_plane_to_track(ground_marker_array.markers.front());
-  }
   if (use_generated_track_visualization_) {
     add_track_surface_markers(ground_marker_array, map_snapshot_cache_.ground_truth, stamp);
   }
@@ -923,6 +920,11 @@ void RosOutputAdapter::load_ground_visualization_resources() {
   const std::string path =
       std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/ground/config.yaml";
   const YAML::Node config = YAML::LoadFile(path);
+  double position_x = 0.0;
+  double position_y = 0.0;
+  double position_z = -0.02;
+  double scale_x = 400.0;
+  double scale_y = 400.0;
   double color_a = 1.0;
   double timing_line_target_cell_length = 0.5;
   int timing_line_row_count = 2;
@@ -954,11 +956,16 @@ void RosOutputAdapter::load_ground_visualization_resources() {
 
     const YAML::Node position = visualization["position"];
     if (position) {
-      ground_z_ = position["z"].as<double>(ground_z_);
+      position_x = position["x"].as<double>(position_x);
+      position_y = position["y"].as<double>(position_y);
+      position_z = position["z"].as<double>(position_z);
     }
-    ground_margin_ = visualization["margin"].as<double>(ground_margin_);
-    ground_fallback_size_ = visualization["fallback_size"].as<double>(ground_fallback_size_);
-    grass_tile_size_m_ = visualization["grass_tile_size_m"].as<double>(grass_tile_size_m_);
+
+    const YAML::Node scale = visualization["scale"];
+    if (scale) {
+      scale_x = scale["x"].as<double>(scale_x);
+      scale_y = scale["y"].as<double>(scale_y);
+    }
 
     const YAML::Node color = visualization["color"];
     if (color) {
@@ -980,23 +987,24 @@ void RosOutputAdapter::load_ground_visualization_resources() {
   ground.header.frame_id = "map";
   ground.ns = "invictasim_ground";
   ground.id = 100;
-  ground.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+  ground.type = use_generated_track_visualization_ ? visualization_msgs::msg::Marker::CUBE
+                                                   : visualization_msgs::msg::Marker::MESH_RESOURCE;
   ground.action = visualization_msgs::msg::Marker::ADD;
-  ground.pose.position.x = 0.0;
-  ground.pose.position.y = 0.0;
-  ground.pose.position.z = ground_z_;
+  ground.pose.position.x = position_x;
+  ground.pose.position.y = position_y;
+  ground.pose.position.z = position_z;
   ground.pose.orientation.w = 1.0;
-  ground.scale.x = ground_fallback_size_;
-  ground.scale.y = ground_fallback_size_;
-  ground.scale.z = 1.0;
-  ground.color.r = 1.0f;
-  ground.color.g = 1.0f;
-  ground.color.b = 1.0f;
+  ground.scale.x = scale_x;
+  ground.scale.y = scale_y;
+  ground.scale.z = use_generated_track_visualization_ ? 0.02 : 1.0;
+  ground.color.r = use_generated_track_visualization_ ? 0.28f : 1.0f;
+  ground.color.g = use_generated_track_visualization_ ? 0.42f : 1.0f;
+  ground.color.b = use_generated_track_visualization_ ? 0.22f : 1.0f;
   ground.color.a = static_cast<float>(color_a);
-  ground.mesh_resource = use_generated_track_visualization_
-                             ? "package://invictasim/resources/meshes/ground/grass_plane.dae"
-                             : "package://invictasim/resources/meshes/ground/asphalt_plane.dae";
-  ground.mesh_use_embedded_materials = true;
+  if (!use_generated_track_visualization_) {
+    ground.mesh_resource = "package://invictasim/resources/meshes/ground/asphalt_plane.dae";
+    ground.mesh_use_embedded_materials = true;
+  }
 
   ground_marker_template_.markers.clear();
   ground_marker_template_.markers.push_back(ground);
@@ -1380,9 +1388,13 @@ void RosOutputAdapter::add_track_quad(visualization_msgs::msg::Marker& marker,
                                       const geometry_msgs::msg::Point& c,
                                       const geometry_msgs::msg::Point& d,
                                       const std_msgs::msg::ColorRGBA& color) const {
-  const std::array<const geometry_msgs::msg::Point*, 6> corners{&a, &b, &c, &a, &c, &d};
-  for (const auto* corner : corners) {
-    marker.points.push_back(*corner);
+  marker.points.push_back(a);
+  marker.points.push_back(b);
+  marker.points.push_back(c);
+  marker.points.push_back(a);
+  marker.points.push_back(c);
+  marker.points.push_back(d);
+  for (int i = 0; i < 6; ++i) {
     marker.colors.push_back(color);
   }
 }
@@ -1410,11 +1422,12 @@ visualization_msgs::msg::Marker RosOutputAdapter::make_track_triangle_marker(
 
 RosOutputAdapter::TrackRibbon RosOutputAdapter::build_track_ribbon(
     const std::vector<common_lib::structures::Cone>& side_cones,
-    const std::vector<common_lib::structures::Cone>& opposite_cones, bool closed) const {
+    const std::vector<common_lib::structures::Cone>& opposite_cones) const {
   TrackRibbon ribbon;
   ribbon.inner.resize(side_cones.size());
   ribbon.outer.resize(side_cones.size());
-  ribbon.closed = closed;
+  ribbon.closed = side_cones.back().position.euclidean_distance(side_cones.front().position) <=
+                  track_surface_max_loop_segment_length_;
 
   for (std::size_t i = 0; i < side_cones.size(); ++i) {
     const bool has_previous = ribbon.closed || i > 0;
@@ -1603,47 +1616,6 @@ void RosOutputAdapter::add_track_asphalt_from_ribbon(
   }
 }
 
-RosOutputAdapter::TrackLayout RosOutputAdapter::track_layout() const {
-  std::string discipline = simulator_->get_discipline();
-  std::transform(discipline.begin(), discipline.end(), discipline.begin(),
-                 [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
-  if (discipline == "acceleration") {
-    return TrackLayout::kOpenLanes;
-  }
-  if (discipline == "skidpad") {
-    return TrackLayout::kSkidpad;
-  }
-  return TrackLayout::kClosedLoop;
-}
-
-std::vector<std::vector<common_lib::structures::Cone>> RosOutputAdapter::split_cone_runs(
-    const std::vector<common_lib::structures::Cone>& cones) const {
-  if (cones.size() < 3) {
-    return {cones};
-  }
-  
-  std::vector<double> spacing;
-  spacing.reserve(cones.size() - 1);
-  for (std::size_t i = 0; i + 1 < cones.size(); ++i) {
-    spacing.push_back(cones[i].position.euclidean_distance(cones[i + 1].position));
-  }
-  std::vector<double> sorted_spacing = spacing;
-  std::nth_element(sorted_spacing.begin(), sorted_spacing.begin() + sorted_spacing.size() / 2,
-                   sorted_spacing.end());
-  const double median = sorted_spacing[sorted_spacing.size() / 2];
-  const double break_threshold = std::max(2.5 * median, 1e-3);
-
-  std::vector<std::vector<common_lib::structures::Cone>> runs;
-  runs.emplace_back();
-  for (std::size_t i = 0; i < cones.size(); ++i) {
-    if (i > 0 && spacing[i - 1] > break_threshold) {
-      runs.emplace_back();
-    }
-    runs.back().push_back(cones[i]);
-  }
-  return runs;
-}
-
 void RosOutputAdapter::add_track_surface_markers(
     visualization_msgs::msg::MarkerArray& marker_array,
     const std::vector<common_lib::structures::Cone>& cones, const rclcpp::Time& stamp) const {
@@ -1668,66 +1640,13 @@ void RosOutputAdapter::add_track_surface_markers(
       make_track_triangle_marker("invictasim_track_asphalt", 1000, track_surface_asphalt_z_, stamp);
   auto curb_marker =
       make_track_triangle_marker("invictasim_track_curbs", 3000, track_surface_curb_z_, stamp);
+  const auto blue_ribbon = build_track_ribbon(blue_cones, yellow_cones);
+  const auto yellow_ribbon = build_track_ribbon(yellow_cones, blue_cones);
 
-  const TrackLayout layout = track_layout();
-  const auto blue_runs = split_cone_runs(blue_cones);
-  const auto yellow_runs = split_cone_runs(yellow_cones);
-
-  const auto centroid = [](const std::vector<common_lib::structures::Cone>& run) {
-    double x = 0.0;
-    double y = 0.0;
-    for (const auto& cone : run) {
-      x += cone.position.x;
-      y += cone.position.y;
-    }
-    return std::array<double, 2>{x / static_cast<double>(run.size()),
-                                 y / static_cast<double>(run.size())};
-  };
-
-  // A run is only joined end to end when the event actually has a closed
-  // boundary and the run really does come back on itself. Acceleration never
-  // closes; on a skidpad each circle closes independently, which is why the
-  // whole colour cannot be tested as one boundary.
-  const auto run_is_closed = [&](const std::vector<common_lib::structures::Cone>& run) {
-    if (layout == TrackLayout::kOpenLanes || run.size() < 3) {
-      return false;
-    }
-    return run.back().position.euclidean_distance(run.front().position) <=
-           track_surface_max_loop_segment_length_;
-  };
-
-  for (const auto& blue_run : blue_runs) {
-    if (blue_run.size() < 2) {
-      continue;
-    }
-    // Pair each run with the opposite-colour run that shares its piece of track.
-    // Index order cannot be used: on a skidpad the outer arc of one circle is
-    // stored alongside the inner arc of the other.
-    const std::vector<common_lib::structures::Cone>* partner = &yellow_runs.front();
-    if (yellow_runs.size() > 1) {
-      const auto blue_centre = centroid(blue_run);
-      double best = std::numeric_limits<double>::max();
-      for (const auto& yellow_run : yellow_runs) {
-        if (yellow_run.size() < 2) {
-          continue;
-        }
-        const auto yellow_centre = centroid(yellow_run);
-        const double distance =
-            std::hypot(blue_centre[0] - yellow_centre[0], blue_centre[1] - yellow_centre[1]);
-        if (distance < best) {
-          best = distance;
-          partner = &yellow_run;
-        }
-      }
-    }
-
-    const auto blue_ribbon = build_track_ribbon(blue_run, *partner, run_is_closed(blue_run));
-    const auto yellow_ribbon = build_track_ribbon(*partner, blue_run, run_is_closed(*partner));
-    add_track_asphalt_from_ribbon(asphalt_marker, blue_ribbon, yellow_ribbon, asphalt_color, false);
-    add_track_asphalt_from_ribbon(asphalt_marker, yellow_ribbon, blue_ribbon, asphalt_color, true);
-    add_track_curb_ribbon(curb_marker, blue_ribbon, curb_red, curb_white);
-    add_track_curb_ribbon(curb_marker, yellow_ribbon, curb_red, curb_white);
-  }
+  add_track_asphalt_from_ribbon(asphalt_marker, blue_ribbon, yellow_ribbon, asphalt_color, false);
+  add_track_asphalt_from_ribbon(asphalt_marker, yellow_ribbon, blue_ribbon, asphalt_color, true);
+  add_track_curb_ribbon(curb_marker, blue_ribbon, curb_red, curb_white);
+  add_track_curb_ribbon(curb_marker, yellow_ribbon, curb_red, curb_white);
 
   if (!asphalt_marker.points.empty()) {
     marker_array.markers.push_back(asphalt_marker);

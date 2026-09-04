@@ -113,6 +113,28 @@ public:
     state_->x = x;
     state_->y = y;
   }
+  /**
+   * @brief Set the full planar pose, so the car can be spawned at an arbitrary point on the
+   *        track rather than only at the timing line.
+   */
+  void set_initial_pose(double x, double y, double yaw) {
+    state_->x = x;
+    state_->y = y;
+    state_->yaw = yaw;
+  }
+  /**
+   * @brief Seed the body velocities. Wheel speeds must be set consistently (see
+   *        set_wheels_speed) or the tyre model will see a large slip transient.
+   */
+  void set_initial_velocity(double vx, double vy = 0.0, double yaw_rate = 0.0) {
+    state_->vx = vx;
+    state_->vy = vy;
+    state_->yaw_rate = yaw_rate;
+  }
+  void set_wheels_speed(const common_lib::structures::Wheels& wheels_speed) {
+    state_->wheels_speed = wheels_speed;
+  }
+  void set_steering_angle(double steering_angle) { state_->steering_angle = steering_angle; }
   void set_ebs(bool active) { state_->ebs_active = active; }
 
   // Getters

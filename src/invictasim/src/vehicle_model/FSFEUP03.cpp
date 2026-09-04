@@ -23,6 +23,10 @@ FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->brake_ = brake_models_map.at(simulator_parameters.brake_model.c_str())(
       simulator_parameters.car_parameters);
+  this->inverter_ = inverter_models_map.at(simulator_parameters.inverter_model.c_str())(
+      simulator_parameters.car_parameters);
+  this->brake_ = brake_models_map.at(simulator_parameters.brake_model.c_str())(
+      simulator_parameters.car_parameters);
   this->aero_ = aero_models_map.at(simulator_parameters.aero_model.c_str())(
       simulator_parameters.car_parameters);
   this->load_transfer_ = load_transfer_models_map.at(
@@ -37,7 +41,15 @@ FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
 void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
   using Clock = std::chrono::steady_clock;
 
-    // Motor + battery
+  common_lib::structures::Wheels brake_torques = {0.0, 0.0, 0.0, 0.0};
+  const double brake_input = -std::min(throttle.rear_left, throttle.rear_right);
+  if (control_mode_ == "manual" && brake_input > 0.0) {
+    brake_torques = brake_->calculate_brake_torques(brake_input);
+    throttle.rear_left = 0.0;
+    throttle.rear_right = 0.0;
+  }
+
+  // Motor + battery
   const auto powertrain_start = Clock::now();
   auto [torque_left, current_left]   = calculate_side_powertrain(
     throttle.rear_left, state_->wheels_speed.rear_left, motor_left_, drive_left_, true);
@@ -174,13 +186,6 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
   const auto tire_end = Clock::now();
 
   const auto integration_start = Clock::now();
-  // Calculate brake torques from brake input
-  common_lib::structures::Wheels brake_torques = {0.0, 0.0, 0.0, 0.0};
-  const double brake_input = -std::min(throttle.rear_left, throttle.rear_right);
-  if (brake_input > 0.0) {
-    brake_torques = brake_->calculate_brake_torques(brake_input);
-  }
-
   // Update wheel speeds
   if (state_->ebs_active) {
     state_->wheels_speed = {0.0, 0.0, 0.0, 0.0};

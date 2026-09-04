@@ -159,18 +159,9 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   double motor_omega = transmission_->calculate_motor_omega(state_->wheels_speed);
   double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
 
-  // Two independent limits. The throttle command is a fraction of the torque
-  // limit programmed into the inverter, which changes with the selected mode;
-  // what the motor can actually deliver at this speed and temperature does not.
-  double inverter_limit = car_parameters_->inverter_parameters->max_torque;
-  // Regen is limited separately, so a negative command brakes less than the same
-  // positive command drives.
-  if (throttle_input < 0.0) {
-    inverter_limit *= car_parameters_->inverter_parameters->regen_torque_fraction;
-  }
-  const double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
-  double reference_motor_torque =
-      std::clamp(throttle_input * inverter_limit, -max_motor_torque, max_motor_torque);
+  // Calculate max motor torque at current RPM
+  double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
+  double reference_motor_torque = throttle_input * max_motor_torque;
 
   // Avoid zero power request at launch
   const double min_omega_for_power = 10.0;  // rad/s,
@@ -290,13 +281,6 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
 
   const auto steering_start = Clock::now();
   Eigen::Vector4d wheel_angles = steering_->calculate_steering_angles(s(ST_ANGLE));
-  // Static alignment.  The toe angles were loaded from the tyre config but never
-  // reached the wheels, so setting them had no effect at all; they are a signed
-  // steer offset per wheel on top of whatever the linkage commands.
-  wheel_angles(FL) += car_parameters_->tire_parameters->fl_toe;
-  wheel_angles(FR) += car_parameters_->tire_parameters->fr_toe;
-  wheel_angles(RL) += car_parameters_->tire_parameters->rl_toe;
-  wheel_angles(RR) += car_parameters_->tire_parameters->rr_toe;
   const auto steering_angles_end = Clock::now();
   execution_times->steering_ms +=
       std::chrono::duration<double, std::milli>(steering_angles_end - steering_start).count();
@@ -344,7 +328,6 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
     slip_angle(tire) = tire_input.slip_angle;
     contact_patch_longitudinal_velocity(tire) = tire_input.vcx;
   }
-
   const auto tire_end = Clock::now();
   execution_times->tire_ms +=
       std::chrono::duration<double, std::milli>(tire_end - tire_start).count();
@@ -389,15 +372,8 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
   const double ay = total_fy / car_parameters_->total_mass - s(VX) * s(YAW_RATE);
   ds(VX) = ax;
   ds(VY) = ay;
-  // AX/AY drive the load transfer model and are published as the car's measured
-  // acceleration, so they must hold the *specific force* the chassis feels -- what
-  // an accelerometer reads -- not dv/dt.  Through a steady corner dvy/dt is ~0
-  // while the car is pulling lateral g, so feeding dv/dt meant the model applied
-  // almost no lateral load transfer exactly where load transfer sets the balance.
-  const double specific_force_x = total_fx / car_parameters_->total_mass;
-  const double specific_force_y = total_fy / car_parameters_->total_mass;
-  ds(AX) = (specific_force_x - s(AX)) / kAccelerationFilterTau;
-  ds(AY) = (specific_force_y - s(AY)) / kAccelerationFilterTau;
+  ds(AX) = ax - s(AX);
+  ds(AY) = ay - s(AY);
   ds(YAW_RATE) = total_torque / car_parameters_->Izz;
   ds(YAW) = s(YAW_RATE);
   ds(PX) = s(VX) * std::cos(s(YAW)) - s(VY) * std::sin(s(YAW));

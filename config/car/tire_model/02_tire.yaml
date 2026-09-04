@@ -1,12 +1,18 @@
 tire:
-  B_lateral: 14.31602
-  C_lateral: 1.6935813231637018
-  D_lateral: 2.4649524353844683
-  E_lateral: 0.775619056976202
-  B_longitudinal: 21.02804
-  C_longitudinal: 1.2816450613394608
-  D_longitudinal: 2.1792141270393164
-  E_longitudinal: -0.18296685357302622
+  # Pacejka combined slip parameters
+  # Lateral coefficients
+  B_lateral: 20.0 # Buffed from 13.8416 for sharper turn-in
+  C_lateral: 1
+  D_lateral: 5.0 # Buffed from 3.5 for more peak cornering grip
+  E_lateral: -0.262103
+  
+  # Longitudinal coefficients
+  B_longitudinal: 5.0 # Reverted
+  C_longitudinal: 1.80847
+  D_longitudinal: 1.0 # Reverted
+  E_longitudinal: -0.059626
+
+  # Camber and toe parameters
   fr:
     toe: 0.0
     camber: 0.0
@@ -19,34 +25,30 @@ tire:
   rl:
     toe: 0.0
     camber: 0.0
-  camber_scaling_factor: 1.0
-  effective_tire_r: 0.20574
-  slip_angle_relaxation_length: 0.00
-  slip_ratio_relaxation_length: 0.0507993
-  # Per-axle lateral scaling on top of LKY / LMUY.
-  front_lateral_stiffness_scale: 0.67093
-  rear_lateral_stiffness_scale: 0.706712
-  front_lateral_peak_scale: 1.12527
-  rear_lateral_peak_scale: 1.02338
-  PPZ1: 0.0
-  QDTP1: 0.0
-  d_bright: 0.706
-  d_bleft: 0.706
-  d_fright: 0.824
-  d_fleft: 0.824
-  camber: 0.0
+
+  camber_scaling_factor: 1
+  effective_tire_r: 0.25
+
+# Packejka MF6.2 parameters
+  slip_angle_relaxation_length: 0.0
+  slip_ratio_relaxation_length: 0.05
+  d_bright: 1.06
+  d_bleft: 1.06 
+  d_fright: 0.99
+  d_fleft: 0.99  
+  camber: 0
   dimension:
-    UNLOADED_RADIUS: 0.20574
-    WIDTH: 0.2134
-    ASPECT_RATIO: 0.42
-    RIM_RADIUS: 0.127
-    RIM_WIDTH: 0.1778
-    BOTTOMING_RADIUS: 0
+    UNLOADED_RADIUS: 0.255
+    WIDTH: 0.2059
+    ASPECT_RATIO: 0.55
+    RIM_RADIUS: 0.1905
+    RIM_WIDTH: 0.152
+
   operating_conditions:
     INFLPRES: 82737.0875
     NOMPRES: 82737.0875
   inertia:
-    MASS: 4.15
+    MASS: 7.9    #Previous was 17.451, need real value, but this is more realistic for now
     IXX: 0.4
     IYY: 0.7
     BELT_MASS: 7
@@ -56,12 +58,66 @@ tire:
   vertical:
     VERTICAL_STIFFNESS: 175000
     VERTICAL_DAMPING: 50
-    DREFF: 0.25
-    BREFF: 7
-    FREFF: 0.01
-    FNOMIN: 667.2
-    DYNAMIC_STIFFNESS: 0
-    DYNAMIC_DAMPING: 0
+    MC_CONTOUR_A: 0.5
+    MC_CONTOUR_B: 0.5
+    BREFF: 8.4
+    DREFF: 0.27
+    FREFF: 0.07
+    Q_RE0: 1
+    Q_V1: 0
+    Q_V2: 0
+    Q_FZ2: 0.0001
+    Q_FCX: 0
+    Q_FCY: 0
+    Q_CAM: 0
+    PFZ1: 0.88241
+    Q_FCY2: -0.4751
+    Q_CAM1: 85.19
+    Q_CAM2: 257.4
+    Q_CAM3: 0.5119
+    Q_FYS1: -20496.4
+    Q_FYS2: -60000
+    Q_FYS3: 88211.7
+    BOTTOM_OFFST: 0.01
+    BOTTOM_STIFF: 2000000
+
+  structural:
+    LONGITUDINAL_STIFFNESS: 406772
+    LATERAL_STIFFNESS: 1.72112e+06
+    YAW_STIFFNESS: 60000
+    FREQ_LONG: 80
+    FREQ_LAT: 40
+    FREQ_YAW: 50
+    FREQ_WINDUP: 70
+    DAMP_LONG: 0.04
+    DAMP_LAT: 0.04
+    DAMP_YAW: 0.04
+    DAMP_WINDUP: 0.04
+    DAMP_RESIDUAL: 0.002
+    DAMP_VLOW: 0.001
+    Q_BVX: 0
+    Q_BVT: 0
+    PCFX1: 0
+    PCFX2: 0
+    PCFX3: 0
+    PCFY1: 0
+    PCFY2: 0
+    PCFY3: 0
+    PCMZ1: 0
+
+  contact_patch:
+    Q_RA1: 0.5
+    Q_RA2: 1
+    Q_RB1: 1
+    Q_RB2: -1
+    ELLIPS_SHIFT: 0.8
+    ELLIPS_LENGTH: 1
+    ELLIPS_HEIGHT: 1
+    ELLIPS_ORDER: 1.8
+    ELLIPS_MAX_STEP: 0.025
+    ELLIPS_NWIDTH: 10
+    ELLIPS_NLENGTH: 10
+
   inflation_pressure_range:
     PRESMIN: 10000
     PRESMAX: 1000000
@@ -79,23 +135,23 @@ tire:
     CAMMAX: 0.26181
   scaling_coefficients:
     LFZO: 1
-    LCX: 1.06698
-    LMUX: 1.174
-    LEX: 0.941893
-    LKX: 0.809003
-    LHX: 1
-    LVX: 1
-    LCY: 0.805742
-    LMUY: 0.435284
-    LEY: 0.910318
-    LKY: 0.570308
-    LHY: 1
-    LVY: 1
-    LTR: 0.103339
-    LRES: 1.35036
-    LXAL: 0.72455
-    LYKA: 0.610867
-    LVYKA: 1.09286
+    LCX: 1
+    LMUX: 1.0     # neutral scaling on physical base
+    LEX: 1
+    LKX: 1.0      # neutral scaling on physical base
+    LHX: 0
+    LVX: 0
+    LCY: 1.17125
+    LMUY: 1.13    # physical (was 4.5)
+    LEY: 0.893083
+    LKY: 16.14    # physical (was 10.0)
+    LHY: 0
+    LVY: 0
+    LTR: 1
+    LRES: 0
+    LXAL: 0.0
+    LYKA: 0.83
+    LVYKA: 1
     LS: 1
     LKYC: 1
     LKZC: 1
@@ -104,32 +160,33 @@ tire:
     LMY: 0.693051
     LMP: 1
   longitudinal_coefficients:
-    PCX1: 1.2816450613394608
-    PDX1: 2.1792141270393164
-    PDX2: 0.1916877850687315
-    PDX3: 10.515227631638101
-    PEX1: -0.18296685357302622
-    PEX2: -0.09510742322777861
-    PEX3: 0.7101348569011203
-    PEX4: -0.006719318516639911
-    PKX1: 58.7316502893526
-    PKX2: -19.63027949293234
-    PKX3: 0.35261578279297134
-    PHX1: -0.00033064449323084506
-    PHX2: 0.00035574003274416427
-    PVX1: 0.008510977712260113
-    PVX2: -0.018232147922466517
-    PPX1: -0.8731649059520044
-    PPX2: -2.3512532317666333
-    PPX3: -0.3089792054461221
-    PPX4: -0.06450471567715056
-    RBX1: 15.64812924583967
-    RBX2: 18.590434868980616
-    RBX3: 245.04426568181316
-    RCX1: 1.39665831133264
-    REX1: 1.0048179613895387
-    REX2: 0
-    RHX1: 0.0011426274666278028
+    PCX1: 1.786
+    PDX1: 0.85    # physical base
+    PDX2: -0.44
+    PDX3: 20.8
+    PEX1: 0.591386
+    PEX2: -0.038
+    PEX3: 0
+    PEX4: 0.071
+    PKX1: 65.0    # physical base
+    PKX2: -20.25
+    PKX3: 0.5
+    PHX1: 0
+    PHX2: 0
+    PVX1: 0
+    PVX2: 0
+    PPX1: 0
+    PPX2: 0
+    PPX3: 0
+    PPX4: 0
+    RBX1: 23.72
+    RBX2: 25.97
+    RBX3: 0
+    RCX1: 0.7495
+    REX1: -0.4759
+    REX2: 0.8109
+    RHX1: 0
+
   overturning_coefficients:
     QSX1: -0.017624270281646755
     QSX2: 2.7727585488852378
@@ -147,55 +204,53 @@ tire:
     QSX14: -0.2748628194764022
     PPMX1: 0.22251389914608563
   lateral_coefficients:
-    PCY1: 1.6935813231637018
-    PDY1: 2.4649524353844683
-    PDY2: -0.1615143341608214
-    PDY3: 14.566606288628474
-    PEY1: 0.775619056976202
-    PEY2: -0.538803953117602
-    PEY3: 0.21896516667506885
-    PEY4: 2.3106945889789854
-    PEY5: -61.85037732555796
-    PKY1: -59.76392540525374
-    PKY2: -3.1228657345561603
-    PKY3: 0.8462817541126214
-    PKY4: -2.577937392557507
-    PKY5: -86.3422288248697
-    PKY6: 3.2941978129330214
-    PKY7: 1.4513038468438684
-    PHY1: 0.0003757834258241148
-    PHY2: 3.771952584512442e-05
-    PVY1: -0.0010729294698553643
-    PVY2: -0.02405111376005712
-    PVY3: 0.0646756128720723
-    PVY4: -0.006892509818430076
-    PPY1: 0.2108044205435863
-    PPY2: 0.9892701836102662
-    PPY3: -0.17346022152140353
-    PPY4: -0.05248234308235212
-    PPY5: -1.0259429986531148
-    RBY1: 85.81260483326126
-    RBY2: 70.27945998834053
-    RBY3: 0.016025374373955317
-    RBY4: -556.2457322529978
-    RCY1: 1.3279300335280504
-    REY1: 2.076389849499935
-    REY2: 9.109382221129533e-15
-    RHY1: 0.006883693878082688
-    RHY2: 0.009527298955609333
-    RVY1: -0.011116763472520675
-    RVY2: -0.006950482618210165
-    RVY3: 0.2952286576583656
-    RVY4: 36.95068696130522
-    RVY5: 2.180468080159584
-    RVY6: 14.36111095013508
-    PTY1: 1.8473
-    PTY2: 1.9465
-    PTY3: 0
+    PCY1: 1.6384   
+    PDY1: 1.825   # physical (was 3.5)
+    PDY2: -0.1985
+    PDY3: 4.0072
+    PEY1: 0.668097
+    PEY2: -0.33312
+    PEY3: 0.27748
+    PEY4: -0.016493
+    PEY5: 0
+    PKY1: -330.6  # physical (was -600)
+    PKY2: 1.6336
+    PKY3: 0.62971
+    PKY4: 2
+    PKY5: 0
+    PKY6: -1
+    PKY7: 0
+    PHY1: -4.3588e-16
+    PHY2: -2.2117e-17
+    PVY1: 9.4249e-16
+    PVY2: 3.9982e-18
+    PVY3: -3.2711
+    PVY4: -1.1442
+    PPY1: 0
+    PPY2: 0
+    PPY3: 0
+    PPY4: 0
+    PPY5: 0
+    RBY1: 20.33
+    RBY2: 8.152
+    RBY3: -0.01243
+    RBY4: 0
+    RCY1: 0.9317
+    REY1: -0.0003982
+    REY2: 0.3077
+    RHY1: 1.3384e-17
+    RHY2: 1.352e-17
+    RVY1: 2.0035e-17
+    RVY2: -1.3167e-17
+    RVY3: 2.2302e-18
+    RVY4: -6.7562e-18
+    RVY5: 7.583e-18
+    RVY6: 2.0886e-17
+
   rolling_coefficients:
-    QSY1: 0.003263208219635714
-    QSY2: 0
-    QSY3: 0.00040742768403761786
+    QSY1: 0.025
+    QSY2: 0.0
+    QSY3: 0.06
     QSY4: 0
     QSY5: 0.08708201098382937
     QSY6: -0.02673439766176843

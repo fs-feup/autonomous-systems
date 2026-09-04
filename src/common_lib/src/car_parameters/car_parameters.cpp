@@ -122,5 +122,13 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
     this->inverter_parameters = std::make_shared<InverterParameters>(
         config["vehicle_model"]["inverter_model_params"].as<std::string>());
   }
+  if (config["vehicle_model"]["brake_model_params"]) {
+    this->brake_parameters = std::make_shared<BrakeParameters>(
+        config["vehicle_model"]["brake_model_params"].as<std::string>());
+  }
+  if (config["vehicle_model"]["inverter_model_params"]) {
+    this->inverter_parameters = std::make_shared<InverterParameters>(
+        config["vehicle_model"]["inverter_model_params"].as<std::string>());
+  }
   this->physical_constants = std::make_shared<common_lib::structures::PhysicalConstants>();
 }

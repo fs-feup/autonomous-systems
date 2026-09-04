@@ -16,9 +16,15 @@ vehicle_model:
   battery_model_params: "03_battery"
 
   transmission_model: "single_stage" # Options: "single_stage", "viscous_differential", "salisbury_differential"
-  transmission_model_params: "independent_drive" # Options: "02_transmission", "independent_drive"
+  transmission_model_params: "03_transmission" # Options: "02_transmission", "03_transmission"
 
   inverter_model: "ramp"
+  inverter_model_params: "03_inverter"
+
+  brake_model: "default"
+  brake_model_params: "03_brake"
+
+  inverter_model: "delay"
   inverter_model_params: "03_inverter"
 
   brake_model: "default"
