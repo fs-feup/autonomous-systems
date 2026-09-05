@@ -23,10 +23,6 @@ FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->brake_ = brake_models_map.at(simulator_parameters.brake_model.c_str())(
       simulator_parameters.car_parameters);
-  this->inverter_ = inverter_models_map.at(simulator_parameters.inverter_model.c_str())(
-      simulator_parameters.car_parameters);
-  this->brake_ = brake_models_map.at(simulator_parameters.brake_model.c_str())(
-      simulator_parameters.car_parameters);
   this->aero_ = aero_models_map.at(simulator_parameters.aero_model.c_str())(
       simulator_parameters.car_parameters);
   this->load_transfer_ = load_transfer_models_map.at(

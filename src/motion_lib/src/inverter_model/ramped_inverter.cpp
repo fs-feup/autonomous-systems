@@ -13,7 +13,7 @@ double RampedInverter::calculate_inverter_throttle(double throttle_input, double
   // Rising demand uses the acceleration ramp, falling demand the braking ramp.
   const auto& inverter = car_parameters_->inverter_parameters;
   const double ramp_ms =
-      error > 0.0 ? inverter->acceleration_ramp_ms : inverter->regen_braking_ramp_ms;
+      error > 0.0 ? inverter->acceleration_delay_ms : inverter->regen_braking_delay_ms;
   if (ramp_ms <= 0.0) {
     output_throttle_input_ = target;
     return output_throttle_input_;

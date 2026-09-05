@@ -12,5 +12,7 @@ car:
   cg_height: 0.290
   cg_2_rear_axis: 0.6885
   gear_ratio: 12.5882
-  Izz: 101.082 #não mexi
-  front_bearing_drag: 0.25 #não mexi
+  Izz: 101.82
+  front_bearing_drag: 0.025
+  front_wheel_inertia: 0.2
+  rear_wheel_inertia: 0.4

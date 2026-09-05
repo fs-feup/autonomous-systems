@@ -24,12 +24,6 @@ vehicle_model:
   brake_model: "default"
   brake_model_params: "03_brake"
 
-  inverter_model: "delay"
-  inverter_model_params: "03_inverter"
-
-  brake_model: "default"
-  brake_model_params: "03_brake"
-
   load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
   load_transfer_model_params: "03_load_transfer"
 
