@@ -80,6 +80,18 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
   params.vp_use_adaptive_velocity_ = planning_config["vp_use_adaptive_velocity"].as<bool>();
+  params.vp_curvature_peak_threshold_ = planning_config["vp_curvature_peak_threshold"]
+                                            ? planning_config["vp_curvature_peak_threshold"].as<double>()
+                                            : 0.05;
+  params.vp_min_section_spacing_ = planning_config["vp_min_section_spacing"]
+                                       ? planning_config["vp_min_section_spacing"].as<int>()
+                                       : 5;
+  params.vp_adaptive_anchor_mean_ = planning_config["vp_adaptive_anchor_mean"]
+                                        ? planning_config["vp_adaptive_anchor_mean"].as<std::vector<double>>()
+                                        : std::vector<double>{0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.90, 1.00, 1.50};
+  params.vp_adaptive_anchor_delta_ = planning_config["vp_adaptive_anchor_delta"]
+                                         ? planning_config["vp_adaptive_anchor_delta"].as<std::vector<double>>()
+                                         : std::vector<double>{2.00, 1.50, 1.00, 0.85, 0.65, -0.20, -1.00, -1.25, -1.50};
 
   /*--------------------- Planning Configuration Parameters --------------------*/
   params.planning_publishing_visualization_msgs_ =

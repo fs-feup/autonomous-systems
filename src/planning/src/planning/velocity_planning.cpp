@@ -321,15 +321,18 @@ void VelocityPlanning::change_section_limits(int section_idx, double delta_long,
 }
 
 
-double get_delta(double mean) {
-  double anchor_mean[] = {0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.90, 1.00, 1.50};
-  double anchor_delta[] = {2.00, 1.50, 1.00, 0.85, 0.65, -0.20, -1.00, -1.25, -1.50};
-  const int N = 9;
+double VelocityPlanning::get_delta(double mean) const {
+  const auto &anchor_mean = config_.adaptive_anchor_mean_;
+  const auto &anchor_delta = config_.adaptive_anchor_delta_;
+  if (anchor_mean.empty() || anchor_delta.empty()) {
+    return 0.0;
+  }
+  size_t N = std::min(anchor_mean.size(), anchor_delta.size());
 
   if (mean <= anchor_mean[0]) return anchor_delta[0];
   if (mean >= anchor_mean[N - 1]) return anchor_delta[N - 1];
 
-  for (int i = 0; i < N - 1; i++) {
+  for (size_t i = 0; i < N - 1; i++) {
     if (mean >= anchor_mean[i] && mean <= anchor_mean[i + 1]) {
       double t = (mean - anchor_mean[i]) / (anchor_mean[i + 1] - anchor_mean[i]);
       return anchor_delta[i] + t * (anchor_delta[i + 1] - anchor_delta[i]);

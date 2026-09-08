@@ -42,6 +42,10 @@ planning:
   vp_use_velocity_planning: true
   vp_use_adaptive_velocity: true
   vp_desired_velocity: 15.0
+  vp_curvature_peak_threshold: 0.05
+  vp_min_section_spacing: 5
+  vp_adaptive_anchor_mean: [0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.90, 1.00, 1.50]
+  vp_adaptive_anchor_delta: [2.00, 1.50, 1.00, 0.85, 0.65, -0.20, -1.00, -1.25, -1.50]
   #---------------------- Planning Config (planning_) ---------------------------
   planning_publishing_visualization_msgs: true
   planning_using_full_map: true

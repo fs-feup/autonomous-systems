@@ -59,7 +59,10 @@ struct Section {
 class VelocityPlanning {
 public:
   VelocityPlanning() = default;
-  explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
+  explicit VelocityPlanning(VelocityPlanningConfig config)
+      : config_(config),
+        curvature_peak_threshold_(config.curvature_peak_threshold_),
+        min_section_spacing_(config.min_section_spacing_) {}
 
   /**
    * @brief Assigns a velocity to each point of the path and computes sections.
@@ -121,6 +124,8 @@ private:
   // -----------------------------------------------------------------------
 
   double find_curvature(const PathPoint &p1, const PathPoint &p2, const PathPoint &p3);
+
+  double get_delta(double mean) const;
 
   void point_speed(const std::vector<double> &curvatures, std::vector<double> &velocities);
 
