@@ -63,6 +63,7 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_BOMBATED_MPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_BOMBATED_MPC_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E env
+    PYTHONPATH=${ACADOS_SOURCE_DIR}/interfaces/acados_template:$ENV{PYTHONPATH}
     AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
     CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
     LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
@@ -92,6 +93,7 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_MPCZINHO_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_MPCZINHO_GEN_DIR}
   COMMAND ${CMAKE_COMMAND} -E env
+    PYTHONPATH=${ACADOS_SOURCE_DIR}/interfaces/acados_template:$ENV{PYTHONPATH}
     AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
     CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
     LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
@@ -126,9 +128,7 @@ set(IMPLEMENTATION_FILES
   src/config/parameters.cpp
   src/controller/base_decoupled_controller.cpp
   src/controller/bombated_mpc.cpp
-  src/controller/supermpc.cpp
   src/solver/bombated_mpc_acados.cpp
-  src/solver/supermpc_acados.cpp
   src/solver/mpczinho_acados.cpp
   src/utils/utils.cpp
   src/utils/path_stager.cpp
@@ -164,15 +164,6 @@ set_target_properties(${ACADOS_BOMBATED_MPC_SOLVER_TARGET} PROPERTIES
   IMPORTED_NO_SONAME TRUE
 )
 
-# Generated solver - SuperMPC
-set(ACADOS_SUPERMPC_SOLVER_TARGET acados_ocp_solver_${ACADOS_SUPERMPC_NAME})
-
-add_library(${ACADOS_SUPERMPC_SOLVER_TARGET} SHARED IMPORTED)
-set_target_properties(${ACADOS_SUPERMPC_SOLVER_TARGET} PROPERTIES
-  IMPORTED_LOCATION ${ACADOS_SUPERMPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_SUPERMPC_NAME}.so
-  IMPORTED_NO_SONAME TRUE
-)
-
 # Generated solver - MPCzinho
 set(ACADOS_MPCZINHO_SOLVER_TARGET acados_ocp_solver_${ACADOS_MPCZINHO_NAME})
 
@@ -193,7 +184,6 @@ endforeach()
 set(ACADOS_LIBS
   ${ACADOS_BOMBATED_MPC_SOLVER_TARGET}
   ${ACADOS_MPCZINHO_SOLVER_TARGET}
-  ${ACADOS_SUPERMPC_SOLVER_TARGET}
   acados
   hpipm
   blasfeo

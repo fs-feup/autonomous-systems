@@ -132,11 +132,11 @@ void VelocityPlanning::acceleration_limiter(const std::vector<PathPoint> &points
         std::min(velocities[i - 1] * velocities[i - 1] * std::abs(curvatures[i - 1]), lateral_acc);
 
     // Friction ellipse: (ax/ax_max)^2 + (ay/ay_max)^2 = 1
-    double ax_max = config_.longitudinal_acceleration_ *
-                    std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
+    double ax_max = longitudinal_acc *
+                    std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
     // Cap by acceleration limit
-    ax_max = std::min(ax_max, config_.longitudinal_acceleration_);
+    ax_max = std::min(ax_max, longitudinal_acc);
 
     double max_velocity =
         std::sqrt(std::max(0.0, velocities[i - 1] * velocities[i - 1] + 2 * ax_max * d));
@@ -156,21 +156,13 @@ void VelocityPlanning::braking_limiter(std::vector<PathPoint> &points,
     double lateral_acc =
         (sec_idx >= 0) ? sections_[sec_idx].current_lat_acc : config_.lateral_acceleration_;
 
+    // Lateral acceleration at the next point: a = v(j)^2 * curvature clamped to lateral_acc
     double ay = std::min(velocities[j] * velocities[j] * std::abs(curvatures[j]), lateral_acc);
 
-    double ax_brake = config_.braking_acceleration_ *
-                      std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
-
-    // Lateral acceleration at the next point: a = v(j)^2 * curvature
-    // Clamped to lateral_acceleration_ to avoid ay exceeding the lateral acceleration limit
-    double ay = std::min(velocities[j] * velocities[j] * std::abs(curvatures[j]),
-                         config_.lateral_acceleration_);
-
-    // Friction ellipse: braking limit (negative in config) scaled by the grip left after
-    // cornering. Taking min() against it instead collapsed to the full limit, making this inert.
+    // Friction ellipse: braking limit (negative in config) scaled by the grip left after cornering.
     double ax_brake =
         std::abs(config_.braking_acceleration_) *
-        std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
+        std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
     // Correct kinematic speed calculation
     // v_f² = v_i² + 2ad
@@ -374,14 +366,10 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
     // Friction ellipse, as in braking_limiter.
     double ax_brake =
         std::abs(config_.braking_acceleration_) *
-        std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
+        std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
 
     // Forward braking kinematics: v_j^2 = v_i^2 - 2 * a_brake * d
     double vj = std::sqrt(std::max(0.0, vi * vi - 2.0 * ax_brake * d));
-    double ax_available = config_.braking_acceleration_ *
-                          std::sqrt(std::max(0.0, 1.0 - std::pow(ay / lateral_acc, 2)));
-
-    double vj = std::sqrt(std::max(0.0, vi * vi - 2.0 * ax_available * d));
     vj = std::max(vj, 0.0);
 
     final_path[j].ideal_velocity = std::min(final_path[j].ideal_velocity, vj);

@@ -81,12 +81,13 @@ struct VelocityPlanningConfig {
   /**
    * @brief Parameterized constructor.
    */
-  VelocityPlanningConfig(double minimum_velocity, double desired_velocity,
-                         double braking_acceleration, double lateral_acceleration,
-                         double longitudinal_acceleration, bool use_velocity_planning,
-                         bool use_adaptive_velocity, double curvature_peak_threshold,
-                         int min_section_spacing, const std::vector<double>& adaptive_anchor_mean,
-                         const std::vector<double>& adaptive_anchor_delta)
+  VelocityPlanningConfig(
+      double minimum_velocity, double desired_velocity, double braking_acceleration,
+      double lateral_acceleration, double longitudinal_acceleration, bool use_velocity_planning,
+      bool use_adaptive_velocity = true, double curvature_peak_threshold = 0.05,
+      int min_section_spacing = 5,
+      const std::vector<double>& adaptive_anchor_mean = {0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.90, 1.00, 1.50},
+      const std::vector<double>& adaptive_anchor_delta = {2.00, 1.50, 1.00, 0.85, 0.65, -0.20, -1.00, -1.25, -1.50})
       : minimum_velocity_(minimum_velocity),
         desired_velocity_(desired_velocity),
         braking_acceleration_(braking_acceleration),
