@@ -8,6 +8,7 @@
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/position.hpp"
+#include "common_lib/structures/section.hpp"
 #include "rclcpp/clock.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/color_rgba.hpp"
@@ -261,4 +262,18 @@ visualization_msgs::msg::MarkerArray velocity_hover_markers(
 visualization_msgs::msg::Marker velocity_colored_path_marker(
     const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
     const std::string& frame_id, float scale = 0.15f);
+
+/**
+ * @brief Creates visualization markers for path sections, section labels, and boundary points.
+ *
+ * @param sections Vector of path sections
+ * @param smoothed_path Vector of smoothed path points
+ * @param frame_id Frame ID for marker headers
+ * @param base_longitudinal_acc Baseline longitudinal acceleration used for color scaling
+ * @return visualization_msgs::msg::MarkerArray
+ */
+visualization_msgs::msg::MarkerArray sections_debug_markers(
+    const std::vector<common_lib::structures::Section>& sections,
+    const std::vector<common_lib::structures::PathPoint>& smoothed_path,
+    const std::string& frame_id, double base_longitudinal_acc = 4.0);
 }  // namespace common_lib::communication

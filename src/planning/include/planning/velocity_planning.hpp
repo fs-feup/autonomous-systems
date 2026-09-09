@@ -5,34 +5,12 @@
 
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
+#include "common_lib/structures/section.hpp"
 #include "config/velocity_config.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
-
-/**
- * @brief Represents a contiguous section of the path between two corner apexes.
- *
- * Sections are straight-centered: each section spans from one curvature peak
- * (corner apex) to the next. This mirrors the natural racing-line atom of
- * braking zone → straight → acceleration zone.
- *
- * Limit adaptation is tracked per section via a rolling mean of cross-track
- * error samples. Once enough samples have been collected the per-node
- * acceleration/lateral limits for the entire section are nudged up or down
- * and the accumulator is reset.
- */
-struct Section {
-  int start_idx;
-  int end_idx;
-  double mean_error;
-  int sample_count;
-  double current_long_acc;
-  double current_lat_acc;
-  double max_error;
-  double min_error;
-  bool is_corner;
-};
+using Section = common_lib::structures::Section;
 
 
 /**

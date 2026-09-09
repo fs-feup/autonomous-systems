@@ -249,8 +249,6 @@ private:
    * @param start_time ROS time when planning algorithms began execution
    */
   void publish_execution_time(rclcpp::Time start_time);
-  //TODO: DOCS
-  void publish_sections_debug() const;
 
   /*--------------------- Abstract Methods --------------------*/
   /**
