@@ -25,7 +25,6 @@ struct ControlParameters {
   double pid_kp_; // proportional gain for PID controller
   double pid_ki_; // integral gain for PID controller
   double pid_kd_; // derivative gain for PID controller
-  double pid_tau_; // Derivative low pass filter time constant
   double pid_lim_min_; // minimum output limit for PID controller (maximum braking)
   double pid_lim_max_; // maximum output limit for PID controller (maximum throttle)
   double pid_anti_windup_; // anti-windup parameter for PID controller, gain of integrator impact when saturated 
@@ -37,13 +36,6 @@ struct ControlParameters {
   unsigned int lateral_mpc_prediction_horizon_steps_; // prediction horizon in steps for the lateral MPC
   std::vector<double> mpc_cost_weights_; // stage cost weights for the coupled MPC
   std::vector<double> mpc_terminal_cost_weights_; // terminal cost weights for the coupled MPC
-  double supermpc_prediction_horizon_seconds_; // prediction horizon in seconds for SuperMPC
-  unsigned int supermpc_prediction_horizon_steps_; // prediction horizon in steps for SuperMPC
-  std::vector<double> supermpc_cost_weights_; // stage cost weights for SuperMPC
-  std::vector<double> supermpc_terminal_cost_weights_; // terminal cost weights for SuperMPC
-  double supermpc_speed_stretch_; // multiple of the planner speed SuperMPC mildly aims for
-  double supermpc_speed_cap_; // multiple of the planner speed above which SuperMPC is penalised
-  double supermpc_max_rear_slip_; // rear slip angle envelope (rad)
   std::vector<double> lateral_mpc_cost_weights_; // stage cost weights for the lateral MPC
   std::vector<double> lateral_mpc_terminal_cost_weights_; // terminal cost weights for the lateral MPC
   double wheel_speeds_scale_mpc_; // scale factor for wheel speeds (used to improve numerical stability of the solver, can be tuned)

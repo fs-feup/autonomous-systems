@@ -307,6 +307,14 @@ void Planning::run_full_map() {
   is_path_final_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
+  // Only latch once the loop actually built, or a failed attempt is latched forever.
+  if (full_path_.size() < 20) {
+    RCLCPP_WARN(get_logger(), "Full-map path calculation returned only %zu points, retrying",
+                full_path_.size());
+    return;
+  }
+  is_path_final_ = true;
+
   std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
   std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
 
@@ -362,8 +370,8 @@ void Planning::run_full_map() {
 void Planning::run_acceleration() {
   full_path_ = path_calculation_.calculate_path(cone_array_);
   smoothed_path_ = path_smoothing_.smooth_path(full_path_, false);
-  velocity_planning_.set_velocity(smoothed_path_);
-  velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_acceleration_);
+  velocity_planning_.acceleration_velocity(smoothed_path_,
+                                           planning_config_.braking_distance_acceleration_);
 }
 
 void Planning::run_autocross() {

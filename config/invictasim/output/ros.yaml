@@ -1,13 +1,13 @@
 publish_frequencies:
   vehicle_model:
-    tire: 1000 # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
+    tire: 5 # Tire status (FX, FY, MY, MZ, slip ratio, slip angle)
     battery: 5       # Battery status (voltage, current, state of charge)
     motor: 5         # Motor status (RPM, torque, temperature)
     transmission: 5  # Transmission status (torque on each wheel)
     aero: 5          # Aerodynamic status (drag, downforce)
     status: 100       # Overall vehicle status (speed, acceleration, position, yaw, etc.) -- MPC/control input on /invictasim/vehicle_model/status
   visualization:     # Visualization 
-    car: 60 # Car visualization 
+    car: 20 # Car visualization 
     ground: 1 # Ground visualization 
     ground_truth_cones: 0 # Ground-truth cones visualization
     slam_cones: 10 # SLAM cones visualization (simulated or from state estimation)
@@ -23,12 +23,12 @@ publish_frequencies:
     simulated_slam: 10        # Simulated SLAM map 
   vehicle_state:
     pose: 50              # Simulated vehicle pose (slam output)
-    state_vector: 50      # Simulated vehicle state vector (MPC input)
-    velocities: 50        # Simulated velocities (velocity estimation output)
+    state_vector: 100      # Simulated vehicle state vector (MPC input)
+    velocities: 100        # Simulated velocities (velocity estimation output)
     operational_status: 1  # Simulated operational status (contains go_signal and mission)
   statistics:
     lap_summary: 1            # End-of-lap summary: 0 disables, 1 enables
     lap_current: 10        # Current lap number, lap time, and cones hit
-    control_statistics: 10    # Velocity and path tracking errors
+    control_statistics: 50    # Velocity and path tracking errors
     lap_counter: 10       # Lap counter (slam output) -- planning + control_evaluator subscribe to /invictasim/state_estimation/lap_counter
   execution_time: 0      # Time taken for each simulation step (ms)

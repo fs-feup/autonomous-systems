@@ -25,3 +25,9 @@
 [submodule "ext/osqp-eigen"]
 	path = ext/osqp-eigen/src
 	url = https://github.com/robotology/osqp-eigen.git
+[submodule "ext/rslidar_msg"]
+	path = ext/rslidar_msg
+	url = https://github.com/RoboSense-LiDAR/rslidar_msg.git
+[submodule "ext/rslidar_sdk"]
+	path = ext/rslidar_sdk
+	url = https://github.com/RoboSense-LiDAR/rslidar_sdk.git

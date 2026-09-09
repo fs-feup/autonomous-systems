@@ -30,10 +30,7 @@ MPCzinhoAcadosSolver::MPCzinhoAcadosSolver(const ControlParameters& params) : So
 }
 
 void MPCzinhoAcadosSolver::apply_cost_weights() {
-  // Push the configured cost weights into the solver at construction time so
-  // they can be tuned from YAML without regenerating the acados C code. The
-  // weights baked in by the generator remain the fallback when the config omits
-  // them (or gives the wrong number of entries).
+  // Set from YAML so weights are tunable without regenerating; generated weights are the fallback.
   const int N = nlp_dims_->N;
   auto set_stage_weights = [this](const std::vector<double>& weights, int stage,
                                   const char* label) {

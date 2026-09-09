@@ -47,7 +47,8 @@ struct VelocityPlanningConfig {
   double curvature_peak_threshold_;
 
   /**
-   * @brief Minimum number of path points between two section boundaries (prevents over-segmentation).
+   * @brief Minimum number of path points between two section boundaries (prevents
+   * over-segmentation).
    */
   int min_section_spacing_;
 

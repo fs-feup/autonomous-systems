@@ -13,13 +13,13 @@ concurrency:
 
 env:
   ROS_DISTRO: humble
-  # Persistent cache stored inside the self-hosted runner _work directory,
-  # but outside the checked-out repository folder.
   CI_CACHE_DIR: ${{ github.workspace }}/../_ci_cache
-  # Rough total build parallelism is approximately:
-  # COLCON_PARALLEL_WORKERS * CMAKE_BUILD_PARALLEL_LEVEL
-  COLCON_PARALLEL_WORKERS: 4
-  CMAKE_BUILD_PARALLEL_LEVEL: 1
+
+  # Peak compilers = COLCON_PARALLEL_WORKERS * MAKEFLAGS -j. Keep it <= 8 or the
+  # runner runs out of RAM. MAKEFLAGS only works with the Make generator.
+  COLCON_PARALLEL_WORKERS: 2
+  MAKEFLAGS: -j4
+
   BUILD_PACKAGES: >-
     common_lib
     perception
@@ -62,7 +62,7 @@ jobs:
 
           missing=0
 
-          for tool in colcon bear ccache ninja; do
+          for tool in colcon bear ccache make cmake; do
             if ! command -v "$tool" >/dev/null 2>&1; then
               echo "Missing required tool: $tool"
               missing=1
@@ -71,7 +71,7 @@ jobs:
 
           if [[ "$missing" -ne 0 ]]; then
             echo "Install the missing tools manually on the self-hosted server, then rerun this workflow."
-            echo "Example: sudo apt install python3-colcon-common-extensions python3-rosdep bear ccache"
+            echo "Example: sudo apt install python3-colcon-common-extensions python3-rosdep bear ccache make cmake"
             exit 1
           fi
 
@@ -84,13 +84,9 @@ jobs:
           set -u
 
           echo "ROS environment loaded from /opt/ros/${ROS_DISTRO}."
-          echo "This workflow intentionally does not use sudo, Docker, or rosdep."
-          echo "All system/project dependencies must already be installed manually on the self-hosted server."
 
-      - name: Keep previous build output for incremental compilation
+      - name: Clean stale artifacts
         run: |
-          # Do not delete build/, install/, or log/ here.
-          # Keeping them allows colcon/CMake/Ninja to do incremental builds on the self-hosted runner.
           rm -f ci-build-output.tar compile_commands.json
 
       - name: Build all required packages
@@ -108,7 +104,13 @@ jobs:
           export PATH="/usr/lib/ccache:${PATH}"
           ccache --max-size=10G || true
 
-          MAKEFLAGS=-j4 colcon build --parallel-workers "${COLCON_PARALLEL_WORKERS}" --packages-up-to ${BUILD_PACKAGES} --cmake-args -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          colcon build \
+            --parallel-workers "${COLCON_PARALLEL_WORKERS}" \
+            --packages-up-to ${BUILD_PACKAGES} \
+            --cmake-args \
+              -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+              -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+              -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
           ccache --show-stats || true
 
@@ -140,94 +142,6 @@ jobs:
           print(f"Wrote compile_commands.json with {len(entries)} entries")
           PY
 
-      # The following artifact handoff is intentionally disabled.
-      # This workflow runs on a persistent self-hosted runner and relies on the
-      # workspace's existing build/, install/, log/, and compile_commands.json
-      # outputs in downstream jobs instead of uploading/downloading them.
-      #
-      # - name: Pack compiled workspace
-      #   run: |
-      #     tar -cf ci-build-output.tar build install log compile_commands.json
-      #
-      # - name: Upload compiled workspace
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: colcon-build-output
-      #     path: ci-build-output.tar
-      #     retention-days: 1
-
-  sonarcloud:
-    permissions:
-      contents: read
-      pull-requests: read
-    name: SonarCloud analysis
-    if: always() && github.event_name == 'pull_request'
-    needs: test
-    runs-on: [self-hosted, linux]
-
-    defaults:
-      run:
-        shell: bash
-
-    env:
-      SONAR_SCANNER_VERSION: 6.0.0.4432
-      SONAR_SERVER_URL: https://sonarcloud.io
-      SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
-      SONAR_CFAMILY_THREADS: 10
-
-    steps:
-      # Checkout is intentionally skipped here. The build job already checked
-      # out the repository on this persistent self-hosted runner workspace.
-      #
-      # - name: Checkout repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     submodules: 'true'
-      #     fetch-depth: 0
-      #     clean: false
-
-      # Artifact download/extract disabled; use the build outputs already
-      # present in this self-hosted runner workspace.
-      #
-      # - name: Download compiled workspace
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: colcon-build-output
-      #     path: .
-      #
-      # - name: Extract compiled workspace
-      #   run: |
-      #     tar -xf ci-build-output.tar
-
-      - name: Install Sonar scanner in CI cache if missing
-        run: |
-          set -euo pipefail
-          mkdir -p "${CI_CACHE_DIR}"
-
-          command -v curl >/dev/null || { echo "curl is missing. Install it once on the server: sudo apt install curl"; exit 1; }
-          command -v unzip >/dev/null || { echo "unzip is missing. Install it once on the server: sudo apt install unzip"; exit 1; }
-
-          SCANNER_DIR="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux"
-
-          if [[ -x "${SCANNER_DIR}/bin/sonar-scanner" ]]; then
-            echo "Sonar scanner already installed."
-            exit 0
-          fi
-
-          curl -sSL "${SONAR_SCANNER_DOWNLOAD_URL}" --output sonar-scanner.zip
-          unzip -q sonar-scanner.zip -d "${CI_CACHE_DIR}"
-
-      - name: Run SonarCloud analysis
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          set -euo pipefail
-          export PATH="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:${PATH}"
-          sonar-scanner \
-            --define sonar.cfamily.compile-commands="./compile_commands.json" \
-            --define sonar.cfamily.threads="${SONAR_CFAMILY_THREADS}"
-
   test:
     permissions:
       contents: read
@@ -252,36 +166,14 @@ jobs:
           - inspection
 
     steps:
-      # Checkout is intentionally skipped here. The build job already checked
-      # out the repository on this persistent self-hosted runner workspace.
-      #
-      # - name: Checkout repository
-      #   uses: actions/checkout@v4
-      #   with:
-      #     submodules: 'true'
-      #     clean: false
-
-      # Artifact download/extract disabled; use the build outputs already
-      # present in this self-hosted runner workspace.
-      #
-      # - name: Download compiled workspace
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: colcon-build-output
-      #     path: .
-      #
-      # - name: Extract compiled workspace
-      #   run: |
-      #     tar -xf ci-build-output.tar
-
+      # No checkout or artifact download: the build job leaves build/ and install/
+      # in this persistent self-hosted runner workspace.
       - name: Test ${{ matrix.package }}
         run: |
           set -euo pipefail
 
           set +u
           source /opt/ros/${ROS_DISTRO}/setup.bash
-          set -u
-          set +u
           source install/setup.bash
           set -u
 
@@ -301,16 +193,54 @@ jobs:
             --all \
             --verbose
 
+  sonarcloud:
+    permissions:
+      contents: read
+      pull-requests: read
+    name: SonarCloud analysis
+    needs: [build, test]
+    if: ${{ !cancelled() && needs.build.result == 'success' && github.event_name == 'pull_request' }}
+    runs-on: [self-hosted, linux]
 
-      # Disabled test logs upload to make the actions faster 
-      # - name: Upload test logs
-      #   if: always()
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: test-logs-${{ matrix.package }}
-      #     path: |
-      #       # log/
-      #       build/${{ matrix.package }}/Testing/
-      #       build/${{ matrix.package }}/test_results/
-      #     if-no-files-found: ignore
-      #     retention-days: 7
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      SONAR_SCANNER_VERSION: 6.0.0.4432
+      SONAR_SERVER_URL: https://sonarcloud.io
+      SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
+      # Was 10, which exhausted RAM and got the runner service OOM-killed.
+      SONAR_CFAMILY_THREADS: 4
+      SONAR_SCANNER_JAVA_OPTS: -Xmx4g
+
+    steps:
+      - name: Install Sonar scanner in CI cache if missing
+        run: |
+          set -euo pipefail
+          mkdir -p "${CI_CACHE_DIR}"
+
+          command -v curl >/dev/null || { echo "curl is missing. Install it once on the server: sudo apt install curl"; exit 1; }
+          command -v unzip >/dev/null || { echo "unzip is missing. Install it once on the server: sudo apt install unzip"; exit 1; }
+
+          SCANNER_DIR="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux"
+
+          if [[ -x "${SCANNER_DIR}/bin/sonar-scanner" ]]; then
+            echo "Sonar scanner already installed."
+            exit 0
+          fi
+
+          curl -sSL "${SONAR_SCANNER_DOWNLOAD_URL}" --output sonar-scanner.zip
+          unzip -q sonar-scanner.zip -d "${CI_CACHE_DIR}"
+          rm -f sonar-scanner.zip
+
+      - name: Run SonarCloud analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          set -euo pipefail
+          export PATH="${CI_CACHE_DIR}/sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin:${PATH}"
+          sonar-scanner \
+            --define sonar.cfamily.compile-commands="./compile_commands.json" \
+            --define sonar.cfamily.threads="${SONAR_CFAMILY_THREADS}"

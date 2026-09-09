@@ -59,9 +59,7 @@ void AlphaBeta::create_local_path(custom_interfaces::msg::PathPointArray& path_m
 
   auto& points = path_msg.pathpoint_array;
 
-  // Arc length over which to rejoin the global path: scales with how far off the
-  // car is, so small errors converge quickly and large ones get room to stay
-  // feasible.
+  // Rejoin length scales with the lateral error, so large errors get room to stay feasible.
   const double error_dist = error_distance(path_msg, vehicle_state);
   const double conv_dist = convergence_distance(error_dist);
   const unsigned int num_points = number_of_points(path_msg, conv_dist);
@@ -82,19 +80,14 @@ void AlphaBeta::create_local_path(custom_interfaces::msg::PathPointArray& path_m
     return;
   }
 
-  // Rejoin point on the global path. Its position and heading are the far boundary
-  // condition, so the local path leaves it tangent to the global path (G1) and the
-  // remaining points (merge_idx+1 .. end) are already the global path, untouched.
+  // Rejoin point: the far boundary condition, so the local path arrives tangent to the global.
   const unsigned int merge_idx = path_points_local - 1;
   const double x1 = points[merge_idx].x;
   const double y1 = points[merge_idx].y;
   const double yaw1 = points[merge_idx].orientation;
 
-  // Cubic Bezier in Hermite form: it matches position AND heading at both ends, so
-  // the path leaves the car along the car's orientation and arrives tangent to the
-  // global path -- exactly the gradual, feasible convergence we want (no start hook,
-  // no opposite-side overshoot). Handle length ~1/3 of the chord keeps curvature low
-  // and near-circular; a nearly-aligned car/path yields a nearly-straight blend.
+  // Cubic Bezier in Hermite form: matches position and heading at both ends, so the blend
+  // leaves along the car's yaw and arrives tangent to the global path. Handles ~1/3 of chord.
   const double chord = std::hypot(x1 - x0, y1 - y0);
   const double handle = chord / 3.0;
   const double b0x = x0;
@@ -124,10 +117,7 @@ void AlphaBeta::create_local_path(custom_interfaces::msg::PathPointArray& path_m
       p.orientation = std::atan2(dy, dx);
     }
 
-    // Only the first point takes the car's velocity (it anchors the reference ramp
-    // and is a hard requirement). The rest keep the planner's feasibility-shaped
-    // profile; blending them toward the car's speed erases the speed error signal
-    // and the controller stagnates below the planned velocity in corners.
+    // Only the first point takes the car's velocity; blending the rest erases the speed error.
     if (i == 0) {
       p.v = v0;
     }
