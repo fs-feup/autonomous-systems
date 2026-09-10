@@ -1,5 +1,3 @@
-# Wheel Speed Sensor (WSS) Configuration
-# Each wheel can be individually tuned with its own parameters
 wss_sensor:
 
   # Front Right Wheel

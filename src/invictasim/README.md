@@ -54,16 +54,30 @@ Adapter mapping is defined in:
 Invictasim reads configuration through `common_lib::config_load`:
 
 - [config/invictasim/global.yaml](../../config/invictasim/global.yaml)
-  - `input_adapter`, `output_adapter`, `vehicle_model`, `sim_frequency`, `track_name`,
-    `publish_frequencies`
+  - `input_adapter`, `output_adapter`, `vehicle_model`, `sim_frequency`, `track_name`
 - [config/global/global_config.yaml](../../config/global/global_config.yaml)
   - global discipline/system parameters used by the simulator context
 - [config/invictasim/vehicle_models/FSFEUP02.yaml](../../config/invictasim/vehicle_models/FSFEUP02.yaml)
   - selected vehicle model parameters
 
+Each adapter owns its own config file, named after the value of `input_adapter` / `output_adapter`
+and loaded by the adapter itself:
+
+- [config/invictasim/input/ros.yaml](../../config/invictasim/input/ros.yaml)
+  - subscription topics and queue depth
+- [config/invictasim/input/keyboard.yaml](../../config/invictasim/input/keyboard.yaml)
+  - throttle/steering rates and SDL window geometry
+- [config/invictasim/output/ros.yaml](../../config/invictasim/output/ros.yaml)
+  - `publish_frequencies` per topic group
+
+These files are read key by key: anything left out keeps the default compiled into the adapter, so
+a config file only needs the values actually being overridden.
+
 Code reference for config loading:
 
-- [src/config/config.cpp](src/config/config.cpp)
+- [src/config/config.cpp](src/config/config.cpp) — simulator-wide parameters
+- [include/config/yaml_helpers.hpp](include/config/yaml_helpers.hpp) — optional-key helper used by
+  the adapters
 
 ## Build
 

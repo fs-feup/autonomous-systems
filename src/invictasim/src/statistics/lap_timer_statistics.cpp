@@ -1,7 +1,9 @@
 #include "statistics/lap_timer_statistics.hpp"
 
-LapTimerStatistics::LapTimerStatistics(const Track& track, const std::string& discipline) {
+LapTimerStatistics::LapTimerStatistics(const Track& track, const std::string& discipline,
+                                       const std::string& car_parameters_config) {
   load_config();
+  load_front_reference(car_parameters_config);
   configure_timing_lines(track, discipline);
 }
 
@@ -17,6 +19,21 @@ void LapTimerStatistics::load_config() {
   timing_line_gate_margin_m_ =
       lap_finish["timing_line_gate_margin"].as<double>(timing_line_gate_margin_m_);
   minimum_lap_time_s_ = lap_finish["minimum_lap_time"].as<double>(minimum_lap_time_s_);
+}
+
+void LapTimerStatistics::load_front_reference(const std::string& car_parameters_config) {
+  if (car_parameters_config.empty()) {
+    return;
+  }
+
+  const std::string path = std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" +
+                           car_parameters_config + "/config.yaml";
+  const YAML::Node config = YAML::LoadFile(path);
+  const YAML::Node boxes = config["hitboxes"]["boxes"];
+  for (const auto& box : boxes) {
+    const double front = box["center_x"].as<double>(0.0) + box["length"].as<double>(0.0) * 0.5;
+    front_reference_offset_m_ = std::max(front_reference_offset_m_, front);
+  }
 }
 
 void LapTimerStatistics::configure_timing_lines(const Track& track, std::string discipline) {
@@ -62,18 +79,21 @@ void LapTimerStatistics::reset(StatisticsSnapshot& snapshot) {
   reset_lap_accumulators();
 }
 
-LapEvent LapTimerStatistics::update(const common_lib::structures::Position& position,
+LapEvent LapTimerStatistics::update(const common_lib::structures::Position& position, double yaw,
                                     double sim_time, double sim_dt, double speed,
                                     StatisticsSnapshot& snapshot) {
   snapshot.current_lap_time = lap_timing_started_ ? sim_time - lap_start_time_ : 0.0;
 
   update_lap_aggregates(speed, sim_dt);
 
-  const double current_side = signed_line_distance(timing_line_, position);
+  const common_lib::structures::Position front_position(
+      position.x + front_reference_offset_m_ * std::cos(yaw),
+      position.y + front_reference_offset_m_ * std::sin(yaw));
+  const double current_side = signed_line_distance(timing_line_, front_position);
   if (discipline_ == "acceleration") {
-    return update_acceleration(position, sim_time);
+    return update_acceleration(front_position, sim_time);
   }
-  return update_default_lap(position, current_side, sim_time);
+  return update_default_lap(front_position, current_side, sim_time);
 }
 
 LapEvent LapTimerStatistics::update_default_lap(const common_lib::structures::Position& position,

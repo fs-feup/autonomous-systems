@@ -537,8 +537,10 @@ std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::ca
     m["tire.LKY"] = &p->tire_parameters->LKY;
     m["tire.LHY"] = &p->tire_parameters->LHY;
     m["tire.LVY"] = &p->tire_parameters->LVY;
-    m["tire.LTR"] = &p->tire_parameters->LTR;
-    m["tire.LRES"] = &p->tire_parameters->LRES;
+    // LTR and LRES are deliberately absent. They only scale Mz, which reaches the score through
+    // total_torque at a couple of percent of the yaw moment, so the position/velocity/yaw-rate
+    // cost cannot identify them. Left tunable they drift to values that collapse the pneumatic
+    // trail and make Mz a near-constant offset, which ruins steering feel and force feedback.
     m["tire.LXAL"] = &p->tire_parameters->LXAL;
     m["tire.LYKA"] = &p->tire_parameters->LYKA;
     m["tire.LVYKA"] = &p->tire_parameters->LVYKA;
@@ -796,7 +798,7 @@ std::map<std::string, double*> get_parameter_ptrs(std::shared_ptr<common_lib::ca
   if (p->transmission_parameters) {
     m["transmission.gear_ratio"] = &p->transmission_parameters->gear_ratio;
     m["transmission.efficiency"] = &p->transmission_parameters->efficiency;
-    m["transmission.kv"] = &p->transmission_parameters->kv;
+    m["transmission.locking_stiffness"] = &p->transmission_parameters->locking_stiffness;
     m["transmission.viscous_drag_coeff"] = &p->transmission_parameters->viscous_drag_coeff;
     m["transmission.coulomb_drag"] = &p->transmission_parameters->coulomb_drag;
     m["transmission.coulomb_smooth_stiffness"] = &p->transmission_parameters->coulomb_smooth_stiffness;

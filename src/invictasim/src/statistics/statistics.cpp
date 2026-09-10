@@ -5,7 +5,7 @@ Statistics::Statistics(
     std::shared_ptr<const common_lib::car_parameters::CarParameters> car_parameters,
     const std::string& discipline, const std::string& car_parameters_config)
     : collision_statistics_(track, discipline, car_parameters_config),
-      lap_timer_statistics_(track, discipline) {
+      lap_timer_statistics_(track, discipline, car_parameters_config) {
   (void)car_parameters;
   reset();
 }
@@ -36,8 +36,8 @@ void Statistics::update(const VehicleModelSnapshot& vehicle_snapshot, double sim
   tracking_statistics_.update(vehicle_snapshot, path_points, sim_dt, lap_was_running, snapshot_);
   collision_statistics_.update(vehicle_snapshot, lap_was_running, snapshot_);
 
-  const LapEvent lap_event = lap_timer_statistics_.update(position, sim_time, sim_dt,
-                                                          snapshot_.current_velocity, snapshot_);
+  const LapEvent lap_event = lap_timer_statistics_.update(
+      position, vehicle_snapshot.yaw, sim_time, sim_dt, snapshot_.current_velocity, snapshot_);
   if (lap_event == LapEvent::started) {
     tracking_statistics_.reset_lap();
     collision_statistics_.reset_lap(snapshot_);

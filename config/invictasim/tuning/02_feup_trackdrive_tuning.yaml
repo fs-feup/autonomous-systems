@@ -12,12 +12,6 @@ tuning:
   score:
     max_distance_error: 1.5 # Maximum allowed distance error in meters before a mutation is killed immediately
     max_velocity_error: 2.0 # Maximum allowed velocity error in m/s before a mutation is killed
-    # Re-anchor the sim to the measured state every N seconds during scoring.
-    # This makes fitness reward whole-trajectory fidelity (every corner) instead
-    # of only the easy opening, which prevents the optimizer from selecting a
-    # directionally-unstable car that survives the first straight and then spins.
-    # Set 0 to score classic continuous time-to-first-failure (used for final
-    # continuous-survival validation).
     reanchor_period: 0.0
 
   optimizer:
@@ -35,9 +29,6 @@ tuning:
     seed: 67
 
     # Simulated Annealing Settings
-    # Score magnitude is ~survival_seconds * 1e6, so the temperature must be on
-    # the order of the score deltas a single subset-mutation produces (~1e5-1e6)
-    # for the Metropolis acceptance to explore rather than pure hill-climb.
     iterations: 100000000
     initial_temp: 1500000.0
     cooling_rate: 0.99997

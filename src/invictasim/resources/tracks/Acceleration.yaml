@@ -1,5 +1,7 @@
 track:
-  start_position: [-1.75, 0]
+  # FS rules put the car 0.30 m behind the start line. At the old -1.75 it crossed the line
+  # already doing 7.3 m/s, which timed the 75 m at 3.36 s instead of the standing-start 4.24 s.
+  start_position: [-2.0, 0]
   timing_lines:
   - [[0, -4], [0, 4]]
   - [[75, -4], [75, 4]]

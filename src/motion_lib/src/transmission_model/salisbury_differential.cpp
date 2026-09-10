@@ -43,7 +43,7 @@ common_lib::structures::Wheels SalisburyDifferential::calculate_wheel_torques(
   double smoothing = std::clamp(avg_speed / 0.5, 0.0, 1.0);
   
   // Use a stiff coupling to lock the wheels, but clamp it to the locking limit
-  double delta_tau = p->kv * delta_omega * smoothing;
+  double delta_tau = p->locking_stiffness * delta_omega * smoothing;
   delta_tau = std::clamp(delta_tau, -locking_torque_max, locking_torque_max);
 
   common_lib::structures::Wheels torques;

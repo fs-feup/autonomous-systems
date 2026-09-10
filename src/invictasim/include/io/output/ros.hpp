@@ -242,6 +242,35 @@ private:
   void add_track_surface_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                  const std::vector<common_lib::structures::Cone>& cones,
                                  const rclcpp::Time& stamp) const;
+    void add_acceleration_track_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                                                            visualization_msgs::msg::Marker& curb_marker,
+                                                                            const std::vector<common_lib::structures::Cone>& cones,
+                                                                            const std_msgs::msg::ColorRGBA& asphalt_color,
+                                                                            const std_msgs::msg::ColorRGBA& curb_red,
+                                                                            const std_msgs::msg::ColorRGBA& curb_white) const;
+    void add_fixed_acceleration_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                                                            visualization_msgs::msg::Marker& curb_marker,
+                                                                            const std_msgs::msg::ColorRGBA& asphalt_color,
+                                                                            const std_msgs::msg::ColorRGBA& curb_red,
+                                                                            const std_msgs::msg::ColorRGBA& curb_white) const;
+    void add_fixed_skidpad_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                                                 visualization_msgs::msg::Marker& curb_marker,
+                                                                 const std_msgs::msg::ColorRGBA& asphalt_color,
+                                                                 const std_msgs::msg::ColorRGBA& curb_red,
+                                                                 const std_msgs::msg::ColorRGBA& curb_white) const;
+    void add_skidpad_connector_surface(
+            visualization_msgs::msg::Marker& asphalt_marker,
+          visualization_msgs::msg::Marker& curb_marker,
+            const std::vector<common_lib::structures::Cone>& cones,
+          const std_msgs::msg::ColorRGBA& asphalt_color,
+          const std_msgs::msg::ColorRGBA& curb_red,
+          const std_msgs::msg::ColorRGBA& curb_white) const;
+      void add_skidpad_entry_curbs(
+          visualization_msgs::msg::Marker& curb_marker,
+          const std::vector<common_lib::structures::Cone>& boundary_cones,
+          const std::vector<common_lib::structures::Cone>& corridor_cones,
+          const std_msgs::msg::ColorRGBA& curb_red,
+          const std_msgs::msg::ColorRGBA& curb_white) const;
 
   // Track surface geometry helpers
   visualization_msgs::msg::Marker make_track_triangle_marker(const std::string& ns, int id,

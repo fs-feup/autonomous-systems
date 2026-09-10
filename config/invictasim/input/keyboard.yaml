@@ -1,0 +1,17 @@
+controls:
+  loop_frequency: 60.0         # Hz, input sampling and window refresh rate
+  max_throttle: 1.0            # Throttle at full press, negative of this when braking
+  max_steering_radians: 0.39   # Rack angle at full lock
+  throttle_step: 0.08          # Throttle change per loop iteration while a key is held
+  steering_step: 0.04          # Steering change per loop iteration while a key is held
+
+window:
+  width: 500
+  height: 210
+  bar_x: 24                    # Left margin of the throttle/steering bars
+  throttle_bar_y: 42
+  steering_bar_y: 108
+  bar_height: 30
+  label_font_size: 18
+  note_font_size: 12
+  label_top_offset: 18         # Gap between a bar and the label above it

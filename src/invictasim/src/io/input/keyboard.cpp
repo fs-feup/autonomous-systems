@@ -1,5 +1,7 @@
 #include "io/input/keyboard.hpp"
 
+#include <yaml-cpp/yaml.h>
+
 #include <algorithm>
 #include <chrono>
 #include <iostream>
@@ -7,7 +9,11 @@
 #include <thread>
 #include <vector>
 
-KeyboardInputAdapter::KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator)
+#include "common_lib/config_load/config_load.hpp"
+#include "config/yaml_helpers.hpp"
+
+KeyboardInputAdapter::KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator,
+                                           const std::string& config_file)
     : InvictaSimInputAdapter(simulator),
       running_(false),
       window_(nullptr),
@@ -28,7 +34,41 @@ KeyboardInputAdapter::KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& si
       bar_height_(30),
       label_font_size_(18),
       note_font_size_(12),
-      label_top_offset_(18) {}
+      label_top_offset_(18) {
+  load_parameters(config_file);
+}
+
+void KeyboardInputAdapter::load_parameters(const std::string& config_file) {
+  using invictasim::config::load_optional;
+
+  const std::string full_path =
+      common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/input", config_file);
+  const YAML::Node config = YAML::LoadFile(full_path);
+
+  const YAML::Node controls = config["controls"];
+  double loop_frequency = 1000.0 / static_cast<double>(loop_period_ms_);
+  load_optional(controls, "loop_frequency", loop_frequency);
+  loop_period_ms_ = static_cast<int>(1000.0 / std::max(loop_frequency, 1.0));
+
+  load_optional(controls, "max_throttle", max_throttle_);
+  load_optional(controls, "max_steering_radians", max_steering_radians_);
+  load_optional(controls, "throttle_step", throttle_step_);
+  load_optional(controls, "steering_step", steering_step_);
+
+  const YAML::Node window = config["window"];
+  load_optional(window, "width", window_width_);
+  load_optional(window, "height", window_height_);
+  load_optional(window, "bar_x", bar_x_);
+  load_optional(window, "throttle_bar_y", throttle_bar_y_);
+  load_optional(window, "steering_bar_y", steering_bar_y_);
+  load_optional(window, "bar_height", bar_height_);
+  load_optional(window, "label_font_size", label_font_size_);
+  load_optional(window, "note_font_size", note_font_size_);
+  load_optional(window, "label_top_offset", label_top_offset_);
+
+  // Derived from the window geometry, so it has to be recomputed after loading.
+  bar_width_ = window_width_ - 2 * bar_x_;
+}
 
 KeyboardInputAdapter::~KeyboardInputAdapter() { stop(); }
 

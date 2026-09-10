@@ -50,9 +50,12 @@ int main(int argc, char* argv[]) {
     executor.add_node(tuning_evaluator);
   }
 
-  while (rclcpp::ok()) {
-    executor.spin_some(std::chrono::milliseconds(1));
-  }
+  // spin() blocks until shutdown and dispatches callbacks across the executor's thread pool.
+  // Driving a MultiThreadedExecutor with spin_some() in a loop instead ran every callback in this
+  // one thread, so the pool went unused, and because spin_some() never waits the loop also burned
+  // a core spinning. Both hurt callback latency once enough nodes are attached, which is when the
+  // tuning evaluator is enabled on top of the input and output adapters.
+  executor.spin();
 
   simulator->stop();
   input_adapter->stop();

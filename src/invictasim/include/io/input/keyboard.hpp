@@ -19,8 +19,10 @@ public:
   /**
    * @brief Construct a new KeyboardInputAdapter.
    * @param simulator Simulator instance.
+   * @param config_file Config file name under `config/invictasim/input`.
    */
-  explicit KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator);
+  KeyboardInputAdapter(const std::shared_ptr<InvictaSim>& simulator,
+                       const std::string& config_file);
 
   /**
    * @brief Destroy the KeyboardInputAdapter.
@@ -38,6 +40,11 @@ public:
   void stop() override;
 
 private:
+  /**
+   * @brief Load control and window settings from `config/invictasim/input/<config_file>.yaml`.
+   */
+  void load_parameters(const std::string& config_file);
+
   /**
    * @brief Main SDL polling loop.
    */
@@ -61,20 +68,22 @@ private:
   TTF_Font* label_font_;
   TTF_Font* note_font_;
 
-  const int loop_period_ms_;
-  const double throttle_step_;
-  const double steering_step_;
-  const double max_throttle_;
-  const double max_steering_radians_;
+  // Control tuning, loaded from the input config file.
+  int loop_period_ms_;
+  double throttle_step_;
+  double steering_step_;
+  double max_throttle_;
+  double max_steering_radians_;
 
-  const int window_width_;
-  const int window_height_;
-  const int bar_x_;
-  const int bar_width_;
-  const int throttle_bar_y_;
-  const int steering_bar_y_;
-  const int bar_height_;
-  const int label_font_size_;
-  const int note_font_size_;
-  const int label_top_offset_;
+  // Window geometry, loaded from the input config file.
+  int window_width_;
+  int window_height_;
+  int bar_x_;
+  int bar_width_;
+  int throttle_bar_y_;
+  int steering_bar_y_;
+  int bar_height_;
+  int label_font_size_;
+  int note_font_size_;
+  int label_top_offset_;
 };

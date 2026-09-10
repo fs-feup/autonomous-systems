@@ -1,12 +1,14 @@
 invictasim:
   # Simulator config
-  input_adapter: "ros"  # Options: "ros", "keyboard"
-  output_adapter: "ros"  # Options: "ros"
-  vehicle_model: "02"  # Options: "02", "03",
-  control_mode: "autonomous" # Options: "manual", "autonomous"
-  sim_frequency: 1000  # Hz 
-  sim_speed: 1.0  # Sim velocity multiplier (1.0 = real-time, 2.0 = 2x real-time, etc.)
-  initial_go_signal: true  # Initial state of the go signal 
-  track_name: "FEUP"  # Also available: "Europarque", "FEUP"
-  rosbag_evaluator: true
+  input_adapter: "keyboard"         # Options: "ros", "keyboard"
+  output_adapter: "ros"             # Options: "ros"
+  vehicle_model: "02"               # Options: "02", "03",
+  control_mode: "autonomous"        # Options: "manual", "autonomous"
+  sim_frequency: 1000               # Hz 
+  sim_speed: 1.0                    # Sim velocity multiplier (1.0 = real-time, 2.0 = 2x real-time, etc.)
+  initial_go_signal: true           # Initial state of the go signal 
+  track_name: "FSG24"               # Maps choice  (Discipline in global config needs to match)
+  rosbag_evaluator: false           # Evaluation topics and metrics
 
+# Maps available: "Acceleration", "EnduranceFSG25", "Europarque", "FEUP", "FSE23",
+# "FSE24", "FSG23", "FSG24", "FSG25", "FSS22V1", "FSS22V2", "Skidpad"

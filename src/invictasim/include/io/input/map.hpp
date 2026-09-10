@@ -17,14 +17,10 @@ const std::map<
     input_adapters_map = {
         {"ros",
          [](const std::shared_ptr<InvictaSim>& sim) -> std::shared_ptr<InvictaSimInputAdapter> {
-           return std::make_shared<RosInputAdapter>(sim);
+           return std::make_shared<RosInputAdapter>(sim, "ros");
          }},
         {"keyboard",
          [](const std::shared_ptr<InvictaSim>& sim) -> std::shared_ptr<InvictaSimInputAdapter> {
-           return std::make_shared<KeyboardInputAdapter>(sim);
+           return std::make_shared<KeyboardInputAdapter>(sim, "keyboard");
          }},
-        {"manual",
-         [](const std::shared_ptr<InvictaSim>& sim) -> std::shared_ptr<InvictaSimInputAdapter> {
-           return std::make_shared<KeyboardInputAdapter>(sim);
-         }},
-};
+    };

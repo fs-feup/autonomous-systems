@@ -1,6 +1,7 @@
 #include "motion_lib/tire_model/pacejka_MF6_2.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 // (4.E17)
 double PacejkaMF6_2::calculate_SHx() const {
@@ -104,12 +105,12 @@ void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, do
                                         double vcx, double vcy, double yaw_rate,
                                         double wheel_angular_speed, double camber_angle,
                                         bool is_front) {
-  const double axle_stiffness_scale = is_front
-      ? car_parameters_->tire_parameters->front_lateral_stiffness_scale
-      : car_parameters_->tire_parameters->rear_lateral_stiffness_scale;
+  const double axle_stiffness_scale =
+      is_front ? car_parameters_->tire_parameters->front_lateral_stiffness_scale
+               : car_parameters_->tire_parameters->rear_lateral_stiffness_scale;
   const double axle_peak_scale = is_front
-      ? car_parameters_->tire_parameters->front_lateral_peak_scale
-      : car_parameters_->tire_parameters->rear_lateral_peak_scale;
+                                     ? car_parameters_->tire_parameters->front_lateral_peak_scale
+                                     : car_parameters_->tire_parameters->rear_lateral_peak_scale;
   // Load related calculations
   // (4.E1) -> Assuming we have a tire with a different nominal load we approxiamte using scaling
   // factor LFZO The result is the adpated nominal load
@@ -216,13 +217,14 @@ double PacejkaMF6_2::calculate_Dy(double vertical_load) const {
 // (4.E12)
 double PacejkaMF6_2::calculate_Dx(double vertical_load) const {
   if (vertical_load > 0) {
-    double mux = ((car_parameters_->tire_parameters->PDX1 +
-                   car_parameters_->tire_parameters->PDX2 * internal_vals.dfz) *
-                  (1 + car_parameters_->tire_parameters->PPX1 * internal_vals.dpi +
-                   car_parameters_->tire_parameters->PPX2 * (internal_vals.dpi * internal_vals.dpi)) *
-                  (1 - car_parameters_->tire_parameters->PDX3 *
-                           (internal_vals.gamma_star * internal_vals.gamma_star)) *
-                  car_parameters_->tire_parameters->LMUX);
+    double mux =
+        ((car_parameters_->tire_parameters->PDX1 +
+          car_parameters_->tire_parameters->PDX2 * internal_vals.dfz) *
+         (1 + car_parameters_->tire_parameters->PPX1 * internal_vals.dpi +
+          car_parameters_->tire_parameters->PPX2 * (internal_vals.dpi * internal_vals.dpi)) *
+         (1 - car_parameters_->tire_parameters->PDX3 *
+                  (internal_vals.gamma_star * internal_vals.gamma_star)) *
+         car_parameters_->tire_parameters->LMUX);
     return mux * vertical_load * internal_vals.zeta1;
   }
   return 0;
@@ -375,13 +377,14 @@ double PacejkaMF6_2::calculate_pure_moment(double Fy0, double normal_load, doubl
   // (4.E34)
   double at = internal_vals.alpha_star + SHt;
   // ------------------ Bt calculation
-  // (4.E40)
+  // (4.E40) Bt scales with the lambda factors, not with the cornering stiffness itself: feeding
+  // Kya (order 1e4 N/rad) here saturates atan(Bt*at) and collapses the pneumatic trail.
   double Bt = (car_parameters_->tire_parameters->QBZ1 +
                car_parameters_->tire_parameters->QBZ2 * internal_vals.dfz +
                car_parameters_->tire_parameters->QBZ3 * internal_vals.dfz * internal_vals.dfz) *
               (1 + car_parameters_->tire_parameters->QBZ4 * internal_vals.gamma_star +
                car_parameters_->tire_parameters->QBZ5 * abs(internal_vals.gamma_star)) *
-              internal_vals.Kya / car_parameters_->tire_parameters->LMUY;
+              car_parameters_->tire_parameters->LKY / car_parameters_->tire_parameters->LMUY;
   // ------------------ Dt calculation
   // (4.91)
   double zeta5 = cos(atan(car_parameters_->tire_parameters->QDTP1 *
@@ -473,7 +476,7 @@ double PacejkaMF6_2::calculate_combined_moment(double Fx, double Fy, double slip
                car_parameters_->tire_parameters->QBZ3 * internal_vals.dfz * internal_vals.dfz) *
               (1 + car_parameters_->tire_parameters->QBZ4 * internal_vals.gamma_star +
                car_parameters_->tire_parameters->QBZ5 * abs(internal_vals.gamma_star)) *
-              internal_vals.Kya / car_parameters_->tire_parameters->LMUY;
+              car_parameters_->tire_parameters->LKY / car_parameters_->tire_parameters->LMUY;
   // ------------------ Dt calculation
   // (4.91)
   double zeta5 = cos(atan(car_parameters_->tire_parameters->QDTP1 *
@@ -514,14 +517,23 @@ double PacejkaMF6_2::calculate_combined_moment(double Fx, double Fy, double slip
   double MZ_prime = -t * Fy_prime;
   // MZr calculation
   // (4.E47)
+  // The camber part of the residual torque carries two contributions: a linear one in gamma and a
+  // quadratic one through |gamma|. The quadratic term (QDZ10/QDZ11) used to be dropped, which left
+  // the fitted values for it unused.
+  const double camber_residual =
+      ((car_parameters_->tire_parameters->QDZ8 +
+        car_parameters_->tire_parameters->QDZ9 * internal_vals.dfz) *
+           (1 + car_parameters_->tire_parameters->PPZ2 * internal_vals.dpi) +
+       (car_parameters_->tire_parameters->QDZ10 +
+        car_parameters_->tire_parameters->QDZ11 * internal_vals.dfz) *
+           std::abs(internal_vals.gamma_star)) *
+      internal_vals.gamma_star * car_parameters_->tire_parameters->LKZC * internal_vals.zeta0;
+
   double Dr = normal_load * car_parameters_->tire_parameters->effective_tire_r *
                   ((car_parameters_->tire_parameters->QDZ6 +
                     car_parameters_->tire_parameters->QDZ7 * internal_vals.dfz) *
                        car_parameters_->tire_parameters->LRES * internal_vals.zeta2 +
-                   (car_parameters_->tire_parameters->QDZ8 +
-                    car_parameters_->tire_parameters->QDZ9 * internal_vals.dfz) *
-                       internal_vals.gamma_star * car_parameters_->tire_parameters->LKZC *
-                       internal_vals.zeta0) *
+                   camber_residual) *
                   cos(internal_vals.alpha_prime) * car_parameters_->tire_parameters->LMUY *
                   internal_vals.longitudinal_direction +
               internal_vals.zeta8 - 1;
@@ -610,14 +622,13 @@ double PacejkaMF6_2::calculate_SHyp(double camber_angle) const {
   // MF 6.1 and 6.2
   double KyRp0 = internal_vals.Kyg0 / (1 - internal_vals.epsilong);
 
-  double Kya0 =
-      car_parameters_->tire_parameters->PKY1 * internal_vals.Fz0_prime *
-      (1 + car_parameters_->tire_parameters->PPY1 * internal_vals.dpi) *
-      sin(car_parameters_->tire_parameters->PKY4 *
-          atan((1.0 + internal_vals.dfz) /
-               (car_parameters_->tire_parameters->PKY2 *
-                (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
-      internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;
+  double Kya0 = car_parameters_->tire_parameters->PKY1 * internal_vals.Fz0_prime *
+                (1 + car_parameters_->tire_parameters->PPY1 * internal_vals.dpi) *
+                sin(car_parameters_->tire_parameters->PKY4 *
+                    atan((1.0 + internal_vals.dfz) /
+                         (car_parameters_->tire_parameters->PKY2 *
+                          (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
+                internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;
   double Kyao_prime = Kya0 + internal_vals.epsilon * std::copysign(1.0, Kya0);
 
   double DHyp = (car_parameters_->tire_parameters->PHYP2 +
