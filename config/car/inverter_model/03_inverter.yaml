@@ -3,8 +3,8 @@ inverter:
   max_phase_current: 400
 
   # Torque setpoint ramp times, for the full command range.
-  acceleration_ramp_ms: 100.0
-  regen_braking_ramp_ms: 100.0
+  acceleration_ramp_ms: 500.0
+  regen_braking_ramp_ms: 500.0
 
   regen_torque_fraction: 1.0
 

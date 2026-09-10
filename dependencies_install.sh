@@ -31,6 +31,9 @@ sudo apt install rospack-tools -y
 rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
 
+# rslidar_sdk (RoboSense LiDAR driver)
+sudo apt-get install libyaml-cpp-dev -y
+
 # ground truth generation
 pip install pandas
 sudo apt-get install python3-matplotlib -y

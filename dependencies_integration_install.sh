@@ -1,11 +1,5 @@
 #! /bin/bash
 
-# rslidar_sdk
-if test -f ./ext/rslidar_sdk/dependencies_install.sh; then
-    sudo chmod u+x ./ext/rslidar_sdk/dependencies_install.sh
-    ./ext/rslidar_sdk/dependencies_install.sh
-fi
-
 # kvaser - does not work in docker
 sudo apt-get -y install wget build-essential pkg-config gcc-12
 # Download and compile the latest Kvaser linuxcan driver

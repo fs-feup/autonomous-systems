@@ -5,7 +5,11 @@ Statistics::Statistics(
     std::shared_ptr<const common_lib::car_parameters::CarParameters> car_parameters,
     const std::string& discipline, const std::string& car_parameters_config)
     : collision_statistics_(track, discipline, car_parameters_config),
+<<<<<<< HEAD
       lap_timer_statistics_(track, discipline, car_parameters_config) {
+=======
+      lap_timer_statistics_(track, discipline) {
+>>>>>>> main
   (void)car_parameters;
   reset();
 }

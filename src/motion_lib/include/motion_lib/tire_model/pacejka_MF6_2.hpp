@@ -102,7 +102,11 @@ private:
    */
   void calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load, double vcx,
                             double vcy, double yaw_rate, double wheel_angular_speed,
+<<<<<<< HEAD
                             double camber_angle, bool is_front);
+=======
+                            double camber_angle);
+>>>>>>> main
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)

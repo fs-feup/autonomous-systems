@@ -23,4 +23,4 @@ const std::map<
          [](const std::shared_ptr<InvictaSim>& sim) -> std::shared_ptr<InvictaSimInputAdapter> {
            return std::make_shared<KeyboardInputAdapter>(sim, "keyboard");
          }},
-    };
+};

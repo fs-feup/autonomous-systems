@@ -31,8 +31,12 @@ Eigen::Vector4d PacejkaMF6_2::tire_forces(const TireInput& tire_input) {
   // Calculate all the internal values needed for the calculations of forces and moments
   calculate_tire_state(tire_input.slip_angle, tire_input.slip_ratio, tire_input.vertical_load,
                        tire_input.vcx, tire_input.vcy, tire_input.yaw_rate,
+<<<<<<< HEAD
                        tire_input.wheel_angular_speed, tire_input.camber_angle,
                        tire_input.tire == FL || tire_input.tire == FR);
+=======
+                       tire_input.wheel_angular_speed, tire_input.camber_angle);
+>>>>>>> main
 
   // Low speed fade for slip shifts
   double speed = std::hypot(tire_input.vcx, tire_input.vcy);
@@ -103,6 +107,7 @@ double PacejkaMF6_2::calculate_pure_slip(double B, double C, double D, double E,
 
 void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load,
                                         double vcx, double vcy, double yaw_rate,
+<<<<<<< HEAD
                                         double wheel_angular_speed, double camber_angle,
                                         bool is_front) {
   const double axle_stiffness_scale =
@@ -111,6 +116,9 @@ void PacejkaMF6_2::calculate_tire_state(double slip_angle, double slip_ratio, do
   const double axle_peak_scale = is_front
                                      ? car_parameters_->tire_parameters->front_lateral_peak_scale
                                      : car_parameters_->tire_parameters->rear_lateral_peak_scale;
+=======
+                                        double wheel_angular_speed, double camber_angle) {
+>>>>>>> main
   // Load related calculations
   // (4.E1) -> Assuming we have a tire with a different nominal load we approxiamte using scaling
   // factor LFZO The result is the adpated nominal load
@@ -217,6 +225,7 @@ double PacejkaMF6_2::calculate_Dy(double vertical_load) const {
 // (4.E12)
 double PacejkaMF6_2::calculate_Dx(double vertical_load) const {
   if (vertical_load > 0) {
+<<<<<<< HEAD
     double mux =
         ((car_parameters_->tire_parameters->PDX1 +
           car_parameters_->tire_parameters->PDX2 * internal_vals.dfz) *
@@ -225,6 +234,15 @@ double PacejkaMF6_2::calculate_Dx(double vertical_load) const {
          (1 - car_parameters_->tire_parameters->PDX3 *
                   (internal_vals.gamma_star * internal_vals.gamma_star)) *
          car_parameters_->tire_parameters->LMUX);
+=======
+    double mux = ((car_parameters_->tire_parameters->PDX1 +
+                   car_parameters_->tire_parameters->PDX2 * internal_vals.dfz) *
+                  (1 + car_parameters_->tire_parameters->PPX1 * internal_vals.dpi +
+                   car_parameters_->tire_parameters->PPX2 * (internal_vals.dpi * internal_vals.dpi)) *
+                  (1 - car_parameters_->tire_parameters->PDX3 *
+                           (internal_vals.gamma_star * internal_vals.gamma_star)) *
+                  car_parameters_->tire_parameters->LMUX);
+>>>>>>> main
     return mux * vertical_load * internal_vals.zeta1;
   }
   return 0;
@@ -622,6 +640,7 @@ double PacejkaMF6_2::calculate_SHyp(double camber_angle) const {
   // MF 6.1 and 6.2
   double KyRp0 = internal_vals.Kyg0 / (1 - internal_vals.epsilong);
 
+<<<<<<< HEAD
   double Kya0 = car_parameters_->tire_parameters->PKY1 * internal_vals.Fz0_prime *
                 (1 + car_parameters_->tire_parameters->PPY1 * internal_vals.dpi) *
                 sin(car_parameters_->tire_parameters->PKY4 *
@@ -629,6 +648,16 @@ double PacejkaMF6_2::calculate_SHyp(double camber_angle) const {
                          (car_parameters_->tire_parameters->PKY2 *
                           (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
                 internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;
+=======
+  double Kya0 =
+      car_parameters_->tire_parameters->PKY1 * internal_vals.Fz0_prime *
+      (1 + car_parameters_->tire_parameters->PPY1 * internal_vals.dpi) *
+      sin(car_parameters_->tire_parameters->PKY4 *
+          atan((1.0 + internal_vals.dfz) /
+               (car_parameters_->tire_parameters->PKY2 *
+                (1 + car_parameters_->tire_parameters->PPY2 * internal_vals.dpi)))) *
+      internal_vals.zeta3 * car_parameters_->tire_parameters->LKY;
+>>>>>>> main
   double Kyao_prime = Kya0 + internal_vals.epsilon * std::copysign(1.0, Kya0);
 
   double DHyp = (car_parameters_->tire_parameters->PHYP2 +

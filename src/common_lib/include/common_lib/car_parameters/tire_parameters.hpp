@@ -5,13 +5,6 @@
 #include "common_lib/config_load/config_load.hpp"
 
 namespace common_lib::car_parameters {
-
-// Every coefficient carries an explicit default.  The loader only assigns a
-// member when its key is present in the YAML, so a config that omits one used to
-// leave an indeterminate double that the tyre model then read on every step --
-// 02_fitted_tire.yaml omits PPZ1 and QDTP1, both of which reach the aligning
-// moment and therefore the yaw moment.  Scaling factors default to 1 (the MF
-// convention: no scaling), every other coefficient to 0 (no contribution).
 struct TireParameters {
   // Original fields
   double tire_B_lateral = 0.0;
@@ -33,11 +26,6 @@ struct TireParameters {
   double wheel_inertia = 0.0;
   double slip_angle_relaxation_length = 0.0;
   double slip_ratio_relaxation_length = 0.0;
-
-  // Per-axle lateral scaling on top of the global LKY / LMUY.  A single fitted
-  // tyre set is shared by all four wheels, so without these the model's
-  // understeer gradient is fixed by geometry alone and cannot be matched to the
-  // car.  1.0 leaves the fitted behaviour untouched.
   double front_lateral_stiffness_scale = 1.0;
   double rear_lateral_stiffness_scale = 1.0;
   double front_lateral_peak_scale = 1.0;

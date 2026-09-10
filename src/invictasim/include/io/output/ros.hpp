@@ -178,14 +178,7 @@ private:
 
   // Visualization publishers
   void publish_visualization_ground(const rclcpp::Time& stamp);
-  // Sizes and centres the ground plane on the loaded track, so it is not a huge
-  // sheet extending far past anything the car can reach.
   void fit_ground_plane_to_track(visualization_msgs::msg::Marker& ground) const;
-  // The plane is sized to the track, but the texture must stay a fixed size in
-  // metres, so the UVs depend on the plane. Writes (once per size) a plane mesh
-  // whose UV range is the plane size divided by the tile size, and returns its
-  // package:// path. The size is in the filename so a changed plane never reuses
-  // a cached copy of the old mesh in the viewer.
   std::string ensure_grass_plane_mesh(double size_x, double size_y) const;
   void publish_visualization_gt_cones(const rclcpp::Time& stamp);
   void publish_visualization_slam_cones(const rclcpp::Time& stamp);

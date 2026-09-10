@@ -6,20 +6,12 @@ from casadi import SX, vertcat, sin, cos, sqrt, atan, atan2, tan, if_else, fabs,
 from ament_index_python.packages import get_package_prefix
 import yaml
 
-# Geometry mirrors config/car/02.yaml: wheel_base 1.53, cg_2_rear_axis 0.706.
-# The simulator uses lr = cg_2_rear_axis and lf = wheel_base - lr (see
-# FSFEUP02::get_state_derivative), so the controller must use the same split.
+# Geometry
 lr = 0.706  # Distance from the center of mass to the rear axle
 lf = 0.824  # Distance from the center of mass to the front axle
 L = lr + lf
 
-rolling_resistance_coefficient = 0.015
-
-gravity_acceleration = 9.81
-
-# First-order steering actuator, matching the simulator's FirstOrderSteeringMotor
-# with time_constant from config/car/steering_motor_model/02_steering_motor.yaml.
-# Identified from FEUP Trackdrive 17 (steering_motor.time_constant).
+# First-order steering actuator
 steering_motor_tau = 0.150
 
 max_steering_angle = 0.335  # config/car/steering_model/02_steering.yaml
@@ -80,16 +72,10 @@ def export_mpc_model() -> AcadosModel:
     xdot = SX.sym("xdot", 4)
     u = SX.sym("u", 1) # [steering_angle_command]
 
-    # Kinematic bicycle written at the CENTRE OF GRAVITY, because the pose the
-    # controller receives (/state_estimation/vehicle_pose) is the CG pose, not the
-    # rear axle. Using the rear-axle form with a CG pose biases the predicted
-    # trajectory by lr*psi_dot laterally, which shows up as a steady corner offset.
+    # Kinematic bicycle at the CG, since the pose the controller receives is the CG pose.
     beta = atan(lr * tan(x[3]) / L)
 
-    # The yaw rate is driven by the ACTUAL steering angle state x[3], not by the
-    # command u[0]. The command only feeds the first-order steering actuator, so
-    # the model reproduces the simulator's steering lag instead of assuming the
-    # wheels reach the commanded angle instantly.
+    # Yaw rate is driven by the actual steering state, not the command, to keep the actuator lag.
     f_expl = vertcat(
         p[2] * cos(x[2] + beta),
         p[2] * sin(x[2] + beta),
@@ -211,10 +197,7 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
 
     setup_cost_function(ocp)
 
-    # The only hard actuator limit the simulator enforces is the steering angle
-    # range (AckermanSteering clamps to +-0.335 rad). There is no rate limit in
-    # FirstOrderSteeringMotor, so imposing one here would be a model mismatch;
-    # steering rate is shaped by the cost instead.
+    # Only the steering angle range is a hard limit in the simulator; rate is shaped by the cost.
     ocp.constraints.lbu = np.array([-max_steering_angle])
     ocp.constraints.ubu = np.array([max_steering_angle])
     ocp.constraints.idxbu = np.array([0])

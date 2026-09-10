@@ -2,9 +2,9 @@ car:
   wheel_base: 1.53
   track_width: 1.2
   wheel_diameter: 0.406
-  sprung_mass: 188
-  unsprung_mass: 50
-  total_mass: 238
+  sprung_mass: 188                 # original: 214
+  unsprung_mass: 50                # original: 28
+  total_mass: 238                  # original: 242
   sprung_cg_y: 0.726
   sprung_cg_z: 0.245
   unsprung_cg_y: 0.765

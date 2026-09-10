@@ -48,6 +48,13 @@ int main(int argc, char* argv[]) {
   if (params.rosbag_evaluator_enabled) {
     tuning_evaluator = std::make_shared<TuningEvaluator>(simulator, params);
     executor.add_node(tuning_evaluator);
+<<<<<<< HEAD
+=======
+  }
+
+  while (rclcpp::ok()) {
+    executor.spin_some(std::chrono::milliseconds(1));
+>>>>>>> main
   }
 
   // spin() blocks until shutdown and dispatches callbacks across the executor's thread pool.

@@ -1,12 +1,18 @@
 tire:
-  B_lateral: 14.31602
-  C_lateral: 1.6935813231637018
-  D_lateral: 2.4649524353844683
-  E_lateral: 0.775619056976202
-  B_longitudinal: 21.02804
-  C_longitudinal: 1.2816450613394608
-  D_longitudinal: 2.1792141270393164
-  E_longitudinal: -0.18296685357302622
+  # Pacejka combined slip parameters
+  # Lateral coefficients
+  B_lateral: 20.0 # Buffed from 13.8416 for sharper turn-in
+  C_lateral: 1
+  D_lateral: 5.0 # Buffed from 3.5 for more peak cornering grip
+  E_lateral: -0.262103
+  
+  # Longitudinal coefficients
+  B_longitudinal: 5.0 # Reverted
+  C_longitudinal: 1.80847
+  D_longitudinal: 1.0 # Reverted
+  E_longitudinal: -0.059626
+
+  # Camber and toe parameters
   fr:
     toe: 0.0
     camber: 0.0
