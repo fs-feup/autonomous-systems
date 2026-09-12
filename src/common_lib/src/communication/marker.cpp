@@ -1,5 +1,8 @@
 #include "common_lib/communication/marker.hpp"
 
+#include <algorithm>
+#include <cstdio>
+
 namespace common_lib::communication {
 
 visualization_msgs::msg::Marker marker_from_position(
@@ -133,6 +136,195 @@ visualization_msgs::msg::MarkerArray velocity_hover_markers(
     text_marker.color.a = 1.0f;
 
     marker_array.markers.push_back(text_marker);
+  }
+
+  return marker_array;
+}
+
+static std_msgs::msg::ColorRGBA velocity_to_color(double velocity) {
+  std_msgs::msg::ColorRGBA color;
+  color.a = 1.0f;
+
+  constexpr double MIN_VEL = 5.0;
+  constexpr double MAX_VEL = 25.0;
+
+  double t = std::clamp((velocity - MIN_VEL) / (MAX_VEL - MIN_VEL), 0.0, 1.0);
+
+  if (t < 0.5) {
+    // Red -> Yellow
+    double s = t / 0.5;
+
+    color.r = 1.0f;
+    color.g = static_cast<float>(s);
+    color.b = 0.0f;
+
+  } else {
+    // Yellow -> Green
+    double s = (t - 0.5) / 0.5;
+
+    color.r = static_cast<float>(1.0 - s);
+    color.g = 1.0f;
+    color.b = 0.0f;
+  }
+
+  return color;
+}
+
+visualization_msgs::msg::Marker velocity_colored_path_marker(
+    const std::vector<common_lib::structures::PathPoint>& path_array, const std::string& name_space,
+    const std::string& frame_id, float scale) {
+  visualization_msgs::msg::Marker marker;
+  marker.header.frame_id = frame_id;
+  marker.header.stamp = rclcpp::Clock().now();
+  marker.ns = name_space;
+  marker.id = 0;
+  marker.type = visualization_msgs::msg::Marker::LINE_LIST;
+  marker.action = visualization_msgs::msg::Marker::ADD;
+  marker.pose.orientation.w = 1.0;
+  marker.scale.x = scale;  // line width
+
+  if (path_array.size() < 2) return marker;
+
+  // Compute velocity range
+  double min_vel = path_array[0].ideal_velocity;
+  double max_vel = path_array[0].ideal_velocity;
+  for (const auto& pt : path_array) {
+    min_vel = std::min(min_vel, pt.ideal_velocity);
+    max_vel = std::max(max_vel, pt.ideal_velocity);
+  }
+
+  // LINE_LIST: pairs of points (p0,p1), (p1,p2), ...
+  // Each point in a pair gets the same color (average of both endpoint velocities)
+  for (size_t i = 0; i + 1 < path_array.size(); ++i) {
+    const auto& p0 = path_array[i];
+    const auto& p1 = path_array[i + 1];
+
+    geometry_msgs::msg::Point gp0, gp1;
+    gp0.x = p0.position.x;
+    gp0.y = p0.position.y;
+    gp0.z = 0.0;
+    gp1.x = p1.position.x;
+    gp1.y = p1.position.y;
+    gp1.z = 0.0;
+
+    marker.points.push_back(gp0);
+    marker.points.push_back(gp1);
+
+    double seg_vel = (p0.ideal_velocity + p1.ideal_velocity) / 2.0;
+    auto color = velocity_to_color(seg_vel);
+    marker.colors.push_back(color);  // one color per point in LINE_LIST
+    marker.colors.push_back(color);
+  }
+
+  return marker;
+}
+
+visualization_msgs::msg::MarkerArray sections_debug_markers(
+    const std::vector<common_lib::structures::Section>& sections,
+    const std::vector<common_lib::structures::PathPoint>& smoothed_path,
+    const std::string& frame_id, double base_longitudinal_acc) {
+  visualization_msgs::msg::MarkerArray marker_array;
+  if (sections.empty() || smoothed_path.empty()) return marker_array;
+
+  int path_size = static_cast<int>(smoothed_path.size());
+  rclcpp::Time stamp = rclcpp::Clock().now();
+
+  for (int s = 0; s < static_cast<int>(sections.size()); ++s) {
+    const auto& sec = sections[s];
+
+    // Collect indices correctly, handling wrap
+    std::vector<int> indices;
+    if (sec.start_idx <= sec.end_idx) {
+      for (int i = sec.start_idx; i <= sec.end_idx && i < path_size; ++i) indices.push_back(i);
+    } else {
+      for (int i = sec.start_idx; i < path_size; ++i) indices.push_back(i);
+      for (int i = 0; i <= sec.end_idx && i < path_size; ++i) indices.push_back(i);
+    }
+
+    if (indices.empty()) continue;
+
+    // Color: green = limits at or above config default, red = limits reduced
+    double base = (base_longitudinal_acc > 0.0) ? base_longitudinal_acc : 4.0;
+    double t = std::clamp((sec.current_long_acc - base * 0.5) / base, 0.0, 1.0);
+
+    std_msgs::msg::ColorRGBA color;
+    color.r = static_cast<float>(1.0 - t);
+    color.g = static_cast<float>(t);
+    color.b = 0.0f;
+    color.a = 0.85f;
+
+    // 1. Colored line strip for this section
+    {
+      visualization_msgs::msg::Marker strip;
+      strip.header.frame_id = frame_id;
+      strip.header.stamp = stamp;
+      strip.ns = "section_strip";
+      strip.id = s;
+      strip.type = visualization_msgs::msg::Marker::LINE_STRIP;
+      strip.action = visualization_msgs::msg::Marker::ADD;
+      strip.scale.x = 0.15f;
+      strip.color = color;
+
+      for (int i : indices) {
+        geometry_msgs::msg::Point p;
+        p.x = smoothed_path[i].position.x;
+        p.y = smoothed_path[i].position.y;
+        p.z = 0.05;
+        strip.points.push_back(p);
+      }
+      marker_array.markers.push_back(strip);
+    }
+
+    // 2. Text label at section midpoint
+    {
+      int mid_idx = indices[indices.size() / 2];
+      if (mid_idx < path_size) {
+        visualization_msgs::msg::Marker text;
+        text.header.frame_id = frame_id;
+        text.header.stamp = stamp;
+        text.ns = "section_label";
+        text.id = s;
+        text.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+        text.action = visualization_msgs::msg::Marker::ADD;
+        text.pose.position.x = smoothed_path[mid_idx].position.x;
+        text.pose.position.y = smoothed_path[mid_idx].position.y;
+        text.pose.position.z = 0.8;
+        text.pose.orientation.w = 1.0;
+        text.scale.z = 0.35f;
+        text.color.r = text.color.g = text.color.b = 1.0f;
+        text.color.a = 1.0f;
+
+        char buf[128];
+        std::snprintf(buf, sizeof(buf), "S%d [%d-%d]\nLong:%.1f Lat:%.1f\nerr:%.3f n:%d", s,
+                      sec.start_idx, sec.end_idx, sec.current_long_acc, sec.current_lat_acc,
+                      sec.mean_error, sec.sample_count);
+        text.text = buf;
+        marker_array.markers.push_back(text);
+      }
+    }
+
+    // 3. Yellow sphere at section boundary (start index)
+    {
+      int boundary_idx = indices.front();
+
+      visualization_msgs::msg::Marker sphere;
+      sphere.header.frame_id = frame_id;
+      sphere.header.stamp = stamp;
+      sphere.ns = "section_boundary";
+      sphere.id = s;
+      sphere.type = visualization_msgs::msg::Marker::SPHERE;
+      sphere.action = visualization_msgs::msg::Marker::ADD;
+      sphere.pose.position.x = smoothed_path[boundary_idx].position.x;
+      sphere.pose.position.y = smoothed_path[boundary_idx].position.y;
+      sphere.pose.position.z = 0.2;
+      sphere.pose.orientation.w = 1.0;
+      sphere.scale.x = sphere.scale.y = sphere.scale.z = 0.4f;
+      sphere.color.r = 1.0f;
+      sphere.color.g = 1.0f;
+      sphere.color.b = 0.0f;
+      sphere.color.a = 1.0f;
+      marker_array.markers.push_back(sphere);
+    }
   }
 
   return marker_array;

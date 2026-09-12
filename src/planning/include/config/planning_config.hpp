@@ -2,6 +2,7 @@
 #define SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
 
 #include <string>
+#include <vector>
 
 #include "path_calculation_config.hpp"
 #include "skidpad_config.hpp"
@@ -55,6 +56,11 @@ struct PlanningParameters {
   double vp_longitudinal_acceleration_;
   bool vp_use_velocity_planning_;
   double vp_desired_velocity_;
+  bool vp_use_adaptive_velocity_;
+  double vp_curvature_peak_threshold_;
+  int vp_min_section_spacing_;
+  std::vector<double> vp_adaptive_anchor_mean_;
+  std::vector<double> vp_adaptive_anchor_delta_;
 
   /*---------------------- Planning (planning_) ----------------------*/
   /**
@@ -125,7 +131,9 @@ struct PlanningConfig {
         velocity_planning_(params.vp_minimum_velocity_, params.vp_desired_velocity_,
                            params.vp_braking_acceleration_,
                            params.vp_lateral_acceleration_, params.vp_longitudinal_acceleration_,
-                           params.vp_use_velocity_planning_),
+                           params.vp_use_velocity_planning_, params.vp_use_adaptive_velocity_,
+                           params.vp_curvature_peak_threshold_, params.vp_min_section_spacing_,
+                           params.vp_adaptive_anchor_mean_, params.vp_adaptive_anchor_delta_),
         skidpad_(params.skidpad_minimum_cones_, params.skidpad_tolerance_),
         publishing_visualization_msgs_(params.planning_publishing_visualization_msgs_),
         using_simulated_se_(params.planning_using_simulated_se_),

@@ -24,7 +24,12 @@ class MPC : public Controller {
   custom_interfaces::msg::PathPointArray path_data;
 
   void print_debug_info();
-  bool stopping_the_car(); // Checks if we're trying to fully stop the car
+
+  /// Rate-limits solver-failure dumps so a sustained failure cannot flood the log.
+  bool should_report_failure();
+  std::chrono::steady_clock::time_point last_failure_report_{};
+  bool stopping_the_car();
+  double last_commanded_steering_ = 0.0; // Checks if we're trying to fully stop the car
   void set_path_in_solver();
 public:
   void path_callback(const custom_interfaces::msg::PathPointArray& msg) override;

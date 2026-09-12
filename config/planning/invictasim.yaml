@@ -25,10 +25,10 @@ planning:
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
-  smoothing_use_path_smoothing: true
+  smoothing_use_path_smoothing: false
   smoothing_use_optimization: true
   smoothing_car_width: 1.2
-  smoothing_safety_margin: 0.7
+  smoothing_safety_margin: 0.8
   smoothing_curvature_weight: 1.0
   smoothing_safety_weight: 1000.0
   smoothing_proximity_weight: 0.001
@@ -36,11 +36,16 @@ planning:
   smoothing_tolerance: 1e-5     
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 3.0
-  vp_braking_acceleration: -4.0
+  vp_braking_acceleration: 4.0
   vp_lateral_acceleration: 8.0
   vp_longitudinal_acceleration: 4.0
   vp_use_velocity_planning: true
-  vp_desired_velocity: 20.0
+  vp_use_adaptive_velocity: true
+  vp_desired_velocity: 23.0
+  vp_curvature_peak_threshold: 0.05
+  vp_min_section_spacing: 5
+  vp_adaptive_anchor_mean: [0.00, 0.08, 0.12, 0.15, 0.17, 0.20, 0.25, 0.40, 0.80]
+  vp_adaptive_anchor_delta: [3.50, 2.80, 2.00, 1.00, 0.00, -0.60, -1.20, -2.20, -3.50]
   #---------------------- Planning Config (planning_) ---------------------------
   planning_publishing_visualization_msgs: true
   planning_using_full_map: true

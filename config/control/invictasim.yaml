@@ -1,5 +1,5 @@
 control:
-  controller: "decoupled" # Options: "decoupled", "bombated_mpc"
+  controller: "decoupled" # Options: "decoupled", "bombated_mpc", "supermpc"
   lateral_controller: "mpczinho" # Options: "pure_pursuit", "mpczinho"
   longitudinal_controller: "pid" # Options: "pid"
   pure_pursuit_lookahead_gain: 0.30

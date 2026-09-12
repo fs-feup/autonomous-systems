@@ -79,6 +79,33 @@ PlanningParameters Planning::load_config(std::string &adapter) {
       planning_config["vp_longitudinal_acceleration"].as<double>();
   params.vp_use_velocity_planning_ = planning_config["vp_use_velocity_planning"].as<bool>();
   params.vp_desired_velocity_ = planning_config["vp_desired_velocity"].as<double>();
+  params.vp_use_adaptive_velocity_ = planning_config["vp_use_adaptive_velocity"].as<bool>();
+  if (planning_config["vp_curvature_peak_threshold"]) {
+    params.vp_curvature_peak_threshold_ =
+        planning_config["vp_curvature_peak_threshold"].as<double>();
+  } else {
+    params.vp_curvature_peak_threshold_ = 0.05;
+  }
+
+  if (planning_config["vp_min_section_spacing"]) {
+    params.vp_min_section_spacing_ = planning_config["vp_min_section_spacing"].as<int>();
+  } else {
+    params.vp_min_section_spacing_ = 5;
+  }
+
+  if (planning_config["vp_adaptive_anchor_mean"]) {
+    params.vp_adaptive_anchor_mean_ =
+        planning_config["vp_adaptive_anchor_mean"].as<std::vector<double>>();
+  } else {
+    params.vp_adaptive_anchor_mean_ = {0.00, 0.05, 0.10, 0.15, 0.20, 0.30, 0.90, 1.00, 1.50};
+  }
+
+  if (planning_config["vp_adaptive_anchor_delta"]) {
+    params.vp_adaptive_anchor_delta_ =
+        planning_config["vp_adaptive_anchor_delta"].as<std::vector<double>>();
+  } else {
+    params.vp_adaptive_anchor_delta_ = {2.00, 1.50, 1.00, 0.85, 0.65, -0.20, -1.00, -1.25, -1.50};
+  }
 
   /*--------------------- Planning Configuration Parameters --------------------*/
   params.planning_publishing_visualization_msgs_ =
@@ -132,6 +159,10 @@ Planning::Planning(const PlanningParameters &params)
         create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path_", 10);
     velocity_hover_pub_ =
         create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/velocity_hover", 10);
+    velocity_colored_path_pub_ = create_publisher<visualization_msgs::msg::Marker>(
+        "/path_planning/velocity_colored_path", 10);
+    sections_debug_pub_ =
+        create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/sections_debug", 10);
   }
 
   if (!planning_config_.using_simulated_se_) {
@@ -207,8 +238,11 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose 
     initial_car_orientation_ = message.theta;
   }
 
-  if (has_received_track_ && !has_received_pose_) {
-    run_planning_algorithms();
+  if (has_received_track_) {
+    if (!has_received_pose_) {
+      run_planning_algorithms();
+    }
+    velocity_planning_.adapt_limits(pose_, smoothed_path_, is_path_closed_);
   }
 
   has_received_pose_ = true;
@@ -266,11 +300,25 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
 }
 
 void Planning::run_full_map() {
-  // Let the pose and map settle first, or the latched loop can take a wrong branch.
+  // Let the pose and the ground-truth map settle before computing the global loop:
+  // computing on the very first callback races message arrival and can latch a path
+  // that took a wrong branch through the map.
   if (++full_map_warmup_ < 3) {
     return;
   }
 
+  full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
+
+  // Only latch the path as final once the loop was actually built; a failed attempt
+  // (e.g. computed before the pose/map settled) used to be latched forever and the
+  // car would drive the whole session on a garbage 3-point path.
+  if (full_path_.size() < 20) {
+    RCLCPP_WARN(get_logger(), "Full-map path calculation returned only %zu points, retrying",
+                full_path_.size());
+    return;
+  }
+  is_path_closed_ = true;
+  is_path_final_ = true;
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
   // Only latch once the loop actually built, or a failed attempt is latched forever.
@@ -326,7 +374,7 @@ void Planning::run_full_map() {
     RCLCPP_DEBUG(get_logger(), "Trackdrive path calculated with %d points",
                  static_cast<int>(smoothed_path_.size()));
 
-    RCLCPP_DEBUG(get_logger(),
+    RCLCPP_INFO(get_logger(),
                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
                 "| Max: %.2f m/s",
                 lap_time, total_length, avg_vel, min_vel, max_vel);
@@ -374,7 +422,6 @@ void Planning::run_autocross() {
   }
   if (lap_counter_ >= 1) {
     if (!is_path_final_) {
-      is_path_final_ = true;
       run_full_map();
     }
     velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
@@ -390,6 +437,8 @@ void Planning::run_trackdrive() {
       // Continue tracking
     } else if (lap_counter_ >= 10) {
       velocity_planning_.stop(smoothed_path_, planning_config_.braking_distance_autocross_);
+    } else {
+      // Lap 0: initial lap before completion, continue tracking
     }
     return;
   }
@@ -407,7 +456,7 @@ void Planning::run_trackdrive() {
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
     smoothed_path_ =
-        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_,false);
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_, false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);
@@ -524,6 +573,9 @@ void Planning::publish_visualization_msgs() const {
       path_calculation_.get_path_to_car(), "global_path", map_frame_id_, "white", "cylinder", 0.6,
       visualization_msgs::msg::Marker::MODIFY));
 
+  velocity_colored_path_pub_->publish(common_lib::communication::velocity_colored_path_marker(
+      smoothed_path_, "velocity_colored_path", map_frame_id_));
+
   if (planning_config_.smoothing_.use_path_smoothing_) {
     velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
         smoothed_path_, "velocity", map_frame_id_, 0.25f,
@@ -532,4 +584,7 @@ void Planning::publish_visualization_msgs() const {
     velocity_hover_pub_->publish(common_lib::communication::velocity_hover_markers(
         smoothed_path_, "velocity", map_frame_id_, 0.25f, 1));
   }
+  sections_debug_pub_->publish(common_lib::communication::sections_debug_markers(
+      velocity_planning_.get_sections(), smoothed_path_, map_frame_id_,
+      planning_config_.velocity_planning_.longitudinal_acceleration_));
 }
