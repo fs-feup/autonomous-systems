@@ -24,7 +24,9 @@ double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2
 void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, bool is_closed) {
   sections_.clear();
   int n = static_cast<int>(curvatures.size());
-  if (n < 2) return;
+  if (n < 2) {
+    return;
+  }
 
   std::vector<double> smooth(n);
   for (int i = 0; i < n; ++i) {
@@ -68,18 +70,27 @@ void VelocityPlanning::compute_sections(const std::vector<double> &curvatures, b
   bool merged = true;
   while (merged) {
     merged = false;
-    for (int i = 0; i < static_cast<int>(sections_.size()); ++i) {
-      int len = (sections_[i].start_idx <= sections_[i].end_idx)
-                    ? sections_[i].end_idx - sections_[i].start_idx + 1
-                    : (n - sections_[i].start_idx) + sections_[i].end_idx + 1;
+    for (auto it = sections_.begin(); it != sections_.end();) {
+      int len = 0;
+      if (it->start_idx <= it->end_idx) {
+        len = it->end_idx - it->start_idx + 1;
+      } else {
+        len = (n - it->start_idx) + it->end_idx + 1;
+      }
       if (len < min_section_spacing_ && sections_.size() > 1) {
-        int neighbor = (i > 0) ? i - 1 : i + 1;
-        sections_[neighbor].start_idx =
-            std::min(sections_[neighbor].start_idx, sections_[i].start_idx);
-        sections_[neighbor].end_idx = std::max(sections_[neighbor].end_idx, sections_[i].end_idx);
-        sections_.erase(sections_.begin() + i);
+        if (it > sections_.begin()) {
+          auto prev = it - 1;
+          prev->start_idx = std::min(prev->start_idx, it->start_idx);
+          prev->end_idx = std::max(prev->end_idx, it->end_idx);
+        } else {
+          auto next = it + 1;
+          next->start_idx = std::min(next->start_idx, it->start_idx);
+          next->end_idx = std::max(next->end_idx, it->end_idx);
+        }
+        it = sections_.erase(it);
         merged = true;
-        break;
+      } else {
+        ++it;
       }
     }
   }
@@ -89,9 +100,13 @@ int VelocityPlanning::find_section(int point_idx) const {
   for (int s = 0; s < static_cast<int>(sections_.size()); ++s) {
     const auto &sec = sections_[s];
     if (sec.start_idx <= sec.end_idx) {
-      if (point_idx >= sec.start_idx && point_idx <= sec.end_idx) return s;
+      if (point_idx >= sec.start_idx && point_idx <= sec.end_idx) {
+        return s;
+      }
     } else {
-      if (point_idx >= sec.start_idx || point_idx <= sec.end_idx) return s;
+      if (point_idx >= sec.start_idx || point_idx <= sec.end_idx) {
+        return s;
+      }
     }
   }
   return -1;
@@ -183,7 +198,7 @@ void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
     return;
   }
 
-  std::vector<double> curvatures(path_size, 0.0);
+  std::vector curvatures(path_size, 0.0);
   for (int i = 1; i < path_size - 1; ++i) {
     curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
   }
@@ -218,7 +233,7 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   // Compute sections on the real path once, before tripling
   if (sections_.empty() || (sections_.front().start_idx <= sections_.front().end_idx &&
                             static_cast<int>(sections_.back().end_idx) != path_size - 1)) {
-    std::vector<double> curvatures(path_size, 0.0);
+    std::vector curvatures(path_size, 0.0);
     for (int i = 1; i < path_size - 1; ++i) {
       curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
     }
@@ -226,10 +241,10 @@ void VelocityPlanning::trackdrive_velocity(std::vector<PathPoint> &final_path) {
   }
 
   // Save sections computed on the real path
-  std::vector<Section> saved_sections = sections_;
+  std::vector saved_sections = sections_;
 
   // Un-wrap the closed-loop merged section for tripling
-  std::vector<Section> sections_for_tripling = saved_sections;
+  std::vector sections_for_tripling = saved_sections;
   if (sections_for_tripling.front().start_idx > sections_for_tripling.front().end_idx) {
     Section &wrapped = sections_for_tripling.front();
     Section tail = {wrapped.start_idx,        path_size - 1,           0.0, 0,
@@ -285,7 +300,7 @@ void VelocityPlanning::acceleration_velocity(std::vector<PathPoint> &final_path,
     return;
   }
 
-  std::vector<double> curvatures(path_size, 0.0);
+  std::vector curvatures(path_size, 0.0);
   for (int i = 1; i < path_size - 1; ++i) {
     curvatures[i] = find_curvature(final_path[i - 1], final_path[i], final_path[i + 1]);
   }
@@ -385,7 +400,9 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
 }
 
 void VelocityPlanning::change_section_limits(int section_idx, double delta_long, double delta_lat) {
-  if (section_idx < 0 || section_idx >= static_cast<int>(sections_.size())) return;
+  if (section_idx < 0 || section_idx >= static_cast<int>(sections_.size())) {
+    return;
+  }
 
   auto &sec = sections_[section_idx];
   sec.current_long_acc = sec.current_long_acc + delta_long;
@@ -401,8 +418,12 @@ double VelocityPlanning::get_delta(double mean) const {
   }
   size_t N = std::min(anchor_mean.size(), anchor_delta.size());
 
-  if (mean <= anchor_mean[0]) return anchor_delta[0];
-  if (mean >= anchor_mean[N - 1]) return anchor_delta[N - 1];
+  if (mean <= anchor_mean[0]) {
+    return anchor_delta[0];
+  }
+  if (mean >= anchor_mean[N - 1]) {
+    return anchor_delta[N - 1];
+  }
 
   for (size_t i = 0; i < N - 1; i++) {
     if (mean >= anchor_mean[i] && mean <= anchor_mean[i + 1]) {
@@ -413,7 +434,7 @@ double VelocityPlanning::get_delta(double mean) const {
   return anchor_delta[N - 1];
 }
 
-void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed) {
+void VelocityPlanning::adapt_limits(const Pose &pose, std::vector<PathPoint> &path, bool is_closed) {
   if (!config_.use_adaptive_velocity_) {
     return;
   }
@@ -426,7 +447,9 @@ void VelocityPlanning::adapt_limits(Pose &pose, std::vector<PathPoint> &path, bo
   }
 
   int sec_idx = find_section(static_cast<int>(point_idx));
-  if (sec_idx < 0) return;
+  if (sec_idx < 0) {
+    return;
+  }
 
   // First call after startup/reset: just start tracking, nothing to adapt yet
   if (current_section_idx_ < 0) {
@@ -467,7 +490,7 @@ double VelocityPlanning::get_pose_error(const Pose &pose, const std::vector<Path
 
   double best_dist_sq = std::numeric_limits<double>::max();
 
-  for (size_t i = 0; i + 1 < path.size(); ++i) {
+  for (size_t i = 0; i < path.size() - 1; ++i) {
     const auto &before = path[i].position;
     const auto &after = path[i + 1].position;
 

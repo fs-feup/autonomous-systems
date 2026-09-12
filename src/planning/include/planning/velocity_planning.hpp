@@ -85,7 +85,7 @@ public:
    * @param pose  Current vehicle pose.
    * @param path  The active path (same one passed to set_velocity).
    */
-  void adapt_limits(Pose &pose, std::vector<PathPoint> &path, bool is_closed);
+  void adapt_limits(const Pose &pose, std::vector<PathPoint> &path, bool is_closed);
   const std::vector<Section> &get_sections() const { return sections_; }
 
 private:
