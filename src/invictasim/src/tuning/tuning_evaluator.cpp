@@ -40,8 +40,8 @@ TuningEvaluator::PoseSample TuningEvaluator::transform_pose_to_map(
 TuningEvaluator::TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
                                  const InvictaSimParameters& /*params*/)
     : Node("invictasim_tuning_evaluator"), simulator_(simulator) {
-  output_directory_ = this->declare_parameter<std::string>(
-      "tuning_output_directory", kDefaultEvaluationOutputDirectory);
+  output_directory_ = this->declare_parameter<std::string>("tuning_output_directory",
+                                                           kDefaultEvaluationOutputDirectory);
   output_samples_ = this->declare_parameter<bool>("tuning_output_samples", false);
 
   position_error_pub_ =
@@ -60,12 +60,10 @@ TuningEvaluator::TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
       this->create_publisher<std_msgs::msg::Float64>("/invictasim/tuning/yaw_rate_error", 10);
   yaw_rate_rmse_pub_ =
       this->create_publisher<std_msgs::msg::Float64>("/invictasim/tuning/yaw_rate_rmse", 10);
-  front_wheel_rpm_error_pub_ =
-      this->create_publisher<std_msgs::msg::Float64>("/invictasim/tuning/front_wheel_rpm_error",
-                                                     10);
+  front_wheel_rpm_error_pub_ = this->create_publisher<std_msgs::msg::Float64>(
+      "/invictasim/tuning/front_wheel_rpm_error", 10);
   front_wheel_rpm_rmse_pub_ =
-      this->create_publisher<std_msgs::msg::Float64>("/invictasim/tuning/front_wheel_rpm_rmse",
-                                                     10);
+      this->create_publisher<std_msgs::msg::Float64>("/invictasim/tuning/front_wheel_rpm_rmse", 10);
   motor_rpm_error_pub_ =
       this->create_publisher<std_msgs::msg::Float64>("/invictasim/tuning/motor_rpm_error", 10);
   motor_rpm_rmse_pub_ =
@@ -78,8 +76,7 @@ TuningEvaluator::TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
       "/invictasim/tuning/visualization", 10);
 
   control_sub_ = this->create_subscription<custom_interfaces::msg::ControlCommand>(
-      "/control/command", 50,
-      [this](const custom_interfaces::msg::ControlCommand::SharedPtr msg) {
+      "/control/command", 50, [this](const custom_interfaces::msg::ControlCommand::SharedPtr msg) {
         control_callback(msg);
       });
   real_pose_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
@@ -97,8 +94,7 @@ TuningEvaluator::TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
       "/vehicle/fr_rpm", 100,
       [this](const custom_interfaces::msg::WheelRPM::SharedPtr msg) { real_fr_rpm_callback(msg); });
   real_motor_rpm_sub_ = this->create_subscription<custom_interfaces::msg::WheelRPM>(
-      "/vehicle/motor_rpm", 100,
-      [this](const custom_interfaces::msg::WheelRPM::SharedPtr msg) {
+      "/vehicle/motor_rpm", 100, [this](const custom_interfaces::msg::WheelRPM::SharedPtr msg) {
         real_motor_rpm_callback(msg);
       });
 
@@ -158,14 +154,12 @@ void TuningEvaluator::real_velocity_callback(
   has_real_velocity_ = true;
 }
 
-void TuningEvaluator::real_fl_rpm_callback(
-    const custom_interfaces::msg::WheelRPM::SharedPtr msg) {
+void TuningEvaluator::real_fl_rpm_callback(const custom_interfaces::msg::WheelRPM::SharedPtr msg) {
   latest_real_fl_rpm_ = msg->fl_rpm;
   has_real_fl_rpm_ = true;
 }
 
-void TuningEvaluator::real_fr_rpm_callback(
-    const custom_interfaces::msg::WheelRPM::SharedPtr msg) {
+void TuningEvaluator::real_fr_rpm_callback(const custom_interfaces::msg::WheelRPM::SharedPtr msg) {
   latest_real_fr_rpm_ = msg->fr_rpm;
   has_real_fr_rpm_ = true;
 }
@@ -200,9 +194,8 @@ void TuningEvaluator::on_timer() {
                                           latest_real_velocity_.angular_velocity};
     const VelocitySample sim_velocity = {sim_state.velocity_x, sim_state.velocity_y,
                                          sim_state.yaw_rate};
-    const double velocity_error =
-        std::hypot(sim_velocity.velocity_x - real_velocity.velocity_x,
-                   sim_velocity.velocity_y - real_velocity.velocity_y);
+    const double velocity_error = std::hypot(sim_velocity.velocity_x - real_velocity.velocity_x,
+                                             sim_velocity.velocity_y - real_velocity.velocity_y);
     const double yaw_rate_error = sim_velocity.yaw_rate - real_velocity.yaw_rate;
     publish_float(velocity_error_pub_, velocity_error);
     publish_float(velocity_rmse_pub_, velocity_rmse_.update(velocity_error));
@@ -339,11 +332,10 @@ void TuningEvaluator::open_csv() {
   filename << "tuning_" << std::put_time(&local_time, "%Y%m%d_%H%M%S") << ".csv";
   const std::filesystem::path csv_path = output_directory_ / filename.str();
   csv_file_.open(csv_path);
-  csv_file_
-      << "elapsed_s,real_x,real_y,real_yaw,sim_x,sim_y,sim_yaw,position_error,heading_error,"
-      << "real_velocity_x,real_velocity_y,real_yaw_rate,sim_velocity_x,sim_velocity_y,"
-      << "sim_yaw_rate,real_fl_rpm,real_fr_rpm,real_front_rpm,real_motor_rpm,sim_fl_rpm,"
-      << "sim_fr_rpm,sim_front_rpm,sim_motor_rpm,front_wheel_rpm_error,motor_rpm_error\n";
+  csv_file_ << "elapsed_s,real_x,real_y,real_yaw,sim_x,sim_y,sim_yaw,position_error,heading_error,"
+            << "real_velocity_x,real_velocity_y,real_yaw_rate,sim_velocity_x,sim_velocity_y,"
+            << "sim_yaw_rate,real_fl_rpm,real_fr_rpm,real_front_rpm,real_motor_rpm,sim_fl_rpm,"
+            << "sim_fr_rpm,sim_front_rpm,sim_motor_rpm,front_wheel_rpm_error,motor_rpm_error\n";
   RCLCPP_INFO(this->get_logger(), "Writing tuning samples to %s", csv_path.c_str());
 }
 
@@ -391,9 +383,9 @@ void TuningEvaluator::write_csv_row(const PoseSample& real_pose, const PoseSampl
   const double sim_front_rpm =
       0.5 * (sim_sensors.wheel_rpm.front_left + sim_sensors.wheel_rpm.front_right);
 
-  csv_file_ << elapsed_s << "," << real_pose.x << "," << real_pose.y << "," << real_pose.yaw
-            << "," << sim_pose.x << "," << sim_pose.y << "," << sim_pose.yaw << ","
-            << position_error << "," << heading_error << ",";
+  csv_file_ << elapsed_s << "," << real_pose.x << "," << real_pose.y << "," << real_pose.yaw << ","
+            << sim_pose.x << "," << sim_pose.y << "," << sim_pose.yaw << "," << position_error
+            << "," << heading_error << ",";
   if (has_real_velocity_) {
     csv_file_ << latest_real_velocity_.velocity_x << "," << latest_real_velocity_.velocity_y << ","
               << latest_real_velocity_.angular_velocity << ",";

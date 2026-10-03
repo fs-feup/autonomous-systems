@@ -1,7 +1,10 @@
 track:
-  # FS rules put the car 0.30 m behind the start line. At the old -1.75 it crossed the line
-  # already doing 7.3 m/s, which timed the 75 m at 3.36 s instead of the standing-start 4.24 s.
+  # start_position only picks the side of the timing line the car approaches from; the distance
+  # comes from start_gap_to_timing_line plus the loaded car's own length, so the standing start is
+  # timed identically for the 02 and the 03.
   start_position: [-2.0, 0]
+  # FS rules place the car's foremost point 0.30 m behind the start line.
+  start_gap_to_timing_line: 0.30
   timing_lines:
   - [[0, -4], [0, 4]]
   - [[75, -4], [75, 4]]

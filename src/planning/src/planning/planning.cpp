@@ -266,26 +266,14 @@ void Planning::compute_path_orientation(std::vector<PathPoint> &path) {
 }
 
 void Planning::run_full_map() {
-<<<<<<< HEAD
-  // Let the pose and the ground-truth map settle before computing the global loop:
-  // computing on the very first callback races message arrival and can latch a path
-  // that took a wrong branch through the map.
-=======
   // Let the pose and map settle first, or the latched loop can take a wrong branch.
->>>>>>> main
   if (++full_map_warmup_ < 3) {
     return;
   }
 
   full_path_ = path_calculation_.calculate_trackdrive(cone_array_);
 
-<<<<<<< HEAD
-  // Only latch the path as final once the loop was actually built; a failed attempt
-  // (e.g. computed before the pose/map settled) used to be latched forever and the
-  // car would drive the whole session on a garbage 3-point path.
-=======
   // Only latch once the loop actually built, or a failed attempt is latched forever.
->>>>>>> main
   if (full_path_.size() < 20) {
     RCLCPP_WARN(get_logger(), "Full-map path calculation returned only %zu points, retrying",
                 full_path_.size());
@@ -339,9 +327,9 @@ void Planning::run_full_map() {
                  static_cast<int>(smoothed_path_.size()));
 
     RCLCPP_DEBUG(get_logger(),
-                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                "| Max: %.2f m/s",
-                lap_time, total_length, avg_vel, min_vel, max_vel);
+                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                 "| Max: %.2f m/s",
+                 lap_time, total_length, avg_vel, min_vel, max_vel);
   }
 }
 
@@ -419,7 +407,7 @@ void Planning::run_trackdrive() {
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
     smoothed_path_ =
-        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_,false);
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_, false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);

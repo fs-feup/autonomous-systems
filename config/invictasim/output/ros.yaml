@@ -9,17 +9,19 @@ publish_frequencies:
   visualization:                
     car: 60                     # Car visualization 
     ground: 1                   # Ground visualization 
-    ground_truth_cones: 0       # Ground-truth cones visualization
+    ground_truth_cones: 1       # Ground-truth cones visualization
     slam_cones: 10              # SLAM cones visualization (simulated or from state estimation)
-    perception_cones: 0         # Perception cones visualization (simulated or from perception)
+    perception_cones: 10        # Perception cones visualization (simulated or from perception)
+  # Simulated sensor channels, with the noise, bias and dropout models from
+  # config/invictasim/sensors/. These stand in for the car's real hardware.
   sensors:
-    imu: 0                      # Simulated IMU (free_acceleration, angular_velocity)
-    wheel_speed: 0              # Simulated wheel speed sensors
-    resolver: 0                 # Simulated motor/resolver RPM
-    steering: 0                 # Simulated steering sensor
+    imu: 100                    # Simulated IMU (free_acceleration, angular_velocity)
+    wheel_speed: 100            # Simulated wheel speed sensors, all four wheels
+    resolver: 100               # Simulated motor/resolver RPM
+    steering: 100               # Simulated steering sensor
   map:
-    perception: 0               # Simulated perception output
-    ground_truth: 0             # Ground-truth track map
+    perception: 20              # Simulated perception output (only when use_simulated_perception)
+    ground_truth: 1             # Ground-truth track map
     simulated_slam: 10          # Simulated SLAM map 
   vehicle_state:
     pose: 50                    # Simulated vehicle pose (slam output)
@@ -31,4 +33,4 @@ publish_frequencies:
     lap_current: 30              # Current lap number, lap time, and cones hit
     control_statistics: 10      # Velocity and path tracking errors
     lap_counter: 5              # Lap counter (slam output)
-  execution_time: 0             # Time taken for each simulation step (ms)
+  execution_time: 2             # Time taken for each simulation step (ms)

@@ -1,5 +1,10 @@
 #include "statistics/collision_statistics.hpp"
 
+#include <algorithm>
+#include <cmath>
+
+#include "config/resource_paths.hpp"
+
 CollisionStatistics::CollisionStatistics(const Track& track, const std::string& discipline,
                                          const std::string& car_parameters_config)
     : cones_(track.get_cones()) {
@@ -7,13 +12,11 @@ CollisionStatistics::CollisionStatistics(const Track& track, const std::string& 
   load_penalty_config();
   penalty_time_per_cone_ = penalty_time_for_discipline(discipline);
   car_hitboxes_ = load_car_hitboxes(car_parameters_config);
+  compute_collision_search_radius();
 }
 
 void CollisionStatistics::load_cone_collision_config() {
-  const std::string path =
-      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/cones/config.yaml";
-  const YAML::Node config = YAML::LoadFile(path);
-  const YAML::Node collision = config["collision"];
+  const YAML::Node collision = invictasim::resources::load("meshes/cones/config.yaml")["collision"];
   if (!collision) {
     return;
   }
@@ -23,10 +26,8 @@ void CollisionStatistics::load_cone_collision_config() {
 }
 
 void CollisionStatistics::load_penalty_config() {
-  const std::string path =
-      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/ground/config.yaml";
-  const YAML::Node config = YAML::LoadFile(path);
-  const YAML::Node penalties = config["lap_finish"]["penalties"];
+  const YAML::Node penalties =
+      invictasim::resources::load("meshes/ground/config.yaml")["lap_finish"]["penalties"];
   if (!penalties) {
     return;
   }
@@ -37,7 +38,7 @@ void CollisionStatistics::load_penalty_config() {
 
 void CollisionStatistics::reset_lap(StatisticsSnapshot& snapshot) {
   snapshot.current_lap_cones_hit = 0;
-  hit_cone_count_ = 0;
+  cones_hit_this_lap_.clear();
   cone_was_hit_.assign(cones_.size(), false);
 }
 
@@ -47,32 +48,49 @@ void CollisionStatistics::update(const VehicleModelSnapshot& vehicle_snapshot,
     return;
   }
 
+  // Reject by distance first. This runs every simulation step against the whole cone list, and on
+  // an endurance layout only a handful of cones are ever within reach of a hitbox.
+  const double search_radius_squared = collision_search_radius_m_ * collision_search_radius_m_;
+
   for (std::size_t i = 0; i < cones_.size(); ++i) {
-    if (cone_was_hit_[i] || !collides_with_cone(vehicle_snapshot, cones_[i])) {
+    if (cone_was_hit_[i]) {
+      continue;
+    }
+
+    const double dx = cones_[i].position.x - vehicle_snapshot.x;
+    const double dy = cones_[i].position.y - vehicle_snapshot.y;
+    if (dx * dx + dy * dy > search_radius_squared) {
+      continue;
+    }
+
+    if (!collides_with_cone(vehicle_snapshot, cones_[i])) {
       continue;
     }
 
     cone_was_hit_[i] = true;
-    ++hit_cone_count_;
-    snapshot.current_lap_cones_hit = static_cast<int>(hit_cone_count_);
+    cones_hit_this_lap_.push_back(cones_[i]);
+    snapshot.current_lap_cones_hit = static_cast<int>(cones_hit_this_lap_.size());
   }
+}
+
+void CollisionStatistics::compute_collision_search_radius() {
+  // Distance from the car origin to the furthest hitbox corner, plus the largest cone radius.
+  double furthest_corner = 0.0;
+  for (const Hitbox& hitbox : car_hitboxes_) {
+    furthest_corner =
+        std::max(furthest_corner, std::hypot(std::abs(hitbox.center_x) + hitbox.half_length,
+                                             std::abs(hitbox.center_y) + hitbox.half_width));
+  }
+  collision_search_radius_m_ =
+      furthest_corner + std::max(standard_cone_radius_m_, large_cone_radius_m_);
 }
 
 double CollisionStatistics::current_lap_penalty_time() const {
-  return static_cast<double>(hit_cone_count_) * penalty_time_per_cone_;
+  return static_cast<double>(cones_hit_this_lap_.size()) * penalty_time_per_cone_;
 }
 
-std::vector<common_lib::structures::Cone> CollisionStatistics::recently_hit_cones() const {
-  std::vector<common_lib::structures::Cone> hit_cones;
-  hit_cones.reserve(hit_cone_count_);
-
-  for (std::size_t i = 0; i < cones_.size(); ++i) {
-    if (cone_was_hit_[i]) {
-      hit_cones.push_back(cones_[i]);
-    }
-  }
-
-  return hit_cones;
+const std::vector<common_lib::structures::Cone>& CollisionStatistics::cones_hit_this_lap() const {
+  return cones_hit_this_lap_;
 }
 
 double CollisionStatistics::penalty_time_for_discipline(std::string discipline) const {
@@ -88,11 +106,11 @@ std::vector<Hitbox> CollisionStatistics::load_car_hitboxes(
     return hitboxes;
   }
 
-  const std::string path = std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" +
-                           car_parameters_config + "/config.yaml";
-
-  const YAML::Node config = YAML::LoadFile(path);
-  const YAML::Node yaml_boxes = config["hitboxes"]["boxes"];
+  const YAML::Node yaml_boxes = invictasim::resources::load("meshes/car/" + car_parameters_config +
+                                                            "/config.yaml")["hitboxes"]["boxes"];
+  if (!yaml_boxes || !yaml_boxes.IsSequence()) {
+    return hitboxes;
+  }
 
   for (const auto& node : yaml_boxes) {
     const double length = node["length"].as<double>();

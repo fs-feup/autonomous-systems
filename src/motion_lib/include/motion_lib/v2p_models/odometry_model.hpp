@@ -39,7 +39,7 @@ public:
 
   /**
    * @brief Get the Jacobian matrix of the motion model in relation to motion data (commands)
-   * @details This is used to multiplty by the motion data noise to get the matrix to be summed to
+   * @details This is used to multiply by the motion data noise to get the matrix to be summed to
    * the covariance
    * @param previous_pose
    * @param motion_data (Deltax, Deltay, Delta_theta)

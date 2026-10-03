@@ -134,9 +134,9 @@ diff_kv = 41.6054
 diff_preload = 0
 diff_drive_ramp = 1.42304
 
-# DelayedInverter applies a transport delay of |throttle| * 500 ms to the torque
-# request. A pure delay cannot be expressed in an ODE, so it is approximated by
-# a first-order lag on the applied throttle with a representative time constant.
+# RampedInverter slew-rate limits the torque request rather than applying it instantly. A rate
+# limit is not differentiable, so it is approximated here by a first-order lag on the applied
+# throttle with a time constant representative of the configured ramp.
 inverter_tau = 0.2
 
 gravity_acceleration = 9.81

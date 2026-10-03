@@ -22,16 +22,14 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->steering_motor_ = steering_motor_models_map.at(
       simulator_parameters.steering_motor_model.c_str())(simulator_parameters.car_parameters);
-  this->control_mode_ = simulator_parameters.control_mode;
 }
 
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
-  // The driven-wheel / tyre-slip mode is stiff (time constant ~ I*denom/(kxk*r^2),
-  // sub-millisecond at low speed), so a single explicit RK4 step at the incoming
-  // dt is numerically unstable near launch and causes runaway wheel spin.  The
-  // stable step scales with speed, so we substep adaptively: one step at cruise,
-  // finer steps only in the first low-speed instants.  This mirrors the offline
-  // tuning model (inline_02.hpp) so tuned parameters transfer to the live sim.
+  // The driven-wheel / tyre-slip mode is stiff, with a time constant of roughly
+  // I * denom / (kxk * r^2) -- under a millisecond at low speed. Explicit RK4 is only stable
+  // below that, and the stable step grows with speed, so the incoming dt is split into substeps:
+  // one at cruise, finer ones at low speed. inline_02.hpp substeps identically, so parameters
+  // tuned offline hold in the live simulation.
   if (!(dt > 0.0)) return;
   constexpr double kBaseSubDt = 2.0e-4;  // stable step at ~1 m/s
   constexpr int kMaxSub = 64;
@@ -42,16 +40,20 @@ void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, dou
   for (int k = 0; k < n_sub; ++k) integrate_substep(sub_dt, throttle, angle);
 }
 
-void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels throttle, double angle) {
+void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels throttle,
+                                      double angle) {
   using Clock = std::chrono::steady_clock;
 
   const auto powertrain_start = Clock::now();
   const double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
 
+  // A negative command is a brake request, and it is handled the same way whichever control mode
+  // is driving. Gating this on "manual" left the car with no friction brakes at all under a
+  // controller, so the only deceleration available was regen.
   common_lib::structures::Wheels brake_torques;
   double inverter_command = throttle_input;
-  if (control_mode_ == "manual" && throttle_input < 0.0) {
+  if (throttle_input < 0.0) {
     brake_torques = brake_->calculate_brake_torques(-throttle_input);
     inverter_command = 0.0;
   }
@@ -59,8 +61,7 @@ void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels 
   const bool braking = brake_torques.front_left > 0.0 || brake_torques.front_right > 0.0 ||
                        brake_torques.rear_left > 0.0 || brake_torques.rear_right > 0.0;
   const double motor_input = inverter_->calculate_inverter_throttle(inverter_command, dt);
-  const double motor_torque =
-      calculate_powertrain_torque(motor_input, dt);
+  const double motor_torque = calculate_powertrain_torque(motor_input, dt);
   const auto powertrain_end = Clock::now();
 
   VehicleModelExecutionTimes current_times;
@@ -104,6 +105,21 @@ void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels 
       common_lib::structures::Wheels(s_next(FL_W), s_next(FR_W), s_next(RL_W), s_next(RR_W));
   state_->ax = s_next(AX);
   state_->ay = s_next(AY);
+
+  // Lock-up: a braked wheel cannot be driven through zero by its brake torque, so clamp it there
+  // instead of letting it spin up backwards.
+  const Eigen::Vector4d brake_by_tire(brake_torques.front_left, brake_torques.front_right,
+                                      brake_torques.rear_left, brake_torques.rear_right);
+  const Eigen::Vector4d omega_before(s(FL_W), s(FR_W), s(RL_W), s(RR_W));
+  const Eigen::Vector4d omega_after(s_next(FL_W), s_next(FR_W), s_next(RL_W), s_next(RR_W));
+  double* const wheel_speeds[4] = {
+      &state_->wheels_speed.front_left, &state_->wheels_speed.front_right,
+      &state_->wheels_speed.rear_left, &state_->wheels_speed.rear_right};
+  for (int tire = 0; tire < 4; ++tire) {
+    if (brake_by_tire(tire) > 0.0 && omega_before(tire) * omega_after(tire) <= 0.0) {
+      *wheel_speeds[tire] = 0.0;
+    }
+  }
 
   if (state_->ebs_active) {
     state_->wheels_speed = {0.0, 0.0, 0.0, 0.0};
@@ -157,9 +173,8 @@ void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels 
 
 double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double dt) {
   double motor_omega = transmission_->calculate_motor_omega(state_->wheels_speed);
-  double motor_rpm = std::abs(motor_omega * 60.0f / (2.0f * M_PI));
+  double motor_rpm = std::abs(motor_omega * 60.0 / (2.0 * M_PI));
 
-<<<<<<< HEAD
   // Two independent limits. The throttle command is a fraction of the torque
   // limit programmed into the inverter, which changes with the selected mode;
   // what the motor can actually deliver at this speed and temperature does not.
@@ -172,30 +187,24 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   const double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
   double reference_motor_torque =
       std::clamp(throttle_input * inverter_limit, -max_motor_torque, max_motor_torque);
-=======
-  // Calculate max motor torque at current RPM
-  double max_motor_torque = motor_->get_max_torque_at_rpm(motor_rpm);
-  double reference_motor_torque = throttle_input * max_motor_torque;
->>>>>>> main
 
   // Avoid zero power request at launch
   const double min_omega_for_power = 10.0;  // rad/s,
 
-  double omega_sign_source =
-      std::abs(motor_omega) > 1e-3 ? motor_omega : reference_motor_torque;
+  double omega_sign_source = std::abs(motor_omega) > 1e-3 ? motor_omega : reference_motor_torque;
 
   double omega_for_power =
-      std::copysign(std::max(std::abs(motor_omega), min_omega_for_power),
-                    omega_sign_source);
+      std::copysign(std::max(std::abs(motor_omega), min_omega_for_power), omega_sign_source);
 
   // Mechanical power request
-  double mechanical_power_request =
-      reference_motor_torque * omega_for_power;
+  double mechanical_power_request = reference_motor_torque * omega_for_power;
 
-  // Mechanical-Eletrical efficiency
+  // Mechanical-Electrical efficiency
   double motor_efficiency = motor_->get_efficiency(std::abs(reference_motor_torque), motor_rpm);
   double inverter_efficiency = inverter_->get_efficiency();
-  double total_efficiency = motor_efficiency * inverter_efficiency;
+  // Clamped away from zero: an efficiency map that returns 0 at standstill would otherwise divide
+  // into an infinite power request and put NaN through the whole state vector.
+  double total_efficiency = std::clamp(motor_efficiency * inverter_efficiency, 1e-3, 1.0);
 
   // Requested battery power
   double battery_power_request;
@@ -208,17 +217,14 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
   }
 
   // Battery current limit
-  double battery_voltage = battery_->get_voltage();
-  double requested_battery_current =
-      battery_power_request / battery_voltage;
-  double allowed_battery_current =
-      battery_->calculate_allowed_current(requested_battery_current);
+  // A fully depleted pack can report zero volts; floor it so the current request stays finite.
+  double battery_voltage = std::max(battery_->get_voltage(), 1e-3);
+  double requested_battery_current = battery_power_request / battery_voltage;
+  double allowed_battery_current = battery_->calculate_allowed_current(requested_battery_current);
 
   // Provided battery power
-  double allowed_battery_voltage =
-      battery_->get_voltage(allowed_battery_current);
-  double allowed_battery_power =
-      allowed_battery_current * allowed_battery_voltage;
+  double allowed_battery_voltage = battery_->get_voltage(allowed_battery_current);
+  double allowed_battery_power = allowed_battery_current * allowed_battery_voltage;
 
   // Convert back to available mechanical power
   double allowed_mechanical_power;
@@ -228,10 +234,10 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
     allowed_mechanical_power = allowed_battery_power / total_efficiency;
   }
 
-  double actual_motor_torque = std::copysign(
-      std::min(std::abs(allowed_mechanical_power / omega_for_power),
-               std::abs(reference_motor_torque)),
-      reference_motor_torque);
+  double actual_motor_torque =
+      std::copysign(std::min(std::abs(allowed_mechanical_power / omega_for_power),
+                             std::abs(reference_motor_torque)),
+                    reference_motor_torque);
 
   // Motor phase current magnitude. Sign follows the battery current convention:
   // positive while discharging, negative while charging/regenerating.
@@ -239,15 +245,12 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
       std::abs(actual_motor_torque) / car_parameters_->motor_parameters->kt_constant;
 
   // Inverter phase current limit
-  double max_inverter_phase_current =
-      car_parameters_->inverter_parameters->max_phase_current;
+  double max_inverter_phase_current = car_parameters_->inverter_parameters->max_phase_current;
   if (motor_phase_current > max_inverter_phase_current) {
     double limited_torque =
-        max_inverter_phase_current *
-        car_parameters_->motor_parameters->kt_constant;
+        max_inverter_phase_current * car_parameters_->motor_parameters->kt_constant;
 
-    actual_motor_torque =
-        std::copysign(limited_torque, actual_motor_torque);
+    actual_motor_torque = std::copysign(limited_torque, actual_motor_torque);
 
     motor_phase_current = max_inverter_phase_current;
   }
@@ -259,9 +262,7 @@ double FSFEUP02Model::calculate_powertrain_torque(double throttle_input, double 
 
   // Update models
   battery_->update_state(allowed_battery_current, dt);
-  motor_->update_state(signed_motor_phase_current,
-                       actual_motor_torque,
-                       dt);
+  motor_->update_state(signed_motor_phase_current, actual_motor_torque, dt);
 
   state_->motor_torque = actual_motor_torque;
   state_->motor_omega = motor_omega;
@@ -296,16 +297,11 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
 
   const auto steering_start = Clock::now();
   Eigen::Vector4d wheel_angles = steering_->calculate_steering_angles(s(ST_ANGLE));
-<<<<<<< HEAD
-  // Static alignment.  The toe angles were loaded from the tyre config but never
-  // reached the wheels, so setting them had no effect at all; they are a signed
-  // steer offset per wheel on top of whatever the linkage commands.
+  // Static alignment: a signed steer offset per wheel on top of whatever the linkage commands.
   wheel_angles(FL) += car_parameters_->tire_parameters->fl_toe;
   wheel_angles(FR) += car_parameters_->tire_parameters->fr_toe;
   wheel_angles(RL) += car_parameters_->tire_parameters->rl_toe;
   wheel_angles(RR) += car_parameters_->tire_parameters->rr_toe;
-=======
->>>>>>> main
   const auto steering_angles_end = Clock::now();
   execution_times->steering_ms +=
       std::chrono::duration<double, std::milli>(steering_angles_end - steering_start).count();
@@ -330,7 +326,6 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
   Eigen::VectorXd tire_forces(16);
   Eigen::Vector4d slip_ratio = Eigen::Vector4d::Zero();
   Eigen::Vector4d slip_angle = Eigen::Vector4d::Zero();
-  Eigen::Vector4d contact_patch_longitudinal_velocity = Eigen::Vector4d::Zero();
   TireInput tire_input;
   tire_input.dt = dt;
   tire_input.vx = s(VX);
@@ -351,12 +346,7 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
     tire_forces.segment<4>(tire * 4) = tire_model_->calculate_tire_forces(tire_input);
     slip_ratio(tire) = tire_input.slip_ratio;
     slip_angle(tire) = tire_input.slip_angle;
-    contact_patch_longitudinal_velocity(tire) = tire_input.vcx;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> main
   const auto tire_end = Clock::now();
   execution_times->tire_ms +=
       std::chrono::duration<double, std::milli>(tire_end - tire_start).count();
@@ -372,10 +362,8 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
   const double lf = car_parameters_->wheelbase - lr;
   const double half_width = car_parameters_->track_width / 2.0;
   const double wheel_radius = car_parameters_->tire_parameters->effective_tire_r;
-  const Eigen::Vector4d brake_torques_by_tire(brake_torques.front_left,
-                                              brake_torques.front_right,
-                                              brake_torques.rear_left,
-                                              brake_torques.rear_right);
+  const Eigen::Vector4d brake_torques_by_tire(brake_torques.front_left, brake_torques.front_right,
+                                              brake_torques.rear_left, brake_torques.rear_right);
 
   for (Tire tire : {FL, FR, RL, RR}) {
     const double fx_tire = tire_forces(tire * 4);
@@ -401,20 +389,14 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
   const double ay = total_fy / car_parameters_->total_mass - s(VX) * s(YAW_RATE);
   ds(VX) = ax;
   ds(VY) = ay;
-<<<<<<< HEAD
-  // AX/AY drive the load transfer model and are published as the car's measured
-  // acceleration, so they must hold the *specific force* the chassis feels -- what
-  // an accelerometer reads -- not dv/dt.  Through a steady corner dvy/dt is ~0
-  // while the car is pulling lateral g, so feeding dv/dt meant the model applied
-  // almost no lateral load transfer exactly where load transfer sets the balance.
+  // AX/AY hold the specific force the chassis feels -- what an accelerometer reads -- low-pass
+  // filtered over kAccelerationFilterTau, which is how long the body takes to settle onto its
+  // springs. This is what the load transfer model needs: through a steady corner dvy/dt is ~0
+  // while the car is still pulling lateral g.
   const double specific_force_x = total_fx / car_parameters_->total_mass;
   const double specific_force_y = total_fy / car_parameters_->total_mass;
   ds(AX) = (specific_force_x - s(AX)) / kAccelerationFilterTau;
   ds(AY) = (specific_force_y - s(AY)) / kAccelerationFilterTau;
-=======
-  ds(AX) = ax - s(AX);
-  ds(AY) = ay - s(AY);
->>>>>>> main
   ds(YAW_RATE) = total_torque / car_parameters_->Izz;
   ds(YAW) = s(YAW_RATE);
   ds(PX) = s(VX) * std::cos(s(YAW)) - s(VY) * std::sin(s(YAW));
@@ -426,10 +408,12 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
       std::chrono::duration<double, std::milli>(steering_motor_end - steering_motor_start).count();
 
   if (state_->ebs_active) {
-    ds(FL_W) = -s(FL_W) / std::max(dt, 1e-6);
-    ds(FR_W) = -s(FR_W) / std::max(dt, 1e-6);
-    ds(RL_W) = -s(RL_W) / std::max(dt, 1e-6);
-    ds(RR_W) = -s(RR_W) / std::max(dt, 1e-6);
+    // The wheels are forced to a stop after integration; a "teleport to zero" derivative inside
+    // RK4 only decays them by a fixed fraction per step and adds non-physical stiffness.
+    ds(FL_W) = 0.0;
+    ds(FR_W) = 0.0;
+    ds(RL_W) = 0.0;
+    ds(RR_W) = 0.0;
   } else {
     // Front: tire + rim inertia only; Rear: tire + rim + motor + transmission (reflected)
     const double front_inertia = car_parameters_->front_wheel_inertia;
@@ -447,12 +431,7 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
       }
 
       const double inertia = (tire == FL || tire == FR) ? front_inertia : rear_inertia;
-      const double wheel_acceleration = net_torque / inertia;
-      if (brake_torque > 0.0 && wheel_omega * (wheel_omega + wheel_acceleration * dt) <= 0.0) {
-        ds(FL_W + tire) = -wheel_omega / std::max(dt, 1e-6);
-      } else {
-        ds(FL_W + tire) = wheel_acceleration;
-      }
+      ds(FL_W + tire) = net_torque / inertia;
     }
   }
 
@@ -469,6 +448,8 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
                                                                slip_angle(RL), slip_angle(RR));
     state_->aero_drag = aero_forces[0];
     state_->aero_downforce = aero_forces[2];
+    state_->specific_force_x = total_fx / car_parameters_->total_mass;
+    state_->specific_force_y = total_fy / car_parameters_->total_mass;
     state_->total_force_x = total_fx;
     state_->total_force_y = total_fy;
     state_->moment_fy = moment_fy;
@@ -481,8 +462,13 @@ FSFEUP02Model::StateVec FSFEUP02Model::get_state_derivative(
 }
 
 void FSFEUP02Model::reset() {
-  state_ = std::make_shared<VehicleState>();
-  execution_times_ = std::make_shared<VehicleModelExecutionTimes>();
+  // Reset in place: the simulation thread holds this pointer, so replacing it would race the step
+  // that is reading through it.
+  *state_ = VehicleState();
+  *execution_times_ = VehicleModelExecutionTimes();
+  // Only the powertrain models carry state that evolves across steps (thermal, state of charge,
+  // inverter ramp). The tyre, transmission, steering and aero models hold configuration only, and
+  // the tyre relaxation state lives in VehicleState, which was just cleared above.
   motor_->reset();
   battery_->reset();
   inverter_->reset();

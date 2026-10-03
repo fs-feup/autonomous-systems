@@ -68,9 +68,8 @@ private:
   // State vector used for RK4 integration
   using StateVec = Eigen::Matrix<double, STATE_SIZE, 1>;
 
-  // AX/AY are filtered copies of the body accelerations, used to drive the load
-  // transfer model.  They must lag the true acceleration by the time the chassis
-  // needs to actually roll/pitch onto the springs, not by a second.
+  /// Time constant of the low-pass filter on AX/AY, which feed the load transfer model: roughly
+  /// how long the chassis takes to roll or pitch onto its springs.
   static constexpr double kAccelerationFilterTau = 0.10;  // s
 
   // Vehicle state struct is defined in the base class
@@ -84,14 +83,13 @@ private:
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
-  std::string control_mode_;
 
-  // Calculate the available motor torque based on the throttle input and current motor/battery
-  // state
-  // One RK4 integration substep.  step() splits the incoming dt into stable
-  // substeps (see FSFEUP02.cpp) because the driven-wheel/tyre-slip mode is stiff.
+  /// One RK4 integration substep. step() splits the incoming dt into stable substeps because the
+  /// driven-wheel/tyre-slip mode is stiff.
   void integrate_substep(double dt, common_lib::structures::Wheels throttle, double angle);
 
+  /// Motor torque actually available for this throttle input, after the inverter, motor and
+  /// battery limits. Advances the powertrain model state.
   double calculate_powertrain_torque(double throttle_input, double dt);
 
   // Calculate the state derivative for the RK4 integration

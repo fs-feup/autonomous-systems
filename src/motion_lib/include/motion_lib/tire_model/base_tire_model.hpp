@@ -7,7 +7,7 @@
 enum Tire { FL, FR, RL, RR };
 
 /**
- * @brief Struct used to store all possible input parameters for the tire model. splip angle, ratio,
+ * @brief Struct used to store all possible input parameters for the tire model. slip angle, ratio,
  * camber and distance to CG will be overwritten by the tire model, no need to fill them.
  *
  */
@@ -43,7 +43,7 @@ protected:
   void calculate_slip_angle_front(TireInput& tire_input);
   void calculate_slip_angle_rear(TireInput& tire_input);
   void calculate_slip_ratio(TireInput& tire_input);
-  
+
   void calculate_slip_angle_front_not_transient(TireInput& tire_input);
   void calculate_slip_angle_rear_not_transient(TireInput& tire_input);
   void calculate_slip_ratio_not_transient(TireInput& tire_input);

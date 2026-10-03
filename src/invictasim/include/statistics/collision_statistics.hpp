@@ -52,9 +52,11 @@ public:
   double current_lap_penalty_time() const;
 
   /**
-   * @brief Cones hit during the current lap.
+   * @brief Cones hit so far in the current lap, in the order they were hit.
+   *
+   * Cleared when a lap starts, so the list covers the current lap rather than a time window.
    */
-  std::vector<common_lib::structures::Cone> recently_hit_cones() const;
+  const std::vector<common_lib::structures::Cone>& cones_hit_this_lap() const;
 
 private:
   // Track and car collision geometry.
@@ -67,8 +69,12 @@ private:
   double default_cone_penalty_time_s_ = 2.0;
   double skidpad_cone_penalty_time_s_ = 0.2;
   std::vector<bool> cone_was_hit_;
-  std::size_t hit_cone_count_ = 0;
+  std::vector<common_lib::structures::Cone> cones_hit_this_lap_;
   double penalty_time_per_cone_ = 0.0;
+
+  /// Radius around the car origin within which a cone can possibly touch a hitbox, so the check
+  /// per step is a cheap distance test for all but the handful of cones that are actually close.
+  double collision_search_radius_m_ = 0.0;
 
   // Configuration helpers.
   void load_cone_collision_config();
@@ -78,6 +84,7 @@ private:
 
   // Collision helpers.
   double cone_radius(const common_lib::structures::Cone& cone) const;
+  void compute_collision_search_radius();
   bool collides_with_cone(const VehicleModelSnapshot& vehicle_snapshot,
                           const common_lib::structures::Cone& cone) const;
 };

@@ -1,26 +1,19 @@
 invictasim:
   # Simulator config
-<<<<<<< HEAD
-  input_adapter: "keyboard"         # Options: "ros", "keyboard"
+  input_adapter: "ros"              # Options: "ros", "keyboard" (keyboard needs a display)
   output_adapter: "ros"             # Options: "ros"
   vehicle_model: "02"               # Options: "02", "03",
-  control_mode: "autonomous"        # Options: "manual", "autonomous"
   sim_frequency: 1000               # Hz 
   sim_speed: 1.0                    # Sim velocity multiplier (1.0 = real-time, 2.0 = 2x real-time, etc.)
   initial_go_signal: true           # Initial state of the go signal 
-  track_name: "FSG24"               # Maps choice  (Discipline in global config needs to match)
+  track_name: "FSG24"               # See the map list below; must match the discipline
   rosbag_evaluator: false           # Evaluation topics and metrics
 
-# Maps available: "Acceleration", "EnduranceFSG25", "Europarque", "FEUP", "FSE23",
-# "FSE24", "FSG23", "FSG24", "FSG25", "FSS22V1", "FSS22V2", "Skidpad"
-=======
-  input_adapter: "ros"  # Options: "ros", "keyboard"
-  output_adapter: "ros"  # Options: "ros"
-  vehicle_model: "02"  # Options: "02", "03",
-  control_mode: "autonomous" # Options: "manual", "autonomous"
-  sim_frequency: 1000  # Hz 
-  sim_speed: 1.0  # Sim velocity multiplier (1.0 = real-time, 2.0 = 2x real-time, etc.)
-  initial_go_signal: true  # Initial state of the go signal 
-  track_name: "Acceleration"  # Also available: "Europarque", "FEUP"
-  rosbag_evaluator: false
->>>>>>> main
+# Maps available: "Acceleration", "EnduranceFSG25", "Europarque", "FEUP", "FSE23", "FSE24",
+# "FSG23", "FSG24", "FSG25", "FSS22V1", "FSS22V2", "Skidpad".
+# The simulator validates track_name against src/invictasim/resources/tracks/ on startup and
+# lists what is installed if it does not match, so this comment cannot silently go stale.
+#
+# discipline lives in config/global/global_config.yaml and selects the lap timing rules:
+#   "acceleration" expects a track with two timing lines, "skidpad" the circle layout, and
+#   "autocross"/"trackdrive" any closed loop. A mismatch is warned about on startup.

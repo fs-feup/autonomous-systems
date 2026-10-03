@@ -5,8 +5,10 @@ tuning:
   # Inline model string
   vehicle_model: "inline_02"
 
+  # Telemetry CSVs live in src/invictasim/tuning_csvs/ and are not tracked in git (see the
+  # .gitignore there); export them with scripts/rosbag_to_csv.py before running the optimizer.
   csvs:
-    - path: "europarque.csv"
+    - path: "FEUP_trackdrive.csv"
       weight: 1.0
 
   score:
@@ -23,7 +25,6 @@ tuning:
     elite_count: 20
     immigrant_count: 100
     mutation_rate: 0.25
-    mutation_scale: 0.20
     blend_alpha: 0.40
     tournament_size: 4
     seed: 67
@@ -32,6 +33,10 @@ tuning:
     iterations: 100000000
     initial_temp: 1500000.0
     cooling_rate: 0.99997
+
+    # Shared by both algorithms: the optimizer reads one mutation_scale key. It used to appear in
+    # both the genetic and the annealing block, and YAML silently kept only the second, so the
+    # genetic value never applied. 0.12 is the value that was in effect.
     mutation_scale: 0.12
 
   parameters:

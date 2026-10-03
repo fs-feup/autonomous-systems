@@ -1,4 +1,6 @@
-#include <chrono>
+#include <iostream>
+#include <memory>
+#include <optional>
 #include <thread>
 
 #include "config/config.hpp"
@@ -20,11 +22,24 @@
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
 
-  InvictaSimParameters params = InvictaSimParameters();
-  auto simulator = std::make_shared<InvictaSim>(params);
+  // Configuration errors are reported as messages naming the file and the accepted values, so
+  // print them rather than letting the exception escape main and abort.
+  std::optional<InvictaSimParameters> loaded_params;
+  std::shared_ptr<InvictaSim> simulator;
+  std::shared_ptr<InvictaSimInputAdapter> input_adapter;
+  std::shared_ptr<InvictaSimOutputAdapter> output_adapter;
+  try {
+    loaded_params.emplace();
+    simulator = std::make_shared<InvictaSim>(*loaded_params);
+    input_adapter = input_adapters_map.at(loaded_params->input_adapter.c_str())(simulator);
+    output_adapter = output_adapters_map.at(loaded_params->output_adapter.c_str())(simulator);
+  } catch (const std::exception& error) {
+    std::cerr << "[invictasim] Startup failed: " << error.what() << std::endl;
+    rclcpp::shutdown();
+    return 1;
+  }
+  const InvictaSimParameters& params = *loaded_params;
 
-  auto input_adapter = input_adapters_map.at(params.input_adapter.c_str())(simulator);
-  auto output_adapter = output_adapters_map.at(params.output_adapter.c_str())(simulator);
   std::shared_ptr<TuningEvaluator> tuning_evaluator;
 
   std::thread simulator_thread([&simulator]() { simulator->run(); });
@@ -48,20 +63,10 @@ int main(int argc, char* argv[]) {
   if (params.rosbag_evaluator_enabled) {
     tuning_evaluator = std::make_shared<TuningEvaluator>(simulator, params);
     executor.add_node(tuning_evaluator);
-<<<<<<< HEAD
-=======
   }
 
-  while (rclcpp::ok()) {
-    executor.spin_some(std::chrono::milliseconds(1));
->>>>>>> main
-  }
-
-  // spin() blocks until shutdown and dispatches callbacks across the executor's thread pool.
-  // Driving a MultiThreadedExecutor with spin_some() in a loop instead ran every callback in this
-  // one thread, so the pool went unused, and because spin_some() never waits the loop also burned
-  // a core spinning. Both hurt callback latency once enough nodes are attached, which is when the
-  // tuning evaluator is enabled on top of the input and output adapters.
+  // Blocks until shutdown, dispatching callbacks across the executor's thread pool. spin_some()
+  // in a loop would run every callback on this thread and busy-wait between them.
   executor.spin();
 
   simulator->stop();

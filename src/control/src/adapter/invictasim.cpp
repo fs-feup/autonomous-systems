@@ -17,12 +17,14 @@ InvictasimAdapter::InvictasimAdapter(const ControlParameters &params)
     this->velocities_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
         "/invictasim/state_estimation/velocities", 1,
         std::bind(&InvictasimAdapter::velocities_callback, this, std::placeholders::_1));
-
-    this->vehicle_status_sub_ =
-        this->create_subscription<custom_interfaces::msg::VehicleStateVector>(
-            "/invictasim/vehicle_model/status", 1,
-            std::bind(&InvictasimAdapter::vehicle_status_callback, this, std::placeholders::_1));
   }
+
+  // Acceleration, steering angle and wheel speeds come from the vehicle model regardless of where
+  // the velocities come from: the simulator is the only source for them either way, and gating
+  // this on using_simulated_velocities_ left the controller without them.
+  this->vehicle_status_sub_ = this->create_subscription<custom_interfaces::msg::VehicleStateVector>(
+      "/invictasim/vehicle_model/status", 1,
+      std::bind(&InvictasimAdapter::vehicle_status_callback, this, std::placeholders::_1));
   RCLCPP_INFO(this->get_logger(), "Invictasim adapter created");
   this->go_signal_ = true;
 }

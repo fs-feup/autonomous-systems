@@ -1,5 +1,7 @@
 #include "statistics/lap_timer_statistics.hpp"
 
+#include "config/resource_paths.hpp"
+
 LapTimerStatistics::LapTimerStatistics(const Track& track, const std::string& discipline,
                                        const std::string& car_parameters_config) {
   load_config();
@@ -8,10 +10,8 @@ LapTimerStatistics::LapTimerStatistics(const Track& track, const std::string& di
 }
 
 void LapTimerStatistics::load_config() {
-  const std::string path =
-      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/ground/config.yaml";
-  const YAML::Node config = YAML::LoadFile(path);
-  const YAML::Node lap_finish = config["lap_finish"];
+  const YAML::Node lap_finish =
+      invictasim::resources::load("meshes/ground/config.yaml")["lap_finish"];
   if (!lap_finish) {
     return;
   }
@@ -19,21 +19,11 @@ void LapTimerStatistics::load_config() {
   timing_line_gate_margin_m_ =
       lap_finish["timing_line_gate_margin"].as<double>(timing_line_gate_margin_m_);
   minimum_lap_time_s_ = lap_finish["minimum_lap_time"].as<double>(minimum_lap_time_s_);
+  minimum_lap_distance_m_ = lap_finish["minimum_lap_distance"].as<double>(minimum_lap_distance_m_);
 }
 
 void LapTimerStatistics::load_front_reference(const std::string& car_parameters_config) {
-  if (car_parameters_config.empty()) {
-    return;
-  }
-
-  const std::string path = std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" +
-                           car_parameters_config + "/config.yaml";
-  const YAML::Node config = YAML::LoadFile(path);
-  const YAML::Node boxes = config["hitboxes"]["boxes"];
-  for (const auto& box : boxes) {
-    const double front = box["center_x"].as<double>(0.0) + box["length"].as<double>(0.0) * 0.5;
-    front_reference_offset_m_ = std::max(front_reference_offset_m_, front);
-  }
+  front_reference_offset_m_ = invictasim::resources::car_front_offset(car_parameters_config);
 }
 
 void LapTimerStatistics::configure_timing_lines(const Track& track, std::string discipline) {
@@ -113,7 +103,11 @@ LapEvent LapTimerStatistics::update_default_lap(const common_lib::structures::Po
     return LapEvent::none;
   }
 
-  if (line_crossed && (sim_time - lap_start_time_) >= minimum_lap_time_s_) {
+  // A lap needs both a minimum elapsed time and a minimum driven distance. Time alone lets a car
+  // that stops on the timing line and rolls back over it register a lap.
+  const bool lap_long_enough = (sim_time - lap_start_time_) >= minimum_lap_time_s_ &&
+                               lap_distance_ >= minimum_lap_distance_m_;
+  if (line_crossed && lap_long_enough) {
     previous_timing_line_side_ = current_side;
     return LapEvent::finished;
   }
@@ -182,12 +176,14 @@ void LapTimerStatistics::update_lap_aggregates(double speed, double sim_dt) {
   const double safe_dt = std::max(0.0, sim_dt);
   lap_accumulated_time_ += safe_dt;
   lap_velocity_integral_ += speed * safe_dt;
+  lap_distance_ += speed * safe_dt;
   lap_max_velocity_ = std::max(lap_max_velocity_, speed);
 }
 
 void LapTimerStatistics::reset_lap_accumulators() {
   lap_velocity_integral_ = 0.0;
   lap_accumulated_time_ = 0.0;
+  lap_distance_ = 0.0;
   lap_max_velocity_ = 0.0;
 }
 

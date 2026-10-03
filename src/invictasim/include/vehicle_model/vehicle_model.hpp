@@ -35,11 +35,11 @@ struct VehicleState {
   double pitch = 0.0;
   double yaw = 0.0;
   double yaw_rate = 0.0;
-  double angular_speed = 0.0;
   double steering_angle = 0.0;
-  double angular_velocity = 0.0;
-  double ax = 0.0;
-  double ay = 0.0;
+  double ax = 0.0;  ///< Specific force along x, low-pass filtered, drives the load transfer model
+  double ay = 0.0;  ///< Specific force along y, low-pass filtered, drives the load transfer model
+  double specific_force_x = 0.0;  ///< Unfiltered specific force along x, what an IMU would read
+  double specific_force_y = 0.0;  ///< Unfiltered specific force along y, what an IMU would read
   common_lib::structures::Wheels wheels_speed = {0.0, 0.0, 0.0, 0.0};  // rad/s
   common_lib::structures::Wheels wheels_torque = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheels_vertical_load = {0.0, 0.0, 0.0, 0.0};
@@ -118,8 +118,10 @@ public:
   double get_velocity_x() const { return state_->vx; }
   double get_velocity_y() const { return state_->vy; }
   double get_velocity_z() const { return state_->vz; }
-  double get_acceleration_x() const { return state_->ax; }
-  double get_acceleration_y() const { return state_->ay; }
+  double get_acceleration_x() const { return state_->specific_force_x; }
+  double get_acceleration_y() const { return state_->specific_force_y; }
+  double get_filtered_acceleration_x() const { return state_->ax; }
+  double get_filtered_acceleration_y() const { return state_->ay; }
   common_lib::structures::Wheels get_wheels_speed() const { return state_->wheels_speed; }
   common_lib::structures::Wheels get_wheels_torque() const { return state_->wheels_torque; }
   common_lib::structures::Wheels get_wheels_vertical_load() const {

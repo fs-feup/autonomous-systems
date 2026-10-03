@@ -31,23 +31,19 @@ common_lib::structures::Wheels SalisburyDifferential::calculate_wheel_torques(
   double axle_torque = shaft_torque * p->efficiency * p->gear_ratio;
 
   // Salisbury / Drexler Logic
-  double locking_torque_max = p->preload; 
+  double locking_torque_max = p->preload;
   if (axle_torque > 0.0) {
-      locking_torque_max += p->drive_ramp_effect * std::abs(axle_torque);
+    locking_torque_max += p->drive_ramp_effect * std::abs(axle_torque);
   } else {
-      locking_torque_max += p->coast_ramp_effect * std::abs(axle_torque);
+    locking_torque_max += p->coast_ramp_effect * std::abs(axle_torque);
   }
 
   double delta_omega = (wheel_speeds.rear_left - wheel_speeds.rear_right);
   double avg_speed = ((std::abs(wheel_speeds.rear_left) + std::abs(wheel_speeds.rear_right)) / 2.0);
   double smoothing = std::clamp(avg_speed / 0.5, 0.0, 1.0);
-  
+
   // Use a stiff coupling to lock the wheels, but clamp it to the locking limit
-<<<<<<< HEAD
   double delta_tau = p->locking_stiffness * delta_omega * smoothing;
-=======
-  double delta_tau = p->kv * delta_omega * smoothing;
->>>>>>> main
   delta_tau = std::clamp(delta_tau, -locking_torque_max, locking_torque_max);
 
   common_lib::structures::Wheels torques;

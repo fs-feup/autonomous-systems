@@ -68,6 +68,7 @@ private:
   double timing_line_approach_side_ = 0.0;
   double finish_line_approach_side_ = 0.0;
   double minimum_lap_time_s_ = 3.0;
+  double minimum_lap_distance_m_ = 20.0;
   double front_reference_offset_m_ = 0.0;
   std::string discipline_;
 
@@ -79,6 +80,7 @@ private:
   double lap_start_time_ = 0.0;
   double lap_velocity_integral_ = 0.0;
   double lap_accumulated_time_ = 0.0;
+  double lap_distance_ = 0.0;
   double lap_max_velocity_ = 0.0;
 
   // Configuration and lap aggregate helpers.

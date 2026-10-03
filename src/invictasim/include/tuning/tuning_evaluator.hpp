@@ -20,8 +20,7 @@
 
 class TuningEvaluator : public rclcpp::Node {
 public:
-  TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator,
-                  const InvictaSimParameters& params);
+  TuningEvaluator(const std::shared_ptr<InvictaSim>& simulator, const InvictaSimParameters& params);
   ~TuningEvaluator() override;
 
 private:
@@ -64,8 +63,8 @@ private:
                                         double position_error);
   void open_csv();
   void write_summary_csv();
-  void write_csv_row(const PoseSample& real_pose, const PoseSample& sim_pose,
-                     double position_error, double heading_error);
+  void write_csv_row(const PoseSample& real_pose, const PoseSample& sim_pose, double position_error,
+                     double heading_error);
 
   std::shared_ptr<InvictaSim> simulator_;
   std::filesystem::path output_directory_;

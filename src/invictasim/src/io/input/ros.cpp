@@ -3,6 +3,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include "common_lib/communication/interfaces.hpp"
+#include "common_lib/competition_logic/color.hpp"
 #include "common_lib/config_load/config_load.hpp"
 #include "config/yaml_helpers.hpp"
 
@@ -59,7 +60,8 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator,
           for (const auto& cone_msg : msg->cone_array) {
             cones.push_back(common_lib::structures::Cone(
                 common_lib::structures::Position{cone_msg.position.x, cone_msg.position.y},
-                common_lib::competition_logic::Color::RED, cone_msg.confidence, msg->header.stamp));
+                common_lib::competition_logic::get_color_enum(cone_msg.color), cone_msg.confidence,
+                msg->header.stamp));
           }
           simulator_->set_external_slam_cones(cones);
         });
@@ -74,7 +76,7 @@ RosInputAdapter::RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator,
           for (const auto& cone_msg : msg->cones.cone_array) {
             cones.push_back(common_lib::structures::Cone(
                 common_lib::structures::Position{cone_msg.position.x, cone_msg.position.y},
-                common_lib::competition_logic::Color::GREEN, cone_msg.confidence,
+                common_lib::competition_logic::get_color_enum(cone_msg.color), cone_msg.confidence,
                 msg->header.stamp));
           }
           simulator_->set_external_perception_cones(cones);

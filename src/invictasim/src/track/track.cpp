@@ -36,6 +36,10 @@ Track::Track(std::string file_name) {
                                                            line_node[1][1].as<double>()));
   };
 
+  if (track_node["start_gap_to_timing_line"]) {
+    start_gap_to_timing_line_ = track_node["start_gap_to_timing_line"].as<double>();
+  }
+
   if (track_node["timing_lines"]) {
     const YAML::Node& timing_lines_node = track_node["timing_lines"];
     if (!timing_lines_node.IsSequence() || timing_lines_node.size() == 0) {
@@ -79,11 +83,13 @@ Track::Track(std::string file_name) {
 }
 
 void Track::fit_timing_line_to_track_width() {
-  if (timing_lines_.empty()) {
-    return;
+  for (auto& timing_line : timing_lines_) {
+    fit_single_timing_line(timing_line);
   }
+}
 
-  auto& timing_line = timing_lines_.front();
+void Track::fit_single_timing_line(
+    std::pair<common_lib::structures::Position, common_lib::structures::Position>& timing_line) {
   const double line_x = timing_line.second.x - timing_line.first.x;
   const double line_y = timing_line.second.y - timing_line.first.y;
   const double line_length = std::hypot(line_x, line_y);
@@ -171,4 +177,27 @@ Track::get_timing_line() const {
 const std::vector<std::pair<common_lib::structures::Position, common_lib::structures::Position>>&
 Track::get_timing_lines() const {
   return timing_lines_;
+}
+
+common_lib::structures::Position Track::get_start_position(double car_front_offset) const {
+  if (!start_gap_to_timing_line_ || timing_lines_.empty()) {
+    return start_position_;
+  }
+
+  // Place the car so its foremost point sits start_gap_to_timing_line_ metres behind the first
+  // timing line, whichever car is loaded. The configured start_position only picks the side of the
+  // line the car approaches from; the distance comes from the car's own geometry.
+  const auto& line = timing_lines_.front();
+  const common_lib::structures::Position midpoint(0.5 * (line.first.x + line.second.x),
+                                                  0.5 * (line.first.y + line.second.y));
+  const double to_start_x = start_position_.x - midpoint.x;
+  const double to_start_y = start_position_.y - midpoint.y;
+  const double length = std::hypot(to_start_x, to_start_y);
+  if (length <= std::numeric_limits<double>::epsilon()) {
+    return start_position_;
+  }
+
+  const double setback = *start_gap_to_timing_line_ + car_front_offset;
+  return common_lib::structures::Position(midpoint.x + to_start_x / length * setback,
+                                          midpoint.y + to_start_y / length * setback);
 }

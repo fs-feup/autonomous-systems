@@ -12,14 +12,12 @@ struct InvictaSimParameters {
   std::string discipline;
   bool use_simulated_se;
   bool use_simulated_perception;
-  bool use_simulated_planning;
   bool use_simulated_velocities;
 
   // Simulator config parameters
   int sim_frequency;
   double sim_speed;
   bool initial_go_signal;
-  std::string control_mode;
   std::string track_name;
   std::string input_adapter;
   std::string output_adapter;

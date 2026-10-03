@@ -1,19 +1,21 @@
+# Simulated LiDAR cone pipeline. Cones are reported in the vehicle frame (x forward, y left).
 lidar_sensor:
-    # Physical sensor parameters
-    height: 1.1                         # Height of LiDAR relative to vehicle origin (meters)
-    max_range: 30                       # Maximum detection range (meters)
-    horizontal_fov_angle: 120           # Horizontal field of view (degrees) - approximately 180 degrees
-    vertical_fov_angle: 20.0            # Vertical field of view (degrees) - approximately 20 degrees
-    mounting_pitch: 4.98                # Mounting pitch angle (degrees)
-    
-    # Detection probability parameters
-    detection_probability_alpha: 0.5    # Alpha parameter for sigmoid curve steepness (higher = steeper drop-off)
-    
-    # Noise parameters
-    noise_std_dev_base: 0             # Base standard deviation for Gaussian noise (meters)
-    noise_scales_with_range: true        # Whether noise increases with range
-    noise_range_scaling: 0           # Scaling factor for range-dependent noise
-    
-    # Outlier parameters
-    outlier_probability: 0.003             # Probability of spawning an outlier cone per iteration (0.0 to 1.0)
-    persistent_outlier_chance: 0.05       # Chance that an outlier becomes persistent (0.0 to 1.0)
+  # Sensor geometry
+  height: 0.80                        # LiDAR height above the ground (m)
+  cone_height: 0.16                   # Height of the cone centroid the beam returns from (m)
+  max_range: 30.0                     # Range at which detection probability is 50% (m)
+  horizontal_fov_angle: 120.0         # Horizontal field of view (degrees, centred on straight ahead)
+  vertical_fov_angle: 20.0            # Vertical field of view (degrees)
+  mounting_pitch: 5.0                 # Mounting pitch, positive nose-down (degrees)
+
+  # Detection probability
+  detection_probability_alpha: 0.5    # Sigmoid steepness of the range roll-off (higher = sharper)
+
+  # Position noise
+  noise_std_dev_base: 0.02            # Position noise at zero range (m)
+  noise_scales_with_range: true       # Whether noise grows with range
+  noise_range_scaling: 0.004          # Extra position noise per metre of range (m/m)
+
+  # Spurious detections
+  outlier_rate_hz: 0.5                # Expected spurious detections per second
+  persistent_outlier_chance: 0.05     # Chance a spurious detection is retained across frames

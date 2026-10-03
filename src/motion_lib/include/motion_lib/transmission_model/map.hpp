@@ -4,10 +4,6 @@
 #include <memory>
 #include <string>
 
-<<<<<<< HEAD
-=======
-#include "viscous_differential.hpp"
->>>>>>> main
 #include "salisbury_differential.hpp"
 
 /*
@@ -19,17 +15,9 @@ const std::map<std::string,
                    const std::shared_ptr<common_lib::car_parameters::CarParameters>)>,
                std::less<>>
     transmission_models_map = {
-<<<<<<< HEAD
-=======
-         {"diff_viscous",
-          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
-              -> std::shared_ptr<TransmissionModel> {
-            return std::make_shared<ViscousDifferential>(*params);
-          }},
->>>>>>> main
-         {"diff_salisbury",
-          [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
-              -> std::shared_ptr<TransmissionModel> {
-            return std::make_shared<SalisburyDifferential>(*params);
-          }},
+        {"diff_salisbury",
+         [](const std::shared_ptr<common_lib::car_parameters::CarParameters> params)
+             -> std::shared_ptr<TransmissionModel> {
+           return std::make_shared<SalisburyDifferential>(*params);
+         }},
 };
