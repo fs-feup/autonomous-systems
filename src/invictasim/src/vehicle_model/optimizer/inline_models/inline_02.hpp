@@ -49,6 +49,7 @@ private:
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
+  std::string control_mode_;
 
   // Reciprocals, precomputed because they are used on every derivative call.
   double inv_mass_;
@@ -312,6 +313,7 @@ public:
         simulator_parameters.car_parameters);
     steering_motor_ = steering_motor_models_map.at(
         simulator_parameters.steering_motor_model.c_str())(simulator_parameters.car_parameters);
+    control_mode_ = simulator_parameters.control_mode;
 
     // Cache inversions for blazing fast physics math
     inv_mass_ = 1.0 / car_parameters_->total_mass;
@@ -349,8 +351,8 @@ public:
     common_lib::structures::Wheels brake_torques;
     double inverter_command = throttle_input;
 
-    // Matches FSFEUP02: a negative command brakes whichever control mode is driving.
-    if (throttle_input < 0.0) {
+    // Matches FSFEUP02: the friction brakes are the driver's, so they only exist in manual mode.
+    if (control_mode_ == "manual" && throttle_input < 0.0) {
       brake_torques = brake_->calculate_brake_torques(-throttle_input);
       inverter_command = 0.0;
     }

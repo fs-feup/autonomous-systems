@@ -55,6 +55,7 @@ InvictaSimParameters::InvictaSimParameters() {
   sim_frequency = require<int>(simulator_config, "sim_frequency", simulator_context);
   sim_speed = require<double>(simulator_config, "sim_speed", simulator_context);
   initial_go_signal = require<bool>(simulator_config, "initial_go_signal", simulator_context);
+  control_mode = require<std::string>(simulator_config, "control_mode", simulator_context);
   track_name = require<std::string>(simulator_config, "track_name", simulator_context);
   input_adapter = require<std::string>(simulator_config, "input_adapter", simulator_context);
   output_adapter = require<std::string>(simulator_config, "output_adapter", simulator_context);
@@ -73,6 +74,7 @@ InvictaSimParameters::InvictaSimParameters() {
   // into the standalone optimizer, which does not link the ROS adapters.
   require_one_of(input_adapter, {"ros", "keyboard"}, simulator_context + ": input_adapter");
   require_one_of(output_adapter, {"ros"}, simulator_context + ": output_adapter");
+  require_one_of(control_mode, {"manual", "autonomous"}, simulator_context + ": control_mode");
   invictasim::config::require_track(track_name);
   invictasim::config::warn_on_discipline_track_mismatch(discipline, track_name);
 

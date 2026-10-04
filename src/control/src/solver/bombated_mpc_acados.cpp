@@ -401,12 +401,14 @@ common_lib::structures::ControlCommand AcadosSolver::solve(int* solver_status) {
   command.steering_angle =
       std::clamp(command.steering_angle, -kMaxSteeringAngle, kMaxSteeringAngle);
 
-  // Taper the regen request with speed. The plant splits a negative throttle between regen and
-  // the friction brakes; the brake share self-limits as the wheel stops, but the regen share
-  // reaches the inverter as negative motor torque, which at a standstill would drive the car
-  // backwards. The inverter also ramps rather than applying instantly, so a hard cutoff at some
-  // speed arrives too late: full regen asked for at 4 m/s is still being applied once the car has
-  // stopped. Never ask for more regen than the car will still have speed to absorb.
+  // The car has NO friction brakes under a controller: they are the driver's, so FSFEUP02 only
+  // builds brake torques in manual mode. A negative throttle therefore reaches the inverter as
+  // negative MOTOR torque, which below a standstill drives the car backwards.
+  //
+  // A hard cutoff at some speed is not enough, because RampedInverter slews towards the request
+  // instead of applying it at once: full regen asked for at 4 m/s is still arriving once the car
+  // has stopped. The limit therefore tapers with speed, so the car is never asked for more regen
+  // than it will still have speed to absorb.
   const double regen_limit =
       std::clamp(this->latest_state_.velocity_x / kRegenTaperSpeed, 0.0, 1.0);
   command.throttle_rl = std::max(command.throttle_rl, -regen_limit);

@@ -24,6 +24,7 @@ FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->steering_motor_ = steering_motor_models_map.at(
       simulator_parameters.steering_motor_model.c_str())(simulator_parameters.car_parameters);
+  this->control_mode_ = simulator_parameters.control_mode;
 }
 
 void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
@@ -34,10 +35,11 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
 
-  // A negative command is a brake request, handled the same way whichever control mode is driving.
+  // Friction brakes are manual-mode only; under a controller a negative command is regen. See
+  // FSFEUP02.cpp.
   common_lib::structures::Wheels brake_torques;
   double inverter_command = throttle_input;
-  if (throttle_input < 0.0) {
+  if (control_mode_ == "manual" && throttle_input < 0.0) {
     brake_torques = brake_->calculate_brake_torques(-throttle_input);
     inverter_command = 0.0;
   }

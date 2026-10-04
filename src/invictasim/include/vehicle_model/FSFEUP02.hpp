@@ -83,6 +83,9 @@ private:
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
+  /// "manual" or "autonomous". Selects whether the friction brakes exist:
+  /// only a driver has a brake pedal, a controller only has regen.
+  std::string control_mode_;
 
   /// One RK4 integration substep. step() splits the incoming dt into stable substeps because the
   /// driven-wheel/tyre-slip mode is stiff.

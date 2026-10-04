@@ -57,6 +57,9 @@ private:
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
+  /// "manual" or "autonomous". Selects whether the friction brakes exist:
+  /// only a driver has a brake pedal, a controller only has regen.
+  std::string control_mode_;
 
   // Helper function to calculate the torque combining the motor model and the battery model
   double calculate_powertrain_torque(double throttle_input, double dt);

@@ -22,6 +22,7 @@ FSFEUP02Model::FSFEUP02Model(const InvictaSimParameters& simulator_parameters)
       simulator_parameters.car_parameters);
   this->steering_motor_ = steering_motor_models_map.at(
       simulator_parameters.steering_motor_model.c_str())(simulator_parameters.car_parameters);
+  this->control_mode_ = simulator_parameters.control_mode;
 }
 
 void FSFEUP02Model::step(double dt, common_lib::structures::Wheels throttle, double angle) {
@@ -48,12 +49,13 @@ void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels 
   const double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
 
-  // A negative command is a brake request, and it is handled the same way whichever control mode
-  // is driving. Gating this on "manual" left the car with no friction brakes at all under a
-  // controller, so the only deceleration available was regen.
+  // The friction brakes are the driver's, so they only exist in manual mode: a negative command
+  // there is a brake pedal request and the inverter is cut. Under a controller the car has no
+  // brake actuator, so a negative command is a regen request and goes to the inverter, which
+  // limits it to regen_torque_fraction of its torque limit.
   common_lib::structures::Wheels brake_torques;
   double inverter_command = throttle_input;
-  if (throttle_input < 0.0) {
+  if (control_mode_ == "manual" && throttle_input < 0.0) {
     brake_torques = brake_->calculate_brake_torques(-throttle_input);
     inverter_command = 0.0;
   }

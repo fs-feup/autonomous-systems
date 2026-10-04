@@ -229,22 +229,81 @@ TEST_F(VehicleModelTest, acceleratesForwardOnThrottle) {
   EXPECT_TRUE(state_is_finite());
 }
 
-TEST_F(VehicleModelTest, brakesWithoutBeingInManualMode) {
-  // A negative command has to decelerate the car whichever control mode is configured. Gating the
-  // friction brakes on "manual" left an autonomous run with regen only.
+TEST_F(VehicleModelTest, autonomousModeSlowsOnRegenAlone) {
+  // The car has no brake actuator, so under a controller a negative command is a regen request
+  // and the friction brakes stay out of it. Regen still has to slow the car down.
+  ASSERT_EQ(params_->control_mode, "autonomous") << "this test covers the autonomous plant";
+
   drive(3.0, {0.0, 0.0, 1.0, 1.0}, 0.0);
   const double cruising_speed = model_->get_velocity_x();
-  ASSERT_GT(cruising_speed, 2.0) << "needs to be moving before braking means anything";
+  ASSERT_GT(cruising_speed, 2.0) << "needs to be moving before a regen request means anything";
 
-  drive(0.5, {0.0, 0.0, -1.0, -1.0}, 0.0);
-  EXPECT_LT(model_->get_velocity_x(), cruising_speed) << "a negative command did not slow the car";
+  // Long enough for the inverter to slew across the full command range and then actually pull.
+  drive(1.5, {0.0, 0.0, -1.0, -1.0}, 0.0);
+  EXPECT_LT(model_->get_velocity_x(), cruising_speed) << "regen did not slow the car";
 }
 
-TEST_F(VehicleModelTest, brakingDoesNotDriveTheCarBackwards) {
+TEST_F(VehicleModelTest, autonomousModeLeavesTheFrictionBrakesAlone) {
+  // Regen is weaker than the friction brakes by design. If the brakes were ever engaged under a
+  // controller, a full negative command would stop the car far harder than regen can.
   drive(3.0, {0.0, 0.0, 1.0, 1.0}, 0.0);
-  drive(5.0, {0.0, 0.0, -1.0, -1.0}, 0.0);
-  EXPECT_GT(model_->get_velocity_x(), -0.1) << "braking must not reverse the car";
-  EXPECT_TRUE(state_is_finite());
+  const double cruising_speed = model_->get_velocity_x();
+  ASSERT_GT(cruising_speed, 2.0);
+
+  drive(0.2, {0.0, 0.0, -1.0, -1.0}, 0.0);
+  const double deceleration = (cruising_speed - model_->get_velocity_x()) / 0.2;
+
+  const double regen_torque_limit =
+      params_->car_parameters->inverter_parameters->max_torque *
+      params_->car_parameters->inverter_parameters->regen_torque_fraction;
+  const double gear_ratio = params_->car_parameters->transmission_parameters->gear_ratio;
+  const double wheel_radius = params_->car_parameters->tire_parameters->effective_tire_r;
+  const double regen_deceleration_limit =
+      regen_torque_limit * gear_ratio / (wheel_radius * params_->car_parameters->total_mass);
+
+  // Generous headroom for aero and rolling drag, which also slow the car.
+  EXPECT_LT(deceleration, 2.0 * regen_deceleration_limit)
+      << "decelerating harder than regen alone can; the friction brakes appear to be engaged";
+}
+
+TEST_F(VehicleModelTest, manualModeBrakesToAStopWithoutReversing) {
+  // In manual mode the driver's friction brakes exist, and their torque is signed by wheel
+  // direction, so they bring the car to rest rather than pushing it backwards.
+  params_->control_mode = "manual";
+  auto manual_model = std::make_unique<FSFEUP02Model>(*params_);
+
+  constexpr double kDt = 0.001;
+  for (int step = 0; step < 3000; ++step) {
+    manual_model->step(kDt, {0.0, 0.0, 1.0, 1.0}, 0.0);
+  }
+  const double cruising_speed = manual_model->get_velocity_x();
+  ASSERT_GT(cruising_speed, 2.0);
+
+  for (int step = 0; step < 5000; ++step) {
+    manual_model->step(kDt, {0.0, 0.0, -1.0, -1.0}, 0.0);
+  }
+  EXPECT_LT(manual_model->get_velocity_x(), 0.5) << "the friction brakes did not stop the car";
+  EXPECT_GT(manual_model->get_velocity_x(), -0.1) << "braking must not reverse the car";
+}
+
+TEST_F(VehicleModelTest, manualModeBrakesHarderThanAutonomousRegen) {
+  // The whole point of the manual/autonomous split: the driver has more stopping power than a
+  // controller, which only has regen.
+  const auto speed_after_braking = [this](const std::string& mode) {
+    params_->control_mode = mode;
+    FSFEUP02Model model(*params_);
+    constexpr double kDt = 0.001;
+    for (int step = 0; step < 3000; ++step) {
+      model.step(kDt, {0.0, 0.0, 1.0, 1.0}, 0.0);
+    }
+    for (int step = 0; step < 300; ++step) {
+      model.step(kDt, {0.0, 0.0, -1.0, -1.0}, 0.0);
+    }
+    return model.get_velocity_x();
+  };
+
+  EXPECT_LT(speed_after_braking("manual"), speed_after_braking("autonomous"))
+      << "manual braking was not stronger than autonomous regen";
 }
 
 TEST_F(VehicleModelTest, steeringTurnsTheCarTheWayItIsAsked) {
