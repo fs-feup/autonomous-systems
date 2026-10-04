@@ -68,6 +68,10 @@ private:
   // State vector used for RK4 integration
   using StateVec = Eigen::Matrix<double, STATE_SIZE, 1>;
 
+  /// Time constant of the low-pass filter on AX/AY, which feed the load transfer model: roughly
+  /// how long the chassis takes to roll or pitch onto its springs.
+  static constexpr double kAccelerationFilterTau = 0.10;  // s
+
   // Vehicle state struct is defined in the base class
   std::shared_ptr<TireModel> tire_model_;
   std::shared_ptr<MotorModel> motor_;
@@ -79,14 +83,16 @@ private:
   std::shared_ptr<LoadTransferModel> load_transfer_;
   std::shared_ptr<SteeringModel> steering_;
   std::shared_ptr<SteeringMotorModel> steering_motor_;
+  /// "manual" or "autonomous". Selects whether the friction brakes exist:
+  /// only a driver has a brake pedal, a controller only has regen.
   std::string control_mode_;
 
-  // Calculate the available motor torque based on the throttle input and current motor/battery
-  // state
-  // One RK4 integration substep.  step() splits the incoming dt into stable
-  // substeps (see FSFEUP02.cpp) because the driven-wheel/tyre-slip mode is stiff.
+  /// One RK4 integration substep. step() splits the incoming dt into stable substeps because the
+  /// driven-wheel/tyre-slip mode is stiff.
   void integrate_substep(double dt, common_lib::structures::Wheels throttle, double angle);
 
+  /// Motor torque actually available for this throttle input, after the inverter, motor and
+  /// battery limits. Advances the powertrain model state.
   double calculate_powertrain_torque(double throttle_input, double dt);
 
   // Calculate the state derivative for the RK4 integration

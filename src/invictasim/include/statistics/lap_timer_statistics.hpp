@@ -28,7 +28,8 @@ public:
   /**
    * @brief Initialize lap timing from the track and discipline.
    */
-  LapTimerStatistics(const Track& track, const std::string& discipline);
+  LapTimerStatistics(const Track& track, const std::string& discipline,
+                     const std::string& car_parameters_config = "");
 
   /**
    * @brief Reset timing state and current lap fields.
@@ -38,8 +39,8 @@ public:
   /**
    * @brief Update lap timing and report whether a lap started or finished.
    */
-  LapEvent update(const common_lib::structures::Position& position, double sim_time, double sim_dt,
-                  double speed, StatisticsSnapshot& snapshot);
+  LapEvent update(const common_lib::structures::Position& position, double yaw, double sim_time,
+                  double sim_dt, double speed, StatisticsSnapshot& snapshot);
 
   /**
    * @brief Copy completed lap timing metrics into the snapshot.
@@ -67,6 +68,8 @@ private:
   double timing_line_approach_side_ = 0.0;
   double finish_line_approach_side_ = 0.0;
   double minimum_lap_time_s_ = 3.0;
+  double minimum_lap_distance_m_ = 20.0;
+  double front_reference_offset_m_ = 0.0;
   std::string discipline_;
 
   // Current event timing state.
@@ -77,10 +80,12 @@ private:
   double lap_start_time_ = 0.0;
   double lap_velocity_integral_ = 0.0;
   double lap_accumulated_time_ = 0.0;
+  double lap_distance_ = 0.0;
   double lap_max_velocity_ = 0.0;
 
   // Configuration and lap aggregate helpers.
   void load_config();
+  void load_front_reference(const std::string& car_parameters_config);
   void configure_timing_lines(const Track& track, std::string discipline);
   void configure_default_lines(const Track& track);
   void configure_acceleration_lines(const Track& track);

@@ -36,6 +36,8 @@ set(IMPLEMENTATION_FILES
   src/tuning/tuning_evaluator.cpp
   src/io/input/keyboard.cpp
   src/config/config.cpp
+  src/config/resource_paths.cpp
+  src/config/validate.cpp
   src/vehicle_model/FSFEUP02.cpp
   src/vehicle_model/FSFEUP03.cpp
   src/track/track.cpp
@@ -43,6 +45,10 @@ set(IMPLEMENTATION_FILES
   src/statistics/lap_timer_statistics.cpp
   src/statistics/statistics.cpp
   src/statistics/tracking_statistics.cpp
+  src/sensors/sensors_base.cpp
+  src/sensors/imu.cpp
+  src/sensors/wss.cpp
+  src/sensors/simulated_perception.cpp
 )
 
 # Main executable
@@ -55,7 +61,6 @@ target_include_directories(invictasim PUBLIC
 )
 target_compile_features(invictasim PUBLIC c_std_99 cxx_std_17)
 target_compile_options(invictasim PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
-target_compile_definitions(invictasim PRIVATE INVICTASIM_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 target_link_libraries(invictasim yaml-cpp ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 ament_target_dependencies(invictasim
   ament_index_cpp
@@ -77,10 +82,14 @@ ament_target_dependencies(invictasim
 install(TARGETS invictasim
   DESTINATION lib/${PROJECT_NAME})
 
-# Standalone high-speed C++ vehicle parameter optimizer
+option(BUILD_VEHICLE_MODEL_OPTIMIZER "Build the standalone vehicle parameter optimizer" OFF)
+
+if(BUILD_VEHICLE_MODEL_OPTIMIZER)
 add_executable(vehicle_model_optimizer
   src/vehicle_model/optimizer/vehicle_model_optimizer.cpp
   src/config/config.cpp
+  src/config/resource_paths.cpp
+  src/config/validate.cpp
 )
 target_include_directories(vehicle_model_optimizer PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -107,6 +116,7 @@ ament_target_dependencies(vehicle_model_optimizer
 
 install(TARGETS vehicle_model_optimizer
   DESTINATION lib/${PROJECT_NAME})
+endif()
 
 install(DIRECTORY include/
   DESTINATION include)
@@ -131,7 +141,6 @@ if(BUILD_TESTING)
     ${SDL2_TTF_INCLUDE_DIRS}
   )
   target_compile_options(invictasim_test PUBLIC ${SDL2_CFLAGS_OTHER} ${SDL2_TTF_CFLAGS_OTHER})
-  target_compile_definitions(invictasim_test PRIVATE INVICTASIM_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
   target_link_libraries(invictasim_test ${SDL2_LIBRARIES} ${SDL2_TTF_LIBRARIES})
   ament_target_dependencies(invictasim_test
     ament_index_cpp

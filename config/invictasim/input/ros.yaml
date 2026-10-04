@@ -1,0 +1,7 @@
+topics:
+  control_command: "/control/command"        # Throttle per wheel + steering, drives the car
+  path: "/path_planning/path"                # Path points echoed back for visualization
+  slam_map: "/state_estimation/map"          # Only subscribed when use_simulated_se is false
+  perception_cones: "/perception/cones"      # Only subscribed when use_simulated_perception is false
+
+queue_depth: 10  # Subscription queue depth for every topic above

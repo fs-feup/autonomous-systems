@@ -1,0 +1,20 @@
+iteration: 4
+chain: 1
+best_score: -1.86295
+metrics:
+  position_mean: 2.55343
+  velocity_mean: 0.527564
+  position_max: 10.2831
+  velocity_max: 2.33551
+  in_limit_fraction: 0.516488
+  position_rmse: 3.3872
+  heading_rmse: 0.248948
+  velocity_rmse: 0.683525
+  velocity_x_rmse: 0.683525
+  velocity_y_rmse: 0.323235
+  yaw_rate_rmse: 0.0738597
+  front_wheel_rpm_rmse: 349.664
+  motor_rpm_rmse: 151.08
+parameters:
+  tire.front_lateral_stiffness_scale: 0.843812
+  tire.LMUY: 0.4374

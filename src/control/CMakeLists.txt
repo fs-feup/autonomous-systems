@@ -41,6 +41,15 @@ set(ACADOS_BOMBATED_MPC_SOLVER_LIB
   ${ACADOS_BOMBATED_MPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_BOMBATED_MPC_NAME}.so
 )
 
+# SuperMPC paths
+set(ACADOS_SUPERMPC_NAME "supermpc" CACHE STRING "Name of the generated acados MPC")
+set(ACADOS_SUPERMPC_GEN_DIR
+  ${CMAKE_BINARY_DIR}/control/${ACADOS_SUPERMPC_NAME}/acados/c_generated_code
+)
+set(ACADOS_SUPERMPC_SOLVER_LIB
+  ${ACADOS_SUPERMPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_SUPERMPC_NAME}.so
+)
+
 # MPCzinho paths
 set(ACADOS_MPCZINHO_NAME "mpczinho" CACHE STRING "Name of the generated acados MPC")
 set(ACADOS_MPCZINHO_GEN_DIR
@@ -111,6 +120,35 @@ add_custom_target(generate_mpczinho_acados_solver
   DEPENDS ${MPCZINHO_STAMP}
 )
 
+# SuperMPC with acados
+set(SUPERMPC_ACADOS_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/include/solver/supermpc_acados/supermpc_acados.py)
+set(SUPERMPC_STAMP ${CMAKE_BINARY_DIR}/control/stamps/supermpc_acados.stamp)
+message(STATUS "Will generate acados into build tree: ${ACADOS_SUPERMPC_GEN_DIR}")
+
+add_custom_command(
+  OUTPUT ${SUPERMPC_STAMP} ${ACADOS_SUPERMPC_SOLVER_LIB}
+  COMMAND ${CMAKE_COMMAND} -E rm -rf ${ACADOS_SUPERMPC_GEN_DIR}
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${ACADOS_SUPERMPC_GEN_DIR}
+  COMMAND ${CMAKE_COMMAND} -E env
+    AMENT_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{AMENT_PREFIX_PATH}
+    CMAKE_PREFIX_PATH=${WORKSPACE_INSTALL_DIR}:$ENV{CMAKE_PREFIX_PATH}
+    LD_LIBRARY_PATH=${ACADOS_LIB_DIR}:$ENV{LD_LIBRARY_PATH}
+    python3 ${SUPERMPC_ACADOS_SCRIPT}
+    --out-dir ${CMAKE_BINARY_DIR}/control/${ACADOS_SUPERMPC_NAME}/acados
+    --acados-dir ${ACADOS_INSTALL_DIR}
+    --acados-lib-dir ${ACADOS_LIB_DIR}
+  COMMAND /bin/sh -c "sed -i -e 's#^INCLUDE_PATH = .*#INCLUDE_PATH = ${ACADOS_INSTALL_DIR}/include#' -e 's#^LIB_PATH = .*#LIB_PATH = ${ACADOS_LIB_DIR}#' ${ACADOS_SUPERMPC_GEN_DIR}/Makefile"
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/control/stamps
+  COMMAND ${CMAKE_COMMAND} -E touch ${SUPERMPC_STAMP}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
+  DEPENDS ${SUPERMPC_ACADOS_SCRIPT} ${MPC_CONFIG_DEPS}
+  COMMENT "Generating SuperMPC Acados solver code..."
+)
+
+add_custom_target(generate_supermpc_acados_solver
+  DEPENDS ${SUPERMPC_STAMP}
+)
+
 # ------------------------------------------------------------------------------
 # Sources (cpp implementation files)
 set(IMPLEMENTATION_FILES
@@ -126,7 +164,9 @@ set(IMPLEMENTATION_FILES
   src/config/parameters.cpp
   src/controller/base_decoupled_controller.cpp
   src/controller/bombated_mpc.cpp
+  src/controller/supermpc.cpp
   src/solver/bombated_mpc_acados.cpp
+  src/solver/supermpc_acados.cpp
   src/solver/mpczinho_acados.cpp
   src/utils/utils.cpp
   src/utils/path_stager.cpp
@@ -162,6 +202,15 @@ set_target_properties(${ACADOS_BOMBATED_MPC_SOLVER_TARGET} PROPERTIES
   IMPORTED_NO_SONAME TRUE
 )
 
+# Generated solver - SuperMPC
+set(ACADOS_SUPERMPC_SOLVER_TARGET acados_ocp_solver_${ACADOS_SUPERMPC_NAME})
+
+add_library(${ACADOS_SUPERMPC_SOLVER_TARGET} SHARED IMPORTED)
+set_target_properties(${ACADOS_SUPERMPC_SOLVER_TARGET} PROPERTIES
+  IMPORTED_LOCATION ${ACADOS_SUPERMPC_GEN_DIR}/libacados_ocp_solver_${ACADOS_SUPERMPC_NAME}.so
+  IMPORTED_NO_SONAME TRUE
+)
+
 # Generated solver - MPCzinho
 set(ACADOS_MPCZINHO_SOLVER_TARGET acados_ocp_solver_${ACADOS_MPCZINHO_NAME})
 
@@ -182,6 +231,7 @@ endforeach()
 set(ACADOS_LIBS
   ${ACADOS_BOMBATED_MPC_SOLVER_TARGET}
   ${ACADOS_MPCZINHO_SOLVER_TARGET}
+  ${ACADOS_SUPERMPC_SOLVER_TARGET}
   acados
   hpipm
   blasfeo
@@ -203,13 +253,15 @@ set(CONTROL_INCLUDE_DIRS
   ${ACADOS_SOURCE_DIR}/interfaces
   ${ACADOS_BOMBATED_MPC_GEN_DIR}
   ${ACADOS_MPCZINHO_GEN_DIR}
+  ${ACADOS_SUPERMPC_GEN_DIR}
 )
 
 # ------------------------------------------------------------------------------
 # Main executable
 add_executable(node_control src/main.cpp ${IMPLEMENTATION_FILES})
 
-add_dependencies(node_control generate_bombated_mpc_acados_solver generate_mpczinho_acados_solver)
+add_dependencies(node_control generate_bombated_mpc_acados_solver generate_mpczinho_acados_solver
+  generate_supermpc_acados_solver)
 
 target_include_directories(node_control PUBLIC
   ${CONTROL_INCLUDE_DIRS}
@@ -240,7 +292,7 @@ target_compile_features(node_control PUBLIC c_std_99 cxx_std_17)
 
 set_target_properties(node_control PROPERTIES
   BUILD_WITH_INSTALL_RPATH TRUE
-  INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR};${ACADOS_MPCZINHO_GEN_DIR}"
+  INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR};${ACADOS_MPCZINHO_GEN_DIR};${ACADOS_SUPERMPC_GEN_DIR}"
   INSTALL_RPATH_USE_LINK_PATH TRUE
 )
 
@@ -303,7 +355,7 @@ if(BUILD_TESTING)
 
   set_target_properties(${PROJECT_NAME}_test PROPERTIES
     BUILD_WITH_INSTALL_RPATH TRUE
-    INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR};${ACADOS_MPCZINHO_GEN_DIR}"
+    INSTALL_RPATH "${ACADOS_LIB_DIR};${ACADOS_BOMBATED_MPC_GEN_DIR};${ACADOS_MPCZINHO_GEN_DIR};${ACADOS_SUPERMPC_GEN_DIR}"
     INSTALL_RPATH_USE_LINK_PATH TRUE
   )
 endif()

@@ -80,7 +80,7 @@ private:
    * @param E Fall-off
    * @param slip slip angle or slip ratio
    * @param SV Vertical Shift
-   * @return double Either Fx or Fy depeding on inputs
+   * @return double Either Fx or Fy depending on inputs
    */
   double calculate_pure_slip(double B, double C, double D, double E, double shifted_slip,
                              double SV) const;
@@ -97,10 +97,12 @@ private:
    * @param yaw_rate Yaw rate
    * @param wheel_angular_speed Angular speed at the wheel
    * @param camber_angle Camber angle
+   * @param is_front True for the front axle, so the front/rear lateral balance
+   *                 scaling can be applied
    */
   void calculate_tire_state(double slip_angle, double slip_ratio, double vertical_load, double vcx,
                             double vcy, double yaw_rate, double wheel_angular_speed,
-                            double camber_angle);
+                            double camber_angle, bool is_front);
 
   /**
    * @brief Calculates the D parameter for the Fy calculation using pacejka MF (Peak)
@@ -204,7 +206,7 @@ private:
 
   double calculate_Zeta3() const;
 
-  double calculate_SHyp(double camber_angle) const;
+  double calculate_SHyp() const;
 
   double calculate_SVyk(double vertical_load, double slip_ratio) const;
 };

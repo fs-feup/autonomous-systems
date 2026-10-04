@@ -15,10 +15,27 @@ public:
   /**
    * @brief Construct a new RosInputAdapter.
    * @param simulator Simulator instance.
+   * @param config_file Config file name under `config/invictasim/input`.
    */
-  explicit RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator);
+  RosInputAdapter(const std::shared_ptr<InvictaSim>& simulator, const std::string& config_file);
 
 private:
+  /**
+   * @brief Topic names read from `config/invictasim/input/<config_file>.yaml`.
+   */
+  struct Topics {
+    std::string control_command = "/control/command";
+    std::string path = "/path_planning/path";
+    std::string slam_map = "/state_estimation/map";
+    std::string perception_cones = "/perception/cones";
+    int queue_depth = 10;
+  };
+
+  /**
+   * @brief Load subscription topics and queue depth from the input config file.
+   */
+  static Topics load_topics(const std::string& config_file);
+
   rclcpp::Subscription<custom_interfaces::msg::ControlCommand>::SharedPtr
       control_command_sub_;  ///< Subscription for control commands.
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr

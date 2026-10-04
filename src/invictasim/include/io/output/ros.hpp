@@ -6,6 +6,7 @@
 #include <atomic>
 #include <cctype>
 #include <cmath>
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -130,6 +131,11 @@ private:
   double track_surface_curb_block_length_ = 0.80;
   double track_surface_curb_z_ = 0.018;
   double track_surface_asphalt_z_ = 0.004;
+  double ground_margin_ = 100.0;
+  double ground_fallback_size_ = 400.0;
+  double ground_z_ = -0.02;
+  double grass_tile_size_m_ = 1.0;
+  mutable std::string grass_mesh_resource_;
 
   // Visualization marker templates
   visualization_msgs::msg::Marker cone_hitbox_marker_template_;
@@ -172,6 +178,8 @@ private:
 
   // Visualization publishers
   void publish_visualization_ground(const rclcpp::Time& stamp);
+  void fit_ground_plane_to_track(visualization_msgs::msg::Marker& ground) const;
+  std::string ensure_grass_plane_mesh(double size_x, double size_y) const;
   void publish_visualization_gt_cones(const rclcpp::Time& stamp);
   void publish_visualization_slam_cones(const rclcpp::Time& stamp);
   void publish_visualization_car(const rclcpp::Time& stamp);
@@ -209,7 +217,7 @@ private:
   // Message conversion helpers
   custom_interfaces::msg::WheelScalars to_wheels_msg(const common_lib::structures::Wheels& wheels,
                                                      const rclcpp::Time& stamp) const;
-  std::vector<common_lib::structures::Cone> mark_recently_hit_cones_red(
+  std::vector<common_lib::structures::Cone> mark_cones_hit_this_lap_red(
       std::vector<common_lib::structures::Cone> cones) const;
 
   // Common visualization helpers
@@ -227,14 +235,53 @@ private:
   void add_track_surface_markers(visualization_msgs::msg::MarkerArray& marker_array,
                                  const std::vector<common_lib::structures::Cone>& cones,
                                  const rclcpp::Time& stamp) const;
+  void add_acceleration_track_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                      visualization_msgs::msg::Marker& curb_marker,
+                                      const std::vector<common_lib::structures::Cone>& cones,
+                                      const std_msgs::msg::ColorRGBA& asphalt_color,
+                                      const std_msgs::msg::ColorRGBA& curb_red,
+                                      const std_msgs::msg::ColorRGBA& curb_white) const;
+  void add_fixed_acceleration_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                      visualization_msgs::msg::Marker& curb_marker,
+                                      const std_msgs::msg::ColorRGBA& asphalt_color,
+                                      const std_msgs::msg::ColorRGBA& curb_red,
+                                      const std_msgs::msg::ColorRGBA& curb_white) const;
+  void add_fixed_skidpad_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                 visualization_msgs::msg::Marker& curb_marker,
+                                 const std_msgs::msg::ColorRGBA& asphalt_color,
+                                 const std_msgs::msg::ColorRGBA& curb_red,
+                                 const std_msgs::msg::ColorRGBA& curb_white) const;
+  void add_skidpad_connector_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                     visualization_msgs::msg::Marker& curb_marker,
+                                     const std::vector<common_lib::structures::Cone>& cones,
+                                     const std_msgs::msg::ColorRGBA& asphalt_color,
+                                     const std_msgs::msg::ColorRGBA& curb_red,
+                                     const std_msgs::msg::ColorRGBA& curb_white) const;
+  void add_skidpad_entry_curbs(visualization_msgs::msg::Marker& curb_marker,
+                               const std::vector<common_lib::structures::Cone>& boundary_cones,
+                               const std::vector<common_lib::structures::Cone>& corridor_cones,
+                               const std_msgs::msg::ColorRGBA& curb_red,
+                               const std_msgs::msg::ColorRGBA& curb_white) const;
 
   // Track surface geometry helpers
   visualization_msgs::msg::Marker make_track_triangle_marker(const std::string& ns, int id,
                                                              double z,
                                                              const rclcpp::Time& stamp) const;
-  TrackRibbon build_track_ribbon(
-      const std::vector<common_lib::structures::Cone>& side_cones,
-      const std::vector<common_lib::structures::Cone>& opposite_cones) const;
+  TrackRibbon build_track_ribbon(const std::vector<common_lib::structures::Cone>& side_cones,
+                                 const std::vector<common_lib::structures::Cone>& opposite_cones,
+                                 bool closed) const;
+
+  // How the cone lists describe the track, which differs per event.
+  enum class TrackLayout {
+    kClosedLoop,  // autocross / trackdrive: one boundary per colour, joined end to end
+    kOpenLanes,   // acceleration: one straight boundary per colour, never joined
+    kSkidpad,     // two circles, so each colour covers two disjoint arcs
+  };
+  TrackLayout track_layout() const;
+  // Splits a colour's cones wherever the spacing jumps, which is what separates
+  // the two skidpad circles; closed tracks and acceleration yield a single run.
+  std::vector<std::vector<common_lib::structures::Cone>> split_cone_runs(
+      const std::vector<common_lib::structures::Cone>& cones) const;
   void add_track_curb_ribbon(visualization_msgs::msg::Marker& curb_marker,
                              const TrackRibbon& ribbon, const std_msgs::msg::ColorRGBA& curb_red,
                              const std_msgs::msg::ColorRGBA& curb_white) const;
@@ -334,7 +381,11 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr
       vehicle_fr_rpm_pub_;  ///< Publisher for front right wheel RPM.
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr
-      vehicle_motor_rpm_pub_;  ///< Publisher for motor RPM.
+      vehicle_rl_rpm_pub_;  ///< Publisher for rear left wheel RPM.
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr
+      vehicle_rr_rpm_pub_;  ///< Publisher for rear right wheel RPM.
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr
+      vehicle_motor_rpm_pub_;  ///< Motor/resolver RPM, carried in the rr_rpm field.
   rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr
       steering_pub_;  ///< Publisher for steering angle.
 

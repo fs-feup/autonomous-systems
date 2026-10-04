@@ -21,7 +21,11 @@ private:
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr go_sub_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr velocities_sub_;
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr pose_sub_;
-  /// Vehicle state: accelerations, steering angle and wheel speeds, absent from the velocities topic.
+  /**
+   * @brief Subscription for the vehicle state, used to obtain the longitudinal and lateral
+   * acceleration in the car's frame, the steering angle and the individual wheel speeds, which
+   * the velocities topic does not provide.
+   */
   rclcpp::Subscription<custom_interfaces::msg::VehicleStateVector>::SharedPtr vehicle_status_sub_;
 
   rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr control_pub_;

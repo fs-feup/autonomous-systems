@@ -51,7 +51,7 @@ double VDLoadTransferModel::calculate_front_lateral_transfer(double massDistribu
       car_parameters_->track_width;
   double elastic_load_transfer =
       (car_parameters_->sprung_mass * lateral_acceleration *
-       car_parameters_->load_transfer_parameters->roll_axis_z *
+       (car_parameters_->sprung_cg_z - car_parameters_->load_transfer_parameters->roll_axis_z) *
        car_parameters_->load_transfer_parameters->front_stiffness_distribution) /
       car_parameters_->track_width;
   return unsprung_load_transfer + geometric_load_transfer + elastic_load_transfer;
@@ -68,7 +68,7 @@ double VDLoadTransferModel::calculate_rear_lateral_transfer(double massDistribut
       car_parameters_->track_width;
   double elastic_load_transfer =
       (car_parameters_->sprung_mass * lateral_acceleration *
-       car_parameters_->load_transfer_parameters->roll_axis_z *
+       (car_parameters_->sprung_cg_z - car_parameters_->load_transfer_parameters->roll_axis_z) *
        (1 - car_parameters_->load_transfer_parameters->front_stiffness_distribution)) /
       car_parameters_->track_width;
   return unsprung_load_transfer + geometric_load_transfer + elastic_load_transfer;

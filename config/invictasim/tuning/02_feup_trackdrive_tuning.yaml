@@ -5,19 +5,15 @@ tuning:
   # Inline model string
   vehicle_model: "inline_02"
 
+  # Telemetry CSVs live in src/invictasim/tuning_csvs/ and are not tracked in git (see the
+  # .gitignore there); export them with scripts/rosbag_to_csv.py before running the optimizer.
   csvs:
-    - path: "europarque.csv"
+    - path: "FEUP_trackdrive.csv"
       weight: 1.0
 
   score:
     max_distance_error: 1.5 # Maximum allowed distance error in meters before a mutation is killed immediately
     max_velocity_error: 2.0 # Maximum allowed velocity error in m/s before a mutation is killed
-    # Re-anchor the sim to the measured state every N seconds during scoring.
-    # This makes fitness reward whole-trajectory fidelity (every corner) instead
-    # of only the easy opening, which prevents the optimizer from selecting a
-    # directionally-unstable car that survives the first straight and then spins.
-    # Set 0 to score classic continuous time-to-first-failure (used for final
-    # continuous-survival validation).
     reanchor_period: 0.0
 
   optimizer:
@@ -29,18 +25,18 @@ tuning:
     elite_count: 20
     immigrant_count: 100
     mutation_rate: 0.25
-    mutation_scale: 0.20
     blend_alpha: 0.40
     tournament_size: 4
     seed: 67
 
     # Simulated Annealing Settings
-    # Score magnitude is ~survival_seconds * 1e6, so the temperature must be on
-    # the order of the score deltas a single subset-mutation produces (~1e5-1e6)
-    # for the Metropolis acceptance to explore rather than pure hill-climb.
     iterations: 100000000
     initial_temp: 1500000.0
     cooling_rate: 0.99997
+
+    # Shared by both algorithms: the optimizer reads one mutation_scale key. It used to appear in
+    # both the genetic and the annealing block, and YAML silently kept only the second, so the
+    # genetic value never applied. 0.12 is the value that was in effect.
     mutation_scale: 0.12
 
   parameters:

@@ -37,7 +37,7 @@ public:
 
   /**
    * @brief Get the Jacobian matrix of the motion model in relation to the pose (state)
-   * @details This is used to multiplty by the previous covariance to get the matrix, propagating
+   * @details This is used to multiply by the previous covariance to get the matrix, propagating
    * the previous pose error to the current pose error (variance)
    * @param previous_pose
    * @param motion_data (vx, vy, omega, ax)
@@ -50,7 +50,7 @@ public:
 
   /**
    * @brief Get the Jacobian matrix of the motion model in relation to motion data (commands)
-   * @details This is used to multiplty by the motion data noise to get the matrix to be summed to
+   * @details This is used to multiply by the motion data noise to get the matrix to be summed to
    * the covariance
    * @param previous_pose
    * @param motion_data (vx, vy, omega, ax)

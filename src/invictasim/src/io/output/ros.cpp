@@ -1,5 +1,12 @@
 #include "io/output/ros.hpp"
 
+#include <filesystem>
+#include <fstream>
+#include <iomanip>
+#include <sstream>
+
+#include "config/resource_paths.hpp"
+
 RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
                                    const std::string& config_file)
     : Node("invictasim_output", rclcpp::NodeOptions().use_global_arguments(false)),
@@ -85,6 +92,10 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_left", 10);
   vehicle_fr_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/front_right", 10);
+  vehicle_rl_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_left", 10);
+  vehicle_rr_rpm_pub_ =
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_right", 10);
   vehicle_motor_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/resolver", 10);
   steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
@@ -321,24 +332,40 @@ void RosOutputAdapter::publish_sensors_imu(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_sensors_wheel_speed(const rclcpp::Time& stamp) {
-  // Publish wheel RPMs for each wheel
+  // One message per wheel, each carrying only its own field, so a subscriber cannot read a
+  // plausible-looking value from the wrong wheel.
+  const auto& wheel_rpm = sensors_snapshot_cache_.wheel_rpm;
+
   custom_interfaces::msg::WheelRPM fl_msg;
   fl_msg.header.stamp = stamp;
   fl_msg.header.frame_id = "base_link";
-  fl_msg.fl_rpm = sensors_snapshot_cache_.wheel_rpm.front_left;
+  fl_msg.fl_rpm = static_cast<float>(wheel_rpm.front_left);
   vehicle_fl_rpm_pub_->publish(fl_msg);
 
-  custom_interfaces::msg::WheelRPM fr_msg = fl_msg;
-  fr_msg.fr_rpm = sensors_snapshot_cache_.wheel_rpm.front_right;
+  custom_interfaces::msg::WheelRPM fr_msg;
+  fr_msg.header = fl_msg.header;
+  fr_msg.fr_rpm = static_cast<float>(wheel_rpm.front_right);
   vehicle_fr_rpm_pub_->publish(fr_msg);
+
+  custom_interfaces::msg::WheelRPM rl_msg;
+  rl_msg.header = fl_msg.header;
+  rl_msg.rl_rpm = static_cast<float>(wheel_rpm.rear_left);
+  vehicle_rl_rpm_pub_->publish(rl_msg);
+
+  custom_interfaces::msg::WheelRPM rr_msg;
+  rr_msg.header = fl_msg.header;
+  rr_msg.rr_rpm = static_cast<float>(wheel_rpm.rear_right);
+  vehicle_rr_rpm_pub_->publish(rr_msg);
 }
 
 void RosOutputAdapter::publish_sensors_resolver(const rclcpp::Time& stamp) {
+  // WheelRPM has no motor field, so the motor speed goes in rr_rpm. This is the contract
+  // velocity_estimation's invictasim adapter already reads (resolver_callback takes msg.rr_rpm),
+  // so changing it here silently starves that node of motor speed.
   custom_interfaces::msg::WheelRPM resolver_msg;
   resolver_msg.header.stamp = stamp;
   resolver_msg.header.frame_id = "base_link";
-  resolver_msg.rr_rpm =
-      sensors_snapshot_cache_.motor_rpm;  // Using rr_rpm field to publish motor rpm
+  resolver_msg.rr_rpm = static_cast<float>(sensors_snapshot_cache_.motor_rpm);
   vehicle_motor_rpm_pub_->publish(resolver_msg);
 }
 
@@ -351,7 +378,7 @@ void RosOutputAdapter::publish_sensors_steering(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_map_ground_truth(const rclcpp::Time& stamp) {
-  const auto cones = mark_recently_hit_cones_red(map_snapshot_cache_.ground_truth);
+  const auto cones = mark_cones_hit_this_lap_red(map_snapshot_cache_.ground_truth);
   custom_interfaces::msg::ConeArray track_msg;
   track_msg.header.stamp = stamp;
   track_msg.header.frame_id = "map";
@@ -371,7 +398,7 @@ void RosOutputAdapter::publish_map_ground_truth(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_state_estimation_map(const rclcpp::Time& stamp) {
-  const auto cones = mark_recently_hit_cones_red(map_snapshot_cache_.simulated_slam_map);
+  const auto cones = mark_cones_hit_this_lap_red(map_snapshot_cache_.simulated_slam_map);
   custom_interfaces::msg::ConeArray map_msg;
   map_msg.header.stamp = stamp;
   map_msg.header.frame_id = "map";
@@ -497,6 +524,9 @@ void RosOutputAdapter::publish_vm_status(const rclcpp::Time& stamp) {
   custom_interfaces::msg::VehicleStateVector status_msg;
   status_msg.header.stamp = stamp;
   status_msg.header.frame_id = "base_link";
+  status_msg.x = vehicle_model_snapshot_cache_.x;
+  status_msg.y = vehicle_model_snapshot_cache_.y;
+  status_msg.orientation = vehicle_model_snapshot_cache_.yaw;
   status_msg.yaw_rate = vehicle_model_snapshot_cache_.yaw_rate;
   status_msg.velocity_x = vehicle_model_snapshot_cache_.velocity_x;
   status_msg.velocity_y = vehicle_model_snapshot_cache_.velocity_y;
@@ -606,7 +636,7 @@ void RosOutputAdapter::publish_state_estimation_velocities(const rclcpp::Time& s
 void RosOutputAdapter::publish_state_estimation_pose(const rclcpp::Time& stamp) {
   custom_interfaces::msg::Pose pose_msg;
   pose_msg.header.stamp = stamp;
-  pose_msg.header.frame_id = "base_link";
+  pose_msg.header.frame_id = "map";
   pose_msg.x = vehicle_state_snapshot_cache_.position.x;
   pose_msg.y = vehicle_state_snapshot_cache_.position.y;
   pose_msg.theta = vehicle_state_snapshot_cache_.yaw;
@@ -620,6 +650,9 @@ void RosOutputAdapter::publish_state_estimation_state_vector(const rclcpp::Time&
   custom_interfaces::msg::VehicleStateVector state_vector_msg;
   state_vector_msg.header.stamp = stamp;
   state_vector_msg.header.frame_id = "base_link";
+  state_vector_msg.x = vehicle_state_snapshot_cache_.position.x;
+  state_vector_msg.y = vehicle_state_snapshot_cache_.position.y;
+  state_vector_msg.orientation = vehicle_state_snapshot_cache_.yaw;
   state_vector_msg.velocity_x = vehicle_state_snapshot_cache_.velocity_x;
   state_vector_msg.velocity_y = vehicle_state_snapshot_cache_.velocity_y;
   state_vector_msg.yaw_rate = vehicle_state_snapshot_cache_.yaw_rate;
@@ -666,10 +699,214 @@ void RosOutputAdapter::publish_visualization_car(const rclcpp::Time& stamp) {
   visualization_vehicle_pub_->publish(vehicle_marker_array);
 }
 
+std::string RosOutputAdapter::ensure_grass_plane_mesh(double size_x, double size_y) const {
+  // One tile per grass_tile_size_m_ metres in each direction.
+  const double tile = std::max(0.05, grass_tile_size_m_);
+  const double repeat_u = std::max(1.0, size_x / tile);
+  const double repeat_v = std::max(1.0, size_y / tile);
+
+  std::ostringstream name;
+  name << "grass_plane_" << std::fixed << std::setprecision(0) << size_x << "x" << size_y;
+  const std::string stem = name.str();
+  // Written into the package share directory, because that is what package://
+  // resolves to. Writing into the source tree does not work: --symlink-install
+  // links each file individually at build time, so a file created afterwards has
+  // no link in the share directory and the viewer cannot fetch it.
+  const std::string fallback = "package://invictasim/resources/meshes/ground/grass_plane.dae";
+  std::string share_directory;
+  try {
+    share_directory = ament_index_cpp::get_package_share_directory("invictasim");
+  } catch (const std::exception&) {
+    return fallback;
+  }
+  const std::string directory = share_directory + "/resources/meshes/ground/";
+  const std::string file_path = directory + stem + ".dae";
+  const std::string resource = "package://invictasim/resources/meshes/ground/" + stem + ".dae";
+
+  std::error_code ec;
+  if (std::filesystem::exists(file_path, ec)) {
+    return resource;
+  }
+
+  std::ostringstream uv;
+  uv << std::fixed << std::setprecision(4) << "0 0 " << repeat_u << " 0 " << repeat_u << " "
+     << repeat_v << " 0 " << repeat_v;
+
+  std::ostringstream dae;
+  dae << R"(<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor><authoring_tool>InvictaSim generated grass plane</authoring_tool></contributor>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images>
+    <image id="grass_texture-image" name="grass_texture">
+      <init_from>grass_texture.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="grass_effect">
+      <profile_COMMON>
+        <newparam sid="grass_surface">
+          <surface type="2D"><init_from>grass_texture-image</init_from></surface>
+        </newparam>
+        <newparam sid="grass_sampler">
+          <sampler2D>
+            <source>grass_surface</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+            <minfilter>LINEAR_MIPMAP_LINEAR</minfilter>
+            <magfilter>LINEAR</magfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission><color>0 0 0 1</color></emission>
+            <ambient><color>0.02 0.02 0.02 1</color></ambient>
+            <diffuse><texture texture="grass_sampler" texcoord="UVMap"/></diffuse>
+            <specular><color>0 0 0 1</color></specular>
+            <shininess><float>0.05</float></shininess>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="grass_material" name="grass_material">
+      <instance_effect url="#grass_effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="grass_plane-mesh" name="grass_plane">
+      <mesh>
+        <source id="grass_plane-positions">
+          <float_array id="grass_plane-positions-array" count="12">-0.5 -0.5 0 0.5 -0.5 0 0.5 0.5 0 -0.5 0.5 0</float_array>
+          <technique_common>
+            <accessor source="#grass_plane-positions-array" count="4" stride="3">
+              <param name="X" type="float"/><param name="Y" type="float"/><param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="grass_plane-normals">
+          <float_array id="grass_plane-normals-array" count="3">0 0 1</float_array>
+          <technique_common>
+            <accessor source="#grass_plane-normals-array" count="1" stride="3">
+              <param name="X" type="float"/><param name="Y" type="float"/><param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="grass_plane-map-0">
+          <float_array id="grass_plane-map-0-array" count="8">)"
+      << uv.str() << R"(</float_array>
+          <technique_common>
+            <accessor source="#grass_plane-map-0-array" count="4" stride="2">
+              <param name="S" type="float"/><param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="grass_plane-vertices">
+          <input semantic="POSITION" source="#grass_plane-positions"/>
+        </vertices>
+        <triangles count="2" material="grass_material">
+          <input semantic="VERTEX" source="#grass_plane-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#grass_plane-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#grass_plane-map-0" offset="2" set="0"/>
+          <p>0 0 0 1 0 1 2 0 2 0 0 0 2 0 2 3 0 3</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="grass_plane-node" name="grass_plane" type="NODE">
+        <instance_geometry url="#grass_plane-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="grass_material" target="#grass_material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene><instance_visual_scene url="#Scene"/></scene>
+</COLLADA>
+)";
+
+  // Write to a temporary file and rename it into place. A partial write left under the final name
+  // would be served to the viewer forever, because the only cache check is whether the file
+  // exists.
+  const std::string temp_path = file_path + ".tmp";
+  {
+    std::ofstream out(temp_path);
+    if (!out) {
+      // Read-only install: fall back to the shipped plane so the ground still renders, with the
+      // texture scaled to the plane instead of to metres.
+      RCLCPP_WARN(this->get_logger(),
+                  "Could not write '%s'; falling back to the fixed-scale grass plane.",
+                  temp_path.c_str());
+      return fallback;
+    }
+    out << dae.str();
+    out.flush();
+    if (!out) {
+      out.close();
+      std::filesystem::remove(temp_path, ec);
+      RCLCPP_WARN(this->get_logger(),
+                  "Failed while writing '%s'; falling back to the fixed-scale grass plane.",
+                  temp_path.c_str());
+      return fallback;
+    }
+  }
+
+  std::filesystem::rename(temp_path, file_path, ec);
+  if (ec) {
+    std::filesystem::remove(temp_path, ec);
+    RCLCPP_WARN(this->get_logger(), "Could not install '%s'; falling back to the shipped plane.",
+                file_path.c_str());
+    return fallback;
+  }
+  return resource;
+}
+
+void RosOutputAdapter::fit_ground_plane_to_track(visualization_msgs::msg::Marker& ground) const {
+  const auto& cones = map_snapshot_cache_.ground_truth;
+  if (cones.empty()) {
+    return;
+  }
+  double min_x = std::numeric_limits<double>::max();
+  double max_x = std::numeric_limits<double>::lowest();
+  double min_y = min_x;
+  double max_y = max_x;
+  for (const auto& cone : cones) {
+    min_x = std::min(min_x, cone.position.x);
+    max_x = std::max(max_x, cone.position.x);
+    min_y = std::min(min_y, cone.position.y);
+    max_y = std::max(max_y, cone.position.y);
+  }
+  ground.pose.position.x = 0.5 * (min_x + max_x);
+  ground.pose.position.y = 0.5 * (min_y + max_y);
+  ground.scale.x = (max_x - min_x) + 2.0 * ground_margin_;
+  ground.scale.y = (max_y - min_y) + 2.0 * ground_margin_;
+
+  if (use_generated_track_visualization_) {
+    if (grass_mesh_resource_.empty()) {
+      grass_mesh_resource_ = ensure_grass_plane_mesh(ground.scale.x, ground.scale.y);
+    }
+    ground.mesh_resource = grass_mesh_resource_;
+  }
+}
+
 void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
   visualization_msgs::msg::MarkerArray ground_marker_array = ground_marker_template_;
   for (auto& marker : ground_marker_array.markers) {
     marker.header.stamp = stamp;
+  }
+  if (!ground_marker_array.markers.empty()) {
+    fit_ground_plane_to_track(ground_marker_array.markers.front());
   }
   if (use_generated_track_visualization_) {
     add_track_surface_markers(ground_marker_array, map_snapshot_cache_.ground_truth, stamp);
@@ -680,14 +917,14 @@ void RosOutputAdapter::publish_visualization_ground(const rclcpp::Time& stamp) {
 void RosOutputAdapter::publish_visualization_gt_cones(const rclcpp::Time& stamp) {
   visualization_msgs::msg::MarkerArray track_marker_array;
   track_marker_array = convert_cone_array_to_markers(
-      mark_recently_hit_cones_red(map_snapshot_cache_.ground_truth), stamp);
+      mark_cones_hit_this_lap_red(map_snapshot_cache_.ground_truth), stamp);
   visualization_gt_cones_pub_->publish(track_marker_array);
 }
 
 void RosOutputAdapter::publish_visualization_slam_cones(const rclcpp::Time& stamp) {
   visualization_msgs::msg::MarkerArray map_marker_array;
   map_marker_array = convert_cone_array_to_markers(
-      mark_recently_hit_cones_red(map_snapshot_cache_.simulated_slam_map), stamp);
+      mark_cones_hit_this_lap_red(map_snapshot_cache_.simulated_slam_map), stamp);
   visualization_slam_cones_pub_->publish(map_marker_array);
 }
 
@@ -699,9 +936,7 @@ void RosOutputAdapter::publish_visualization_perception_cones(const rclcpp::Time
 }
 
 void RosOutputAdapter::load_cone_visualization_resources() {
-  const std::string path =
-      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/cones/config.yaml";
-  const YAML::Node config = YAML::LoadFile(path);
+  const YAML::Node config = invictasim::resources::load("meshes/cones/config.yaml");
 
   double hitbox_z = 0.02;
   double hitbox_height = 0.04;
@@ -734,14 +969,7 @@ void RosOutputAdapter::load_cone_visualization_resources() {
 }
 
 void RosOutputAdapter::load_ground_visualization_resources() {
-  const std::string path =
-      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/ground/config.yaml";
-  const YAML::Node config = YAML::LoadFile(path);
-  double position_x = 0.0;
-  double position_y = 0.0;
-  double position_z = -0.02;
-  double scale_x = 400.0;
-  double scale_y = 400.0;
+  const YAML::Node config = invictasim::resources::load("meshes/ground/config.yaml");
   double color_a = 1.0;
   double timing_line_target_cell_length = 0.5;
   int timing_line_row_count = 2;
@@ -773,16 +1001,11 @@ void RosOutputAdapter::load_ground_visualization_resources() {
 
     const YAML::Node position = visualization["position"];
     if (position) {
-      position_x = position["x"].as<double>(position_x);
-      position_y = position["y"].as<double>(position_y);
-      position_z = position["z"].as<double>(position_z);
+      ground_z_ = position["z"].as<double>(ground_z_);
     }
-
-    const YAML::Node scale = visualization["scale"];
-    if (scale) {
-      scale_x = scale["x"].as<double>(scale_x);
-      scale_y = scale["y"].as<double>(scale_y);
-    }
+    ground_margin_ = visualization["margin"].as<double>(ground_margin_);
+    ground_fallback_size_ = visualization["fallback_size"].as<double>(ground_fallback_size_);
+    grass_tile_size_m_ = visualization["grass_tile_size_m"].as<double>(grass_tile_size_m_);
 
     const YAML::Node color = visualization["color"];
     if (color) {
@@ -804,24 +1027,23 @@ void RosOutputAdapter::load_ground_visualization_resources() {
   ground.header.frame_id = "map";
   ground.ns = "invictasim_ground";
   ground.id = 100;
-  ground.type = use_generated_track_visualization_ ? visualization_msgs::msg::Marker::CUBE
-                                                   : visualization_msgs::msg::Marker::MESH_RESOURCE;
+  ground.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
   ground.action = visualization_msgs::msg::Marker::ADD;
-  ground.pose.position.x = position_x;
-  ground.pose.position.y = position_y;
-  ground.pose.position.z = position_z;
+  ground.pose.position.x = 0.0;
+  ground.pose.position.y = 0.0;
+  ground.pose.position.z = ground_z_;
   ground.pose.orientation.w = 1.0;
-  ground.scale.x = scale_x;
-  ground.scale.y = scale_y;
-  ground.scale.z = use_generated_track_visualization_ ? 0.02 : 1.0;
-  ground.color.r = use_generated_track_visualization_ ? 0.28f : 1.0f;
-  ground.color.g = use_generated_track_visualization_ ? 0.42f : 1.0f;
-  ground.color.b = use_generated_track_visualization_ ? 0.22f : 1.0f;
+  ground.scale.x = ground_fallback_size_;
+  ground.scale.y = ground_fallback_size_;
+  ground.scale.z = 1.0;
+  ground.color.r = 1.0f;
+  ground.color.g = 1.0f;
+  ground.color.b = 1.0f;
   ground.color.a = static_cast<float>(color_a);
-  if (!use_generated_track_visualization_) {
-    ground.mesh_resource = "package://invictasim/resources/meshes/ground/asphalt_plane.dae";
-    ground.mesh_use_embedded_materials = true;
-  }
+  ground.mesh_resource = use_generated_track_visualization_
+                             ? "package://invictasim/resources/meshes/ground/grass_plane.dae"
+                             : "package://invictasim/resources/meshes/ground/asphalt_plane.dae";
+  ground.mesh_use_embedded_materials = true;
 
   ground_marker_template_.markers.clear();
   ground_marker_template_.markers.push_back(ground);
@@ -906,10 +1128,10 @@ visualization_msgs::msg::MarkerArray RosOutputAdapter::convert_cone_array_to_mar
   return marker_array;
 }
 
-std::vector<common_lib::structures::Cone> RosOutputAdapter::mark_recently_hit_cones_red(
+std::vector<common_lib::structures::Cone> RosOutputAdapter::mark_cones_hit_this_lap_red(
     std::vector<common_lib::structures::Cone> cones) const {
   for (auto& cone : cones) {
-    for (const auto& hit_cone : map_snapshot_cache_.recently_hit_cones) {
+    for (const auto& hit_cone : map_snapshot_cache_.cones_hit_this_lap) {
       if (cone.position.euclidean_distance(hit_cone.position) <= cone_hit_match_distance_) {
         cone.color = common_lib::competition_logic::Color::RED;
         break;
@@ -926,9 +1148,8 @@ std::string RosOutputAdapter::get_car_mesh_resource(const std::string& mesh_name
 
 void RosOutputAdapter::load_car_visualization_resources() {
   const std::string car_folder = simulator_->get_params().car_parameters_config;
-  const std::string pos_file =
-      std::string(INVICTASIM_SOURCE_DIR) + "/resources/meshes/car/" + car_folder + "/config.yaml";
-  const YAML::Node config = YAML::LoadFile(pos_file);
+  const YAML::Node config =
+      invictasim::resources::load("meshes/car/" + car_folder + "/config.yaml");
   const auto positions = load_car_mesh_positions(config);
   const auto car_params = simulator_->get_params().car_parameters;
   const double wheel_center_z = car_params->wheel_diameter * 0.5;
@@ -1205,13 +1426,9 @@ void RosOutputAdapter::add_track_quad(visualization_msgs::msg::Marker& marker,
                                       const geometry_msgs::msg::Point& c,
                                       const geometry_msgs::msg::Point& d,
                                       const std_msgs::msg::ColorRGBA& color) const {
-  marker.points.push_back(a);
-  marker.points.push_back(b);
-  marker.points.push_back(c);
-  marker.points.push_back(a);
-  marker.points.push_back(c);
-  marker.points.push_back(d);
-  for (int i = 0; i < 6; ++i) {
+  const std::array<const geometry_msgs::msg::Point*, 6> corners{&a, &b, &c, &a, &c, &d};
+  for (const auto* corner : corners) {
+    marker.points.push_back(*corner);
     marker.colors.push_back(color);
   }
 }
@@ -1239,12 +1456,11 @@ visualization_msgs::msg::Marker RosOutputAdapter::make_track_triangle_marker(
 
 RosOutputAdapter::TrackRibbon RosOutputAdapter::build_track_ribbon(
     const std::vector<common_lib::structures::Cone>& side_cones,
-    const std::vector<common_lib::structures::Cone>& opposite_cones) const {
+    const std::vector<common_lib::structures::Cone>& opposite_cones, bool closed) const {
   TrackRibbon ribbon;
   ribbon.inner.resize(side_cones.size());
   ribbon.outer.resize(side_cones.size());
-  ribbon.closed = side_cones.back().position.euclidean_distance(side_cones.front().position) <=
-                  track_surface_max_loop_segment_length_;
+  ribbon.closed = closed;
 
   for (std::size_t i = 0; i < side_cones.size(); ++i) {
     const bool has_previous = ribbon.closed || i > 0;
@@ -1389,37 +1605,38 @@ void RosOutputAdapter::add_track_asphalt_from_ribbon(
     visualization_msgs::msg::Marker& asphalt_marker, const TrackRibbon& source_ribbon,
     const TrackRibbon& target_ribbon, const std_msgs::msg::ColorRGBA& asphalt_color,
     bool reverse_winding) const {
-  constexpr double asphalt_sample_length = 2.0;
   const double source_length = track_path_length(source_ribbon.inner, source_ribbon.closed);
+  if (source_length <= std::numeric_limits<double>::epsilon()) {
+    return;
+  }
+
+  constexpr double asphalt_sample_length = 2.0;
   const int segment_count =
       std::max(1, static_cast<int>(std::ceil(source_length / asphalt_sample_length)));
+
   std::vector<AsphaltSample> samples;
-  samples.reserve(static_cast<std::size_t>(segment_count) + 1);
-  std::vector<double> widths;
-  widths.reserve(static_cast<std::size_t>(segment_count) + 1);
+  samples.reserve(segment_count + 1);
+
   for (int sample = 0; sample <= segment_count; ++sample) {
-    const double distance =
-        source_length * static_cast<double>(sample) / static_cast<double>(segment_count);
+    const double distance = source_length * sample / segment_count;
     AsphaltSample asphalt_sample;
     asphalt_sample.source = sample_track_path(source_ribbon.inner, source_ribbon.closed, distance);
     asphalt_sample.target = closest_point_on_track_path(target_ribbon.inner, target_ribbon.closed,
                                                         asphalt_sample.source);
+
     asphalt_sample.width = std::hypot(asphalt_sample.target.x - asphalt_sample.source.x,
                                       asphalt_sample.target.y - asphalt_sample.source.y);
-    widths.push_back(asphalt_sample.width);
     samples.push_back(asphalt_sample);
   }
 
-  std::nth_element(widths.begin(), widths.begin() + static_cast<long>(widths.size() / 2),
-                   widths.end());
-  const double max_width = widths[widths.size() / 2] * 1.5;
-  for (int segment = 0; segment < segment_count; ++segment) {
-    const auto& start = samples[static_cast<std::size_t>(segment)];
-    const auto& end = samples[static_cast<std::size_t>(segment + 1)];
-    const double target_step =
-        std::hypot(end.target.x - start.target.x, end.target.y - start.target.y);
-    if (start.width > max_width || end.width > max_width ||
-        target_step > track_surface_max_boundary_segment_length_) {
+  double median_width = samples[samples.size() / 2].width;
+  const double max_width = median_width * 2.0;
+
+  for (size_t i = 0; i < samples.size() - 1; ++i) {
+    const auto& start = samples[i];
+    const auto& end = samples[i + 1];
+
+    if (start.width > max_width || end.width > max_width) {
       continue;
     }
 
@@ -1431,6 +1648,316 @@ void RosOutputAdapter::add_track_asphalt_from_ribbon(
                      asphalt_color);
     }
   }
+}
+
+void RosOutputAdapter::add_acceleration_track_surface(
+    visualization_msgs::msg::Marker& asphalt_marker, visualization_msgs::msg::Marker& curb_marker,
+    const std::vector<common_lib::structures::Cone>& cones,
+    const std_msgs::msg::ColorRGBA& asphalt_color, const std_msgs::msg::ColorRGBA& curb_red,
+    const std_msgs::msg::ColorRGBA& curb_white) const {
+  std::vector<common_lib::structures::Cone> boundary_cones;
+  for (const auto& cone : cones) {
+    if (cone.color != common_lib::competition_logic::Color::LARGE_ORANGE) {
+      boundary_cones.push_back(cone);
+    }
+  }
+  if (boundary_cones.size() < 4) {
+    return;
+  }
+
+  double centre_x = 0.0;
+  double centre_y = 0.0;
+  for (const auto& cone : boundary_cones) {
+    centre_x += cone.position.x;
+    centre_y += cone.position.y;
+  }
+  centre_x /= static_cast<double>(boundary_cones.size());
+  centre_y /= static_cast<double>(boundary_cones.size());
+
+  double covariance_xx = 0.0;
+  double covariance_xy = 0.0;
+  double covariance_yy = 0.0;
+  for (const auto& cone : boundary_cones) {
+    const double x = cone.position.x - centre_x;
+    const double y = cone.position.y - centre_y;
+    covariance_xx += x * x;
+    covariance_xy += x * y;
+    covariance_yy += y * y;
+  }
+
+  const double axis_angle = 0.5 * std::atan2(2.0 * covariance_xy, covariance_xx - covariance_yy);
+  const double axis_x = std::cos(axis_angle);
+  const double axis_y = std::sin(axis_angle);
+  const double lateral_x = -axis_y;
+  const double lateral_y = axis_x;
+
+  std::vector<common_lib::structures::Cone> first_lane;
+  std::vector<common_lib::structures::Cone> second_lane;
+  for (const auto& cone : boundary_cones) {
+    const double lateral =
+        (cone.position.x - centre_x) * lateral_x + (cone.position.y - centre_y) * lateral_y;
+    (lateral >= 0.0 ? first_lane : second_lane).push_back(cone);
+  }
+  if (first_lane.size() < 2 || second_lane.size() < 2) {
+    return;
+  }
+
+  const auto order_along_axis = [&](const auto& left, const auto& right) {
+    const double left_projection =
+        (left.position.x - centre_x) * axis_x + (left.position.y - centre_y) * axis_y;
+    const double right_projection =
+        (right.position.x - centre_x) * axis_x + (right.position.y - centre_y) * axis_y;
+    return left_projection < right_projection;
+  };
+  std::sort(first_lane.begin(), first_lane.end(), order_along_axis);
+  std::sort(second_lane.begin(), second_lane.end(), order_along_axis);
+
+  const auto first_ribbon = build_track_ribbon(first_lane, second_lane, false);
+  const auto second_ribbon = build_track_ribbon(second_lane, first_lane, false);
+  add_track_asphalt_from_ribbon(asphalt_marker, first_ribbon, second_ribbon, asphalt_color, false);
+  add_track_curb_ribbon(curb_marker, first_ribbon, curb_red, curb_white);
+  add_track_curb_ribbon(curb_marker, second_ribbon, curb_red, curb_white);
+}
+
+void RosOutputAdapter::add_fixed_acceleration_surface(
+    visualization_msgs::msg::Marker& asphalt_marker, visualization_msgs::msg::Marker& curb_marker,
+    const std_msgs::msg::ColorRGBA& asphalt_color, const std_msgs::msg::ColorRGBA& curb_red,
+    const std_msgs::msg::ColorRGBA& curb_white) const {
+  constexpr double track_start = -3.0;
+  constexpr double track_end = 152.0;
+  constexpr double track_half_width = 5.0;
+  add_track_quad(asphalt_marker, make_track_point(track_start, -track_half_width),
+                 make_track_point(track_end, -track_half_width),
+                 make_track_point(track_end, track_half_width),
+                 make_track_point(track_start, track_half_width), asphalt_color);
+
+  const int block_count = 193;
+  for (int block = 0; block < block_count; ++block) {
+    const double x0 = track_start + (track_end - track_start) * block / block_count;
+    const double x1 = track_start + (track_end - track_start) * (block + 1) / block_count;
+    const auto& color = (block % 2) == 0 ? curb_red : curb_white;
+    add_track_quad(curb_marker, make_track_point(x0, -track_half_width),
+                   make_track_point(x1, -track_half_width),
+                   make_track_point(x1, -track_half_width - track_surface_curb_width_),
+                   make_track_point(x0, -track_half_width - track_surface_curb_width_), color);
+    add_track_quad(curb_marker, make_track_point(x0, track_half_width + track_surface_curb_width_),
+                   make_track_point(x1, track_half_width + track_surface_curb_width_),
+                   make_track_point(x1, track_half_width), make_track_point(x0, track_half_width),
+                   color);
+  }
+
+  const int end_block_count = 12;
+  for (int block = 0; block < end_block_count; ++block) {
+    const double y0 = -track_half_width + 2.0 * track_half_width * block / end_block_count;
+    const double y1 = -track_half_width + 2.0 * track_half_width * (block + 1) / end_block_count;
+    const auto& color = (block % 2) == 0 ? curb_red : curb_white;
+    add_track_quad(curb_marker, make_track_point(track_start - track_surface_curb_width_, y0),
+                   make_track_point(track_start, y0), make_track_point(track_start, y1),
+                   make_track_point(track_start - track_surface_curb_width_, y1), color);
+    add_track_quad(curb_marker, make_track_point(track_end + track_surface_curb_width_, y0),
+                   make_track_point(track_end + track_surface_curb_width_, y1),
+                   make_track_point(track_end, y1), make_track_point(track_end, y0), color);
+  }
+}
+
+void RosOutputAdapter::add_fixed_skidpad_surface(visualization_msgs::msg::Marker& asphalt_marker,
+                                                 visualization_msgs::msg::Marker& curb_marker,
+                                                 const std_msgs::msg::ColorRGBA& asphalt_color,
+                                                 const std_msgs::msg::ColorRGBA& curb_red,
+                                                 const std_msgs::msg::ColorRGBA& curb_white) const {
+  constexpr double corridor_start = -17.5;
+  constexpr double corridor_end = 23.5;
+  constexpr double corridor_half_width = 3.15;
+  constexpr double circle_spacing = 9.125;
+  constexpr double outer_radius = 12.275;
+  constexpr double inner_radius = 5.975;
+  constexpr int circle_segments = 96;
+  const double outer_arc_intersection =
+      std::sqrt(outer_radius * outer_radius -
+                (circle_spacing - corridor_half_width) * (circle_spacing - corridor_half_width));
+
+  add_track_quad(asphalt_marker, make_track_point(corridor_start, -corridor_half_width),
+                 make_track_point(corridor_end, -corridor_half_width),
+                 make_track_point(corridor_end, corridor_half_width),
+                 make_track_point(corridor_start, corridor_half_width), asphalt_color);
+
+  const int corridor_blocks = 45;
+  const auto add_corridor_curbs = [&](double start_x, double end_x, int offset) {
+    if (end_x <= start_x) {
+      return;
+    }
+    const int blocks =
+        std::max(1, static_cast<int>(std::ceil((end_x - start_x) / (corridor_end - corridor_start) *
+                                               corridor_blocks)));
+    for (int block = 0; block < blocks; ++block) {
+      const double x0 = start_x + (end_x - start_x) * block / blocks;
+      const double x1 = start_x + (end_x - start_x) * (block + 1) / blocks;
+      const auto& color = ((block + offset) % 2) == 0 ? curb_red : curb_white;
+      add_track_quad(curb_marker, make_track_point(x0, -corridor_half_width),
+                     make_track_point(x1, -corridor_half_width),
+                     make_track_point(x1, -corridor_half_width - track_surface_curb_width_),
+                     make_track_point(x0, -corridor_half_width - track_surface_curb_width_), color);
+      add_track_quad(curb_marker,
+                     make_track_point(x0, corridor_half_width + track_surface_curb_width_),
+                     make_track_point(x1, corridor_half_width + track_surface_curb_width_),
+                     make_track_point(x1, corridor_half_width),
+                     make_track_point(x0, corridor_half_width), color);
+    }
+  };
+  add_corridor_curbs(corridor_start, -outer_arc_intersection, 0);
+  add_corridor_curbs(outer_arc_intersection, corridor_end, 1);
+
+  for (const double centre_y : {-circle_spacing, circle_spacing}) {
+    for (int segment = 0; segment < circle_segments; ++segment) {
+      // The outer opening is aligned with the corridor edges. The top circle
+      // opens downward and the bottom circle opens upward.
+      const double arc_start = centre_y > 0.0 ? 330.0 : 150.0;
+      const double outer_a0 = (arc_start + 240.0 * segment / circle_segments) * M_PI / 180.0;
+      const double outer_a1 = (arc_start + 240.0 * (segment + 1) / circle_segments) * M_PI / 180.0;
+      const double inner_a0 = 2.0 * M_PI * segment / circle_segments;
+      const double inner_a1 = 2.0 * M_PI * (segment + 1) / circle_segments;
+      const auto point = [centre_y](double radius, double angle) {
+        return std::array<double, 2>{radius * std::cos(angle), centre_y + radius * std::sin(angle)};
+      };
+      const auto outer0 = point(outer_radius, outer_a0);
+      const auto outer1 = point(outer_radius, outer_a1);
+      const auto inner_arc0 = point(inner_radius, outer_a0);
+      const auto inner_arc1 = point(inner_radius, outer_a1);
+      const auto inner0 = point(inner_radius, inner_a0);
+      const auto inner1 = point(inner_radius, inner_a1);
+      add_track_quad(asphalt_marker, make_track_point(outer0[0], outer0[1]),
+                     make_track_point(outer1[0], outer1[1]),
+                     make_track_point(inner_arc1[0], inner_arc1[1]),
+                     make_track_point(inner_arc0[0], inner_arc0[1]), asphalt_color);
+
+      const auto& color = (segment % 2) == 0 ? curb_red : curb_white;
+      const auto outer_curb = point(outer_radius + track_surface_curb_width_, outer_a0);
+      const auto outer_curb_next = point(outer_radius + track_surface_curb_width_, outer_a1);
+      add_track_quad(curb_marker, make_track_point(outer0[0], outer0[1]),
+                     make_track_point(outer1[0], outer1[1]),
+                     make_track_point(outer_curb_next[0], outer_curb_next[1]),
+                     make_track_point(outer_curb[0], outer_curb[1]), color);
+      const auto inner_curb = point(inner_radius - track_surface_curb_width_, inner_a0);
+      const auto inner_curb_next = point(inner_radius - track_surface_curb_width_, inner_a1);
+      add_track_quad(curb_marker, make_track_point(inner_curb[0], inner_curb[1]),
+                     make_track_point(inner_curb_next[0], inner_curb_next[1]),
+                     make_track_point(inner1[0], inner1[1]), make_track_point(inner0[0], inner0[1]),
+                     color);
+    }
+
+    const double corridor_y = centre_y > 0.0 ? corridor_half_width : -corridor_half_width;
+    for (const double sign : {-1.0, 1.0}) {
+      const double outer_x = sign * outer_arc_intersection;
+      const double angle_degrees =
+          centre_y > 0.0 ? (sign < 0.0 ? 210.0 : 330.0) : (sign < 0.0 ? 150.0 : 30.0);
+      const double angle = angle_degrees * M_PI / 180.0;
+      const auto inner_point = make_track_point(inner_radius * std::cos(angle),
+                                                centre_y + inner_radius * std::sin(angle));
+      add_track_quad(asphalt_marker, make_track_point(outer_x, corridor_y), inner_point,
+                     make_track_point(0.0, corridor_y), make_track_point(0.0, corridor_y),
+                     asphalt_color);
+    }
+  }
+
+  const auto add_gate = [&](double x) {
+    constexpr int gate_cells = 6;
+    const double cell_width = 2.0 * corridor_half_width / gate_cells;
+    for (int cell = 0; cell < gate_cells; ++cell) {
+      const double y0 = -corridor_half_width + cell * cell_width;
+      const double y1 = y0 + cell_width;
+      const auto& color = (cell % 2) == 0 ? curb_red : curb_white;
+      add_track_quad(curb_marker, make_track_point(x - 0.12, y0), make_track_point(x + 0.12, y0),
+                     make_track_point(x + 0.12, y1), make_track_point(x - 0.12, y1), color);
+    }
+  };
+  add_gate(corridor_start);
+  add_gate(corridor_end);
+}
+
+void RosOutputAdapter::add_skidpad_connector_surface(
+    visualization_msgs::msg::Marker& asphalt_marker, visualization_msgs::msg::Marker& curb_marker,
+    const std::vector<common_lib::structures::Cone>& cones,
+    const std_msgs::msg::ColorRGBA& asphalt_color, const std_msgs::msg::ColorRGBA& curb_red,
+    const std_msgs::msg::ColorRGBA& curb_white) const {
+  std::vector<common_lib::structures::Cone> orange_cones;
+  for (const auto& cone : cones) {
+    if (cone.color == common_lib::competition_logic::Color::ORANGE) {
+      orange_cones.push_back(cone);
+    }
+  }
+
+  if (orange_cones.size() < 4) {
+    return;
+  }
+
+  double min_x = std::numeric_limits<double>::max();
+  double max_x = std::numeric_limits<double>::lowest();
+  double min_y = std::numeric_limits<double>::max();
+  double max_y = std::numeric_limits<double>::lowest();
+  for (const auto& cone : orange_cones) {
+    min_x = std::min(min_x, cone.position.x);
+    max_x = std::max(max_x, cone.position.x);
+    min_y = std::min(min_y, cone.position.y);
+    max_y = std::max(max_y, cone.position.y);
+  }
+
+  add_track_quad(asphalt_marker, make_track_point(min_x, min_y), make_track_point(max_x, min_y),
+                 make_track_point(max_x, max_y), make_track_point(min_x, max_y), asphalt_color);
+
+  const int block_count =
+      std::max(1, static_cast<int>(std::ceil((max_x - min_x) / track_surface_curb_block_length_)));
+  for (int block = 0; block < block_count; ++block) {
+    const double x0 = min_x + (max_x - min_x) * block / block_count;
+    const double x1 = min_x + (max_x - min_x) * (block + 1) / block_count;
+    const auto& color = (block % 2) == 0 ? curb_red : curb_white;
+    add_track_quad(curb_marker, make_track_point(x0, min_y), make_track_point(x1, min_y),
+                   make_track_point(x1, min_y - track_surface_curb_width_),
+                   make_track_point(x0, min_y - track_surface_curb_width_), color);
+    add_track_quad(curb_marker, make_track_point(x0, max_y + track_surface_curb_width_),
+                   make_track_point(x1, max_y + track_surface_curb_width_),
+                   make_track_point(x1, max_y), make_track_point(x0, max_y), color);
+  }
+}
+
+RosOutputAdapter::TrackLayout RosOutputAdapter::track_layout() const {
+  std::string discipline = simulator_->get_discipline();
+  std::transform(discipline.begin(), discipline.end(), discipline.begin(),
+                 [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+  if (discipline == "acceleration") {
+    return TrackLayout::kOpenLanes;
+  }
+  if (discipline == "skidpad") {
+    return TrackLayout::kSkidpad;
+  }
+  return TrackLayout::kClosedLoop;
+}
+
+std::vector<std::vector<common_lib::structures::Cone>> RosOutputAdapter::split_cone_runs(
+    const std::vector<common_lib::structures::Cone>& cones) const {
+  if (cones.size() < 3) {
+    return {cones};
+  }
+
+  std::vector<double> spacing;
+  spacing.reserve(cones.size() - 1);
+  for (std::size_t i = 0; i + 1 < cones.size(); ++i) {
+    spacing.push_back(cones[i].position.euclidean_distance(cones[i + 1].position));
+  }
+  std::vector<double> sorted_spacing = spacing;
+  std::nth_element(sorted_spacing.begin(), sorted_spacing.begin() + sorted_spacing.size() / 2,
+                   sorted_spacing.end());
+  const double median = sorted_spacing[sorted_spacing.size() / 2];
+  const double break_threshold = std::max(2.5 * median, 1e-3);
+
+  std::vector<std::vector<common_lib::structures::Cone>> runs;
+  runs.emplace_back();
+  for (std::size_t i = 0; i < cones.size(); ++i) {
+    if (i > 0 && spacing[i - 1] > break_threshold) {
+      runs.emplace_back();
+    }
+    runs.back().push_back(cones[i]);
+  }
+  return runs;
 }
 
 void RosOutputAdapter::add_track_surface_markers(
@@ -1457,13 +1984,102 @@ void RosOutputAdapter::add_track_surface_markers(
       make_track_triangle_marker("invictasim_track_asphalt", 1000, track_surface_asphalt_z_, stamp);
   auto curb_marker =
       make_track_triangle_marker("invictasim_track_curbs", 3000, track_surface_curb_z_, stamp);
-  const auto blue_ribbon = build_track_ribbon(blue_cones, yellow_cones);
-  const auto yellow_ribbon = build_track_ribbon(yellow_cones, blue_cones);
 
-  add_track_asphalt_from_ribbon(asphalt_marker, blue_ribbon, yellow_ribbon, asphalt_color, false);
-  add_track_asphalt_from_ribbon(asphalt_marker, yellow_ribbon, blue_ribbon, asphalt_color, true);
-  add_track_curb_ribbon(curb_marker, blue_ribbon, curb_red, curb_white);
-  add_track_curb_ribbon(curb_marker, yellow_ribbon, curb_red, curb_white);
+  const TrackLayout layout = track_layout();
+  if (layout == TrackLayout::kOpenLanes) {
+    add_fixed_acceleration_surface(asphalt_marker, curb_marker, asphalt_color, curb_red,
+                                   curb_white);
+    if (!asphalt_marker.points.empty()) {
+      marker_array.markers.push_back(asphalt_marker);
+    }
+    if (!curb_marker.points.empty()) {
+      marker_array.markers.push_back(curb_marker);
+    }
+    return;
+  }
+
+  if (layout == TrackLayout::kSkidpad) {
+    add_fixed_skidpad_surface(asphalt_marker, curb_marker, asphalt_color, curb_red, curb_white);
+    if (!asphalt_marker.points.empty()) {
+      marker_array.markers.push_back(asphalt_marker);
+    }
+    if (!curb_marker.points.empty()) {
+      marker_array.markers.push_back(curb_marker);
+    }
+    return;
+  }
+
+  const auto blue_runs = split_cone_runs(blue_cones);
+  const auto yellow_runs = split_cone_runs(yellow_cones);
+
+  const auto centroid = [](const std::vector<common_lib::structures::Cone>& run) {
+    double x = 0.0;
+    double y = 0.0;
+    for (const auto& cone : run) {
+      x += cone.position.x;
+      y += cone.position.y;
+    }
+    return std::array<double, 2>{x / static_cast<double>(run.size()),
+                                 y / static_cast<double>(run.size())};
+  };
+
+  // A run is only joined end to end when the event actually has a closed
+  // boundary and the run really does come back on itself. Acceleration never
+  // closes; on a skidpad each circle closes independently, which is why the
+  // whole colour cannot be tested as one boundary.
+  const auto run_is_closed = [&](const std::vector<common_lib::structures::Cone>& run) {
+    if (layout != TrackLayout::kClosedLoop || run.size() < 3) {
+      return false;
+    }
+    return run.back().position.euclidean_distance(run.front().position) <=
+           track_surface_max_loop_segment_length_;
+  };
+
+  std::vector<bool> yellow_run_used(yellow_runs.size(), false);
+  for (const auto& blue_run : blue_runs) {
+    if (blue_run.size() < 2) {
+      continue;
+    }
+    // Pair each run with the opposite-colour run that shares its piece of track.
+    // Index order cannot be used: on a skidpad the outer arc of one circle is
+    // stored alongside the inner arc of the other.
+    const std::vector<common_lib::structures::Cone>* partner = &yellow_runs.front();
+    std::size_t partner_index = 0;
+    bool found_partner = yellow_runs.size() == 1 && yellow_runs.front().size() >= 2;
+    if (yellow_runs.size() > 1) {
+      const auto blue_centre = centroid(blue_run);
+      double best = std::numeric_limits<double>::max();
+      for (std::size_t yellow_index = 0; yellow_index < yellow_runs.size(); ++yellow_index) {
+        if (yellow_run_used[yellow_index]) {
+          continue;
+        }
+        const auto& yellow_run = yellow_runs[yellow_index];
+        if (yellow_run.size() < 2) {
+          continue;
+        }
+        const auto yellow_centre = centroid(yellow_run);
+        const double distance =
+            std::hypot(blue_centre[0] - yellow_centre[0], blue_centre[1] - yellow_centre[1]);
+        if (distance < best) {
+          best = distance;
+          partner = &yellow_run;
+          partner_index = yellow_index;
+          found_partner = true;
+        }
+      }
+    }
+    if (!found_partner) {
+      continue;
+    }
+    yellow_run_used[partner_index] = true;
+
+    const auto blue_ribbon = build_track_ribbon(blue_run, *partner, run_is_closed(blue_run));
+    const auto yellow_ribbon = build_track_ribbon(*partner, blue_run, run_is_closed(*partner));
+    add_track_asphalt_from_ribbon(asphalt_marker, blue_ribbon, yellow_ribbon, asphalt_color, false);
+    add_track_asphalt_from_ribbon(asphalt_marker, yellow_ribbon, blue_ribbon, asphalt_color, true);
+    add_track_curb_ribbon(curb_marker, blue_ribbon, curb_red, curb_white);
+    add_track_curb_ribbon(curb_marker, yellow_ribbon, curb_red, curb_white);
+  }
 
   if (!asphalt_marker.points.empty()) {
     marker_array.markers.push_back(asphalt_marker);

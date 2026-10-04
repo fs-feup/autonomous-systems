@@ -1,26 +1,21 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "common_lib/structures/wheels.hpp"
 #include "sensors/sensors_base.hpp"
 
 /**
- * @brief Wheel Speed Sensor (WSS) simulator
+ * @brief Wheel speed sensor (WSS) simulator.
  *
- * Simulates realistic wheel speed sensor characteristics including:
- * - White Gaussian noise on rotational speed measurements
- * - Random outliers with configurable probability and magnitude
- * - Signal dropout events
- * - Speed cutoff (zero output below minimum threshold)
- * - Returns wheel speeds in rpm
- * 
- * Each wheel can be individually configured with its own error parameters.
+ * Simulates, per wheel: white Gaussian noise, random outliers, signal dropout, ADC quantisation,
+ * and a speed cutoff below which the sensor reads exactly zero.
  */
 class WSS : public Sensor {
 public:
   /**
-   * @brief Enumeration for wheel positions
+   * @brief Wheel positions, in the order the configuration file lists them.
    */
   enum class WheelPosition {
     FRONT_RIGHT = 0,  ///< Front right wheel
@@ -30,102 +25,71 @@ public:
   };
 
   /**
-   * @brief Structure to hold per-wheel sensor parameters
+   * @brief Per-wheel sensor error parameters.
    */
   struct WheelParameters {
-    double noise_std_dev;          ///< Gaussian noise standard deviation (rad/s)
-    double outlier_probability;    ///< Probability of outlier (0.0 to 1.0)
-    double outlier_impact_factor;  ///< Scaling factor for outlier magnitude
-    double dropout_probability;    ///< Probability of dropout (0.0 to 1.0)
-    double speed_cutoff;           ///< Minimum speed threshold (rad/s)
-    int quantization_steps;        ///< Number of steps for ADC quantization (0 to disable)
+    double noise_std_dev = 0.0;          ///< Gaussian noise standard deviation (rad/s)
+    double outlier_probability = 0.0;    ///< Probability of an outlier per sample (0 to 1)
+    double outlier_impact_factor = 0.0;  ///< Outlier magnitude as a fraction of the reading
+    double dropout_probability = 0.0;    ///< Probability of a dropout per sample (0 to 1)
+    double speed_cutoff = 0.0;           ///< Reading below this magnitude reports zero (rad/s)
+    int quantization_bits = 0;           ///< ADC resolution in bits (0 disables quantisation)
   };
 
   /**
-   * @brief Construct a new WSS object and load configuration
-   *
-   * @param config_path Path to the wss.yaml configuration file
+   * @brief Construct a new WSS object and load configuration.
+   * @param config_path Path to the wss.yaml configuration file.
    */
   explicit WSS(const std::string& config_path);
 
   /**
-   * @brief Process all four wheel speeds and return them in rpm
+   * @brief Corrupt all four ground-truth wheel speeds and convert them to rpm.
    *
-   * Applies sensor errors to all wheel speeds and converts from rad/s to rpm.
-   *
-   * @param wheel_speeds_fl Front left wheel speed (rad/s)
-   * @param wheel_speeds_fr Front right wheel speed (rad/s)
-   * @param wheel_speeds_rl Rear left wheel speed (rad/s)
-   * @param wheel_speeds_rr Rear right wheel speed (rad/s)
-   * @return common_lib::structures::Wheels Wheel speeds in rpm
+   * @param wheel_speeds True wheel angular speeds (rad/s).
+   * @return Simulated wheel speeds in rpm.
    */
-  common_lib::structures::Wheels simulate_wheel_speeds(double wheel_speeds_fl,
-                                                      double wheel_speeds_fr,
-                                                      double wheel_speeds_rl,
-                                                      double wheel_speeds_rr);
+  common_lib::structures::Wheels simulate_wheel_speeds(
+      const common_lib::structures::Wheels& wheel_speeds);
 
   /**
-   * @brief Apply realistic sensor errors to rotational speed measurement for a specific wheel
-   *
-   * Applies the following error sources in sequence:
-   * 1. Speed cutoff check
-   * 2. White noise
-   * 3. Outliers
-   * 4. Dropout
-   *
-   * @param rotational_speed Ground truth rotational speed (rad/s)
-   * @param wheel Wheel position identifier
-   * @return double The corrupted measurement (rad/s)
-   */
-  double apply_wss_error(double rotational_speed, WheelPosition wheel);
-
-  /**
-   * @brief Get the dropout status for all wheels
-   *
-   * @return std::vector<bool> Vector indicating which wheels had dropout (true = dropout occurred)
+   * @brief Which wheels dropped out on the most recent call to simulate_wheel_speeds().
+   * @return Four flags, indexed by WheelPosition.
    */
   std::vector<bool> get_wheel_dropout_status() const;
 
 private:
+  /// Full-scale range assumed by the ADC model, in rpm.
+  static constexpr double kQuantizationRangeRpm = 4000.0;
+  /// Largest shift the quantisation model accepts, to keep 1 << bits well defined.
+  static constexpr int kMaxQuantizationBits = 24;
 
-  // Per-wheel parameters
-  WheelParameters wheel_params_[4];  ///< Parameters for each wheel (FR, FL, RR, RL)
-  bool wheel_dropout_[4] = {false, false, false, false};  ///< Track if dropout occurred for each wheel
+  WheelParameters wheel_params_[4];                       ///< Parameters per WheelPosition
+  bool wheel_dropout_[4] = {false, false, false, false};  ///< Dropout flags per WheelPosition
 
   /**
-   * @brief Apply random outlier with configurable probability
+   * @brief Apply the error model to one wheel, in rpm.
    *
-   * @param value Current measurement value
-   * @param wheel Wheel position identifier
-   * @return double Value with potential outlier injection
+   * Below the speed cutoff the sensor reports exactly zero, because no teeth pass the pickup.
+   * Above it, noise, outliers, dropout and finally quantisation are applied.
+   *
+   * @param rotational_speed_rpm True wheel speed (rpm).
+   * @param wheel Which wheel's parameters to use.
+   * @return The corrupted reading (rpm).
+   */
+  double apply_wss_error(double rotational_speed_rpm, WheelPosition wheel);
+
+  /**
+   * @brief Inject an outlier with the configured probability.
    */
   double apply_outlier(double value, WheelPosition wheel);
 
   /**
-   * @brief Check for signal dropout and update dropout tracking
-   *
-   * @param value Current measurement value
-   * @param wheel Wheel position identifier
-   * @return double Zero if dropout occurs, otherwise the input value
+   * @brief Zero the reading with the configured dropout probability, recording that it happened.
    */
-  double get_dropout_info(double value, WheelPosition wheel);
+  double apply_dropout(double value, WheelPosition wheel);
 
   /**
-   * @brief Apply quantization (ADC resolution) to a value
-   *
-   * Quantizes the input value based on the configured bit depth.
-   * Assumes a range of [-4000, 4000] rpm for 12-bit quantization.
-   *
-   * @param value Value in rpm to quantize
-   * @param wheel Wheel position identifier
-   * @return double Quantized value in rpm
+   * @brief Quantise a reading to the configured ADC resolution.
    */
-  double apply_quantization(double value, WheelPosition wheel);
-
-  /**
-   * @brief Generate random number between 0.0 and 1.0
-   *
-   * @return double Random value in [0.0, 1.0]
-   */
-  double random_uniform();
+  double apply_quantization(double value, WheelPosition wheel) const;
 };

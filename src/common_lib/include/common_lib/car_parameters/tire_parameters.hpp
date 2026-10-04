@@ -5,12 +5,6 @@
 #include "common_lib/config_load/config_load.hpp"
 
 namespace common_lib::car_parameters {
-
-// Defaults matter: the loader only assigns a field when its key is present, so an absent key
-// previously left the member reading uninitialised memory. PPZ1 and QDTP1 are read on every tyre
-// evaluation and scale the pneumatic trail, which made the yaw moment vary between identical runs.
-// Zero reproduces what the simulator was already doing; scaling factors and Amu are multiplicative
-// so they default to 1.0. Note MF6.2's standard QDTP1 default is 1.0 - enabling it is a plant change.
 struct TireParameters {
   // Original fields
   double tire_B_lateral = 0.0;
@@ -23,7 +17,7 @@ struct TireParameters {
   double tire_E_longitudinal = 0.0;
 
   // Additional fields
-  double camber_scaling_factor = 0.0;
+  double camber_scaling_factor = 1.0;
   double effective_tire_r = 0.0;
   double fr_toe = 0.0;
   double fl_toe = 0.0;
@@ -32,6 +26,10 @@ struct TireParameters {
   double wheel_inertia = 0.0;
   double slip_angle_relaxation_length = 0.0;
   double slip_ratio_relaxation_length = 0.0;
+  double front_lateral_stiffness_scale = 1.0;
+  double rear_lateral_stiffness_scale = 1.0;
+  double front_lateral_peak_scale = 1.0;
+  double rear_lateral_peak_scale = 1.0;
 
   // Distances
   double d_bright = 0.0;
@@ -74,7 +72,7 @@ struct TireParameters {
   double BREFF = 0.0;
   double DREFF = 0.0;
   double FREFF = 0.0;
-  double Q_RE0 = 0.0;
+  double Q_RE0 = 1.0;
   double Q_V1 = 0.0;
   double Q_V2 = 0.0;
   double Q_FZ2 = 0.0;
@@ -409,7 +407,7 @@ struct TireParameters {
   double QBVTH = 0.0;
 
   // [LOADED_RADIUS_COEFFICIENTS]
-  double QRE0 = 0.0;
+  double QRE0 = 1.0;
   double QV1 = 0.0;
   double QV2 = 0.0;
   double QFCX1 = 0.0;

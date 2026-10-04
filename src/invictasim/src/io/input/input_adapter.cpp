@@ -16,15 +16,30 @@ InvictaSimInputAdapter::~InvictaSimInputAdapter() {
 void InvictaSimInputAdapter::terminal_loop() {
   int tty_fd = open("/dev/tty", O_RDONLY | O_NONBLOCK);
   if (tty_fd < 0) {
-    std::cerr << "[InvictaSim] Failed to open /dev/tty, falling back to stdin." << std::endl;
     tty_fd = STDIN_FILENO;
   }
 
-  struct termios oldt, newt;
-  tcgetattr(tty_fd, &oldt);
-  newt = oldt;
+  // Under `ros2 launch` the output is a pipe, not a terminal. Reading the current attributes then
+  // fails, and writing back an uninitialised termios would leave the user's shell without echo.
+  struct termios oldt {};
+  if (!isatty(tty_fd) || tcgetattr(tty_fd, &oldt) != 0) {
+    std::cerr << "[InvictaSim] No terminal available; hotkeys are disabled." << std::endl;
+    if (tty_fd != STDIN_FILENO) {
+      close(tty_fd);
+    }
+    return;
+  }
+
+  struct termios newt = oldt;
   newt.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(tty_fd, TCSANOW, &newt);
+  if (tcsetattr(tty_fd, TCSANOW, &newt) != 0) {
+    std::cerr << "[InvictaSim] Could not configure the terminal; hotkeys are disabled."
+              << std::endl;
+    if (tty_fd != STDIN_FILENO) {
+      close(tty_fd);
+    }
+    return;
+  }
 
   int oldf = fcntl(tty_fd, F_GETFL, 0);
   fcntl(tty_fd, F_SETFL, oldf | O_NONBLOCK);
@@ -43,12 +58,12 @@ void InvictaSimInputAdapter::terminal_loop() {
         std::cout << "[InvictaSim] Activated Go Signal." << std::endl;
       } else if (ch == '+') {
         simulator_->add_sim_speed(0.25);
-        std::cout << "[InvictaSim] Increased simulation speed to "
-                  << simulator_->get_params().sim_speed << "x" << std::endl;
+        std::cout << "[InvictaSim] Increased simulation speed to " << simulator_->get_sim_speed()
+                  << "x" << std::endl;
       } else if (ch == '-') {
         simulator_->add_sim_speed(-0.25);
-        std::cout << "[InvictaSim] Decreased simulation speed to "
-                  << simulator_->get_params().sim_speed << "x" << std::endl;
+        std::cout << "[InvictaSim] Decreased simulation speed to " << simulator_->get_sim_speed()
+                  << "x" << std::endl;
       } else if (ch == 'e') {
         simulator_->toggle_ebs();
         std::cout << "[InvictaSim] Toggled EBS. Current state: "

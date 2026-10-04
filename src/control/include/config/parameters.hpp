@@ -38,6 +38,13 @@ struct ControlParameters {
   std::vector<double> mpc_terminal_cost_weights_; // terminal cost weights for the coupled MPC
   std::vector<double> lateral_mpc_cost_weights_; // stage cost weights for the lateral MPC
   std::vector<double> lateral_mpc_terminal_cost_weights_; // terminal cost weights for the lateral MPC
+  double supermpc_prediction_horizon_seconds_; // prediction horizon in seconds for SuperMPC
+  unsigned int supermpc_prediction_horizon_steps_; // prediction horizon in steps for SuperMPC
+  std::vector<double> supermpc_cost_weights_; // stage cost weights for SuperMPC
+  std::vector<double> supermpc_terminal_cost_weights_; // terminal cost weights for SuperMPC
+  double supermpc_speed_stretch_; // multiple of the planner speed SuperMPC gently aims for
+  double supermpc_speed_cap_; // multiple of the planner speed above which a heavy penalty applies
+  double supermpc_max_rear_slip_; // rad, rear-axle slip angle envelope
   double wheel_speeds_scale_mpc_; // scale factor for wheel speeds (used to improve numerical stability of the solver, can be tuned)
   std::string map_frame_id_; // frame id to publish visualization markers (can be "map", ...), for example closest point and lookahead point
   uint command_time_interval_; // time interval (in ms) between command publications

@@ -13,6 +13,6 @@ car:
   cg_2_rear_axis: 0.706
   gear_ratio: 3.67
   Izz: 101.82
-  front_bearing_drag: 0.025
-  front_wheel_inertia: 0.2
-  rear_wheel_inertia: 0.4
+  front_bearing_drag: 0.0980029  
+  front_wheel_inertia: 0.3       
+  rear_wheel_inertia: 0.550431     

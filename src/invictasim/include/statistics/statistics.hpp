@@ -25,11 +25,12 @@ class Statistics {
 public:
   /**
    * @brief Construct a statistics calculator using track metadata.
-   * @param track Track definition used for lap line.
+   * @param track Track definition used for the lap timing lines and the cone list.
+   * @param discipline Competition discipline, which selects the lap and penalty rules.
+   * @param car_parameters_config Car mesh folder name, used for the hitboxes and front reference.
    */
-  Statistics(const Track& track,
-             std::shared_ptr<const common_lib::car_parameters::CarParameters> car_parameters,
-             const std::string& discipline, const std::string& car_parameters_config = "");
+  Statistics(const Track& track, const std::string& discipline,
+             const std::string& car_parameters_config = "");
 
   /**
    * @brief Reset all accumulated statistics.
@@ -53,7 +54,7 @@ public:
   /**
    * @brief Get cones hit during the current lap for map visualization.
    */
-  std::vector<common_lib::structures::Cone> get_recently_hit_cones() const;
+  const std::vector<common_lib::structures::Cone>& get_cones_hit_this_lap() const;
 
 private:
   StatisticsSnapshot snapshot_;

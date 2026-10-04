@@ -164,6 +164,7 @@ jobs:
           - control
           - planning
           - inspection
+          - invictasim
 
     steps:
       # No checkout or artifact download: the build job leaves build/ and install/

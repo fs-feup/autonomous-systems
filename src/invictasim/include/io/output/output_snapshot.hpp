@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Eigen/Core>
+#include <memory>
 #include <vector>
 
 #include "common_lib/competition_logic/mission_logic.hpp"
@@ -77,9 +78,13 @@ struct ExecutionTimesSnapshot {
 struct InputSnapshot {
   common_lib::structures::Wheels throttle = {0.0, 0.0, 0.0, 0.0};
   double steering = 0.0;
-  std::vector<common_lib::structures::Cone> external_slam_cones = {};
-  std::vector<common_lib::structures::Cone> external_perception_cones = {};
-  std::vector<common_lib::structures::PathPoint> external_path_points = {};
+
+  // Shared, immutable, and swapped wholesale by the setters. Taking a snapshot runs once per
+  // simulation step, so deep-copying these inside the input lock would copy the whole map and
+  // path a thousand times a second.
+  std::shared_ptr<const std::vector<common_lib::structures::Cone>> external_slam_cones;
+  std::shared_ptr<const std::vector<common_lib::structures::Cone>> external_perception_cones;
+  std::shared_ptr<const std::vector<common_lib::structures::PathPoint>> external_path_points;
 };
 
 /**
@@ -90,7 +95,7 @@ struct MapSnapshot {
   std::vector<common_lib::structures::Cone> ground_truth = {};
   std::vector<common_lib::structures::Cone> simulated_slam_map = {};
   std::vector<common_lib::structures::Cone> perception_cones = {};
-  std::vector<common_lib::structures::Cone> recently_hit_cones = {};
+  std::vector<common_lib::structures::Cone> cones_hit_this_lap = {};
   double perception_exec_time_ms = 0.0;
 };
 
@@ -127,6 +132,7 @@ struct StatisticsSnapshot {
  * resolver
  */
 struct SensorsSnapshot {
+  std::vector<bool> wheel_dropout = std::vector<bool>(4, false);  ///< Per-wheel WSS dropout flags
   Eigen::Vector3d free_acceleration = {0.0, 0.0, 0.0};
   Eigen::Vector3d angular_velocity = {0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheel_rpm = {0.0, 0.0, 0.0, 0.0};

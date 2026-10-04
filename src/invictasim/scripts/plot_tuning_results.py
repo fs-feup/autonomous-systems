@@ -21,7 +21,9 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-PERF = Path("/home/ws/performance/invictasim_tuning")
+# src/invictasim/scripts/ -> workspace root
+WS = Path(__file__).resolve().parents[3]
+PERF = WS / "performance" / "invictasim_tuning"
 
 
 def read_csv(path):

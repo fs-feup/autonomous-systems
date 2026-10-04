@@ -9,13 +9,10 @@ visualization:
     curb_z: 0.018
     asphalt_z: 0.004
   position:
-    x: 0.0
-    y: 0.0
     z: -0.02
-  scale:
-    x: 600.0
-    y: 600.0
-    z: 1.0
+  margin: 100.0
+  fallback_size: 400.0
+  grass_tile_size_m: 1.0
   color:
     r: 0.78
     g: 0.78

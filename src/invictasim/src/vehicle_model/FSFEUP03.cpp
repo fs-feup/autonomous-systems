@@ -1,5 +1,7 @@
 #include "vehicle_model/FSFEUP03.hpp"
 
+#include <algorithm>
+
 FSFEUP03Model::FSFEUP03Model(const InvictaSimParameters& simulator_parameters)
     : VehicleModel(simulator_parameters) {
   this->tire_model_ = tire_models_map.at(simulator_parameters.tire_model.c_str())(
@@ -33,6 +35,8 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
   double throttle_input =
       (throttle.rear_left + throttle.rear_right) / 2.0;  // Average throttle for rear-wheel drive
 
+  // Friction brakes are manual-mode only; under a controller a negative command is regen. See
+  // FSFEUP02.cpp.
   common_lib::structures::Wheels brake_torques;
   double inverter_command = throttle_input;
   if (control_mode_ == "manual" && throttle_input < 0.0) {
@@ -151,7 +155,7 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
     // Front: tire + rim inertia only; Rear: tire + rim + motor + transmission (reflected)
     double I_front = car_parameters_->front_wheel_inertia;
     double I_rear = car_parameters_->rear_wheel_inertia;
-    auto update_wheel = [&](double &w_speed, double net_torque, double inertia, double brake_t) {
+    auto update_wheel = [&](double& w_speed, double net_torque, double inertia, double brake_t) {
       const double brake_sign = 2.0 / M_PI * std::atan(10.0 * w_speed);
       double total_torque = net_torque - brake_t * brake_sign;
       double dw = (total_torque / inertia) * dt;
@@ -165,18 +169,24 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
 
     // Rear Wheels: Input Torque (Contains transmission losses) - Tire Reaction - Rolling Resistance
     update_wheel(state_->wheels_speed.rear_left,
-                 state_->wheels_torque.rear_left - (state_->rear_left_forces[0] * R) - state_->rear_left_forces[2],
+                 state_->wheels_torque.rear_left - (state_->rear_left_forces[0] * R) -
+                     state_->rear_left_forces[2],
                  I_rear, brake_torques.rear_left);
     update_wheel(state_->wheels_speed.rear_right,
-                 state_->wheels_torque.rear_right - (state_->rear_right_forces[0] * R) - state_->rear_right_forces[2],
+                 state_->wheels_torque.rear_right - (state_->rear_right_forces[0] * R) -
+                     state_->rear_right_forces[2],
                  I_rear, brake_torques.rear_right);
 
     // Front Wheels: Tire Reaction - Bearing Drag - Rolling Resistance
     update_wheel(state_->wheels_speed.front_left,
-                 -(state_->front_left_forces[0] * R) - (car_parameters_->front_bearing_drag * state_->wheels_speed.front_left) - state_->front_left_forces[2],
+                 -(state_->front_left_forces[0] * R) -
+                     (car_parameters_->front_bearing_drag * state_->wheels_speed.front_left) -
+                     state_->front_left_forces[2],
                  I_front, brake_torques.front_left);
     update_wheel(state_->wheels_speed.front_right,
-                 -(state_->front_right_forces[0] * R) - (car_parameters_->front_bearing_drag * state_->wheels_speed.front_right) - state_->front_right_forces[2],
+                 -(state_->front_right_forces[0] * R) -
+                     (car_parameters_->front_bearing_drag * state_->wheels_speed.front_right) -
+                     state_->front_right_forces[2],
                  I_front, brake_torques.front_right);
   }
 
@@ -288,8 +298,10 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
 }
 
 void FSFEUP03Model::reset() {
-  state_ = std::make_shared<VehicleState>();
-  execution_times_ = std::make_shared<VehicleModelExecutionTimes>();
+  // Reset in place: the simulation thread holds this pointer, so replacing it would race the step
+  // that is reading through it.
+  *state_ = VehicleState();
+  *execution_times_ = VehicleModelExecutionTimes();
   motor_->reset();
   battery_->reset();
   inverter_->reset();
@@ -312,9 +324,9 @@ double FSFEUP03Model::calculate_powertrain_torque(double throttle_input, double 
       std::abs(reference_motor_torque) /
       (car_parameters_->motor_parameters->kt_constant * std::max(motor_efficiency, 0.05));
   const double mechanical_power = reference_motor_torque * motor_omega;
-  const double current_sign =
-      std::abs(motor_omega) > 1e-3 ? std::copysign(1.0, mechanical_power)
-                                   : std::copysign(1.0, reference_motor_torque);
+  const double current_sign = std::abs(motor_omega) > 1e-3
+                                  ? std::copysign(1.0, mechanical_power)
+                                  : std::copysign(1.0, reference_motor_torque);
   double requested_motor_current = current_sign * current_magnitude;
 
   // Calculate the allowed current from the battery
