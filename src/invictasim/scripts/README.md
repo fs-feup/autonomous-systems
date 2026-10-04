@@ -22,7 +22,6 @@ The vehicle model is identified from recorded car telemetry, not tuned by hand. 
         │          │                          best_parameters.yaml
         │          │                          convergence_log.csv
         │          │                          diagnostic_0.csv
-        │          ├─ sensitivity_analysis.py   which parameters are worth searching
         │          └─ plot_tuning_results.py    did it converge, and where does it diverge
         │
         └─ (3) apply_tuned_parameters.py ──> config/car/**.yaml
@@ -70,15 +69,9 @@ It replays the CSV through `inline_02.hpp` — the same physics as the live simu
 the loop — and searches with either a genetic algorithm or simulated annealing, whichever the config
 selects. Which parameters it searches, and their bounds, come from the same config.
 
-**Before spending a long run**, find out which parameters actually matter:
-
-```sh
-python3 src/invictasim/scripts/sensitivity_analysis.py --frac 0.15 --out sensitivity.csv
-```
-
-This perturbs each parameter around the current baseline and measures how far the replay survives,
-using the optimizer's own `--diagnose --set` path, so it screens the exact production physics rather
-than a re-implementation. Parameters with near-zero effect can be frozen.
+The optimizer also takes `--set name=value` to pin a parameter and `--diagnose` to replay once and
+print the per-signal errors, which is how you check a single parameter by hand without starting a
+search.
 
 **After a run**, look at what happened:
 

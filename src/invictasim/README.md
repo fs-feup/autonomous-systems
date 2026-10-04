@@ -558,9 +558,8 @@ bounds.
 Telemetry CSVs are **not tracked in git** (see `tuning_csvs/.gitignore`); export your own.
 
 `apply_tuned_parameters.py` then writes the result back into the car configs, mapping the
-optimizer's parameter aliases to the real keys. `sensitivity_analysis.py` screens which parameters
-are worth searching before a long run, and `plot_tuning_results.py` shows whether it converged and
-where the simulation diverges from the recording.
+optimizer's parameter aliases to the real keys, and `plot_tuning_results.py` shows whether the run
+converged and where the simulation diverges from the recording.
 
 The rest of [scripts/](scripts/) covers the other offline jobs: converting a legacy bag, fitting the
 steering motor time constant, and building a track YAML from a recorded SLAM map. Each step, with
