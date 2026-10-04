@@ -1,6 +1,6 @@
 invictasim:
   # Simulator config
-  input_adapter: "ros"              # Options: "ros", "keyboard" (keyboard needs a display)
+  input_adapter: "keyboard"         # Options: "ros", "keyboard" 
   output_adapter: "ros"             # Options: "ros"
   vehicle_model: "02"               # Options: "02", "03",
   control_mode: "autonomous"        # "manual" has the driver's friction brakes; "autonomous" is
@@ -13,9 +13,7 @@ invictasim:
 
 # Maps available: "Acceleration", "EnduranceFSG25", "Europarque", "FEUP", "FSE23", "FSE24",
 # "FSG23", "FSG24", "FSG25", "FSS22V1", "FSS22V2", "Skidpad".
-# The simulator validates track_name against src/invictasim/resources/tracks/ on startup and
-# lists what is installed if it does not match, so this comment cannot silently go stale.
 #
-# discipline lives in config/global/global_config.yaml and selects the lap timing rules:
+# discipline is in config/global/global_config.yaml and selects the lap timing rules:
 #   "acceleration" expects a track with two timing lines, "skidpad" the circle layout, and
-#   "autocross"/"trackdrive" any closed loop. A mismatch is warned about on startup.
+#   "autocross"/"trackdrive" any closed loop.

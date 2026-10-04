@@ -12,8 +12,6 @@ publish_frequencies:
     ground_truth_cones: 1       # Ground-truth cones visualization
     slam_cones: 10              # SLAM cones visualization (simulated or from state estimation)
     perception_cones: 10        # Perception cones visualization (simulated or from perception)
-  # Simulated sensor channels, with the noise, bias and dropout models from
-  # config/invictasim/sensors/. These stand in for the car's real hardware.
   sensors:
     imu: 100                    # Simulated IMU (free_acceleration, angular_velocity)
     wheel_speed: 100            # Simulated wheel speed sensors, all four wheels

@@ -1,5 +1,4 @@
-# IMU sensor error model.
-# Applied as: measured = true * (1 + scale_factor) + bias + N(0, noise_std_dev)
+# IMU sensor error model
 imu_sensor:
   accelerometer:
     noise_std_dev: 0.1                  # Gaussian white noise standard deviation (m/s²)

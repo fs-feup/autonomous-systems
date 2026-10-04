@@ -24,12 +24,12 @@ vehicle_model:
   brake_model: "default"
   brake_model_params: "02_brake"
 
-  load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
+  load_transfer_model: "vd_model" # Options: "rigid_body", "vd_model"
   load_transfer_model_params: "02_load_transfer"
 
   steering_motor_model: "first_order"
   steering_motor_model_params: "02_steering_motor"
 
-  steering_model: "ackerman_steering" # options: "ackerman_steering" , "parallel_front_steering"
+  steering_model: "ackerman_steering" # Options: "ackerman_steering", "parallel_front_steering"
   steering_model_params: "02_steering"
   

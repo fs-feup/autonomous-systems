@@ -1,7 +1,4 @@
 wss_sensor:
-  # Per-wheel error model. speed_cutoff and noise std_dev are in rad/s; quantization_bits is the
-  # ADC resolution over a +/-4000 rpm full scale (0 disables quantisation).
-
   # Front Right Wheel
   fr:
     noise:
