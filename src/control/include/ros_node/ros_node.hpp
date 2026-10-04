@@ -6,15 +6,16 @@
 #include <string>
 
 #include "config/parameters.hpp"
-#include "controller/map.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/float64_multi_array.hpp"
 #include "utils/utils.hpp"
+#include "rclcpp/rclcpp.hpp"
+#include "controller/map.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
+
 
 /**
  * @class ControlNode
@@ -43,14 +44,14 @@ protected:
    */
   void path_callback(const custom_interfaces::msg::PathPointArray &msg);
 
+
   /**
    * @brief Called when a new velocity is received
    * @param msg The received velocity message
    */
   void vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector &msg);
-
 private:
-  // Vector of execution times for different parts of the control loop
+  // Vector of execution times for different parts of the control loop 
   // Currently just the first element is used, which is the total execution time
   unsigned int number_of_loops_executed_{0};
   std::shared_ptr<std::vector<double>> _execution_times_;
@@ -88,10 +89,12 @@ private:
    */
   virtual void publish_command(common_lib::structures::ControlCommand cmd) = 0;
 
+
   /**
    * @brief Temporary function while State Estimation doens't publish the full state vector
-   *
+   * 
    */
+  void create_vehicle_state_adapter();
 
 public:
   explicit ControlNode(const ControlParameters &params);

@@ -1,6 +1,7 @@
 #include "planning/velocity_planning.hpp"
 
 #include <algorithm>
+
 #include <rclcpp/rclcpp.hpp>
 
 double VelocityPlanning::find_curvature(const PathPoint &p1, const PathPoint &p2,
@@ -175,7 +176,8 @@ void VelocityPlanning::acceleration_velocity(std::vector<PathPoint> &final_path,
   const auto longitudinal_grip = [&](double velocity, double curvature, double limit) {
     const double ay =
         std::min(velocity * velocity * std::abs(curvature), config_.lateral_acceleration_);
-    return limit * std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
+    return limit *
+           std::sqrt(std::max(0.0, 1.0 - std::pow(ay / config_.lateral_acceleration_, 2)));
   };
 
   // First point past the braking distance; a path shorter than the run is all acceleration.
@@ -255,7 +257,7 @@ void VelocityPlanning::stop(std::vector<PathPoint> &final_path, double braking_d
 
   // Zero the rest, except the tail: this is the closed-loop path, whose last points are back at
   // the start line where a car still finishing its lap sits. Zeroing those would stop it dead.
-  while (index < (path_size - path_size / 4)) {
+  while (index < (path_size - path_size/4)) {
     final_path[index].ideal_velocity = 0.0;
     ++index;
   }

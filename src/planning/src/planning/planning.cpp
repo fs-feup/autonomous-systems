@@ -327,9 +327,9 @@ void Planning::run_full_map() {
                  static_cast<int>(smoothed_path_.size()));
 
     RCLCPP_DEBUG(get_logger(),
-                 "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
-                 "| Max: %.2f m/s",
-                 lap_time, total_length, avg_vel, min_vel, max_vel);
+                "Lap Time: %.2f s | Length: %.1f m | Avg: %.2f m/s | Min: %.2f m/s "
+                "| Max: %.2f m/s",
+                lap_time, total_length, avg_vel, min_vel, max_vel);
   }
 }
 
@@ -407,7 +407,7 @@ void Planning::run_trackdrive() {
     std::vector<PathPoint> yellow_cones = path_calculation_.get_yellow_cones();
     std::vector<PathPoint> blue_cones = path_calculation_.get_blue_cones();
     smoothed_path_ =
-        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_, false);
+        path_smoothing_.optimize_path(full_path_, yellow_cones, blue_cones, is_path_closed_,false);
 
     if (is_path_closed_) {
       velocity_planning_.trackdrive_velocity(smoothed_path_);

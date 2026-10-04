@@ -74,7 +74,7 @@ double PID::calculate_error(double setpoint, double measurement) const {
     error = this->params_->pid_max_positive_error_;
   } else if (error < this->params_->pid_max_negative_error_) {
     error = this->params_->pid_max_negative_error_;
-  } else {
+  }else {
     // do nothing, error within limits
   }
   return error;
@@ -98,8 +98,7 @@ void PID::anti_wind_up() {
 
 void PID::calculate_derivative_term(double measurement, double dt) {
   const double sample_time = dt > 0.0 ? dt : 0.01;
-  this->differentiator_ =
-      -this->params_->pid_kd_ * (measurement - this->prev_measurement_) / sample_time;
+  this->differentiator_ = -this->params_->pid_kd_ * (measurement - this->prev_measurement_) / sample_time;
 }
 
 void PID::compute_output() {
@@ -114,24 +113,23 @@ void PID::compute_output() {
   }
 }
 
-void PID::path_callback(const custom_interfaces::msg::PathPointArray& msg) {
+void PID::path_callback(const custom_interfaces::msg::PathPointArray& msg)  {
   this->last_path_msg_ = msg.pathpoint_array;
   this->received_first_path_ = true;
 }
-void PID::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg) {
+void PID::vehicle_state_callback(const custom_interfaces::msg::VehicleStateVector& msg)  {
   this->last_velocity_msg_ = msg;
-  this->absolute_velocity_ = copysign(
-      std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y), msg.velocity_x);
+  this->absolute_velocity_ = copysign(std::sqrt(msg.velocity_x * msg.velocity_x + msg.velocity_y * msg.velocity_y), msg.velocity_x);
   this->received_first_state_ = true;
 }
-void PID::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg) {
+void PID::vehicle_pose_callback(const custom_interfaces::msg::Pose& msg)  {
   this->last_pose_msg_ = msg;
   this->received_first_pose_ = true;
 }
 
-common_lib::structures::ControlCommand PID::get_throttle_command() {
+common_lib::structures::ControlCommand PID::get_throttle_command()  {
   common_lib::structures::ControlCommand command;
-
+  
   if (this->received_first_path_ && this->received_first_state_ && this->received_first_pose_) {
     Position vehicle_cog = Position(this->last_pose_msg_.x, this->last_pose_msg_.y);
 
@@ -144,21 +142,18 @@ common_lib::structures::ControlCommand PID::get_throttle_command() {
       command.throttle_rl = command.throttle_rr = update(this->setpoint_, this->absolute_velocity_);
     }
   }
-
+  
   return command;
 }
 
-void PID::publish_solver_data(
-    std::shared_ptr<rclcpp::Node> node,
-    std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void PID::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (publisher_map.find("/pid/components") == publisher_map.end()) {
-    auto publisher =
-        node->create_publisher<std_msgs::msg::Float64MultiArray>("/pid/components", 10);
+    auto publisher = node->create_publisher<std_msgs::msg::Float64MultiArray>(
+          "/pid/components", 10);
     publisher_map["/pid/components"] = publisher;
   }
 
-  auto publisher = std::static_pointer_cast<rclcpp::Publisher<std_msgs::msg::Float64MultiArray>>(
-      publisher_map["/pid/components"]);
+  auto publisher = std::static_pointer_cast<rclcpp::Publisher<std_msgs::msg::Float64MultiArray>>(publisher_map["/pid/components"]);
   std_msgs::msg::Float64MultiArray msg;
   msg.data = {this->setpoint_, this->proportional_, this->integrator_, this->differentiator_};
   publisher->publish(msg);

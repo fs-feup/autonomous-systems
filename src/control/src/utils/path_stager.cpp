@@ -9,11 +9,10 @@ unsigned int get_s_index(std::vector<double>& s, double query_s) {
       return i - 1;
     }
   }
-  return s.size() - 2;  // Return the last valid index if out of bounds
+  return s.size() - 2; // Return the last valid index if out of bounds
 }
 
-double acceleration_for_segment(unsigned int start_idx, std::vector<double>& v,
-                                std::vector<double>& s) {
+double acceleration_for_segment(unsigned int start_idx, std::vector<double>& v, std::vector<double>& s) {
   double distance = s[start_idx + 1] - s[start_idx];
   double v_start = v[start_idx];
   double v_end = v[start_idx + 1];
@@ -21,13 +20,12 @@ double acceleration_for_segment(unsigned int start_idx, std::vector<double>& v,
   if (distance > 0.01) {
     return (v_end * v_end - v_start * v_start) / (2 * distance);
   } else {
-    return 0.0;  // Avoid division by zero, treat as no acceleration
+    return 0.0; // Avoid division by zero, treat as no acceleration
   }
 }
 
-unsigned int compute_starting_index(
-    const custom_interfaces::msg::PathPointArray& path_msg,
-    const custom_interfaces::msg::VehicleStateVector& vehicle_state) {
+unsigned int compute_starting_index(const custom_interfaces::msg::PathPointArray& path_msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state) {
+
   size_t closest_idx = -1;
 
   double x = vehicle_state.x;
@@ -59,8 +57,7 @@ unsigned int compute_starting_index(
   return closest_idx;
 }
 
-void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray& path_msg,
-                                         double max_acceleration = 10.0) {
+void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray& path_msg, double max_acceleration = 10.0) {
   if (path_msg.pathpoint_array.empty()) {
     return;
   }
@@ -74,8 +71,7 @@ void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray&
     double dx = path_msg.pathpoint_array[i].x - prev_point.x;
     double dy = path_msg.pathpoint_array[i].y - prev_point.y;
     double distance = std::sqrt(dx * dx + dy * dy);
-    double max_velocity =
-        std::sqrt(std::max(0.0, prev_velocity * prev_velocity + 2 * max_acceleration * distance));
+    double max_velocity = std::sqrt(std::max(0.0, prev_velocity * prev_velocity + 2 * max_acceleration * distance));
     if (path_msg.pathpoint_array[i].v > max_velocity) {
       path_msg.pathpoint_array[i].v = max_velocity;
     }
@@ -86,12 +82,7 @@ void limit_velocity_according_to_current(custom_interfaces::msg::PathPointArray&
   }
 }
 
-void local_path_resampled_with_spline(
-    custom_interfaces::msg::PathPointArray& path_msg,
-    const custom_interfaces::msg::VehicleStateVector& vehicle_state,
-    std::shared_ptr<LocalPather> local_pather, unsigned int number_of_stages,
-    double horizon_length_seconds, custom_interfaces::msg::PathPointArray& output_path_data,
-    bool free_speed) {
+void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& path_msg, const custom_interfaces::msg::VehicleStateVector& vehicle_state, std::shared_ptr<LocalPather> local_pather, unsigned int number_of_stages, double horizon_length_seconds, custom_interfaces::msg::PathPointArray& output_path_data, bool free_speed) {
   if (path_msg.pathpoint_array.size() == 0) {
     return;
   }
@@ -112,7 +103,7 @@ void local_path_resampled_with_spline(
 
   local_pather->create_local_path(new_path, vehicle_state);
 
-  double max_acceleration = 10.0;  // m/s^2, can be tuned or made a parameter
+  double max_acceleration = 10.0; // m/s^2, can be tuned or made a parameter
   limit_velocity_according_to_current(new_path, max_acceleration);
 
   double car_x = new_path.pathpoint_array[0].x;
@@ -120,15 +111,14 @@ void local_path_resampled_with_spline(
   double car_yaw = new_path.pathpoint_array[0].orientation;
   double car_v = new_path.pathpoint_array[0].v;
   double car_yaw_rate = vehicle_state.yaw_rate;
-  double max_breaking_acceleration = 6.0;  // m/s^2
-  double max_yaw_acceleration = 1.0;       // rad/s^2
+  double max_breaking_acceleration = 6.0; // m/s^2
+  double max_yaw_acceleration = 1.0; // rad/s^2
   double dt = horizon_length_seconds / static_cast<double>(number_of_stages);
   output_path_data.pathpoint_array.clear();
 
   // Default to just breaking until stopped
   if (new_path.pathpoint_array.size() < 3) {
-    double time_to_stop = std::max(std::fabs(car_v / max_breaking_acceleration),
-                                   std::fabs(car_yaw_rate / max_yaw_acceleration));
+    double time_to_stop = std::max(std::fabs(car_v / max_breaking_acceleration), std::fabs(car_yaw_rate / max_yaw_acceleration));
 
     double effective_acceleration = time_to_stop == 0 ? 0 : car_v / time_to_stop;
     double effective_yaw_acceleration = time_to_stop == 0 ? 0 : car_yaw_rate / time_to_stop;
@@ -145,8 +135,7 @@ void local_path_resampled_with_spline(
       double next_v = car_v - effective_acceleration * dt;
       next_v = (car_v >= 0.0) ? std::max(0.0, next_v) : std::min(0.0, next_v);
       double next_yaw_rate = car_yaw_rate - effective_yaw_acceleration * dt;
-      next_yaw_rate =
-          (car_yaw_rate >= 0.0) ? std::max(0.0, next_yaw_rate) : std::min(0.0, next_yaw_rate);
+      next_yaw_rate = (car_yaw_rate >= 0.0) ? std::max(0.0, next_yaw_rate) : std::min(0.0, next_yaw_rate);
       double average_v = (car_v + next_v) / 2.0;
       double average_yaw_rate = (car_yaw_rate + next_yaw_rate) / 2.0;
 
@@ -173,8 +162,8 @@ void local_path_resampled_with_spline(
   y.push_back(car_y);
   velocities.push_back(car_v);
 
-  double dist_to_next =
-      std::hypot(new_path.pathpoint_array[1].x - car_x, new_path.pathpoint_array[1].y - car_y);
+  double dist_to_next = std::hypot(new_path.pathpoint_array[1].x - car_x, 
+                                   new_path.pathpoint_array[1].y - car_y);
   double lookahead_dist = 0.1 * dist_to_next;
 
   // Interpolate the velocity assuming constant acceleration over the segment
@@ -198,7 +187,7 @@ void local_path_resampled_with_spline(
     double dx = new_path.pathpoint_array[i].x - x.back();
     double dy = new_path.pathpoint_array[i].y - y.back();
     double dist = std::hypot(dx, dy);
-
+   
     // Ensure the global points are far enough past the Ghost Point to avoid NaN crashes
     if (dist > 0.1) {
       current_s += dist;
@@ -234,7 +223,7 @@ void local_path_resampled_with_spline(
   spline_x.set_points(s, x, tk::spline::cspline_hermite);
   spline_y.set_points(s, y, tk::spline::cspline_hermite);
 
-  // --- 3. Sample the splines based on MPC dt ---
+  // --- 3. Sample the splines based on MPC dt ---    
   current_s = 0.0;
   double max_s = s.back();
 
@@ -264,9 +253,8 @@ void local_path_resampled_with_spline(
     while (current_s + ds > end_of_segment_s) {
       double delta_s = end_of_segment_s - current_s;
       double average_speed = (car_v + velocities[segment_start_idx + 1]) / 2.0;
-      double dt_until_segment_end =
-          (average_speed > 1e-3) ? (delta_s / average_speed) : remaining_dt;
-
+      double dt_until_segment_end = (average_speed > 1e-3) ? (delta_s / average_speed) : remaining_dt;
+      
       current_s = end_of_segment_s;
       car_v = velocities[segment_start_idx + 1];
       segment_start_idx++;
@@ -282,9 +270,9 @@ void local_path_resampled_with_spline(
 
     // 3. SAFETY CLAMPS
     // Prevent moving backward
-    ds = std::max(ds, 0.0);
+    ds = std::max(ds, 0.0); 
 
     // Step forward, but STRICTLY LOCK to the end of the macro path
-    current_s = std::min(current_s + ds, max_s);
+    current_s = std::min(current_s + ds, max_s); 
   }
 }

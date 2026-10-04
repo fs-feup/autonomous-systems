@@ -30,31 +30,29 @@ constexpr int kMaxConsecutiveFailures = 5;
 constexpr int kMaxFailuresBeforeReset = 25;
 }  // namespace
 
-SuperMpcAcadosSolver::SuperMpcAcadosSolver(const ControlParameters& params)
-    : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
-  // 1. Create the capsule
-  this->capsule_ = supermpc_acados_create_capsule();
+SuperMpcAcadosSolver::SuperMpcAcadosSolver(const ControlParameters& params) : SolverInterface(params), _execution_times_(std::make_shared<std::vector<double>>(9, 0.0)) {
+    // 1. Create the capsule
+    this->capsule_ = supermpc_acados_create_capsule();
+    
+    // 2. Allocate solver memory
+    int status = supermpc_acados_create(this->capsule_);
+    if (status != 0) {
+        RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"), "Failed to create Acados solver 'supermpc', status: %d", status);
+    }
 
-  // 2. Allocate solver memory
-  int status = supermpc_acados_create(this->capsule_);
-  if (status != 0) {
-    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"),
-                 "Failed to create Acados solver 'supermpc', status: %d", status);
-  }
+    // 3. Cache internal pointers
+    nlp_config_ = supermpc_acados_get_nlp_config(this->capsule_);
+    nlp_dims_ = supermpc_acados_get_nlp_dims(this->capsule_);
+    nlp_in_ = supermpc_acados_get_nlp_in(this->capsule_);
+    nlp_out_ = supermpc_acados_get_nlp_out(this->capsule_);
 
-  // 3. Cache internal pointers
-  nlp_config_ = supermpc_acados_get_nlp_config(this->capsule_);
-  nlp_dims_ = supermpc_acados_get_nlp_dims(this->capsule_);
-  nlp_in_ = supermpc_acados_get_nlp_in(this->capsule_);
-  nlp_out_ = supermpc_acados_get_nlp_out(this->capsule_);
+    // 4. Initialize parameters per stage vector
+    int N = this->control_params_->supermpc_prediction_horizon_steps_;
+    parameters_per_stage.resize((N+1)*4, 0.0); // Assuming 1 parameter
 
-  // 4. Initialize parameters per stage vector
-  int N = this->control_params_->supermpc_prediction_horizon_steps_;
-  parameters_per_stage.resize((N + 1) * 4, 0.0);  // Assuming 1 parameter
-
-  // 5. Override the generated cost weights and envelope with the config
-  apply_cost_weights();
-  apply_envelope();
+    // 5. Override the generated cost weights and envelope with the config
+    apply_cost_weights();
+    apply_envelope();
 }
 
 void SuperMpcAcadosSolver::reset_solver() {
@@ -88,8 +86,8 @@ void SuperMpcAcadosSolver::apply_cost_weights() {
     const int ny = dims_out[0];
     if (static_cast<int>(weights.size()) != ny) {
       RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"),
-                   "%s has %zu entries but stage %d expects %d; keeping generated weights", label,
-                   weights.size(), stage, ny);
+                   "%s has %zu entries but stage %d expects %d; keeping generated weights",
+                   label, weights.size(), stage, ny);
       return false;
     }
     std::vector<double> W(static_cast<size_t>(ny) * ny, 0.0);
@@ -100,8 +98,7 @@ void SuperMpcAcadosSolver::apply_cost_weights() {
 
   bool ok = true;
   for (int stage = 0; stage < N; ++stage) {
-    ok &= set_stage_weights(this->control_params_->supermpc_cost_weights_, stage,
-                            "supermpc_cost_weights");
+    ok &= set_stage_weights(this->control_params_->supermpc_cost_weights_, stage, "supermpc_cost_weights");
   }
   ok &= set_stage_weights(this->control_params_->supermpc_terminal_cost_weights_, N,
                           "supermpc_terminal_cost_weights");
@@ -109,6 +106,7 @@ void SuperMpcAcadosSolver::apply_cost_weights() {
     RCLCPP_INFO(rclcpp::get_logger("SuperMpcAcadosSolver"), "Applied cost weights from config");
   }
 }
+
 
 SuperMpcAcadosSolver::~SuperMpcAcadosSolver() {
   supermpc_acados_free(this->capsule_);
@@ -146,15 +144,13 @@ void SuperMpcAcadosSolver::set_state(const custom_interfaces::msg::VehicleStateV
   scaled_state[kIdxThrottleApplied] = this->applied_throttle_estimate_;
 
   // Set the initial state constraint (lbx and ubx) at stage 0
-  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "lbx",
-                                (void*)scaled_state.data());
-  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx",
-                                (void*)scaled_state.data());
+  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "lbx", (void*)scaled_state.data());
+  ocp_nlp_constraints_model_set(nlp_config_, nlp_dims_, nlp_in_, nlp_out_, 0, "ubx", (void*)scaled_state.data());
 }
 
 void SuperMpcAcadosSolver::initialize_solver_memory() {
   int N = this->control_params_->supermpc_prediction_horizon_steps_;
-  double u_zero[kInputSize] = {0.0, 0.0};  // Rates start at zero
+  double u_zero[kInputSize] = {0.0, 0.0}; // Rates start at zero
 
   constexpr double kWheelRadius = 0.20574;
 
@@ -175,22 +171,20 @@ void SuperMpcAcadosSolver::initialize_solver_memory() {
   const double scale = this->control_params_->wheel_speeds_scale_mpc_;
   const double wheel_speed_scaled = (this->latest_state_.velocity_x / kWheelRadius) / scale;
 
-  double state_guess[kStateSize] = {this->latest_state_.x,
-                                    this->latest_state_.y,
-                                    this->latest_state_.orientation,
-                                    this->latest_state_.velocity_x,
-                                    this->latest_state_.velocity_y,
-                                    this->latest_state_.yaw_rate,
-                                    this->latest_state_.acceleration_x,
-                                    this->latest_state_.acceleration_y,
-                                    this->latest_state_.steering_angle,
-                                    wheel_speed_scaled,
-                                    wheel_speed_scaled,
-                                    wheel_speed_scaled,
-                                    wheel_speed_scaled,
-                                    this->last_throttle_command_,
-                                    this->last_steering_command_,
-                                    this->applied_throttle_estimate_};
+  double state_guess[kStateSize] = {
+      this->latest_state_.x,
+      this->latest_state_.y,
+      this->latest_state_.orientation,
+      this->latest_state_.velocity_x,
+      this->latest_state_.velocity_y,
+      this->latest_state_.yaw_rate,
+      this->latest_state_.acceleration_x,
+      this->latest_state_.acceleration_y,
+      this->latest_state_.steering_angle,
+      wheel_speed_scaled, wheel_speed_scaled, wheel_speed_scaled, wheel_speed_scaled,
+      this->last_throttle_command_,
+      this->last_steering_command_,
+      this->applied_throttle_estimate_};
 
   for (int i = 0; i <= N; ++i) {
     ocp_nlp_out_set(nlp_config_, nlp_dims_, nlp_out_, nlp_in_, i, "x", (void*)state_guess);
@@ -225,21 +219,19 @@ void SuperMpcAcadosSolver::set_path_point_per_stage() {
   int N = this->control_params_->supermpc_prediction_horizon_steps_;
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
-    double path_point_x = this->parameters_per_stage[i * path_point_size];
-    double path_point_y = this->parameters_per_stage[i * path_point_size + 1];
-    double path_point_v = this->parameters_per_stage[i * path_point_size + 2];
-    double path_point_orientation = this->parameters_per_stage[i * path_point_size + 3];
-    this->stage_parameters_debug +=
-        "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " +
-        std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
+    double path_point_x = this->parameters_per_stage[i*path_point_size];
+    double path_point_y = this->parameters_per_stage[i*path_point_size + 1];
+    double path_point_v = this->parameters_per_stage[i*path_point_size + 2];
+    double path_point_orientation = this->parameters_per_stage[i*path_point_size + 3];
+    this->stage_parameters_debug += "(" + std::to_string(path_point_x) + ", " + std::to_string(path_point_y) + ", " + std::to_string(path_point_v) + ", " + std::to_string(path_point_orientation) + ")\n";
     // The planner's speed becomes two thresholds rather than a target: a mildly
     // optimistic one the cost gently pulls towards, and a hard-ish ceiling above
     // which a heavy one-sided penalty applies. Between them the controller is
     // free, and its own dynamics decide the speed.
     const double v_stretch = path_point_v * this->control_params_->supermpc_speed_stretch_;
     const double v_cap = path_point_v * this->control_params_->supermpc_speed_cap_;
-    double point_for_stage[kNumParams] = {path_point_x,           path_point_y, path_point_v,
-                                          path_point_orientation, v_stretch,    v_cap};
+    double point_for_stage[kNumParams] = {path_point_x, path_point_y, path_point_v,
+                                          path_point_orientation, v_stretch, v_cap};
     supermpc_acados_update_params(this->capsule_, i, point_for_stage, kNumParams);
   }
 }
@@ -249,39 +241,33 @@ void SuperMpcAcadosSolver::update_mpc_stats() {
   double t_tot, t_lin, t_sim, t_qp, t_reg;
   int sqp_iter;
   // Get the values from Acados (Times are in Seconds, Iterations is Int)
-  ocp_nlp_solver* nlp_solver = supermpc_acados_get_nlp_solver(this->capsule_);
+  ocp_nlp_solver *nlp_solver = supermpc_acados_get_nlp_solver(this->capsule_);
   ocp_nlp_get(nlp_solver, "time_tot", &t_tot);
   ocp_nlp_get(nlp_solver, "time_lin", &t_lin);
   ocp_nlp_get(nlp_solver, "time_sim", &t_sim);
-  ocp_nlp_get(nlp_solver, "time_qp", &t_qp);
+  ocp_nlp_get(nlp_solver, "time_qp",  &t_qp);
   ocp_nlp_get(nlp_solver, "time_reg", &t_reg);
   ocp_nlp_get(nlp_solver, "sqp_iter", &sqp_iter);
   // Convert times to milliseconds
   t_tot = t_tot * 1000.0;
   t_lin = t_lin * 1000.0;
   t_sim = t_sim * 1000.0;
-  t_qp = t_qp * 1000.0;
+  t_qp  = t_qp  * 1000.0;
   t_reg = t_reg * 1000.0;
   // Store in execution times vector for visualization
   (*_execution_times_)[0] = t_tot;
   (*_execution_times_)[1] = t_lin;
   (*_execution_times_)[2] = t_sim;
-  (*_execution_times_)[3] = t_qp;
+  (*_execution_times_)[3] = t_qp ;
   (*_execution_times_)[4] = t_reg;
   // Convert iteration count to double for easier visualization, even though it's an integer
   (*_execution_times_)[5] = (double)sqp_iter;
   // Update averages
-  this->average_linearization_time_ =
-      ((this->average_linearization_time_ * static_cast<double>(this->linearization_count_)) +
-       t_lin) /
-      static_cast<double>(this->linearization_count_ + 1);
+  this->average_linearization_time_ = ((this->average_linearization_time_ * static_cast<double>(this->linearization_count_)) + t_lin) / static_cast<double>(this->linearization_count_ + 1);
   this->linearization_count_++;
-  this->average_qp_time_ = ((this->average_qp_time_ * this->qp_count_) + t_qp) /
-                           static_cast<double>(this->qp_count_ + 1);
+  this->average_qp_time_ = ((this->average_qp_time_ * this->qp_count_) + t_qp) / static_cast<double>(this->qp_count_ + 1);   
   this->qp_count_++;
-  this->average_regularization_time_ =
-      ((this->average_regularization_time_ * this->regularization_count_) + t_reg) /
-      static_cast<double>(this->regularization_count_ + 1);
+  this->average_regularization_time_ = ((this->average_regularization_time_ * this->regularization_count_) + t_reg) / static_cast<double>(this->regularization_count_ + 1);
   this->regularization_count_++;
   (*_execution_times_)[6] = average_linearization_time_;
   (*_execution_times_)[7] = average_qp_time_;
@@ -289,22 +275,17 @@ void SuperMpcAcadosSolver::update_mpc_stats() {
 }
 
 void SuperMpcAcadosSolver::set_path(const custom_interfaces::msg::PathPointArray& path) {
-  if (path.pathpoint_array.size() !=
-      static_cast<size_t>(this->control_params_->supermpc_prediction_horizon_steps_ + 1)) {
-    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"),
-                 "Received path with %zu points, but expected %d points based on MPC horizon. "
-                 "Ignoring path update.",
-                 path.pathpoint_array.size(),
-                 this->control_params_->supermpc_prediction_horizon_steps_ + 1);
+  if (path.pathpoint_array.size() != static_cast<size_t>(this->control_params_->supermpc_prediction_horizon_steps_ + 1)) {
+    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"), "Received path with %zu points, but expected %d points based on MPC horizon. Ignoring path update.", path.pathpoint_array.size(), this->control_params_->supermpc_prediction_horizon_steps_ + 1);
     return;
   }
 
   for (size_t i = 0; i < path.pathpoint_array.size(); ++i) {
     const auto& point = path.pathpoint_array[i];
-    this->parameters_per_stage[i * path_point_size] = point.x;
-    this->parameters_per_stage[i * path_point_size + 1] = point.y;
-    this->parameters_per_stage[i * path_point_size + 2] = point.v;
-    this->parameters_per_stage[i * path_point_size + 3] = point.orientation;
+    this->parameters_per_stage[i*path_point_size] = point.x;
+    this->parameters_per_stage[i*path_point_size + 1] = point.y;
+    this->parameters_per_stage[i*path_point_size + 2] = point.v;
+    this->parameters_per_stage[i*path_point_size + 3] = point.orientation;
   }
 
   this->has_path_ = true;
@@ -326,14 +307,11 @@ common_lib::structures::ControlCommand SuperMpcAcadosSolver::solve(int* solver_s
   first_y -= this->latest_state_.y;
   first_orientation -= this->latest_state_.orientation;
   first_v -= this->latest_state_.velocity_x;
-  // DEBUG PRINT
-  if (std::fabs(first_x) > 0.01 || std::fabs(first_y) > 0.01 || std::fabs(first_v) > 0.01 ||
-      std::fabs(first_orientation) > 0.01) {
-    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"),
-                 "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f",
-                 this->latest_state_.x, this->latest_state_.y, this->latest_state_.velocity_x,
-                 this->latest_state_.orientation);
+  //DEBUG PRINT
+  if (std::fabs(first_x) > 0.01 || std::fabs(first_y) > 0.01 || std::fabs(first_v) > 0.01 || std::fabs(first_orientation) > 0.01) {
+    RCLCPP_ERROR(rclcpp::get_logger("SuperMpcAcadosSolver"), "ERROR: first point doens't match state x:%.2f, y:%.2f, v:%.2f, orientation:%.2f", this->latest_state_.x, this->latest_state_.y, this->latest_state_.velocity_x, this->latest_state_.orientation);
   }
+
 
   if (!this->is_initialized_) {
     this->initialize_solver_memory();
@@ -363,9 +341,9 @@ common_lib::structures::ControlCommand SuperMpcAcadosSolver::solve(int* solver_s
       this->consecutive_failures_ = 0;
     }
     if (this->sanity_check_output()) {
-      *solver_status = 1;  // Positive to indicate benign failure (e.g. infeasibility)
+      *solver_status = 1; // Positive to indicate benign failure (e.g. infeasibility)
     } else {
-      *solver_status = -1;  // Negative to indicate malign failure
+      *solver_status = -1; // Negative to indicate malign failure
       // A diverged solution must never reach the car: a spurious negative
       // throttle drives it backwards and a spurious steering angle spins it.
       // Hold the last good steering angle and coast instead.
@@ -373,7 +351,8 @@ common_lib::structures::ControlCommand SuperMpcAcadosSolver::solve(int* solver_s
       command.throttle_rr = 0.0;
       command.steering_angle = this->last_steering_command_;
       this->last_throttle_command_ = 0.0;
-      this->applied_throttle_estimate_ += (0.0 - this->applied_throttle_estimate_) * kInverterBlend;
+      this->applied_throttle_estimate_ +=
+          (0.0 - this->applied_throttle_estimate_) * kInverterBlend;
       return command;
     }
   }
@@ -391,13 +370,10 @@ common_lib::structures::ControlCommand SuperMpcAcadosSolver::solve(int* solver_s
   double total_delay_ms = total_solver_time_ms + 5.0;
   double total_delay_s = total_delay_ms / 1000.0;
 
-  double time_step = this->control_params_->supermpc_prediction_horizon_seconds_ /
-                     static_cast<double>(this->control_params_->supermpc_prediction_horizon_steps_);
+  double time_step = this->control_params_->supermpc_prediction_horizon_seconds_ / static_cast<double>(this->control_params_->supermpc_prediction_horizon_steps_);
   unsigned int steps_ahead = static_cast<unsigned int>(std::floor(total_delay_s / time_step));
   if (steps_ahead >= full_solution.size() - 1) {
-    RCLCPP_WARN(rclcpp::get_logger("SuperMpcAcadosSolver"),
-                "Total delay of %.2f ms exceeds prediction horizon, using last available control",
-                total_delay_ms);
+    RCLCPP_WARN(rclcpp::get_logger("SuperMpcAcadosSolver"), "Total delay of %.2f ms exceeds prediction horizon, using last available control", total_delay_ms);
     return full_solution.back();
   }
 
@@ -408,14 +384,11 @@ common_lib::structures::ControlCommand SuperMpcAcadosSolver::solve(int* solver_s
   double alpha = (total_delay_s - steps_ahead * time_step) / time_step;
 
   // DEBUG STRING
-  this->total_delay_debug = "Total delay: " + std::to_string(total_delay_ms) +
-                            " ms, steps ahead: " + std::to_string(steps_ahead) +
-                            ", interpolation alpha: " + std::to_string(alpha);
+  this->total_delay_debug = "Total delay: " + std::to_string(total_delay_ms) + " ms, steps ahead: " + std::to_string(steps_ahead) + ", interpolation alpha: " + std::to_string(alpha);
 
   command.throttle_rl = (1 - alpha) * command_zero.throttle_rl + alpha * command_one.throttle_rl;
   command.throttle_rr = (1 - alpha) * command_zero.throttle_rr + alpha * command_one.throttle_rr;
-  command.steering_angle =
-      (1 - alpha) * command_zero.steering_angle + alpha * command_one.steering_angle;
+  command.steering_angle = (1 - alpha) * command_zero.steering_angle + alpha * command_one.steering_angle;
 
   // Never publish a command outside the actuator's physical range. The command
   // states are only SOFT-bounded in the OCP (a hard bound there can make the QP
@@ -428,14 +401,16 @@ common_lib::structures::ControlCommand SuperMpcAcadosSolver::solve(int* solver_s
   command.steering_angle =
       std::clamp(command.steering_angle, -kMaxSteeringAngle, kMaxSteeringAngle);
 
-  // The car has NO friction brakes under a controller: they are the driver's, so FSFEUP02 only
-  // builds brake torques in manual mode. A negative throttle therefore reaches the inverter as
-  // negative MOTOR torque, which below a standstill drives the car backwards.
+  // The plant has NO BRAKES in autonomous mode: FSFEUP02 only builds brake
+  // torques when control_mode_ == "manual", so a negative throttle goes straight
+  // to the inverter as negative MOTOR torque, which below a standstill drives
+  // the car backwards.
   //
-  // A hard cutoff at some speed is not enough, because RampedInverter slews towards the request
-  // instead of applying it at once: full regen asked for at 4 m/s is still arriving once the car
-  // has stopped. The limit therefore tapers with speed, so the car is never asked for more regen
-  // than it will still have speed to absorb.
+  // A hard cutoff at some speed is NOT enough, because DelayedInverter queues
+  // the request for |throttle| * 500 ms. Full regen asked for at 4 m/s is still
+  // being applied half a second later, when the car has already stopped, and it
+  // then pushes the car backwards. The limit therefore tapers with speed: never
+  // queue more regen than the car will still have speed to absorb on arrival.
   const double regen_limit =
       std::clamp(this->latest_state_.velocity_x / kRegenTaperSpeed, 0.0, 1.0);
   command.throttle_rl = std::max(command.throttle_rl, -regen_limit);
@@ -499,17 +474,14 @@ std::vector<custom_interfaces::msg::VehicleStateVector> SuperMpcAcadosSolver::ge
   return full_horizon;
 }
 
-void SuperMpcAcadosSolver::publish_solver_data(
-    std::shared_ptr<rclcpp::Node> node,
-    std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void SuperMpcAcadosSolver::publish_solver_data(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (publisher_map.find("/acados/execution_times") == publisher_map.end()) {
-    auto publisher =
-        node->create_publisher<std_msgs::msg::Float64MultiArray>("/acados/execution_times", 10);
+    auto publisher = node->create_publisher<std_msgs::msg::Float64MultiArray>(
+          "/acados/execution_times", 10);
     publisher_map["/acados/execution_times"] = publisher;
   }
 
-  auto publisher = std::static_pointer_cast<rclcpp::Publisher<std_msgs::msg::Float64MultiArray>>(
-      publisher_map["/acados/execution_times"]);
+  auto publisher = std::static_pointer_cast<rclcpp::Publisher<std_msgs::msg::Float64MultiArray>>(publisher_map["/acados/execution_times"]);
   std_msgs::msg::Float64MultiArray msg;
   msg.data = *this->_execution_times_;
   publisher->publish(msg);
@@ -518,26 +490,19 @@ void SuperMpcAcadosSolver::publish_solver_data(
   this->publish_received_state(node, publisher_map);
 }
 
-void SuperMpcAcadosSolver::publish_received_state(
-    std::shared_ptr<rclcpp::Node> node,
-    std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void SuperMpcAcadosSolver::publish_received_state(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (!this->has_state_) return;
 
   const std::string topic = "/supermpc/received_state";
   if (publisher_map.find(topic) == publisher_map.end()) {
-    publisher_map[topic] =
-        node->create_publisher<custom_interfaces::msg::VehicleStateVector>(topic, 10);
+    publisher_map[topic] = node->create_publisher<custom_interfaces::msg::VehicleStateVector>(topic, 10);
   }
 
-  auto state_publisher =
-      std::static_pointer_cast<rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>>(
-          publisher_map[topic]);
+  auto state_publisher = std::static_pointer_cast<rclcpp::Publisher<custom_interfaces::msg::VehicleStateVector>>(publisher_map[topic]);
   state_publisher->publish(this->latest_state_);
 }
 
-void SuperMpcAcadosSolver::publish_interpolated_path(
-    std::shared_ptr<rclcpp::Node> node,
-    std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
+void SuperMpcAcadosSolver::publish_interpolated_path(std::shared_ptr<rclcpp::Node> node, std::map<std::string, std::shared_ptr<rclcpp::PublisherBase>>& publisher_map) {
   if (!this->has_path_) return;
 
   const std::string topic = "/supermpc/interpolated_path";
@@ -556,9 +521,7 @@ void SuperMpcAcadosSolver::publish_interpolated_path(
                                    this->parameters_per_stage[i * path_point_size + 2]);
   }
 
-  auto path_publisher =
-      std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(
-          publisher_map[topic]);
+  auto path_publisher = std::static_pointer_cast<rclcpp::Publisher<visualization_msgs::msg::Marker>>(publisher_map[topic]);
   path_publisher->publish(common_lib::communication::line_marker_from_structure_array(
       interpolated_path, "supermpc_interpolated_path", "map", 0, "blue"));
 }

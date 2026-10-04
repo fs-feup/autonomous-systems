@@ -25,12 +25,12 @@ ControlParameters::ControlParameters(const ControlParameters &params) {
   mpc_prediction_horizon_steps_ = params.mpc_prediction_horizon_steps_;
   lateral_mpc_prediction_horizon_seconds_ = params.lateral_mpc_prediction_horizon_seconds_;
   lateral_mpc_prediction_horizon_steps_ = params.lateral_mpc_prediction_horizon_steps_;
-  supermpc_prediction_horizon_seconds_ = params.supermpc_prediction_horizon_seconds_;
-  supermpc_prediction_horizon_steps_ = params.supermpc_prediction_horizon_steps_;
   mpc_cost_weights_ = params.mpc_cost_weights_;
   mpc_terminal_cost_weights_ = params.mpc_terminal_cost_weights_;
   lateral_mpc_cost_weights_ = params.lateral_mpc_cost_weights_;
   lateral_mpc_terminal_cost_weights_ = params.lateral_mpc_terminal_cost_weights_;
+  supermpc_prediction_horizon_seconds_ = params.supermpc_prediction_horizon_seconds_;
+  supermpc_prediction_horizon_steps_ = params.supermpc_prediction_horizon_steps_;
   supermpc_cost_weights_ = params.supermpc_cost_weights_;
   supermpc_terminal_cost_weights_ = params.supermpc_terminal_cost_weights_;
   supermpc_speed_stretch_ = params.supermpc_speed_stretch_;
@@ -67,12 +67,12 @@ ControlParameters &ControlParameters::operator=(const ControlParameters &other) 
     mpc_prediction_horizon_steps_ = other.mpc_prediction_horizon_steps_;
     lateral_mpc_prediction_horizon_seconds_ = other.lateral_mpc_prediction_horizon_seconds_;
     lateral_mpc_prediction_horizon_steps_ = other.lateral_mpc_prediction_horizon_steps_;
-    supermpc_prediction_horizon_seconds_ = other.supermpc_prediction_horizon_seconds_;
-    supermpc_prediction_horizon_steps_ = other.supermpc_prediction_horizon_steps_;
     mpc_cost_weights_ = other.mpc_cost_weights_;
     mpc_terminal_cost_weights_ = other.mpc_terminal_cost_weights_;
     lateral_mpc_cost_weights_ = other.lateral_mpc_cost_weights_;
     lateral_mpc_terminal_cost_weights_ = other.lateral_mpc_terminal_cost_weights_;
+    supermpc_prediction_horizon_seconds_ = other.supermpc_prediction_horizon_seconds_;
+    supermpc_prediction_horizon_steps_ = other.supermpc_prediction_horizon_steps_;
     supermpc_cost_weights_ = other.supermpc_cost_weights_;
     supermpc_terminal_cost_weights_ = other.supermpc_terminal_cost_weights_;
     supermpc_speed_stretch_ = other.supermpc_speed_stretch_;
@@ -126,10 +126,8 @@ std::string ControlParameters::load_config() {
   this->pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
   this->pid_max_positive_error_ = control_config["pid_max_positive_error"].as<double>();
   this->pid_max_negative_error_ = control_config["pid_max_negative_error"].as<double>();
-  this->mpc_prediction_horizon_seconds_ =
-      control_config["mpc_prediction_horizon_seconds"].as<double>();
-  this->mpc_prediction_horizon_steps_ =
-      control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
+  this->mpc_prediction_horizon_seconds_ = control_config["mpc_prediction_horizon_seconds"].as<double>();
+  this->mpc_prediction_horizon_steps_ = control_config["mpc_prediction_horizon_steps"].as<unsigned int>();
   // Lateral and coupled MPCs need different horizons; fall back to the coupled keys if absent.
   this->lateral_mpc_prediction_horizon_seconds_ =
       control_config["lateral_mpc_prediction_horizon_seconds"]
@@ -139,20 +137,8 @@ std::string ControlParameters::load_config() {
       control_config["lateral_mpc_prediction_horizon_steps"]
           ? control_config["lateral_mpc_prediction_horizon_steps"].as<unsigned int>()
           : this->mpc_prediction_horizon_steps_;
-
-  // SuperMPC falls back to the coupled MPC horizon, matching supermpc_acados.py so the generated
-  // solver and the controller always agree on the horizon length.
-  this->supermpc_prediction_horizon_seconds_ =
-      control_config["supermpc_prediction_horizon_seconds"]
-          ? control_config["supermpc_prediction_horizon_seconds"].as<double>()
-          : this->mpc_prediction_horizon_seconds_;
-  this->supermpc_prediction_horizon_steps_ =
-      control_config["supermpc_prediction_horizon_steps"]
-          ? control_config["supermpc_prediction_horizon_steps"].as<unsigned int>()
-          : this->mpc_prediction_horizon_steps_;
-  // Read at runtime so weights can be tuned without a codegen rebuild; empty leaves them as
-  // generated.
-  auto load_weights = [&control_config](const char *key) {
+  // Read at runtime so weights can be tuned without a codegen rebuild; empty leaves them as generated.
+  auto load_weights = [&control_config](const char* key) {
     std::vector<double> weights;
     if (control_config[key]) {
       weights = control_config[key].as<std::vector<double>>();
@@ -165,12 +151,17 @@ std::string ControlParameters::load_config() {
   this->lateral_mpc_terminal_cost_weights_ = load_weights("lateral_mpc_terminal_cost_weights");
   this->supermpc_cost_weights_ = load_weights("supermpc_cost_weights");
   this->supermpc_terminal_cost_weights_ = load_weights("supermpc_terminal_cost_weights");
-
-  // SuperMPC speed envelope. Defaults keep the controller tracking the planner speed exactly and
-  // leave the rear-slip envelope off, so omitting these keys is safe.
-  auto load_scalar = [&control_config](const char *key, double fallback) {
+  // SuperMPC falls back to the coupled MPC settings, matching supermpc_acados.py so the generated
+  // solver and the controller always agree.
+  auto load_scalar = [&control_config](const char* key, double fallback) {
     return control_config[key] ? control_config[key].as<double>() : fallback;
   };
+  this->supermpc_prediction_horizon_seconds_ =
+      load_scalar("supermpc_prediction_horizon_seconds", this->mpc_prediction_horizon_seconds_);
+  this->supermpc_prediction_horizon_steps_ =
+      control_config["supermpc_prediction_horizon_steps"]
+          ? control_config["supermpc_prediction_horizon_steps"].as<unsigned int>()
+          : this->mpc_prediction_horizon_steps_;
   this->supermpc_speed_stretch_ = load_scalar("supermpc_speed_stretch", 1.0);
   this->supermpc_speed_cap_ = load_scalar("supermpc_speed_cap", 1.0);
   this->supermpc_max_rear_slip_ = load_scalar("supermpc_max_rear_slip", 0.0);
