@@ -97,7 +97,7 @@ RosOutputAdapter::RosOutputAdapter(const std::shared_ptr<InvictaSim>& simulator,
   vehicle_rr_rpm_pub_ =
       this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/wss/rear_right", 10);
   vehicle_motor_rpm_pub_ =
-      this->create_publisher<std_msgs::msg::Float64>("invictasim/resolver", 10);
+      this->create_publisher<custom_interfaces::msg::WheelRPM>("invictasim/resolver", 10);
   steering_pub_ = this->create_publisher<custom_interfaces::msg::SteeringAngle>(
       "invictasim/steering_angle_sensor", 10);
 
@@ -359,10 +359,14 @@ void RosOutputAdapter::publish_sensors_wheel_speed(const rclcpp::Time& stamp) {
 }
 
 void RosOutputAdapter::publish_sensors_resolver(const rclcpp::Time& stamp) {
-  std_msgs::msg::Float64 resolver_msg;
-  resolver_msg.data = sensors_snapshot_cache_.motor_rpm;
+  // WheelRPM has no motor field, so the motor speed goes in rr_rpm. This is the contract
+  // velocity_estimation's invictasim adapter already reads (resolver_callback takes msg.rr_rpm),
+  // so changing it here silently starves that node of motor speed.
+  custom_interfaces::msg::WheelRPM resolver_msg;
+  resolver_msg.header.stamp = stamp;
+  resolver_msg.header.frame_id = "base_link";
+  resolver_msg.rr_rpm = static_cast<float>(sensors_snapshot_cache_.motor_rpm);
   vehicle_motor_rpm_pub_->publish(resolver_msg);
-  (void)stamp;  // Float64 carries no header
 }
 
 void RosOutputAdapter::publish_sensors_steering(const rclcpp::Time& stamp) {

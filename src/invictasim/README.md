@@ -270,6 +270,27 @@ control    ──/control/command───────────────�
 `operational_status` carries the go signal and the mission, and **planning and control both gate on
 it**, so its rate sets how quickly the pipeline starts.
 
+### Which combinations work
+
+Verified by running the real nodes, with `decoupled` + `mpczinho` driving:
+
+| `se` | `perception` | `velocities` | Nodes you also run | Result |
+|---|---|---|---|---|
+| `true` | `true` | `true` | — | Car drives. Simulator replaces perception, SLAM and velocity estimation. |
+| `false` | `true` | `true` | `slam` | Car drives. Simulated LiDAR feeds the real SLAM, which maps the track and localises. |
+| `true` | `true` | `false` | `velocity_estimation` | Car drives. The simulated IMU, wheel speed and resolver channels feed the real estimator. |
+| `true` | `false` | `true` | — | Car drives on the simulated SLAM map. The simulator's `/perception/cones` subscription simply stays empty. |
+| `false` | `false` | `true` | `slam` | Car sits still, no errors. Nothing can provide the map — see below. |
+
+The last row is the real boundary: **the simulator cannot drive the real perception node.** Perception
+consumes LiDAR point clouds (`/hesai/pandar`, `/rslidar_points/pre_processed`) and the simulator does
+not generate them — it simulates perception's *output* (cones with field of view, range, detection
+probability, noise and spurious detections), not its input. To exercise the real perception node you
+need a bag with LiDAR data or the sensor itself.
+
+Everything else composes freely. `velocity_estimation` can be combined with real SLAM as well, since
+they read different simulator topics.
+
 ---
 
 ## Topics

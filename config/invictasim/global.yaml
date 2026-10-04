@@ -1,6 +1,8 @@
 invictasim:
   # Simulator config
-  input_adapter: "keyboard"         # Options: "ros", "keyboard" 
+  input_adapter: "ros"              # Options: "ros", "keyboard". "keyboard" opens an SDL
+                                    # window and does NOT subscribe to /control/command, so the
+                                    # autonomous pipeline cannot drive the car in that mode.
   output_adapter: "ros"             # Options: "ros"
   vehicle_model: "02"               # Options: "02", "03",
   control_mode: "autonomous"        # "manual" has the driver's friction brakes; "autonomous" is

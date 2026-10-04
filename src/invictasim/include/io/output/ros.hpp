@@ -384,8 +384,8 @@ private:
       vehicle_rl_rpm_pub_;  ///< Publisher for rear left wheel RPM.
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr
       vehicle_rr_rpm_pub_;  ///< Publisher for rear right wheel RPM.
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr
-      vehicle_motor_rpm_pub_;  ///< Publisher for motor/resolver RPM.
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr
+      vehicle_motor_rpm_pub_;  ///< Motor/resolver RPM, carried in the rr_rpm field.
   rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr
       steering_pub_;  ///< Publisher for steering angle.
 
