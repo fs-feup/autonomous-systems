@@ -22,7 +22,8 @@ from pathlib import Path
 
 import yaml
 
-WS = Path("/home/ws")
+# src/invictasim/scripts/ -> workspace root
+WS = Path(__file__).resolve().parents[3]
 BIN = WS / "install/invictasim/lib/invictasim/vehicle_model_optimizer"
 CFG = WS / "config/invictasim/tuning/02_feup_trackdrive_tuning.yaml"
 DATA = WS / "src/invictasim/tuning_csvs"
@@ -34,7 +35,7 @@ VIOL_RE = re.compile(r"first (pos|vel)-limit .* violation: (never|[0-9.]+)s")
 def run_survival(overrides):
     """Return trackdrive survival seconds for the given {name: value} overrides."""
     cmd = ["bash", "-lc",
-           "source /opt/ros/humble/setup.bash && source /home/ws/install/setup.bash && " +
+           f"source /opt/ros/humble/setup.bash && source {WS}/install/setup.bash && " +
            " ".join([str(BIN), "--config", str(CFG), "--data-dir", str(DATA), "--diagnose"] +
                     [f"--set {k}={v}" for k, v in overrides.items()])]
     out = subprocess.run(cmd, capture_output=True, text=True).stdout

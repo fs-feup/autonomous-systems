@@ -42,7 +42,6 @@ are working on.
 - [Tuning the vehicle model](#tuning-the-vehicle-model) — the offline optimizer
 - [Tests](#tests)
 - [Package layout](#package-layout)
-- [Known limitations](#known-limitations)
 
 ---
 
@@ -558,10 +557,14 @@ bounds.
 
 Telemetry CSVs are **not tracked in git** (see `tuning_csvs/.gitignore`); export your own.
 
-Other scripts in [scripts/](scripts/): `apply_tuned_parameters.py` writes a result back into the car
-configs, `plot_tuning_results.py` and `sensitivity_analysis.py` inspect a run,
-`generate_track_from_slam.py` builds a track YAML from a recorded map, and `colour_track_cones.py`
-fixes cone colours in one.
+`apply_tuned_parameters.py` then writes the result back into the car configs, mapping the
+optimizer's parameter aliases to the real keys. `sensitivity_analysis.py` screens which parameters
+are worth searching before a long run, and `plot_tuning_results.py` shows whether it converged and
+where the simulation diverges from the recording.
+
+The rest of [scripts/](scripts/) covers the other offline jobs: converting a legacy bag, fitting the
+steering motor time constant, and building a track YAML from a recorded SLAM map. Each step, with
+its real arguments, is in [scripts/README.md](scripts/README.md).
 
 Setting `rosbag_evaluator: true` enables `TuningEvaluator`, which does the same comparison **live**
 against a replaying bag and publishes the running errors under `/invictasim/tuning/*`.
@@ -600,22 +603,7 @@ src/invictasim/
 ├── resources/
 │   ├── meshes/                # Car, cone and ground meshes plus their config
 │   └── tracks/                # Track layouts
-├── scripts/                   # Tuning, plotting and track tooling
+├── scripts/                   # Offline tooling; see scripts/README.md
 ├── test/
 └── tuning_csvs/               # Telemetry exports (gitignored)
 ```
-
----
-
-## Known limitations
-
-- **The car always starts at yaw 0.** Tracks have no start-heading field, so a layout whose start
-  line is not aligned with +X needs its cones rotated instead.
-- **A sustained full regen request can reverse the car** in autonomous mode. There is no guard in the
-  plant; the acados solvers taper their regen request with speed to avoid asking for it.
-- **Front-wheel throttle is ignored.** Both cars are rear-wheel-drive and average the rear commands;
-  a controller distributing torque to four wheels is silently averaged down.
-- **The simulated state estimator is perfect**, with zero covariance. Anything depending on
-  estimator uncertainty needs the real SLAM node.
-- **Two tyre parameter files exist for the 02**, `02_tire.yaml` and `02_fitted_tire.yaml`, and they
-  disagree. The vehicle model config picks one; check which before interpreting a result.
