@@ -173,7 +173,7 @@ jobs:
           set -u
 
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
 
           export CCACHE_DIR="${CI_CACHE_DIR}/ccache"
           export PATH="/usr/lib/ccache:${PATH}"
@@ -202,7 +202,11 @@ jobs:
           # Mirror the simulate job's environment exactly, or this check passes while the
           # scenarios still fail: LD_LIBRARY_PATH is searched before a binary's RPATH.
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+          echo "osqp-like libraries under /usr/local/lib (these shadow acados if first):"
+          ls /usr/local/lib 2>/dev/null | grep -iE "osqp|qdldl|acados" | sed 's/^/    /' || echo "    none"
+          echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 
           # A node that cannot resolve a shared library dies with exit code 127 only once a
           # scenario runs, which is a long way from the cause. Catch it here instead.
@@ -303,7 +307,7 @@ jobs:
           set -u
 
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
 
           rm -rf \
             "build/${{ matrix.package }}/Testing" \
@@ -375,7 +379,7 @@ jobs:
           set -u
 
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
 
           rm -rf simulation_results
 
