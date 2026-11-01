@@ -2,11 +2,8 @@
 
 #include <yaml-cpp/yaml.h>
 #include <cmath>
-#include <common_lib/config_load/config_load.hpp>
 
 IMU::IMU(const std::string& config_path) {
-  std::string imu_cfg = common_lib::config_load::get_config_yaml_path("invictasim", "invictasim/sensors", "imu");
-
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node imu = config["imu_sensor"];
 
@@ -48,8 +45,9 @@ std::vector<double> IMU::apply_imu_error(double acceleration_x, double accelerat
   // Add bias
   double yaw_rate_with_bias = yaw_rate + gyroscope_bias_;
 
-  // Apply scale factor error that depends on angular velocity magnitude
-  double scale_error_angular = angular_velocity_scale_factor_ * std::abs(yaw_rate);
+  // Signed like the accelerometer above; with std::abs the error was rectified, which turned it
+  // into a yaw-rate-dependent bias and drifted the heading.
+  double scale_error_angular = angular_velocity_scale_factor_ * yaw_rate;
 
   yaw_rate_with_bias += scale_error_angular;
 

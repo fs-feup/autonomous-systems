@@ -201,6 +201,10 @@ void FSFEUP03Model::step(double dt, common_lib::structures::Wheels throttle, dou
   state_->ax = total_fx / car_parameters_->total_mass + state_->vy * state_->yaw_rate;
   state_->ay = total_fy / car_parameters_->total_mass - state_->vx * state_->yaw_rate;
 
+  // What the accelerometer reads: no centripetal terms.
+  state_->specific_force_x = total_fx / car_parameters_->total_mass;
+  state_->specific_force_y = total_fy / car_parameters_->total_mass;
+
   // Update velocities
   state_->vx += state_->ax * dt;
   state_->vy += state_->ay * dt;

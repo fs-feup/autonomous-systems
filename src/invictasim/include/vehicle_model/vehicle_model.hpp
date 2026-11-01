@@ -40,6 +40,9 @@ struct VehicleState {
   double angular_velocity = 0.0;
   double ax = 0.0;
   double ay = 0.0;
+  // What an accelerometer reads: total_f/mass, without the centripetal terms ax/ay carry.
+  double specific_force_x = 0.0;
+  double specific_force_y = 0.0;
   common_lib::structures::Wheels wheels_speed = {0.0, 0.0, 0.0, 0.0};  // rad/s
   common_lib::structures::Wheels wheels_torque = {0.0, 0.0, 0.0, 0.0};
   common_lib::structures::Wheels wheels_vertical_load = {0.0, 0.0, 0.0, 0.0};
@@ -142,6 +145,8 @@ public:
   double get_velocity_z() const { return state_->vz; }
   double get_acceleration_x() const { return state_->ax; }
   double get_acceleration_y() const { return state_->ay; }
+  double get_specific_force_x() const { return state_->specific_force_x; }
+  double get_specific_force_y() const { return state_->specific_force_y; }
   common_lib::structures::Wheels get_wheels_speed() const { return state_->wheels_speed; }
   common_lib::structures::Wheels get_wheels_torque() const { return state_->wheels_torque; }
   common_lib::structures::Wheels get_wheels_vertical_load() const {
