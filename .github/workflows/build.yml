@@ -115,31 +115,49 @@ jobs:
         run: |
           set -euo pipefail
 
-          # node_control resolves libacados/libosqp/libhpipm/libblasfeo from ext/acados/lib via
-          # its RPATH, so that directory is what actually has to be complete.
-          missing=0
-          for lib in libacados.so libosqp.so libhpipm.so libqpOASES_e.so libblasfeo.so.0; do
-            [ -e "ext/acados/lib/$lib" ] || { echo "ext/acados/lib/$lib missing"; missing=1; }
+          # node_control loads libacados/libhpipm/libqpOASES_e/libblasfeo from
+          # build/acados-install/lib and libosqp from ext/acados/lib, because acados builds
+          # into its source lib/ but does not install osqp into the prefix. Both therefore
+          # have to be complete, and a developer machine also has the acados_template python
+          # interface that control's code generation calls.
+          complete=1
+          for lib in libacados.so libhpipm.so libqpOASES_e.so; do
+            [ -e "build/acados-install/lib/$lib" ] || { echo "acados-install/$lib missing"; complete=0; }
           done
-          [ -d build/acados-install/lib ] || { echo "acados-install missing"; missing=1; }
-
-          # A developer machine also has the acados_template python interface installed
-          # editable from ext/acados, which control's code generation uses. Treat its absence
-          # as an incomplete install so the runner matches.
+          [ -e ext/acados/lib/libosqp.so ] || { echo "ext/acados/lib/libosqp.so missing"; complete=0; }
           python3 -c "import acados_template" >/dev/null 2>&1 \
-            || { echo "acados_template python interface missing"; missing=1; }
+            || { echo "acados_template python interface missing"; complete=0; }
 
-          if [ "$missing" -eq 0 ]; then
+          if [ "$complete" -eq 1 ]; then
             echo "acados already present and complete"
             exit 0
           fi
 
-          # Use the project's own installer, not a hand-written cmake invocation, so the runner
-          # ends up byte-for-byte equivalent to a developer machine: same system packages, same
-          # clean rebuild, and the acados_template python interface that control's code
-          # generation needs.
-          echo "acados incomplete; running src/control/dependencies_install.sh"
-          bash src/control/dependencies_install.sh
+          # Same cmake flags and the same editable acados_template install as
+          # src/control/dependencies_install.sh, so the result matches a developer machine.
+          # The script itself cannot run here: it opens with sudo apt-get and this runner has
+          # no passwordless sudo. Its apt packages are already installed on this host.
+          echo "rebuilding acados from a clean tree"
+          rm -rf ext/acados/build ext/acados/lib build/acados-install
+          git submodule update --init --recursive ext/acados
+
+          cmake -S ext/acados -B ext/acados/build \
+            -DACADOS_WITH_QPOASES=ON \
+            -DACADOS_WITH_OSQP=ON \
+            -DACADOS_WITH_OPENMP=ON \
+            -DBLASFEO_TARGET=X64_INTEL_HASWELL \
+            -DHPIPM_TARGET=GENERIC \
+            -DCMAKE_BUILD_RPATH='$ORIGIN' \
+            -DCMAKE_INSTALL_RPATH='$ORIGIN' \
+            -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON \
+            -DCMAKE_INSTALL_PREFIX="$(pwd)/build/acados-install" \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build ext/acados/build --target install -- -j4
+
+          pip3 install --user -e ext/acados/interfaces/acados_template
+
+          echo "acados-install/lib:"; ls build/acados-install/lib | sed 's/^/    /'
+          echo "ext/acados/lib:";    ls ext/acados/lib       | sed 's/^/    /'
 
       - name: Build all required packages
         run: |
@@ -175,6 +193,11 @@ jobs:
           source /opt/ros/${ROS_DISTRO}/setup.bash
           source install/setup.bash
           set -u
+
+          # Mirror the simulate job's environment exactly, or this check passes while the
+          # scenarios still fail: LD_LIBRARY_PATH is searched before a binary's RPATH.
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
 
           # A node that cannot resolve a shared library dies with exit code 127 only once a
           # scenario runs, which is a long way from the cause. Catch it here instead.
