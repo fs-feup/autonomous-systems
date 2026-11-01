@@ -12,7 +12,6 @@
   <exec_depend>custom_interfaces</exec_depend>
   <exec_depend>common_lib</exec_depend>
   <exec_depend>message_filters</exec_depend>
-  <exec_depend>pacsim</exec_depend>
   <exec_depend>std_srvs</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>

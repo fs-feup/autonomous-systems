@@ -5,7 +5,6 @@
 #include <string>
 
 #include "adapter_planning/invictasim.hpp"
-#include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 
 /*
@@ -15,10 +14,6 @@
 const std::map<std::string, std::function<std::shared_ptr<Planning>(const PlanningParameters&)>,
                std::less<>>
     adapter_map = {
-        {"pacsim",
-         [](const PlanningParameters& params) -> std::shared_ptr<Planning> {
-           return std::make_shared<PacSimAdapter>(params);
-         }},
         {"vehicle",
          [](const PlanningParameters& params) -> std::shared_ptr<Planning> {
            return std::make_shared<VehicleAdapter>(params);

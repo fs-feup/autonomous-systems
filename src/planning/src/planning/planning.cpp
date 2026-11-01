@@ -3,7 +3,6 @@
 #include <cmath>
 #include <vector>
 
-#include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 #include "common_lib/config_load/config_load.hpp"
 
