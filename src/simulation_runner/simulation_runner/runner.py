@@ -132,7 +132,7 @@ def _terminate(process: subprocess.Popen) -> None:
 
 
 def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
-               context: rclpy.Context) -> Tuple[str, float, List[LapRecord], float, List[str]]:
+               context: rclpy.Context) -> Tuple[str, float, List[LapRecord], float, List[str], float, float]:
     """Launch the stack and watch it until the scenario's finish conditions are met."""
     environment = dict(os.environ)
     # The simulator opens an SDL window; automated runs have no display.
@@ -175,6 +175,8 @@ def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
 
             laps = monitor.laps
             peak_speed = monitor.peak_speed
+            distance = monitor.distance
+            sim_lap_time = monitor.sim_lap_time
             pipeline = monitor.pipeline_report()
             duration = time.monotonic() - started
         finally:
@@ -183,7 +185,7 @@ def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
             if process.poll() is None:
                 _terminate(process)
 
-    return reason, duration, laps, peak_speed, pipeline
+    return reason, duration, laps, peak_speed, pipeline, distance, sim_lap_time
 
 
 def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
@@ -204,8 +206,8 @@ def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
     kill_stack_processes()
     try:
         with AppliedOverrides(workspace, overrides):
-            finish_reason, duration, laps, peak_speed, pipeline = _drive_run(
-                scenario, workspace, log_path, context)
+            finish_reason, duration, laps, peak_speed, pipeline, distance, sim_lap_time = (
+                _drive_run(scenario, workspace, log_path, context))
     finally:
         kill_stack_processes()
 
@@ -223,7 +225,8 @@ def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
     if finish_reason == "timeout":
         failures.append(
             f"timed out after {scenario.timeout:g}s of wall clock, peak speed "
-            f"{peak_speed:.2f} m/s"
+            f"{peak_speed:.2f} m/s, drove {distance:.0f} m, simulator lap clock "
+            f"{sim_lap_time:.1f}s"
         )
     elif finish_reason == "aborted":
         failures.append("the stack exited before the run reached its finish conditions")

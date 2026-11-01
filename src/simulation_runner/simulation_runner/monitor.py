@@ -7,6 +7,7 @@ from typing import List, Optional
 
 from custom_interfaces.msg import (
     ConeArray,
+    LapCurrent,
     ControlCommand,
     LapSummary,
     PathPointArray,
@@ -64,9 +65,15 @@ class RunMonitor(Node):
         self._speed = 0.0
         self._peak_speed = 0.0
         self._has_moved = False
+        self._distance = 0.0
+        self._last_status_time: Optional[float] = None
+        self._sim_lap_time = 0.0
 
         self.create_subscription(
             LapSummary, LAP_SUMMARY_TOPIC, self._lap_summary_callback, _LATCHED_QOS
+        )
+        self.create_subscription(
+            LapCurrent, "/invictasim/statistics/lap_current", self._lap_current_callback, 10
         )
         self.create_subscription(
             VehicleStateVector, VEHICLE_STATUS_TOPIC, self._vehicle_status_callback, 10
@@ -112,6 +119,16 @@ class RunMonitor(Node):
         return self._speed
 
     @property
+    def distance(self) -> float:
+        """Rough distance driven, to tell lapping apart from circling on the spot."""
+        return self._distance
+
+    @property
+    def sim_lap_time(self) -> float:
+        """The simulator's own current-lap clock, which only runs once a lap has started."""
+        return self._sim_lap_time
+
+    @property
     def peak_speed(self) -> float:
         """Highest speed seen, which tells a timeout apart from a car that never drove."""
         return self._peak_speed
@@ -125,10 +142,21 @@ class RunMonitor(Node):
         """Store the completed-lap history the simulator publishes."""
         self._laps = [LapRecord.from_lap_statistics(row) for row in message.rows]
 
+    def _lap_current_callback(self, message: LapCurrent) -> None:
+        """Track the simulator's lap clock so a stuck lap is distinguishable from no lap."""
+        self._sim_lap_time = float(message.current_lap_time)
+
     def _vehicle_status_callback(self, message: VehicleStateVector) -> None:
         """Track the vehicle speed and latch that the car has started driving."""
         self._speed = math.hypot(message.velocity_x, message.velocity_y)
         self._peak_speed = max(self._peak_speed, self._speed)
+
+        stamp = message.header.stamp.sec + message.header.stamp.nanosec * 1e-9
+        if self._last_status_time is not None:
+            step = stamp - self._last_status_time
+            if 0.0 < step < 1.0:
+                self._distance += self._speed * step
+        self._last_status_time = stamp
         # The car starts at a standstill, so the stop test only counts once it has driven.
         if self._speed > self._stop_speed:
             self._has_moved = True
