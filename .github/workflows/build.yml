@@ -130,6 +130,7 @@ jobs:
             --parallel-workers "${COLCON_PARALLEL_WORKERS}" \
             --packages-up-to ${BUILD_PACKAGES} \
             --cmake-args \
+              -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
               -DCMAKE_C_COMPILER_LAUNCHER=ccache \
               -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
