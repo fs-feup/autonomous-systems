@@ -111,6 +111,31 @@ jobs:
             done
           fi
 
+      # TEMPORARY: the workspace has persisted since August and has already produced one stale
+      # artifact bug (custom_interfaces typesupport for a deleted message). Record what the
+      # cache actually holds, then rebuild from nothing to rule it out. Remove this step once
+      # the clean run has told us what we need.
+      - name: Report and purge the persistent workspace
+        run: |
+          set -euo pipefail
+
+          echo "--- build types currently cached ---"
+          grep -H CMAKE_BUILD_TYPE build/*/CMakeCache.txt 2>/dev/null | sed 's|build/||' || echo "no CMakeCache files"
+
+          echo "--- slam compile flags as last built ---"
+          grep -m1 "^CXX_FLAGS" build/slam/CMakeFiles/slam.dir/flags.make 2>/dev/null | cut -c1-300 || echo "no slam flags.make"
+
+          echo "--- ccache ---"
+          ccache --show-stats 2>/dev/null | head -8 || true
+
+          echo "--- how old is the workspace ---"
+          stat -c '%y  %n' build install 2>/dev/null || true
+          echo "build dirs: $(ls build 2>/dev/null | wc -l)  install dirs: $(ls install 2>/dev/null | wc -l)"
+
+          echo "--- purging build/ and install/ for a clean Release rebuild ---"
+          rm -rf build install log
+          echo "purged"
+
       - name: Build all required packages
         run: |
           set -euo pipefail
