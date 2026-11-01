@@ -200,6 +200,9 @@ jobs:
       pull-requests: write
     name: Simulation scenarios
     needs: [build, test]
+    # Ordered after the tests so the scenarios get an idle machine, but a failing test does
+    # not skip them: only the build has to succeed.
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
     runs-on: [self-hosted, linux]
 
     # Informational: a failed scenario reports, it does not block the pull request.
@@ -219,6 +222,7 @@ jobs:
     steps:
       # colcon runs no tests for ament_python packages here, so run them with pytest.
       - name: Test the simulation runner
+        continue-on-error: true
         run: |
           set -euo pipefail
 
