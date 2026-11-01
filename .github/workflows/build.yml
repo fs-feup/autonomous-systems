@@ -115,10 +115,6 @@ jobs:
         run: |
           set -euo pipefail
 
-          # acados lives in build/acados-install but is not built by colcon, so a fresh or
-          # cleaned workspace has to put it back before control and planning can configure.
-          # Built directly rather than via src/control/dependencies_install.sh, which also
-          # wants apt and sudo, and which uses -j$(nproc) on a 40 core machine.
           # node_control resolves libacados/libosqp/libhpipm/libblasfeo from ext/acados/lib via
           # its RPATH, so that directory is what actually has to be complete.
           missing=0
@@ -127,27 +123,23 @@ jobs:
           done
           [ -d build/acados-install/lib ] || { echo "acados-install missing"; missing=1; }
 
+          # A developer machine also has the acados_template python interface installed
+          # editable from ext/acados, which control's code generation uses. Treat its absence
+          # as an incomplete install so the runner matches.
+          python3 -c "import acados_template" >/dev/null 2>&1 \
+            || { echo "acados_template python interface missing"; missing=1; }
+
           if [ "$missing" -eq 0 ]; then
             echo "acados already present and complete"
             exit 0
           fi
 
-          echo "acados missing; building it"
-          git submodule update --init --recursive ext/acados
-
-          cmake -S ext/acados -B ext/acados/build \
-            -DACADOS_WITH_QPOASES=ON \
-            -DACADOS_WITH_OSQP=ON \
-            -DACADOS_WITH_OPENMP=ON \
-            -DBLASFEO_TARGET=X64_INTEL_HASWELL \
-            -DHPIPM_TARGET=GENERIC \
-            -DCMAKE_BUILD_RPATH='$ORIGIN' \
-            -DCMAKE_INSTALL_RPATH='$ORIGIN' \
-            -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON \
-            -DCMAKE_INSTALL_PREFIX="$(pwd)/build/acados-install" \
-            -DCMAKE_BUILD_TYPE=Release
-
-          cmake --build ext/acados/build --target install -- -j4
+          # Use the project's own installer, not a hand-written cmake invocation, so the runner
+          # ends up byte-for-byte equivalent to a developer machine: same system packages, same
+          # clean rebuild, and the acados_template python interface that control's code
+          # generation needs.
+          echo "acados incomplete; running src/control/dependencies_install.sh"
+          bash src/control/dependencies_install.sh
 
       - name: Build all required packages
         run: |
