@@ -121,10 +121,9 @@ jobs:
           # have to be complete, and a developer machine also has the acados_template python
           # interface that control's code generation calls.
           complete=1
-          for lib in libacados.so libhpipm.so libqpOASES_e.so; do
+          for lib in libacados.so libhpipm.so libqpOASES_e.so libosqp.so libqdldl.so; do
             [ -e "build/acados-install/lib/$lib" ] || { echo "acados-install/$lib missing"; complete=0; }
           done
-          [ -e ext/acados/lib/libosqp.so ] || { echo "ext/acados/lib/libosqp.so missing"; complete=0; }
           python3 -c "import acados_template" >/dev/null 2>&1 \
             || { echo "acados_template python interface missing"; complete=0; }
 
@@ -153,6 +152,12 @@ jobs:
             -DCMAKE_INSTALL_PREFIX="$(pwd)/build/acados-install" \
             -DCMAKE_BUILD_TYPE=Release
           cmake --build ext/acados/build --target install -- -j4
+
+          # acados builds osqp and qdldl but does not install them into the prefix, while
+          # libacados.so needs libosqp (LINSYS_SOLVER_NAME) and libosqp needs libqdldl. Since
+          # libacados.so is installed with RPATH=$ORIGIN, the prefix has to hold them too or
+          # node_control dies with a symbol lookup error.
+          cp -a ext/acados/lib/lib*.so* build/acados-install/lib/
 
           pip3 install --user -e ext/acados/interfaces/acados_template
 
