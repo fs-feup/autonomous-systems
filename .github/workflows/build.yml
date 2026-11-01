@@ -205,8 +205,8 @@ jobs:
     if: ${{ !cancelled() && needs.build.result == 'success' }}
     runs-on: [self-hosted, linux]
 
-    # Informational: a failed scenario reports, it does not block the pull request.
-    continue-on-error: true
+    # No continue-on-error: a failed scenario must show red here and on the pull request.
+    # It still does not block merging, because main requires no status checks.
 
     # Not keyed on the ref: lap times need an idle machine, so runs queue machine wide.
     concurrency:
