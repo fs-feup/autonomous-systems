@@ -277,6 +277,12 @@ jobs:
 
           rm -rf simulation_results
 
+          # The scenarios only mean anything if this machine can hold real time, so record
+          # what it is and how loaded it was when they started.
+          echo "cores: $(nproc)  model: $(sed -n 's/^model name[ \t]*: //p' /proc/cpuinfo | head -1)"
+          echo "load: $(cut -d' ' -f1-3 /proc/loadavg)"
+          free -g | head -2
+
           ros2 run simulation_runner run \
             --keep-going \
             --output simulation_results \
