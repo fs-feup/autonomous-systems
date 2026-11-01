@@ -288,6 +288,19 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
   _graph_values_.insert(pose_symbol, prior_pose);
   _new_pose_node_ = true;
 
+  // iSAM2 keeps its own copy of the problem and optimize() replaces the values with its estimate,
+  // so anything it is not told about disappears on the first optimization.
+  const auto optimizer_ptr = std::dynamic_pointer_cast<ISAM2Optimizer>(this->_optimizer_);
+  if (optimizer_ptr) {
+    // The graph above was rebuilt from scratch, so drop what the constructor queued or the same
+    // pose symbol is inserted twice.
+    optimizer_ptr->_new_factors_.resize(0);
+    optimizer_ptr->_new_values_.clear();
+    optimizer_ptr->_new_factors_.add(
+        gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+    optimizer_ptr->_new_values_.insert(pose_symbol, prior_pose);
+  }
+
   unsigned int num_landmarks = map.size() / 2;
   for (unsigned int i = 0; i < num_landmarks; i++) {
     gtsam::Point2 landmark(map(i * 2), map(i * 2 + 1));
@@ -298,6 +311,12 @@ void GraphSLAMInstance::load_initial_state(const Eigen::VectorXd& map, const Eig
             gtsam::Vector2(preloaded_map_noise, preloaded_map_noise));
     _factor_graph_.add(
         gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
+
+    if (optimizer_ptr) {
+      optimizer_ptr->_new_values_.insert(landmark_symbol, landmark);
+      optimizer_ptr->_new_factors_.add(
+          gtsam::PriorFactor<gtsam::Point2>(landmark_symbol, landmark, landmark_noise));
+    }
   }
 }
 
