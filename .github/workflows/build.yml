@@ -86,6 +86,27 @@ jobs:
 
           echo "ROS environment loaded from /opt/ros/${ROS_DISTRO}."
 
+      # The server must behave like a developer machine, so print the things that actually
+      # change numerics and library resolution. Compare against a dev box when they diverge.
+      - name: Environment fingerprint
+        run: |
+          set -euo pipefail
+          echo "eigen:      $(grep -hE '#define EIGEN_(WORLD|MAJOR|MINOR)_VERSION' \
+                                /usr/include/eigen3/Eigen/src/Core/util/Macros.h 2>/dev/null \
+                                | awk '{print $3}' | paste -sd.)"
+          echo "gtsam_size: $(stat -c %s /usr/local/lib/libgtsam.so.4.2.0 2>/dev/null || echo absent)"
+          echo "gtsam_md5:  $(md5sum /usr/local/lib/libgtsam.so.4.2.0 2>/dev/null | cut -c1-12 || true)"
+          echo "rclcpp:     $(dpkg -l ros-humble-rclcpp 2>/dev/null | awk '/rclcpp/{print $3}')"
+          echo "gcc:        $(gcc --version | head -1)"
+          echo "tbb:        $(dpkg -l libtbb-dev 2>/dev/null | awk '/libtbb/{print $3}')"
+          echo "cores:      $(nproc)"
+          echo "libosqp.so in /usr/local/lib: $(ls /usr/local/lib 2>/dev/null | grep -icE 'libosqp\.so' || true)"
+          echo "/usr/local/lib matches for acados deps:"
+          ls /usr/local/lib 2>/dev/null | grep -iE "osqp|qdldl|acados|gtsam|metis" | sed 's/^/    /' || echo "    none"
+          echo "gtsam build flags:"
+          grep -hE "^GTSAM_(USE_SYSTEM_EIGEN|WITH_TBB|ROT3_EXPMAP|POSE3_EXPMAP|USE_QUATERNIONS|SLOW_BUT_CORRECT)" \
+            ext/gtsam/build/CMakeCache.txt 2>/dev/null | sed 's/^/    /' || echo "    no gtsam build dir"
+
       - name: Clean stale artifacts
         run: |
           rm -f ci-build-output.tar compile_commands.json
