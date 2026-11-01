@@ -362,12 +362,22 @@ TripleSpline<T> fit_triple_spline(const std::vector<T> &center, const std::vecto
     right_y[i] = right[i].position.y;
   }
 
+  // GSL aborts on a non-increasing parameter.
+  for (size_t i = 1; i < n; ++i) {
+    if (!(t_values[i] > t_values[i - 1])) {
+      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+                   "fit_triple_spline: non-increasing arc length at index %zu, skipping spline", i);
+      return result;
+    }
+  }
+
   // -------- INITIALIZE GSL INTERPOLATION --------
   gsl_interp_accel *acc = ::gsl_interp_accel_alloc();
 
   // Select interpolation type based on order parameter
   const gsl_interp_type *interp_type = ::gsl_interp_linear;
-  if (order == 3) {
+  // A cubic spline needs three samples; GSL aborts with two.
+  if (order == 3 && n >= ::gsl_interp_type_min_size(::gsl_interp_cspline)) {
     interp_type = ::gsl_interp_cspline;
   }
 

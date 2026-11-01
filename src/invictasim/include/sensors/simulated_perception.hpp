@@ -39,7 +39,7 @@ public:
   std::vector<common_lib::structures::Cone> perception_error(
       const std::vector<common_lib::structures::Cone>& cones,
       const common_lib::structures::Pose& vehicle_pose,
-      const common_lib::structures::Velocities& vehicle_velocities);
+      const common_lib::structures::Velocities& vehicle_velocities, double timestep);
 
 private:
   // LiDAR sensor parameters
@@ -54,6 +54,8 @@ private:
   double mounting_pitch_;               // Mounting pitch angle of the LiDAR (radians)
   double outlier_probability_;          // Probability of a cone being an outlier (0.0 to 1.0)
   double persistent_outlier_chance_;    // Probability that an outlier becomes persistent (0.0 to 1.0)
+  double frame_rate_;                   // Scan rate the probabilities above are defined against (Hz)
+  int max_persistent_outliers_;         // Cap on retained outliers, oldest dropped first
   
   // Persistent outliers storage
   std::vector<common_lib::structures::Cone> persistent_outliers_;

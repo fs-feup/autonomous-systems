@@ -4,7 +4,6 @@
 #include <memory>
 #include <string>
 
-#include "adapter_slam/pacsim.hpp"
 #include "adapter_slam/vehicle.hpp"
 #include "adapter_slam/invictasim.hpp"
 #include "ros_node/slam_node.hpp"
@@ -15,11 +14,7 @@
  */
 const std::map<std::string, std::function<std::shared_ptr<SLAMNode>(const SLAMParameters&)>,
                std::less<>>
-    adapter_map = {{"pacsim",
-                    [](const SLAMParameters& params) -> std::shared_ptr<SLAMNode> {
-                      return std::make_shared<PacsimAdapter>(params);
-                    }},
-                   {"vehicle", [](const SLAMParameters& params) -> std::shared_ptr<SLAMNode> {
+    adapter_map = {{"vehicle", [](const SLAMParameters& params) -> std::shared_ptr<SLAMNode> {
                       return std::make_shared<VehicleAdapter>(params);
                     }},
                    {"invictasim", [](const SLAMParameters& params) -> std::shared_ptr<SLAMNode> {

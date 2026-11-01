@@ -14,7 +14,6 @@ set(PACKAGES
     sensor_msgs
     custom_interfaces
     std_srvs
-    pacsim
     geometry_msgs
     common_lib
     visualization_msgs
@@ -37,7 +36,6 @@ link_directories(${Eigen_INCLUDE_DIRS})
 
 set(IMPLEMENTATION_FILES
   src/node/node.cpp
-  src/adapters/pacsim_adapter.cpp
   src/adapters/vehicle_adapter.cpp
   src/adapters/invictasim_adapter.cpp
   src/estimators/ekf.cpp

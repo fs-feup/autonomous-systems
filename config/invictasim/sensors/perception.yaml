@@ -1,19 +1,21 @@
 lidar_sensor:
     # Physical sensor parameters
     height: 1.1                         # Height of LiDAR relative to vehicle origin (meters)
-    max_range: 30                       # Maximum detection range (meters)
-    horizontal_fov_angle: 120           # Horizontal field of view (degrees) - approximately 180 degrees
-    vertical_fov_angle: 20.0            # Vertical field of view (degrees) - approximately 20 degrees
-    mounting_pitch: 4.98                # Mounting pitch angle (degrees)
+    max_range: 40                       # Maximum detection range (meters)
+    horizontal_fov_angle: 180           # Horizontal field of view (degrees) - approximately 180 degrees
+    vertical_fov_angle: 40            # Vertical field of view (degrees) - approximately 20 degrees
+    mounting_pitch: 0                # Mounting pitch angle (degrees)
     
     # Detection probability parameters
     detection_probability_alpha: 0.5    # Alpha parameter for sigmoid curve steepness (higher = steeper drop-off)
     
     # Noise parameters
-    noise_std_dev_base: 0             # Base standard deviation for Gaussian noise (meters)
-    noise_scales_with_range: true        # Whether noise increases with range
-    noise_range_scaling: 0           # Scaling factor for range-dependent noise
+    noise_std_dev_base: 0.001            # Base standard deviation for Gaussian noise (meters)
+    noise_scales_with_range: true       # Whether noise increases with range
+    noise_range_scaling: 0.002          # Extra sigma per meter of range (0.002 -> +0.08 m at 40 m)
     
     # Outlier parameters
-    outlier_probability: 0.003             # Probability of spawning an outlier cone per iteration (0.0 to 1.0)
-    persistent_outlier_chance: 0.05       # Chance that an outlier becomes persistent (0.0 to 1.0)
+    frame_rate: 10                        # Scan rate the probabilities below are defined against (Hz)
+    outlier_probability: 0.000            # Probability of spawning an outlier cone per scan (0.0 to 1.0)
+    persistent_outlier_chance: 0.00      # Chance that an outlier becomes persistent (0.0 to 1.0)
+    max_persistent_outliers: 10           # Cap on retained outliers, oldest dropped first

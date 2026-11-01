@@ -1,7 +1,12 @@
+#include <gsl/gsl_errno.h>
+
 #include "adapter_planning/map.hpp"
 #include "planning/planning.hpp"
 
 int main(int argc, char* argv[]) {
+  // GSL's default handler aborts the process; degenerate inputs are routine here.
+  ::gsl_set_error_handler_off();
+
   rclcpp::init(argc, argv);
 
   std::string adapter;

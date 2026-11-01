@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "planning/smoothing.hpp"
 
 std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& path,
@@ -23,8 +24,24 @@ std::vector<PathPoint> PathSmoothing::optimize_path(std::vector<PathPoint>& path
     return smooth_path(path, is_path_closed);
   }
 
-  const std::vector<PathPoint> optimized_path =
-      osqp_optimization(path, blue_cones, yellow_cones, is_path_closed, is_final);
+  if (!config_.use_path_smoothing_) {
+    const std::vector<PathPoint> optimized_path =
+        osqp_optimization(path, blue_cones, yellow_cones, is_path_closed, is_final);
+    return filter_path(optimized_path);
+  }
+
+  // Smooth centre and boundaries together, index-aligned, then optimize that corridor.
+  const TripleSpline<PathPoint> smoothed = ::fit_triple_spline(
+      path, blue_cones, yellow_cones, config_.spline_precision_, config_.spline_order_);
+
+  if (smoothed.center.size() < 5) {
+    const std::vector<PathPoint> optimized_path =
+        osqp_optimization(path, blue_cones, yellow_cones, is_path_closed, is_final);
+    return filter_path(optimized_path);
+  }
+
+  const std::vector<PathPoint> optimized_path = osqp_optimization(
+      smoothed.center, smoothed.left, smoothed.right, is_path_closed, is_final);
 
   return filter_path(optimized_path);
 }
@@ -292,6 +309,14 @@ std::vector<PathPoint> PathSmoothing::osqp_optimization(
     RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
                 "Splines have different sizes. Right - %ld, Left - %ld, Center - %ld",
                 right_boundary.size(), left_boundary.size(), center_path.size());
+    // The corridor constraints index all three with the centre index, so trim to the shortest.
+    const size_t common_size =
+        std::min({center_path.size(), left_boundary.size(), right_boundary.size()});
+    return osqp_optimization(
+        std::vector<PathPoint>(center_path.begin(), center_path.begin() + common_size),
+        std::vector<PathPoint>(left_boundary.begin(), left_boundary.begin() + common_size),
+        std::vector<PathPoint>(right_boundary.begin(), right_boundary.begin() + common_size),
+        is_path_closed, is_final);
   }
 
   const int total_points = static_cast<int>(center_path.size());

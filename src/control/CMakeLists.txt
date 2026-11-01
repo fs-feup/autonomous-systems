@@ -115,7 +115,6 @@ add_custom_target(generate_mpczinho_acados_solver
 # Sources (cpp implementation files)
 set(IMPLEMENTATION_FILES
   src/ros_node/ros_node.cpp
-  src/adapter/pacsim.cpp
   src/adapter/vehicle.cpp
   src/local_pather/interpolator.cpp
   src/local_pather/alpha_beta.cpp
@@ -140,7 +139,6 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(message_filters REQUIRED)
-find_package(pacsim REQUIRED)
 find_package(ackermann_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(tf2_ros REQUIRED)
@@ -221,7 +219,6 @@ ament_target_dependencies(node_control
   sensor_msgs
   custom_interfaces  
   message_filters
-  pacsim
   ackermann_msgs
   std_srvs
   tf2_ros
@@ -286,7 +283,6 @@ if(BUILD_TESTING)
     sensor_msgs    
     custom_interfaces
     message_filters
-    pacsim
     ackermann_msgs
     std_srvs
     tf2_ros

@@ -3,11 +3,8 @@
 #include <yaml-cpp/yaml.h>
 #include <cmath>
 #include <random>
-#include <common_lib/config_load/config_load.hpp>
 
 WSS::WSS(const std::string& config_path) {
-  std::string wss_cfg = common_lib::config_load::get_config_yaml_path(
-    "invictasim", "invictasim/sensors", "wss");
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node wss = config["wss_sensor"];
 
@@ -34,10 +31,10 @@ WSS::WSS(const std::string& config_path) {
     wheel_params_[i].speed_cutoff = wheel_node["speed_cutoff"].as<double>();
 
     // Load quantization parameters
-    if (wheel_node["quantization_steps"]) {
-      wheel_params_[i].quantization_steps = wheel_node["quantization_steps"].as<int>();
+    if (wheel_node["quantization_bits"]) {
+      wheel_params_[i].quantization_bits = wheel_node["quantization_bits"].as<int>();
     } else {
-      wheel_params_[i].quantization_steps = 0;  // Disabled by default
+      wheel_params_[i].quantization_bits = 0;  // Disabled by default
     }
   }
 }
@@ -66,16 +63,16 @@ common_lib::structures::Wheels WSS::simulate_wheel_speeds(double wheel_speeds_fl
   double rr_rpm_simulated = rr_noisy * RAD_S_TO_RPM;
   
   // Apply quantization if enabled for each wheel
-  if (wheel_params_[static_cast<int>(WheelPosition::FRONT_LEFT)].quantization_steps > 0) {
+  if (wheel_params_[static_cast<int>(WheelPosition::FRONT_LEFT)].quantization_bits > 0) {
     fl_rpm_simulated = apply_quantization(fl_rpm_simulated, WheelPosition::FRONT_LEFT);
   }
-  if (wheel_params_[static_cast<int>(WheelPosition::FRONT_RIGHT)].quantization_steps > 0) {
+  if (wheel_params_[static_cast<int>(WheelPosition::FRONT_RIGHT)].quantization_bits > 0) {
     fr_rpm_simulated = apply_quantization(fr_rpm_simulated, WheelPosition::FRONT_RIGHT);
   }
-  if (wheel_params_[static_cast<int>(WheelPosition::REAR_LEFT)].quantization_steps > 0) {
+  if (wheel_params_[static_cast<int>(WheelPosition::REAR_LEFT)].quantization_bits > 0) {
     rl_rpm_simulated = apply_quantization(rl_rpm_simulated, WheelPosition::REAR_LEFT);
   }
-  if (wheel_params_[static_cast<int>(WheelPosition::REAR_RIGHT)].quantization_steps > 0) {
+  if (wheel_params_[static_cast<int>(WheelPosition::REAR_RIGHT)].quantization_bits > 0) {
     rr_rpm_simulated = apply_quantization(rr_rpm_simulated, WheelPosition::REAR_RIGHT);
   }
   
@@ -138,13 +135,12 @@ double WSS::apply_quantization(double value, WheelPosition wheel) {
   int wheel_idx = static_cast<int>(wheel);
   const WheelParameters& params = wheel_params_[wheel_idx];
 
-  // Quantize the value based on the configured bit depth
-  // Assumes range of [-4000, 4000] rpm
+  // Quantize to the configured ADC bit depth over a [-4000, 4000] rpm range
   constexpr double MIN_RPM = -4000.0;
   constexpr double MAX_RPM = 4000.0;
   
   // Calculate the number of levels: 2^bits
-  long long num_levels = 1LL << params.quantization_steps;  // 2^quantization_steps
+  long long num_levels = 1LL << params.quantization_bits;  // 2^bits levels
   
   // Calculate step size: (max - min) / (levels - 1)
   double step_size = (MAX_RPM - MIN_RPM) / (num_levels - 1);

@@ -111,7 +111,8 @@ void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels 
 
   // Prevent oscillations at very low speeds by forcing a dead stop
   double speed = std::sqrt(state_->vx * state_->vx + state_->vy * state_->vy);
-  if (speed < 0.05 && (std::abs(throttle_input) < 0.01 || braking)) {
+  const bool held_at_standstill = speed < 0.05 && (std::abs(throttle_input) < 0.01 || braking);
+  if (held_at_standstill) {
     state_->vx = 0.0;
     state_->vy = 0.0;
     state_->ax = 0.0;
@@ -146,7 +147,15 @@ void FSFEUP02Model::integrate_substep(double dt, common_lib::structures::Wheels 
   s_next(RR_W) = state_->wheels_speed.rear_right;
   s_next(AX) = state_->ax;
   s_next(AY) = state_->ay;
-  get_state_derivative(s_next, motor_torque, brake_torques, angle, dt, true, &current_times);
+  const StateVec final_ds =
+      get_state_derivative(s_next, motor_torque, brake_torques, angle, dt, true, &current_times);
+
+  // ds(VX)/ds(VY) are the velocity derivatives, so undoing the centripetal terms recovers
+  // total_f/mass, which is what the accelerometer reads.
+  state_->specific_force_x =
+      held_at_standstill ? 0.0 : final_ds(VX) - state_->vy * state_->yaw_rate;
+  state_->specific_force_y =
+      held_at_standstill ? 0.0 : final_ds(VY) + state_->vx * state_->yaw_rate;
 
   const auto integration_end = Clock::now();
 

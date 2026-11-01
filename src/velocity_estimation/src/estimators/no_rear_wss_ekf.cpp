@@ -150,8 +150,8 @@ void NoRearWSSEKF::correct_wheels(Eigen::Vector3d& state, Eigen::Matrix3d& covar
                used_predicted_observations(0), used_predicted_observations(1),
                used_predicted_observations(2), used_predicted_observations(3));
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
-               "correct_wheels - Observations: %f %f %f %f %f %f", observations(0), observations(1),
-               observations(2), observations(3), observations(4), observations(5));
+               "correct_wheels - Observations: %f %f %f %f", observations(0), observations(1),
+               observations(2), observations(3));
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - Covariance: \n"
                                                                      << covariance);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "correct_wheels - y: \n" << y);

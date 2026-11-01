@@ -45,11 +45,19 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam"), _params_(params
   _track_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_pose_ = common_lib::structures::Pose();
 
+  // Created here for every adapter: the invictasim adapter passes these to its subscriptions,
+  // and a null group silently falls back to the node's default one, which serialises perception
+  // with the optimisation and then drops cones at the depth 1 queue. Both are mutually
+  // exclusive, so perception runs in parallel with the optimisation but never with itself,
+  // which _perception_map_ relies on.
+  this->_callback_group_ =
+      this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+  this->_parallel_callback_group_ =
+      this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+
   // Subscriptions
   if (!params.use_simulated_perception_) {
     if (params.slam_optimization_mode_ != "sync") {
-      this->_parallel_callback_group_ =
-          this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
       rclcpp::SubscriptionOptions parallel_opts;
       parallel_opts.callback_group = _parallel_callback_group_;
       this->_perception_subscription_ =

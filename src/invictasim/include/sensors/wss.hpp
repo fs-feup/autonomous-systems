@@ -38,7 +38,7 @@ public:
     double outlier_impact_factor;  ///< Scaling factor for outlier magnitude
     double dropout_probability;    ///< Probability of dropout (0.0 to 1.0)
     double speed_cutoff;           ///< Minimum speed threshold (rad/s)
-    int quantization_steps;        ///< Number of steps for ADC quantization (0 to disable)
+    int quantization_bits;        ///< ADC resolution in bits (0 to disable quantization)
   };
 
   /**

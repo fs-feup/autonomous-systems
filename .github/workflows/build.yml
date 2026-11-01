@@ -30,6 +30,7 @@ env:
     inspection
     invictasim
     evaluator
+    simulation_runner
 
 jobs:
   build:
@@ -85,9 +86,104 @@ jobs:
 
           echo "ROS environment loaded from /opt/ros/${ROS_DISTRO}."
 
+      # The server must behave like a developer machine, so print the things that actually
+      # change numerics and library resolution. Compare against a dev box when they diverge.
+      - name: Environment fingerprint
+        run: |
+          set -euo pipefail
+          echo "eigen:      $(grep -hE '#define EIGEN_(WORLD|MAJOR|MINOR)_VERSION' \
+                                /usr/include/eigen3/Eigen/src/Core/util/Macros.h 2>/dev/null \
+                                | awk '{print $3}' | paste -sd.)"
+          echo "gtsam_size: $(stat -c %s /usr/local/lib/libgtsam.so.4.2.0 2>/dev/null || echo absent)"
+          echo "gtsam_md5:  $(md5sum /usr/local/lib/libgtsam.so.4.2.0 2>/dev/null | cut -c1-12 || true)"
+          echo "rclcpp:     $(dpkg -l ros-humble-rclcpp 2>/dev/null | awk '/rclcpp/{print $3}')"
+          echo "gcc:        $(gcc --version | head -1)"
+          echo "tbb:        $(dpkg -l libtbb-dev 2>/dev/null | awk '/libtbb/{print $3}')"
+          echo "cores:      $(nproc)"
+          echo "libosqp.so in /usr/local/lib: $(ls /usr/local/lib 2>/dev/null | grep -icE 'libosqp\.so' || true)"
+          echo "/usr/local/lib matches for acados deps:"
+          ls /usr/local/lib 2>/dev/null | grep -iE "osqp|qdldl|acados|gtsam|metis" | sed 's/^/    /' || echo "    none"
+          echo "gtsam build flags:"
+          grep -hE "^GTSAM_(USE_SYSTEM_EIGEN|WITH_TBB|ROT3_EXPMAP|POSE3_EXPMAP|USE_QUATERNIONS|SLOW_BUT_CORRECT)" \
+            ext/gtsam/build/CMakeCache.txt 2>/dev/null | sed 's/^/    /' || echo "    no gtsam build dir"
+
       - name: Clean stale artifacts
         run: |
           rm -f ci-build-output.tar compile_commands.json
+
+          # The workspace persists between runs and colcon leaves generated code behind for
+          # messages that were deleted, which leaves custom_interfaces' python typesupport
+          # referencing symbols nothing defines any more. Rebuild it when such an orphan shows
+          # up, rather than every run, so the cache still does its job.
+          generated=install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/msg
+          if [ -d "$generated" ]; then
+            sources=$(ls src/custom_interfaces/msg/*.msg 2>/dev/null | xargs -n1 basename \
+                      | sed 's/\.msg$//' | sed -E 's/([a-z0-9])([A-Z])/\1_\2/g' \
+                      | tr '[:upper:]' '[:lower:]' | sort)
+            for module in "$generated"/_*.py; do
+              base=$(basename "$module")
+              [ "$base" = "__init__.py" ] && continue
+              name=${base#_}; name=${name%.py}
+              if ! printf '%s\n' "$sources" | grep -qx "$name"; then
+                echo "custom_interfaces still has generated code for removed message '$name'; rebuilding it"
+                rm -rf build/custom_interfaces install/custom_interfaces
+                break
+              fi
+            done
+          fi
+
+      - name: Ensure acados is installed
+        run: |
+          set -euo pipefail
+
+          # node_control loads libacados/libhpipm/libqpOASES_e/libblasfeo from
+          # build/acados-install/lib and libosqp from ext/acados/lib, because acados builds
+          # into its source lib/ but does not install osqp into the prefix. Both therefore
+          # have to be complete, and a developer machine also has the acados_template python
+          # interface that control's code generation calls.
+          complete=1
+          for lib in libacados.so libhpipm.so libqpOASES_e.so libosqp.so libqdldl.so; do
+            [ -e "build/acados-install/lib/$lib" ] || { echo "acados-install/$lib missing"; complete=0; }
+          done
+          python3 -c "import acados_template" >/dev/null 2>&1 \
+            || { echo "acados_template python interface missing"; complete=0; }
+
+          if [ "$complete" -eq 1 ]; then
+            echo "acados already present and complete"
+            exit 0
+          fi
+
+          # Same cmake flags and the same editable acados_template install as
+          # src/control/dependencies_install.sh, so the result matches a developer machine.
+          # The script itself cannot run here: it opens with sudo apt-get and this runner has
+          # no passwordless sudo. Its apt packages are already installed on this host.
+          echo "rebuilding acados from a clean tree"
+          rm -rf ext/acados/build ext/acados/lib build/acados-install
+          git submodule update --init --recursive ext/acados
+
+          cmake -S ext/acados -B ext/acados/build \
+            -DACADOS_WITH_QPOASES=ON \
+            -DACADOS_WITH_OSQP=ON \
+            -DACADOS_WITH_OPENMP=ON \
+            -DBLASFEO_TARGET=X64_INTEL_HASWELL \
+            -DHPIPM_TARGET=GENERIC \
+            -DCMAKE_BUILD_RPATH='$ORIGIN' \
+            -DCMAKE_INSTALL_RPATH='$ORIGIN' \
+            -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON \
+            -DCMAKE_INSTALL_PREFIX="$(pwd)/build/acados-install" \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build ext/acados/build --target install -- -j4
+
+          # acados builds osqp and qdldl but does not install them into the prefix, while
+          # libacados.so needs libosqp (LINSYS_SOLVER_NAME) and libosqp needs libqdldl. Since
+          # libacados.so is installed with RPATH=$ORIGIN, the prefix has to hold them too or
+          # node_control dies with a symbol lookup error.
+          cp -a ext/acados/lib/lib*.so* build/acados-install/lib/
+
+          pip3 install --user -e ext/acados/interfaces/acados_template
+
+          echo "acados-install/lib:"; ls build/acados-install/lib | sed 's/^/    /'
+          echo "ext/acados/lib:";    ls ext/acados/lib       | sed 's/^/    /'
 
       - name: Build all required packages
         run: |
@@ -98,7 +194,7 @@ jobs:
           set -u
 
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
 
           export CCACHE_DIR="${CI_CACHE_DIR}/ccache"
           export PATH="/usr/lib/ccache:${PATH}"
@@ -108,11 +204,65 @@ jobs:
             --parallel-workers "${COLCON_PARALLEL_WORKERS}" \
             --packages-up-to ${BUILD_PACKAGES} \
             --cmake-args \
+              -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
               -DCMAKE_C_COMPILER_LAUNCHER=ccache \
               -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
           ccache --show-stats || true
+
+      - name: Verify the built nodes can load their libraries
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
+          set -u
+
+          # Mirror the simulate job's environment exactly, or this check passes while the
+          # scenarios still fail: LD_LIBRARY_PATH is searched before a binary's RPATH.
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+          echo "osqp-like libraries under /usr/local/lib (these shadow acados if first):"
+          ls /usr/local/lib 2>/dev/null | grep -iE "osqp|qdldl|acados" | sed 's/^/    /' || echo "    none"
+          echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
+
+          # A node that cannot resolve a shared library dies with exit code 127 only once a
+          # scenario runs, which is a long way from the cause. Catch it here instead.
+          failed=0
+          for node in install/control/lib/control/node_control \
+                      install/slam/lib/slam/slam \
+                      install/planning/lib/planning/planning \
+                      install/velocity_estimation/lib/velocity_estimation/velocity_estimation \
+                      install/invictasim/lib/invictasim/invictasim; do
+            [ -x "$node" ] || { echo "MISSING EXECUTABLE: $node"; failed=1; continue; }
+
+            if ldd "$node" 2>/dev/null | grep -q "not found"; then
+              echo "UNRESOLVED LIBRARIES in $node:"
+              ldd "$node" 2>/dev/null | grep "not found" | sed 's/^/    /'
+              failed=1
+            fi
+
+            # ldd is not enough: it reports nothing about missing symbols, and the loader can
+            # still refuse to start the binary. Actually run it, briefly, and keep whatever the
+            # loader says. Exit 127 is the loader giving up; 124 is our own timeout, which means
+            # the node started fine.
+            output=$(timeout 5 "$node" --ros-args 2>&1 || true)
+            status=$(timeout 5 "$node" --ros-args >/dev/null 2>&1; echo $?)
+            if [ "$status" -eq 127 ]; then
+              echo "CANNOT START (exit 127): $node"
+              echo "$output" | tail -5 | sed 's/^/    /'
+              failed=1
+            fi
+          done
+
+          if [ "$failed" -ne 0 ]; then
+            echo "acados libs present in ext/acados/lib:"; ls ext/acados/lib 2>/dev/null | sed 's/^/    /' || true
+            exit 1
+          fi
+          echo "all nodes resolve their libraries"
 
       - name: Merge CMake compile databases for SonarCloud
         run: |
@@ -178,7 +328,7 @@ jobs:
           set -u
 
           export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
-          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
 
           rm -rf \
             "build/${{ matrix.package }}/Testing" \
@@ -193,12 +343,132 @@ jobs:
             --all \
             --verbose
 
+  simulate:
+    permissions:
+      contents: read
+      pull-requests: write
+    name: Simulation scenarios
+    needs: [build, test]
+    # Ordered after the tests so the scenarios get an idle machine, but a failing test does
+    # not skip them: only the build has to succeed.
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
+    runs-on: [self-hosted, linux]
+
+    # No continue-on-error: a failed scenario must show red here and on the pull request.
+    # It still does not block merging, because main requires no status checks.
+
+    # Not keyed on the ref: lap times need an idle machine, so runs queue machine wide.
+    concurrency:
+      group: simulation-runner
+      cancel-in-progress: false
+
+    timeout-minutes: 45
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # colcon runs no tests for ament_python packages here, so run them with pytest.
+      - name: Test the simulation runner
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
+          set -u
+
+          python3 -m pytest src/simulation_runner/test -q
+
+      - name: Run the simulation scenarios
+        env:
+          # The simulator opens an SDL window; CI has no display.
+          SDL_VIDEODRIVER: dummy
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          AUTHOR: ${{ github.event.pull_request.user.login || github.actor }}
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+          PULL_REQUEST: ${{ github.event.pull_request.number && format('#{0}', github.event.pull_request.number) || '' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
+          set -u
+
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH="$(pwd)/build/acados-install/lib":/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+          rm -rf simulation_results
+
+          # The scenarios only mean anything if this machine can hold real time, so record
+          # what it is and how loaded it was when they started.
+          echo "cores: $(nproc)  model: $(sed -n 's/^model name[ \t]*: //p' /proc/cpuinfo | head -1)"
+          echo "load: $(cut -d' ' -f1-3 /proc/loadavg)"
+          free -g | head -2
+
+          ros2 run simulation_runner run \
+            --keep-going \
+            --output simulation_results \
+            --author "${AUTHOR}" \
+            --branch "${BRANCH}" \
+            --pull-request "${PULL_REQUEST}" \
+            --run-url "${RUN_URL}"
+
+      - name: Upload simulation logs and reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-results
+          path: simulation_results/
+          retention-days: 14
+
+      - name: Comment the results on the pull request
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'simulation_results/summary.md';
+            if (!fs.existsSync(path)) {
+              core.info('No simulation summary to post.');
+              return;
+            }
+
+            const marker = '<!-- simulation-results -->';
+            const body = `${marker}\n${fs.readFileSync(path, 'utf8')}`;
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number,
+            });
+            const existing = comments.find(
+              (comment) => comment.body && comment.body.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number, body,
+              });
+            }
+
+
   sonarcloud:
     permissions:
       contents: read
       pull-requests: read
     name: SonarCloud analysis
-    needs: [build, test]
+    needs: [build, test, simulate]
     if: ${{ !cancelled() && needs.build.result == 'success' && github.event_name == 'pull_request' }}
     runs-on: [self-hosted, linux]
 

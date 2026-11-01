@@ -5,7 +5,6 @@
 #include <string>
 
 #include "adapters/invictasim_adapter.hpp"
-#include "adapters/pacsim_adapter.hpp"
 #include "adapters/vehicle_adapter.hpp"
 
 /*
@@ -14,11 +13,7 @@
  */
 const std::map<std::string, std::function<std::shared_ptr<VENode>(const VEParameters&)>,
                std::less<>>
-    adapter_map = {{"pacsim",
-                    [](const VEParameters& params) -> std::shared_ptr<VENode> {
-                      return std::make_shared<PacsimAdapter>(params);
-                    }},
-                   {"vehicle",
+    adapter_map = {{"vehicle",
                     [](const VEParameters& params) -> std::shared_ptr<VENode> {
                       return std::make_shared<VehicleAdapter>(params);
                     }},

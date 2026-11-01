@@ -60,6 +60,10 @@ private:
     bool is_initialized_ = false;
     std::vector<double> parameters_per_stage;
 
+    double previous_orientation_ = 0.0;
+    bool has_previous_orientation_ = false;
+    bool orientation_wrapped_ = false;
+
     // Debug string
     std::string stage_parameters_debug;
     std::string total_delay_debug;

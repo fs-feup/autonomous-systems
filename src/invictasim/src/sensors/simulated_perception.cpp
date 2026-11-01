@@ -9,10 +9,6 @@
 #include <common_lib/competition_logic/color.hpp>
 
 SimulatedPerception::SimulatedPerception(const std::string& config_path) {
-
-  std::string perception_cfg = common_lib::config_load::get_config_yaml_path(
-        "invictasim", "invictasim/sensors", "perception");
-
   YAML::Node config = YAML::LoadFile(config_path);
   YAML::Node lidar = config["lidar_sensor"];
 
@@ -27,13 +23,19 @@ SimulatedPerception::SimulatedPerception(const std::string& config_path) {
   mounting_pitch_ = lidar["mounting_pitch"].as<double>() * M_PI / 180.0;
   outlier_probability_ = lidar["outlier_probability"].as<double>();
   persistent_outlier_chance_ = lidar["persistent_outlier_chance"].as<double>();
+  frame_rate_ = lidar["frame_rate"].as<double>(10.0);
+  max_persistent_outliers_ = lidar["max_persistent_outliers"].as<int>(10);
 }
 
 std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
     const std::vector<common_lib::structures::Cone>& cones,
     const common_lib::structures::Pose& vehicle_pose,
-    const common_lib::structures::Velocities& vehicle_velocities) {
+    const common_lib::structures::Velocities& vehicle_velocities, double timestep) {
   std::vector<common_lib::structures::Cone> result;
+
+  // This runs every simulation step, so scale the per-scan probabilities to the step or the
+  // sensor throws outliers a hundred times more often than it is configured to.
+  const double scans_this_step = std::max(0.0, timestep) * frame_rate_;
 
   double yaw_cos = std::cos(vehicle_pose.orientation);
   double yaw_sin = std::sin(vehicle_pose.orientation);
@@ -52,7 +54,7 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
 
   // Generate outliers based on probability
   int num_outliers = 0;
-  if (uniform_dist(generator_) < outlier_probability_) {
+  if (uniform_dist(generator_) < outlier_probability_ * scans_this_step) {
     num_outliers = 1;
   }
 
@@ -78,6 +80,10 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
 
     if (uniform_dist(generator_) < persistent_outlier_chance_) {
       persistent_outliers_.push_back(outlier_cone);
+      // Without a cap these accumulate for the whole run and eventually outnumber the track.
+      if (static_cast<int>(persistent_outliers_.size()) > max_persistent_outliers_) {
+        persistent_outliers_.erase(persistent_outliers_.begin());
+      }
     }
   }
 
@@ -98,6 +104,10 @@ std::vector<common_lib::structures::Cone> SimulatedPerception::perception_error(
     double azimuth = std::atan2(y_vehicle, x_vehicle);
     double elevation = std::atan2(z_vehicle, range_2d);
     double range_3d = std::sqrt(range_2d * range_2d + z_vehicle * z_vehicle);
+
+    if (range_3d > max_range_) {
+      continue;
+    }
 
     // Apply pitch in spherical space
     double elevation_with_pitch = elevation + mounting_pitch_ * std::cos(azimuth);

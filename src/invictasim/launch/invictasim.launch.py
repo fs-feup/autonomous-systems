@@ -14,7 +14,9 @@ from launch.events import Shutdown
 
 
 def generate_launch_description():
-    sdlWaylandEnv = SetEnvironmentVariable(name="SDL_VIDEODRIVER", value="wayland")
+    sdlWaylandEnv = SetEnvironmentVariable(
+        name="SDL_VIDEODRIVER", value=os.environ.get("SDL_VIDEODRIVER", "wayland")
+    )
 
     nodeInvictasim = Node(
         package="invictasim",

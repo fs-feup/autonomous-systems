@@ -6,19 +6,19 @@ InvictaSimAdapter::InvictaSimAdapter(const PlanningParameters& params) : Plannin
           "/invictasim/operational_status", 10,
           std::bind(&InvictaSimAdapter::mission_state_callback, this, std::placeholders::_1));
 
-  if (params.planning_using_simulated_se_) {
-    vehicle_localization_sub_ = create_subscription<custom_interfaces::msg::Pose>(
-        "/invictasim/state_estimation/vehicle_pose", 10,
-        std::bind(&InvictaSimAdapter::pose_callback, this, std::placeholders::_1));
-
-    track_map_sub_ = create_subscription<custom_interfaces::msg::ConeArray>(
-        "/invictasim/state_estimation/map", 10,
-        std::bind(&InvictaSimAdapter::map_callback, this, std::placeholders::_1));
-
-    lap_counter_sub_ = create_subscription<std_msgs::msg::Float64>(
-        "/invictasim/state_estimation/lap_counter", 10,
-        std::bind(&InvictaSimAdapter::lap_counter_callback, this, std::placeholders::_1));
-  }
+  // Simulator ground truth only for isolated tests, otherwise the real SLAM output.
+  const std::string topic_prefix = params.planning_using_simulated_se_
+                                       ? "/invictasim/state_estimation/"
+                                       : "/state_estimation/";
+  vehicle_localization_sub_ = create_subscription<custom_interfaces::msg::Pose>(
+      topic_prefix + "vehicle_pose", 10,
+      std::bind(&InvictaSimAdapter::pose_callback, this, std::placeholders::_1));
+  track_map_sub_ = create_subscription<custom_interfaces::msg::ConeArray>(
+      topic_prefix + "map", 10,
+      std::bind(&InvictaSimAdapter::map_callback, this, std::placeholders::_1));
+  lap_counter_sub_ = create_subscription<std_msgs::msg::Float64>(
+      topic_prefix + "lap_counter", 10,
+      std::bind(&InvictaSimAdapter::lap_counter_callback, this, std::placeholders::_1));
 }
 
 void InvictaSimAdapter::map_callback(const custom_interfaces::msg::ConeArray& msg) {

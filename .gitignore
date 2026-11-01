@@ -28,3 +28,7 @@ ext/osqp-eigen/src/build/
 # Simulation run artifacts (lap traces, campaign outputs)
 runs/
 src/invictasim/runs/
+
+# Output of the automated simulation runs
+simulation_results/
+*.simulation_runner_backup

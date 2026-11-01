@@ -1,47 +1,43 @@
 # Wheel Speed Sensor (WSS) Configuration
-# Each wheel can be individually tuned with its own parameters
+# Per wheel. Noise is in rad/s (0.2 rad/s is about 2 rpm); speeds are published in rpm.
 wss_sensor:
 
-  # Front Right Wheel
   fr:
     noise:
-      std_dev: 0.4
+      std_dev: 0.2              # rad/s
     outliers:
-      probability: 0.002
-      impact_factor: 0.3
-    dropout_probability: 0.002
-    speed_cutoff: 0.01
-    quantization_steps: 15
+      probability: 0.001        # per sample
+      impact_factor: 0.1        # fraction of the measurement
+    dropout_probability: 0.0005 # per sample, reads zero
+    speed_cutoff: 0.01          # below this the sensor reads zero (rad/s)
+    quantization_bits: 12       # ADC resolution over [-4000, 4000] rpm
 
-  # Front Left Wheel
   fl:
     noise:
-      std_dev: 0.5
+      std_dev: 0.2
     outliers:
-      probability: 0.02
-      impact_factor: 0.3
-    dropout_probability: 0.002
+      probability: 0.001
+      impact_factor: 0.1
+    dropout_probability: 0.0005
     speed_cutoff: 0.01
-    quantization_steps: 12
+    quantization_bits: 12
 
-  # Rear Right Wheel
   rr:
     noise:
-      std_dev: 0.4
+      std_dev: 0.2
     outliers:
-      probability: 0.002
-      impact_factor: 0.3
-    dropout_probability: 0.002
+      probability: 0.001
+      impact_factor: 0.1
+    dropout_probability: 0.0005
     speed_cutoff: 0.01
-    quantization_steps: 15
+    quantization_bits: 12
 
-  # Rear Left Wheel
   rl:
     noise:
-      std_dev: 0.4
+      std_dev: 0.2
     outliers:
-      probability: 0.002
-      impact_factor: 0.3
-    dropout_probability: 0.002
+      probability: 0.001
+      impact_factor: 0.1
+    dropout_probability: 0.0005
     speed_cutoff: 0.01
-    quantization_steps: 15
+    quantization_bits: 12

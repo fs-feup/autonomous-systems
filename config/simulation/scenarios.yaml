@@ -1,0 +1,71 @@
+# Scenarios for `ros2 run simulation_runner run`. One full-stack InvictaSim run each.
+# The runner sets up the run (adapter, simulated sources, track, mission, SLAM map).
+# Tuning stays as committed: that is what the run measures.
+#
+# Ends when min_laps are done and, with wait_for_stop, speed < stop_speed.
+# Criteria are upper bounds, checked when present; null drops an inherited one:
+#   max_cones_hit, max_total_time, max_best_lap_time, max_mean_lap_time,
+#   max_mean_tracking_error, max_peak_tracking_error, max_mean_velocity_error
+# Limits sit ~20-30% above current performance, from observed spread, not one good run.
+
+defaults:
+  stop_speed: 0.5        # m/s, counts as stopped
+  wait_for_stop: true    # false: end at min_laps
+  preloaded_map: false   # true: SLAM starts from src/slam/maps/
+  timeout: 600           # wall-clock seconds, then killed and failed
+  required: true         # false: does not block merging
+
+  criteria:
+    max_cones_hit: 0
+    max_peak_tracking_error: 2.5
+
+scenarios:
+  - name: acceleration
+    description: 75 m straight line sprint
+    track: Acceleration
+    mission: acceleration
+    min_laps: 1
+    preloaded_map: true
+    timeout: 40
+    criteria:
+      max_cones_hit: 0
+      max_total_time: 8.0
+      max_mean_tracking_error: 0.6
+      max_peak_tracking_error: null   # 6 s run: the worst sample is always the start
+
+  - name: skidpad
+    description: Figure of eight, two timed circles each way
+    track: Skidpad
+    mission: skidpad
+    min_laps: 1
+    preloaded_map: true
+    timeout: 90
+    required: false   # follows the path to 3 cm but still clips 3-6 cones
+    criteria:
+      max_cones_hit: 0
+      max_total_time: 50.0   # grip limited, drops as vp_lateral_acceleration rises
+      max_mean_tracking_error: 0.5
+      max_peak_tracking_error: 1.5
+
+  - name: autocross
+    description: Single flying lap of an unknown track
+    track: FSG25
+    mission: autocross
+    min_laps: 1
+    timeout: 90
+    criteria:
+      max_cones_hit: 2   # scored lap is also the mapping lap; observed 0-2
+      max_total_time: 40.0
+      max_mean_tracking_error: 0.20
+      max_peak_tracking_error: 2.5
+
+  - name: trackdrive
+    description: Ten Laps of an unknown track
+    track: FSG25
+    mission: trackdrive
+    min_laps: 10
+    timeout: 600
+    criteria:
+      max_cones_hit: 1   # 11 laps driven; observed 0-2
+      max_mean_lap_time: 40.0
+      max_mean_tracking_error: 0.25

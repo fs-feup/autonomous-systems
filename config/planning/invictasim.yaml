@@ -25,7 +25,7 @@ planning:
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_min_path_point_distance: 0
-  smoothing_use_path_smoothing: true
+  smoothing_use_path_smoothing: false
   smoothing_use_optimization: true
   smoothing_car_width: 1.2
   smoothing_safety_margin: 0.7
@@ -37,14 +37,14 @@ planning:
   #---------------------- Velocity Planning (vp_) -----------------------
   vp_minimum_velocity: 3.0
   vp_braking_acceleration: -4.0
-  vp_lateral_acceleration: 8.0
-  vp_longitudinal_acceleration: 4.0
+  vp_lateral_acceleration: 6.0
+  vp_longitudinal_acceleration: 6.0
   vp_use_velocity_planning: true
-  vp_desired_velocity: 20.0
+  vp_desired_velocity: 30.0
   #---------------------- Planning Config (planning_) ---------------------------
   planning_publishing_visualization_msgs: true
-  planning_using_full_map: true
-  planning_braking_distance_acceleration: 75.0
+  planning_using_full_map: false
+  planning_braking_distance_acceleration: 70.0
   planning_braking_distance_autocross: 5.0
 
 # Parameters for EBS Test

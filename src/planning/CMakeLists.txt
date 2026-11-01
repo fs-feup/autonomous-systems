@@ -31,7 +31,6 @@ find_package(custom_interfaces REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(pacsim REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
@@ -48,7 +47,6 @@ find_package(osqp REQUIRED)
 find_package(OsqpEigen REQUIRED)
 
 set(IMPLEMENTATION_FILES
-  src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
   src/adapter_planning/invictasim.cpp
   src/planning/path_calculation.cpp
@@ -86,7 +84,7 @@ target_compile_features(planning_lib PUBLIC c_std_99 cxx_std_17)
 
 ament_target_dependencies(planning_lib
   ament_index_cpp rclcpp std_msgs custom_interfaces
-  tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
+  tf2_ros tf2_geometry_msgs common_lib std_srvs nav_msgs
   visualization_msgs
 )
 
@@ -126,7 +124,7 @@ set_target_properties(planning PROPERTIES
 
 ament_target_dependencies(planning
   ament_index_cpp rclcpp std_msgs custom_interfaces
-  tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
+  tf2_ros tf2_geometry_msgs common_lib std_srvs nav_msgs
   visualization_msgs
 )
 
@@ -149,7 +147,7 @@ if(BUILD_TESTING)
 
   ament_target_dependencies(planning_test
     ament_index_cpp rclcpp std_msgs custom_interfaces
-    tf2_ros tf2_geometry_msgs pacsim common_lib std_srvs nav_msgs
+    tf2_ros tf2_geometry_msgs common_lib std_srvs nav_msgs
     visualization_msgs
   )
 
