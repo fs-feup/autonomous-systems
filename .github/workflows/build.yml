@@ -90,6 +90,27 @@ jobs:
         run: |
           rm -f ci-build-output.tar compile_commands.json
 
+          # The workspace persists between runs and colcon leaves generated code behind for
+          # messages that were deleted, which leaves custom_interfaces' python typesupport
+          # referencing symbols nothing defines any more. Rebuild it when such an orphan shows
+          # up, rather than every run, so the cache still does its job.
+          generated=install/custom_interfaces/local/lib/python3.10/dist-packages/custom_interfaces/msg
+          if [ -d "$generated" ]; then
+            sources=$(ls src/custom_interfaces/msg/*.msg 2>/dev/null | xargs -n1 basename \
+                      | sed 's/\.msg$//' | sed -E 's/([a-z0-9])([A-Z])/\1_\2/g' \
+                      | tr '[:upper:]' '[:lower:]' | sort)
+            for module in "$generated"/_*.py; do
+              base=$(basename "$module")
+              [ "$base" = "__init__.py" ] && continue
+              name=${base#_}; name=${name%.py}
+              if ! printf '%s\n' "$sources" | grep -qx "$name"; then
+                echo "custom_interfaces still has generated code for removed message '$name'; rebuilding it"
+                rm -rf build/custom_interfaces install/custom_interfaces
+                break
+              fi
+            done
+          fi
+
       - name: Build all required packages
         run: |
           set -euo pipefail
