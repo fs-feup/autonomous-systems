@@ -119,8 +119,16 @@ jobs:
           # cleaned workspace has to put it back before control and planning can configure.
           # Built directly rather than via src/control/dependencies_install.sh, which also
           # wants apt and sudo, and which uses -j$(nproc) on a 40 core machine.
-          if [ -d build/acados-install/lib ]; then
-            echo "acados already present"
+          # node_control resolves libacados/libosqp/libhpipm/libblasfeo from ext/acados/lib via
+          # its RPATH, so that directory is what actually has to be complete.
+          missing=0
+          for lib in libacados.so libosqp.so libhpipm.so libqpOASES_e.so libblasfeo.so.0; do
+            [ -e "ext/acados/lib/$lib" ] || { echo "ext/acados/lib/$lib missing"; missing=1; }
+          done
+          [ -d build/acados-install/lib ] || { echo "acados-install missing"; missing=1; }
+
+          if [ "$missing" -eq 0 ]; then
+            echo "acados already present and complete"
             exit 0
           fi
 
@@ -166,6 +174,37 @@ jobs:
               -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
           ccache --show-stats || true
+
+      - name: Verify the built nodes can load their libraries
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
+          set -u
+
+          # A node that cannot resolve a shared library dies with exit code 127 only once a
+          # scenario runs, which is a long way from the cause. Catch it here instead.
+          failed=0
+          for node in install/control/lib/control/node_control \
+                      install/slam/lib/slam/slam \
+                      install/planning/lib/planning/planning \
+                      install/velocity_estimation/lib/velocity_estimation/velocity_estimation \
+                      install/invictasim/lib/invictasim/invictasim; do
+            [ -x "$node" ] || { echo "MISSING EXECUTABLE: $node"; failed=1; continue; }
+            if ldd "$node" 2>/dev/null | grep -q "not found"; then
+              echo "UNRESOLVED LIBRARIES in $node:"
+              ldd "$node" 2>/dev/null | grep "not found" | sed 's/^/    /'
+              failed=1
+            fi
+          done
+
+          if [ "$failed" -ne 0 ]; then
+            echo "acados libs present in ext/acados/lib:"; ls ext/acados/lib 2>/dev/null | sed 's/^/    /' || true
+            exit 1
+          fi
+          echo "all nodes resolve their libraries"
 
       - name: Merge CMake compile databases for SonarCloud
         run: |
