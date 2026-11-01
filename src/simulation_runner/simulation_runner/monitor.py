@@ -5,9 +5,19 @@ from __future__ import annotations
 import math
 from typing import List, Optional
 
-from custom_interfaces.msg import LapSummary, VehicleStateVector
+from custom_interfaces.msg import (
+    ConeArray,
+    ControlCommand,
+    LapSummary,
+    PathPointArray,
+    PerceptionOutput,
+    Pose,
+    VehicleStateVector,
+    Velocities,
+)
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
+from std_msgs.msg import Float64
 
 from .results import LapRecord
 
@@ -16,6 +26,19 @@ LAP_SUMMARY_TOPIC = "/invictasim/statistics/lap_summary"
 
 #: Vehicle state, used for the speed the stop condition is tested against.
 VEHICLE_STATUS_TOPIC = "/invictasim/vehicle_model/status"
+
+#: The pipeline in order, so the first stage with no output localises a failure. Each entry is
+#: (stage, ros node that should be alive, topic it must publish, message type).
+PIPELINE = (
+    ("simulator", "invictasim_output", "/invictasim/vehicle_model/status", VehicleStateVector),
+    ("perception", "invictasim_output", "/invictasim/perception/cones", PerceptionOutput),
+    ("velocity estimation", "velocity_estimation", "/state_estimation/velocities", Velocities),
+    ("slam pose", "slam", "/state_estimation/vehicle_pose", Pose),
+    ("slam map", "slam", "/state_estimation/map", ConeArray),
+    ("lap counter", "slam", "/state_estimation/lap_counter", Float64),
+    ("planning", "planning_adapter", "/path_planning/path", PathPointArray),
+    ("control", "control_adapter", "/invictasim/input", ControlCommand),
+)
 
 _LATCHED_QOS = QoSProfile(
     depth=10,
@@ -48,6 +71,35 @@ class RunMonitor(Node):
         self.create_subscription(
             VehicleStateVector, VEHICLE_STATUS_TOPIC, self._vehicle_status_callback, 10
         )
+
+        # One counter per pipeline stage: a stage with zero messages is where things broke.
+        self._counts = {stage: 0 for stage, _, _, _ in PIPELINE}
+        for stage, _, topic, message_type in PIPELINE:
+            self.create_subscription(
+                message_type, topic, self._make_counter(stage), 10
+            )
+
+    def _make_counter(self, stage: str):
+        """Build a callback that only records that the stage produced something."""
+        def callback(_message) -> None:
+            self._counts[stage] += 1
+        return callback
+
+    def pipeline_report(self) -> List[str]:
+        """Describe which nodes never appeared and which stages published nothing."""
+        problems: List[str] = []
+
+        running = set(self.get_node_names())
+        missing = [node for _, node, _, _ in PIPELINE if node not in running]
+        for node in sorted(set(missing)):
+            problems.append(f"node '{node}' is not running")
+
+        for stage, node, topic, _ in PIPELINE:
+            if self._counts[stage] or node in missing:
+                continue
+            problems.append(f"{stage} published nothing on {topic}")
+
+        return problems
 
     @property
     def laps(self) -> List[LapRecord]:

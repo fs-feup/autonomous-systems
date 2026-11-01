@@ -38,7 +38,7 @@ STACK_PROCESSES = (
 _POLL_INTERVAL = 0.1
 
 #: Exit codes of a normal shutdown; anything else is a crash.
-_CRASH_PATTERN = re.compile(r"process has died \[pid \d+, exit code (-?\d+)")
+_CRASH_PATTERN = re.compile(r"\[([^\]]+)\]: process has died \[pid \d+, exit code (-?\d+)")
 _CLEAN_EXIT_CODES = {0, -2, -15}
 
 #: Settings that make a run impossible, checked up front so the failure is a clear message.
@@ -107,8 +107,11 @@ def preflight_check(workspace: Path) -> List[str]:
 def find_crashes(log_text: str) -> List[str]:
     """Extract node crashes from a launch log."""
     crashes = [
-        f"a node died with exit code {code}"
-        for code in (int(match) for match in _CRASH_PATTERN.findall(log_text))
+        f"{name} died with exit code {code}"
+        + (" (missing shared library or executable)" if code == 127 else "")
+        for name, code in (
+            (name, int(code)) for name, code in _CRASH_PATTERN.findall(log_text)
+        )
         if code not in _CLEAN_EXIT_CODES
     ]
     return sorted(set(crashes))
@@ -129,7 +132,7 @@ def _terminate(process: subprocess.Popen) -> None:
 
 
 def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
-               context: rclpy.Context) -> Tuple[str, float, List[LapRecord], float]:
+               context: rclpy.Context) -> Tuple[str, float, List[LapRecord], float, List[str]]:
     """Launch the stack and watch it until the scenario's finish conditions are met."""
     environment = dict(os.environ)
     # The simulator opens an SDL window; automated runs have no display.
@@ -172,6 +175,7 @@ def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
 
             laps = monitor.laps
             peak_speed = monitor.peak_speed
+            pipeline = monitor.pipeline_report()
             duration = time.monotonic() - started
         finally:
             executor.remove_node(monitor)
@@ -179,7 +183,7 @@ def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
             if process.poll() is None:
                 _terminate(process)
 
-    return reason, duration, laps, peak_speed
+    return reason, duration, laps, peak_speed, pipeline
 
 
 def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
@@ -200,7 +204,7 @@ def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
     kill_stack_processes()
     try:
         with AppliedOverrides(workspace, overrides):
-            finish_reason, duration, laps, peak_speed = _drive_run(
+            finish_reason, duration, laps, peak_speed, pipeline = _drive_run(
                 scenario, workspace, log_path, context)
     finally:
         kill_stack_processes()
@@ -213,6 +217,7 @@ def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
         for check in checks
         if not check.passed
     ]
+    failures.extend(pipeline)
     failures.extend(find_crashes(log_path.read_text() if log_path.is_file() else ""))
 
     if finish_reason == "timeout":
