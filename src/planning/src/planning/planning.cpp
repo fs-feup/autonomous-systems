@@ -498,9 +498,18 @@ void Planning::publish_path_points() const {
 
 void Planning::publish_execution_time(rclcpp::Time start_time) {
   rclcpp::Time end_time = now();
+  const double execution_time_ms = (end_time - start_time).seconds() * 1000;
+
   std_msgs::msg::Float64 planning_execution_time;
-  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+  planning_execution_time.data = execution_time_ms;
   planning_execution_time_pub_->publish(planning_execution_time);
+
+  // The node is single threaded, so a long iteration means no path reaches control meanwhile.
+  constexpr double SLOW_ITERATION_MS = 200.0;
+  if (execution_time_ms > SLOW_ITERATION_MS) {
+    RCLCPP_WARN(get_logger(), "Planning iteration took %.0f ms with %zu cones and a %zu point path",
+                execution_time_ms, cone_array_.size(), smoothed_path_.size());
+  }
 }
 
 void Planning::publish_visualization_msgs() const {

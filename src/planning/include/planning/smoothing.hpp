@@ -44,6 +44,8 @@ public:
   /**
    * @brief Optimizes a racing line path using quadratic programming.
    *
+   * With spline smoothing enabled the corridor is smoothed first, then optimized.
+   *
    * @param path Initial center path
    * @param yellow_cones Right boundary markers
    * @param blue_cones Left boundary markers
