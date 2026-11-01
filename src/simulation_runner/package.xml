@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>simulation_runner</name>
+  <version>0.0.0</version>
+  <description>Runs the InvictaSim full stack through the configured scenarios and checks the resulting driving performance against their criteria.</description>
+  <maintainer email="diogoleandrogpt@gmail.com">Diogo Pinheiro</maintainer>
+  <license>MIT</license>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>custom_interfaces</exec_depend>
+  <exec_depend>launcher</exec_depend>
+  <exec_depend>invictasim</exec_depend>
+  <exec_depend>slam</exec_depend>
+  <exec_depend>velocity_estimation</exec_depend>
+  <exec_depend>planning</exec_depend>
+  <exec_depend>control</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

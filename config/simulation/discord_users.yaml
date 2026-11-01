@@ -1,0 +1,7 @@
+# GitHub login or commit email -> Discord user id. Unlisted authors are not tagged.
+# Right-click a user with Developer Mode on to copy the id. Quote it.
+users:
+  # octocat: "123456789012345678"
+  # octocat@example.com: "123456789012345678"
+  DiogoProPrayer: "367456324176576512"
+  diogoalexandrepinheiro@gmail.com: "367456324176576512"

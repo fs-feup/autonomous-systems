@@ -30,6 +30,7 @@ env:
     inspection
     invictasim
     evaluator
+    simulation_runner
 
 jobs:
   build:
@@ -193,12 +194,122 @@ jobs:
             --all \
             --verbose
 
+  simulate:
+    permissions:
+      contents: read
+      pull-requests: write
+    name: Simulation scenarios
+    needs: [build, test]
+    runs-on: [self-hosted, linux]
+
+    # Informational: a failed scenario reports, it does not block the pull request.
+    continue-on-error: true
+
+    # Not keyed on the ref: lap times need an idle machine, so runs queue machine wide.
+    concurrency:
+      group: simulation-runner
+      cancel-in-progress: false
+
+    timeout-minutes: 45
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # colcon runs no tests for ament_python packages here, so run them with pytest.
+      - name: Test the simulation runner
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
+          set -u
+
+          python3 -m pytest src/simulation_runner/test -q
+
+      - name: Run the simulation scenarios
+        env:
+          # The simulator opens an SDL window; CI has no display.
+          SDL_VIDEODRIVER: dummy
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          AUTHOR: ${{ github.event.pull_request.user.login || github.actor }}
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+          PULL_REQUEST: ${{ github.event.pull_request.number && format('#{0}', github.event.pull_request.number) || '' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          set +u
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
+          set -u
+
+          export CMAKE_PREFIX_PATH=/usr/local:${CMAKE_PREFIX_PATH:-}
+          export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH:-}
+
+          rm -rf simulation_results
+
+          ros2 run simulation_runner run \
+            --keep-going \
+            --output simulation_results \
+            --author "${AUTHOR}" \
+            --branch "${BRANCH}" \
+            --pull-request "${PULL_REQUEST}" \
+            --run-url "${RUN_URL}"
+
+      - name: Upload simulation logs and reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-results
+          path: simulation_results/
+          retention-days: 14
+
+      - name: Comment the results on the pull request
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'simulation_results/summary.md';
+            if (!fs.existsSync(path)) {
+              core.info('No simulation summary to post.');
+              return;
+            }
+
+            const marker = '<!-- simulation-results -->';
+            const body = `${marker}\n${fs.readFileSync(path, 'utf8')}`;
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number,
+            });
+            const existing = comments.find(
+              (comment) => comment.body && comment.body.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number, body,
+              });
+            }
+
+
   sonarcloud:
     permissions:
       contents: read
       pull-requests: read
     name: SonarCloud analysis
-    needs: [build, test]
+    needs: [build, test, simulate]
     if: ${{ !cancelled() && needs.build.result == 'success' && github.event_name == 'pull_request' }}
     runs-on: [self-hosted, linux]
 
