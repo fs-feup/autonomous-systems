@@ -39,6 +39,7 @@ class RunMonitor(Node):
 
         self._laps: List[LapRecord] = []
         self._speed = 0.0
+        self._peak_speed = 0.0
         self._has_moved = False
 
         self.create_subscription(
@@ -59,6 +60,11 @@ class RunMonitor(Node):
         return self._speed
 
     @property
+    def peak_speed(self) -> float:
+        """Highest speed seen, which tells a timeout apart from a car that never drove."""
+        return self._peak_speed
+
+    @property
     def started_moving(self) -> bool:
         """Whether the car has exceeded the stop speed at least once."""
         return self._has_moved
@@ -70,6 +76,7 @@ class RunMonitor(Node):
     def _vehicle_status_callback(self, message: VehicleStateVector) -> None:
         """Track the vehicle speed and latch that the car has started driving."""
         self._speed = math.hypot(message.velocity_x, message.velocity_y)
+        self._peak_speed = max(self._peak_speed, self._speed)
         # The car starts at a standstill, so the stop test only counts once it has driven.
         if self._speed > self._stop_speed:
             self._has_moved = True

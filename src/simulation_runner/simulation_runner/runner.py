@@ -129,7 +129,7 @@ def _terminate(process: subprocess.Popen) -> None:
 
 
 def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
-               context: rclpy.Context) -> Tuple[str, float, List[LapRecord]]:
+               context: rclpy.Context) -> Tuple[str, float, List[LapRecord], float]:
     """Launch the stack and watch it until the scenario's finish conditions are met."""
     environment = dict(os.environ)
     # The simulator opens an SDL window; automated runs have no display.
@@ -171,6 +171,7 @@ def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
                     break
 
             laps = monitor.laps
+            peak_speed = monitor.peak_speed
             duration = time.monotonic() - started
         finally:
             executor.remove_node(monitor)
@@ -178,7 +179,7 @@ def _drive_run(scenario: Scenario, workspace: Path, log_path: Path,
             if process.poll() is None:
                 _terminate(process)
 
-    return reason, duration, laps
+    return reason, duration, laps, peak_speed
 
 
 def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
@@ -199,7 +200,8 @@ def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
     kill_stack_processes()
     try:
         with AppliedOverrides(workspace, overrides):
-            finish_reason, duration, laps = _drive_run(scenario, workspace, log_path, context)
+            finish_reason, duration, laps, peak_speed = _drive_run(
+                scenario, workspace, log_path, context)
     finally:
         kill_stack_processes()
 
@@ -214,7 +216,10 @@ def run_scenario(scenario: Scenario, workspace: Path, output_directory: Path,
     failures.extend(find_crashes(log_path.read_text() if log_path.is_file() else ""))
 
     if finish_reason == "timeout":
-        failures.append(f"timed out after {scenario.timeout:g}s of wall clock")
+        failures.append(
+            f"timed out after {scenario.timeout:g}s of wall clock, peak speed "
+            f"{peak_speed:.2f} m/s"
+        )
     elif finish_reason == "aborted":
         failures.append("the stack exited before the run reached its finish conditions")
 
