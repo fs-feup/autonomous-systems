@@ -497,6 +497,9 @@ void RosOutputAdapter::publish_vm_status(const rclcpp::Time& stamp) {
   custom_interfaces::msg::VehicleStateVector status_msg;
   status_msg.header.stamp = stamp;
   status_msg.header.frame_id = "base_link";
+  status_msg.x = vehicle_model_snapshot_cache_.x;
+  status_msg.y = vehicle_model_snapshot_cache_.y;
+  status_msg.orientation = vehicle_model_snapshot_cache_.yaw;
   status_msg.yaw_rate = vehicle_model_snapshot_cache_.yaw_rate;
   status_msg.velocity_x = vehicle_model_snapshot_cache_.velocity_x;
   status_msg.velocity_y = vehicle_model_snapshot_cache_.velocity_y;

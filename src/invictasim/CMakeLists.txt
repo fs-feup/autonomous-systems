@@ -36,6 +36,11 @@ set(IMPLEMENTATION_FILES
   src/tuning/tuning_evaluator.cpp
   src/io/input/keyboard.cpp
   src/config/config.cpp
+  src/sensors/sensors_base.cpp
+  src/sensors/imu.cpp
+  src/sensors/wss.cpp
+  src/sensors/drivetrain.cpp
+  src/sensors/simulated_perception.cpp
   src/vehicle_model/FSFEUP02.cpp
   src/vehicle_model/FSFEUP03.cpp
   src/track/track.cpp

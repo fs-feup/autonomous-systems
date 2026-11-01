@@ -1,0 +1,11 @@
+# Steering angle sensor and motor resolver. Both feed the velocity estimator directly.
+steering_sensor:
+  noise_std_dev: 0.0015     # Gaussian white noise standard deviation (rad) ~= 0.09 deg
+  scale_factor: 0.002       # Scale factor error, proportional to the steering angle (dimensionless)
+  bias: 0.0                 # Constant offset (rad)
+  resolution: 0.0005        # Encoder quantization step, 0 disables it (rad) ~= 0.03 deg
+
+resolver_sensor:
+  noise_std_dev: 3.0        # Gaussian white noise standard deviation (rpm)
+  scale_factor: 0.001       # Scale factor error, proportional to the motor speed (dimensionless)
+  bias: 0.0                 # Constant offset (rpm)

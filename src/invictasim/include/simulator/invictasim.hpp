@@ -9,6 +9,10 @@
 #include "common_lib/structures/wheels.hpp"
 #include "config/config.hpp"
 #include "io/output/output_snapshot.hpp"
+#include "sensors/drivetrain.hpp"
+#include "sensors/imu.hpp"
+#include "sensors/simulated_perception.hpp"
+#include "sensors/wss.hpp"
 #include "statistics/statistics.hpp"
 #include "track/track.hpp"
 #include "vehicle_model/map.hpp"
@@ -81,6 +85,7 @@ public:
    * @brief Check if the simulator is running.
    */
   bool is_running() const { return running_; }
+
 
   /**
    * @brief Get the current go signal state.
@@ -218,6 +223,10 @@ private:
   std::shared_ptr<VehicleModel> vehicle_model_;  ///< Vehicle model.
   std::shared_ptr<Track> track_;                 ///< Track information.
   std::shared_ptr<Statistics> statistics_;       ///< Statistics calculator.
+  std::unique_ptr<SimulatedPerception> simulated_perception_;
+  std::unique_ptr<IMU> imu_sensor_;                ///< Simulated IMU error model.
+  std::unique_ptr<WSS> wss_sensor_;                ///< Simulated wheel speed sensor error model.
+  std::unique_ptr<Drivetrain> drivetrain_sensor_;  ///< Simulated steering sensor and resolver.
 
   // Simulation loop timing
   std::atomic<bool> running_;  ///< Indicates whether the simulation loop is running.
@@ -268,13 +277,13 @@ private:
    * @brief Build map snapshot with ground truth map, slam simulation and perception cones.
    * @return MapSnapshot Latest map snapshot.
    */
-  MapSnapshot build_map_snapshot(const InputSnapshot& input_snapshot) const;
+  MapSnapshot build_map_snapshot(const InputSnapshot& input_snapshot, double timestep);
 
   /**
    * @brief Build sensors snapshot with latest simulated sensors data.
    * @return SensorsSnapshot Latest sensors snapshot.
    */
-  SensorsSnapshot build_sensors_snapshot(const VehicleModelSnapshot& vehicle_snapshot) const;
+  SensorsSnapshot build_sensors_snapshot(const VehicleModelSnapshot& vehicle_snapshot);
 
   /**
    * @brief Build vehicle state snapshot with latest needed information for other subsystems.
