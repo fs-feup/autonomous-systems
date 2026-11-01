@@ -68,6 +68,16 @@ MPCzinhoAcadosSolver::~MPCzinhoAcadosSolver() {
 }
 
 void MPCzinhoAcadosSolver::set_state(const custom_interfaces::msg::VehicleStateVector& state) {
+  // A heading of +pi and one of -pi are the same direction, but the previous solution the solver
+  // warms up from sits a full turn away from the new one, which it cannot recover from in the
+  // iterations it is given. Re-seed instead.
+  if (this->has_previous_orientation_ &&
+      std::fabs(state.orientation - this->previous_orientation_) > M_PI) {
+    this->orientation_wrapped_ = true;
+  }
+  this->previous_orientation_ = state.orientation;
+  this->has_previous_orientation_ = true;
+
   this->latest_state_ = state;
   this->has_state_ = true;
 
@@ -111,6 +121,17 @@ void MPCzinhoAcadosSolver::initialize_solver_memory() {
 
 void MPCzinhoAcadosSolver::set_path_point_per_stage() {
   int N = this->control_params_->lateral_mpc_prediction_horizon_steps_;
+
+  // Reference headings arrive wrapped to (-pi, pi], so a path that turns through north jumps a
+  // full turn between neighbouring stages. Anchor the first one to the car and unwrap the rest,
+  // so the horizon is continuous and the state guess built from it is too.
+  double previous_reference = this->latest_state_.orientation;
+  for (int i = 0; i <= N; ++i) {
+    double& reference = this->parameters_per_stage[i * path_point_size + 3];
+    reference += 2.0 * M_PI * std::round((previous_reference - reference) / (2.0 * M_PI));
+    previous_reference = reference;
+  }
+
   this->stage_parameters_debug = "Stage parameters debug:  \n";
   for (int i = 0; i <= N; ++i) {
     double path_point_x = this->parameters_per_stage[i*path_point_size];
@@ -200,8 +221,9 @@ common_lib::structures::ControlCommand MPCzinhoAcadosSolver::solve(int* solver_s
   }
 
 
-  if (!this->is_initialized_) {
+  if (!this->is_initialized_ || this->orientation_wrapped_) {
     this->initialize_solver_memory();
+    this->orientation_wrapped_ = false;
   }
 
   int status = mpczinho_acados_solve(this->capsule_);

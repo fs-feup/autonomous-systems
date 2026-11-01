@@ -3,13 +3,16 @@
 #include <algorithm>
 
 unsigned int get_s_index(std::vector<double>& s, double query_s) {
-  // Simple linear search (can be optimized with binary search if needed)
-  for (size_t i = 0; i < s.size() - 1; ++i) {
-    if (s[i] > query_s) {
-      return i - 1;
+  // Segment [i, i+1] containing query_s, clamped. The size guard stops the index wrapping.
+  if (s.size() < 2) {
+    return 0;
+  }
+  for (size_t i = 0; i + 1 < s.size(); ++i) {
+    if (s[i + 1] > query_s) {
+      return static_cast<unsigned int>(i);
     }
   }
-  return s.size() - 2; // Return the last valid index if out of bounds
+  return static_cast<unsigned int>(s.size() - 2);  // Return the last valid index if out of bounds
 }
 
 double acceleration_for_segment(unsigned int start_idx, std::vector<double>& v, std::vector<double>& s) {
@@ -102,6 +105,10 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
   }
 
   local_pather->create_local_path(new_path, vehicle_state);
+
+  if (new_path.pathpoint_array.empty()) {
+    return;
+  }
 
   double max_acceleration = 10.0; // m/s^2, can be tuned or made a parameter
   limit_velocity_according_to_current(new_path, max_acceleration);
@@ -211,6 +218,20 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
     }
   }
 
+  // The filter above can leave fewer points than a spline needs.
+  if (s.size() < 3) {
+    output_path_data.pathpoint_array.clear();
+    for (unsigned int i = 0; i <= number_of_stages; ++i) {
+      custom_interfaces::msg::PathPoint p;
+      p.x = car_x;
+      p.y = car_y;
+      p.orientation = car_yaw;
+      p.v = 0.0;
+      output_path_data.pathpoint_array.push_back(p);
+    }
+    return;
+  }
+
   // --- 2. Fit the splines ---
   tk::spline spline_x, spline_y;
 
@@ -261,6 +282,17 @@ void local_path_resampled_with_spline(custom_interfaces::msg::PathPointArray& pa
 
       remaining_dt -= dt_until_segment_end;
       remaining_dt2 = remaining_dt * remaining_dt;
+
+      // The horizon can outrun a short path; hold at its last point instead of overrunning.
+      if (segment_start_idx + 1 >= s.size()) {
+        segment_start_idx = static_cast<unsigned int>(s.size() - 2);
+        current_s = max_s;
+        car_v = velocities.back();
+        acceleration = 0.0;
+        ds = 0.0;
+        break;
+      }
+
       end_of_segment_s = s[segment_start_idx + 1];
       acceleration = acceleration_for_segment(segment_start_idx, velocities, s);
       ds = (car_v * remaining_dt) + (0.5 * acceleration * remaining_dt2);

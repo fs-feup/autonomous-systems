@@ -13,16 +13,16 @@ InvictasimAdapter::InvictasimAdapter(const ControlParameters &params)
         std::bind(&InvictasimAdapter::pose_callback, this, std::placeholders::_1));
   }
 
-  if (this->params_.using_simulated_velocities_) {
-    this->velocities_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-        "/invictasim/state_estimation/velocities", 1,
-        std::bind(&InvictasimAdapter::velocities_callback, this, std::placeholders::_1));
-
-    this->vehicle_status_sub_ =
-        this->create_subscription<custom_interfaces::msg::VehicleStateVector>(
-            "/invictasim/vehicle_model/status", 1,
-            std::bind(&InvictasimAdapter::vehicle_status_callback, this, std::placeholders::_1));
-  }
+  // Velocities come from VE unless the simulated ones were asked for.
+  const std::string velocities_topic = this->params_.using_simulated_velocities_
+                                           ? "/invictasim/state_estimation/velocities"
+                                           : "/state_estimation/velocities";
+  this->velocities_sub_ = this->create_subscription<custom_interfaces::msg::Velocities>(
+      velocities_topic, 1,
+      std::bind(&InvictasimAdapter::velocities_callback, this, std::placeholders::_1));
+  this->vehicle_status_sub_ = this->create_subscription<custom_interfaces::msg::VehicleStateVector>(
+      "/invictasim/vehicle_model/status", 1,
+      std::bind(&InvictasimAdapter::vehicle_status_callback, this, std::placeholders::_1));
   RCLCPP_INFO(this->get_logger(), "Invictasim adapter created");
   this->go_signal_ = true;
 }
