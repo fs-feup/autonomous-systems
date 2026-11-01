@@ -208,9 +208,22 @@ jobs:
                       install/velocity_estimation/lib/velocity_estimation/velocity_estimation \
                       install/invictasim/lib/invictasim/invictasim; do
             [ -x "$node" ] || { echo "MISSING EXECUTABLE: $node"; failed=1; continue; }
+
             if ldd "$node" 2>/dev/null | grep -q "not found"; then
               echo "UNRESOLVED LIBRARIES in $node:"
               ldd "$node" 2>/dev/null | grep "not found" | sed 's/^/    /'
+              failed=1
+            fi
+
+            # ldd is not enough: it reports nothing about missing symbols, and the loader can
+            # still refuse to start the binary. Actually run it, briefly, and keep whatever the
+            # loader says. Exit 127 is the loader giving up; 124 is our own timeout, which means
+            # the node started fine.
+            output=$(timeout 5 "$node" --ros-args 2>&1 || true)
+            status=$(timeout 5 "$node" --ros-args >/dev/null 2>&1; echo $?)
+            if [ "$status" -eq 127 ]; then
+              echo "CANNOT START (exit 127): $node"
+              echo "$output" | tail -5 | sed 's/^/    /'
               failed=1
             fi
           done
