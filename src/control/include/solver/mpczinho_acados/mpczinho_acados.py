@@ -169,7 +169,6 @@ def create_ocp_solver(gen_base_dir: str = "./build/control/control/mpczinho/acad
     ocp.solver_options.qp_solver_cond_N = 10
     ocp.solver_options.integrator_type = "ERK"
     ocp.solver_options.levenberg_marquardt = 1e-2
-    ocp.solver_options.with_batch_functionality = False
     ocp.solver_options.ext_fun_compile_flags = "-O3 -march=native -ffast-math"
     ocp.solver_options.nlp_solver_max_iter = 10
     ocp.solver_options.with_batch_functionality = True 

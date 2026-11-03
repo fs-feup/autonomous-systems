@@ -315,8 +315,8 @@ def setup_cost_function(ocp: AcadosOcp):
         x[1] - p[1],      # Y Position Error
         x[3] - p[2],      # Velocity Error
         theta_cost_term,  # Orientation Error
-        u[0],             # Penalty on Throttle
-        u[1],             # Penalty on Brake
+        u[0],             # Penalty on Throttle Left
+        u[1],             # Penalty on Throttle Right
         u[2]              # Penalty on Steering
     )
 
@@ -332,7 +332,7 @@ def setup_cost_function(ocp: AcadosOcp):
     ocp.model.cost_y_expr_e = cost_expression_e
 
     # 4. Define Weight Matrices (W)
-    # Weights: [X, Y, V, Theta, Throttle,  Steer]
+    # Weights: [X, Y, V, Theta, Throttle Left, Throttle Right, Steer]
     # Note: High weight on Steer (e.g. 5.0 or 10.0) prevents shaky steering
     weights = np.array([2.0, 2.0, 4.0, 1.0, 0.2, 0.2, 10.0])
     
@@ -382,7 +382,6 @@ def create_ocp_solver(gen_base_dir: str = "./build/acados", acados_dir: str | No
     ocp.solver_options.qp_solver_cond_N = 10
     ocp.solver_options.integrator_type = "IRK"
     ocp.solver_options.levenberg_marquardt = 1e-2
-    ocp.solver_options.with_batch_functionality = False
     ocp.solver_options.ext_fun_compile_flags = "-O3 -march=native -ffast-math"
     ocp.solver_options.nlp_solver_max_iter = 10
     ocp.solver_options.with_batch_functionality = True 
