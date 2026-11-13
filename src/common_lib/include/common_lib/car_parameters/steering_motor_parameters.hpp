@@ -12,7 +12,7 @@ struct SteeringMotorParameters {
   double kd;
   double time_constant;
 
-  SteeringMotorParameters(const std::string& config_path);
+  SteeringMotorParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters

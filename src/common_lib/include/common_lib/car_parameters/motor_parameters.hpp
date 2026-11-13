@@ -22,7 +22,7 @@ struct MotorParameters {
   // Outer key = RPM, inner key = Torque, value = Efficiency
   std::map<double, std::map<double, double>> efficiency_map;
 
-  MotorParameters(const std::string& config_path);
+  MotorParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters

@@ -14,7 +14,7 @@ struct AeroParameters {
   double frontal_area;
   double air_density;
 
-  AeroParameters(const std::string& config_path);
+  AeroParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters

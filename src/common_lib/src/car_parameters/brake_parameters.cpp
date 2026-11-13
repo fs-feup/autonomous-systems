@@ -2,9 +2,10 @@
 
 namespace common_lib::car_parameters {
 
-BrakeParameters::BrakeParameters(const std::string& config_name) {
+BrakeParameters::BrakeParameters(const std::string& config_name,
+                                 const std::string& base_dir) {
   std::string config_path =
-      common_lib::config_load::get_config_yaml_path("common_lib", "car/brake_model", config_name);
+      common_lib::config_load::get_config_yaml_path("common_lib", base_dir + "/brake_model", config_name);
   YAML::Node config = YAML::LoadFile(config_path);
   config = config["brake"];
 

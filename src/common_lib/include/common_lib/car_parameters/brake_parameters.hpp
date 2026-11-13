@@ -10,7 +10,7 @@ struct BrakeParameters {
   double max_front_torque;
   double max_rear_torque;
 
-  BrakeParameters(const std::string& config_name);
+  BrakeParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters
