@@ -423,7 +423,7 @@ struct TireParameters {
   // Configurations
   double Amu = 1.0;
 
-  TireParameters(const std::string& config_path);
+  TireParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters

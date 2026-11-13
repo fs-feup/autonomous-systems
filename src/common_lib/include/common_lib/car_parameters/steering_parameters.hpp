@@ -11,7 +11,7 @@ struct SteeringParameters {
   double maximum_steering_angle;
   double ackerman_factor;
 
-  SteeringParameters(const std::string& config_name);
+  SteeringParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters

@@ -49,8 +49,16 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
     car_config_name = global_config["global"]["car_config"].as<std::string>();
   }
 
+  // Base directory (relative to config/) for the car file and the *_model sub-parameter files.
+  // Defaults to "car" (real car parameters); the simulator points this to its own directory so
+  // that tuning the simulator never changes the parameters used by the nodes running on the car.
+  std::string car_dir = "car";
+  if (config["vehicle_model"] && config["vehicle_model"]["car_parameters_dir"]) {
+    car_dir = config["vehicle_model"]["car_parameters_dir"].as<std::string>();
+  }
+
   std::string car_config_path =
-      common_lib::config_load::get_config_yaml_path("common_lib", "car", car_config_name);
+      common_lib::config_load::get_config_yaml_path("common_lib", car_dir, car_config_name);
   YAML::Node car_config = YAML::LoadFile(car_config_path);
 
   this->wheel_diameter = car_config["car"]["wheel_diameter"].as<double>();
@@ -75,43 +83,43 @@ common_lib::car_parameters::CarParameters::CarParameters(std::string dir, std::s
 
   if (config["vehicle_model"]["tire_model_params"]) {
     this->tire_parameters = std::make_shared<TireParameters>(
-        config["vehicle_model"]["tire_model_params"].as<std::string>());
+        config["vehicle_model"]["tire_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["aero_model_params"]) {
     this->aero_parameters = std::make_shared<AeroParameters>(
-        config["vehicle_model"]["aero_model_params"].as<std::string>());
+        config["vehicle_model"]["aero_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["steering_motor_model_params"]) {
     this->steering_motor_parameters = std::make_shared<SteeringMotorParameters>(
-        config["vehicle_model"]["steering_motor_model_params"].as<std::string>());
+        config["vehicle_model"]["steering_motor_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["steering_model_params"]) {
     this->steering_parameters = std::make_shared<SteeringParameters>(
-        config["vehicle_model"]["steering_model_params"].as<std::string>());
+        config["vehicle_model"]["steering_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["load_transfer_model_params"]) {
     this->load_transfer_parameters = std::make_shared<LoadTransferParameters>(
-        config["vehicle_model"]["load_transfer_model_params"].as<std::string>());
+        config["vehicle_model"]["load_transfer_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["motor_model_params"]) {
     this->motor_parameters = std::make_shared<MotorParameters>(
-        config["vehicle_model"]["motor_model_params"].as<std::string>());
+        config["vehicle_model"]["motor_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["battery_model_params"]) {
     this->battery_parameters = std::make_shared<BatteryParameters>(
-        config["vehicle_model"]["battery_model_params"].as<std::string>());
+        config["vehicle_model"]["battery_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["transmission_model_params"]) {
     this->transmission_parameters = std::make_shared<TransmissionParameters>(
-        config["vehicle_model"]["transmission_model_params"].as<std::string>());
+        config["vehicle_model"]["transmission_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["brake_model_params"]) {
     this->brake_parameters = std::make_shared<BrakeParameters>(
-        config["vehicle_model"]["brake_model_params"].as<std::string>());
+        config["vehicle_model"]["brake_model_params"].as<std::string>(), car_dir);
   }
   if (config["vehicle_model"]["inverter_model_params"]) {
     this->inverter_parameters = std::make_shared<InverterParameters>(
-        config["vehicle_model"]["inverter_model_params"].as<std::string>());
+        config["vehicle_model"]["inverter_model_params"].as<std::string>(), car_dir);
   }
   this->physical_constants = std::make_shared<common_lib::structures::PhysicalConstants>();
 }

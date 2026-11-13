@@ -49,7 +49,7 @@ struct BatteryParameters {
   double C1_a1;
   double C1_a0;
 
-  BatteryParameters(const std::string& config_path);
+  BatteryParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters

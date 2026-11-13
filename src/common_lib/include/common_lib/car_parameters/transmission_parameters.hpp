@@ -19,7 +19,7 @@ struct TransmissionParameters {
   double drive_ramp_effect;         // Drive ramp locking multiplier
   double coast_ramp_effect;         // Coast ramp locking multiplier
 
-  TransmissionParameters(const std::string& config_name);
+  TransmissionParameters(const std::string& config_name, const std::string& base_dir = "car");
 };
 
 }  // namespace common_lib::car_parameters
